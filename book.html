@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Book Miami Papa Noel | Santa Visit Request</title>
-  <meta name="description" content="Request availability for a premium bilingual Papa Noel Santa visit in Miami-Doral and nearby areas.">
+  <meta name="description" content="Request availability for a warm bilingual Papa Noel Santa visit in Miami-Doral and nearby areas.">
   <link rel="canonical" href="https://miamipapanoel.com/book.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <meta property="og:title" content="Book Miami Papa Noel">
-  <meta property="og:description" content="Request availability for a premium bilingual Santa visit in Miami-Doral and nearby areas.">
+  <meta property="og:description" content="Request availability for a warm bilingual Santa visit in Miami-Doral and nearby areas.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://miamipapanoel.com/book.html">
   <meta property="og:image" content="https://miamipapanoel.com/assets/santa-community-event.jpg">
@@ -97,8 +97,8 @@
       padding: 78px 0;
       color: white;
       background:
-        linear-gradient(90deg, rgba(23, 19, 19, .90), rgba(95, 17, 27, .76)),
-        url("assets/santa-community-event.jpg") center / cover no-repeat;
+        linear-gradient(90deg, rgba(23, 19, 19, .92), rgba(18, 63, 53, .72)),
+        url("assets/santa-photo-2.jpg") center / cover no-repeat;
     }
 
     .eyebrow {
@@ -155,6 +155,23 @@
       box-shadow: 0 18px 44px rgba(52, 32, 22, .08);
     }
 
+    .highlight-card {
+      color: white;
+      background:
+        linear-gradient(180deg, rgba(95, 17, 27, .88), rgba(35, 27, 25, .88)),
+        url("assets/santa-card.jpg") center / cover no-repeat;
+      border-color: rgba(255, 255, 255, .2);
+    }
+
+    .highlight-card .eyebrow {
+      color: #f2d69a;
+    }
+
+    .highlight-card h2,
+    .highlight-card p {
+      color: white;
+    }
+
     h2 {
       margin-bottom: 16px;
       font-size: clamp(34px, 4vw, 54px);
@@ -170,6 +187,37 @@
       border-left: 5px solid var(--gold);
       border-radius: 8px;
       background: var(--mist);
+    }
+
+    .quick-packages {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .quick-package {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 14px;
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 249, 239, .94);
+      font-weight: 900;
+    }
+
+    .quick-package span:last-child {
+      color: var(--velvet);
+      white-space: nowrap;
+    }
+
+    .simple-note {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 249, 239, .94);
+      font-weight: 800;
     }
 
     .step strong {
@@ -338,23 +386,24 @@
   <main>
     <section class="hero">
       <div class="shell">
-        <p class="eyebrow">Reserve a professional Santa visit</p>
-        <h1>Tell us exactly what kind of magic you need.</h1>
-        <p>Share the event details below. We will confirm availability, package, price, travel, deposit, and gift instructions before the booking is finalized.</p>
+          <p class="eyebrow">Reserve a Santa visit</p>
+        <h1>Bring Miami Papa Noel to your event.</h1>
+        <p>Send the date, location, and type of celebration. We will reply with availability, pricing, and the best visit option.</p>
       </div>
     </section>
 
     <section>
       <div class="shell grid">
-        <aside class="card">
-          <p class="eyebrow">How booking works</p>
-          <h2>Clear steps, no confusion.</h2>
-          <div class="steps">
-            <div class="step"><strong>1. Request</strong>Send date, time, city, package, and event type.</div>
-            <div class="step"><strong>2. Quote</strong>We confirm availability, travel, event length, and price.</div>
-            <div class="step"><strong>3. Deposit</strong>The date is held after deposit and calendar confirmation.</div>
-            <div class="step"><strong>4. Prepare</strong>Gifts must be labeled if Santa will hand them out.</div>
+        <aside class="card highlight-card">
+          <p class="eyebrow">Simple Visits</p>
+          <h2>Most clients only need one of these.</h2>
+          <div class="quick-packages" aria-label="Simple packages">
+            <div class="quick-package"><span>Home Visit</span><span>$125+</span></div>
+            <div class="quick-package"><span>Party Visit</span><span>$225+</span></div>
+            <div class="quick-package"><span>Community Event</span><span>$375+</span></div>
+            <div class="quick-package"><span>Christmas Eve</span><span>$250+</span></div>
           </div>
+          <div class="simple-note">Not sure which one fits? Choose "Not sure yet" and we will recommend the best option.</div>
           <div class="summary">
             <div>Call/Text: 305-244-0360</div>
             <div>Email: bookings@miamipapanoel.com</div>
@@ -364,7 +413,7 @@
 
         <div class="card">
           <p class="eyebrow">Event Details</p>
-          <h2>Request availability.</h2>
+          <h2>Start your request.</h2>
           <form id="booking-form">
             <div class="two">
               <label>Your Name
@@ -394,35 +443,32 @@
               </label>
             </div>
             <div class="two">
-              <label>Package
+              <label>Visit Option
                 <select id="package" name="package">
-                  <option>Mini Visit - $125+</option>
-                  <option>Classic Party - $225+</option>
+                  <option>Home Visit - $125+</option>
+                  <option>Party Visit - $225+</option>
                   <option>Community Event - $375+</option>
-                  <option>Christmas Eve - $250+</option>
-                  <option>Christmas in July / Summer Santa - $175+</option>
-                  <option>Custom / Nonprofit / Toy Drive</option>
+                  <option>Christmas Eve Gift Delivery - $250+</option>
+                  <option>Christmas in July / Summer Santa</option>
+                  <option>Not sure yet</option>
                 </select>
               </label>
-              <label>Event Type
+              <label>Celebration Type
                 <select id="eventType" name="eventType">
-                  <option>Private home visit</option>
-                  <option>Christmas Eve gift delivery</option>
-                  <option>Residential community / HOA</option>
-                  <option>School or daycare</option>
-                  <option>Business event</option>
+                  <option>Family / home</option>
+                  <option>School / daycare</option>
+                  <option>Business / community</option>
+                  <option>Christmas Eve gifts</option>
                   <option>Nonprofit / toy drive</option>
-                  <option>Christmas in July / summer event</option>
-                  <option>Photo session</option>
-                  <option>Other</option>
+                  <option>Other / not sure</option>
                 </select>
               </label>
             </div>
-            <label>What should Santa do?
-              <textarea id="details" name="details" placeholder="Photos, greeting children, gift handoff, story time, toy drive, novena, etc."></textarea>
+            <label>Tell us about the event
+              <textarea id="details" name="details" placeholder="Example: family party, photos with children, Santa handing out gifts, school visit, toy drive, etc."></textarea>
             </label>
             <label>Gift Details
-              <textarea id="gifts" name="gifts" placeholder="Will Santa hand out gifts? Are they labeled? How many?"></textarea>
+              <textarea id="gifts" name="gifts" placeholder="If Santa will hand out gifts, please tell us how many and if they will be labeled."></textarea>
             </label>
             <div class="actions">
               <button type="button" id="build">Build Booking Message</button>
@@ -430,7 +476,7 @@
               <a class="button outline" id="emailLink" href="mailto:bookings@miamipapanoel.com">Email Request</a>
             </div>
           </form>
-          <p class="note">For fastest booking, send the generated message by text and include the event address once available.</p>
+          <p class="note">For fastest booking, send the generated message by text. You can add the exact address later if needed.</p>
         </div>
       </div>
     </section>
@@ -438,9 +484,9 @@
     <section class="message-section">
       <div class="shell grid">
         <div>
-          <p class="eyebrow">Ready-to-send inquiry</p>
-          <h2>Your message is built for follow-up.</h2>
-          <p>Once sent, the family can quote quickly, confirm availability, and request deposit instructions.</p>
+          <p class="eyebrow">Ready to Send</p>
+          <h2>One clear message.</h2>
+          <p>This keeps the booking simple and gives us everything needed to reply with availability and price.</p>
           <div class="actions">
             <a class="button" href="checkout.html">Back to Packages</a>
           </div>
@@ -471,7 +517,8 @@
       const selectedPackage = new URLSearchParams(window.location.search).get("package");
       if (!selectedPackage) return;
       const select = document.getElementById("package");
-      const match = Array.from(select.options).find((option) => option.textContent.toLowerCase().includes(selectedPackage.toLowerCase()));
+      const normalized = selectedPackage.toLowerCase().replace("mini", "home").replace("classic", "party").replace("christmas eve", "eve");
+      const match = Array.from(select.options).find((option) => option.textContent.toLowerCase().includes(normalized) || normalized.includes(option.textContent.toLowerCase().split(" ")[0]));
       if (match) select.value = match.value;
     }
 
@@ -486,10 +533,10 @@
         "Start time: " + value("time"),
         "City / area: " + value("city"),
         "Estimated guests: " + value("guests"),
-        "Package: " + value("package"),
-        "Event type: " + value("eventType"),
+        "Visit option: " + value("package"),
+        "Celebration type: " + value("eventType"),
         "",
-        "What we need Santa to do:",
+        "Event notes:",
         value("details"),
         "",
         "Gift details:",
