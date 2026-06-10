@@ -258,10 +258,22 @@
       justify-content: space-between;
       gap: 12px;
       padding: 13px 14px;
+      border: 1px solid rgba(255, 249, 239, .24);
       border-radius: 8px;
       color: var(--ink);
       background: rgba(255, 249, 239, .94);
+      font: inherit;
       font-weight: 900;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .quick-package:hover,
+    .quick-package.is-selected {
+      transform: translateY(-1px);
+      border-color: var(--gold);
+      background: #fffdf8;
     }
 
     .quick-package span:last-child {
@@ -519,8 +531,8 @@
     <section class="hero">
       <div class="shell">
           <p class="eyebrow hero-kicker"><img class="hero-tree" src="assets/christmas-tree-icon.svg" alt=""> <span data-i18n="hero.eyebrow">Tell us what you need</span></p>
-        <h1 data-i18n="hero.title">Let us know where Papa Noel should visit.</h1>
-        <p data-i18n="hero.copy">Send the date, city, and type of celebration. We will reply with availability and help you choose the right visit.</p>
+        <h1 data-i18n="hero.title">Tell us the basics. We will help plan the visit.</h1>
+        <p data-i18n="hero.copy">You do not need every detail yet. Send the date, city, and celebration type, and we will reply with the best visit option and next steps.</p>
       </div>
     </section>
 
@@ -528,11 +540,11 @@
       <div class="shell grid">
         <aside class="card highlight-card">
           <p class="eyebrow" data-i18n="options.eyebrow">Visit Options</p>
-          <h2 data-i18n="options.title">Pick the visit that feels closest.</h2>
+          <h2 data-i18n="options.title">Tap the visit that feels closest.</h2>
           <div class="quick-packages" aria-label="Private visit options">
-            <div class="quick-package"><span data-i18n="package.family">Family Visit</span><span data-i18n="price.family">From $125</span></div>
-            <div class="quick-package"><span data-i18n="package.event">Event Visit</span><span data-i18n="price.event">From $225</span></div>
-            <div class="quick-package"><span data-i18n="package.eve">Christmas Eve</span><span data-i18n="price.eve">From $250</span></div>
+            <button class="quick-package" type="button" data-package-choice="Family Visit" aria-pressed="false"><span data-i18n="package.family">Family Visit</span><span data-i18n="price.family">From $125</span></button>
+            <button class="quick-package" type="button" data-package-choice="Event Visit" aria-pressed="false"><span data-i18n="package.event">Event Visit</span><span data-i18n="price.event">From $225</span></button>
+            <button class="quick-package" type="button" data-package-choice="Christmas Eve" aria-pressed="false"><span data-i18n="package.eve">Christmas Eve</span><span data-i18n="price.eve">From $250</span></button>
           </div>
           <div class="simple-note" data-i18n="options.note">Not sure which one fits? Choose "Not sure yet" and we will help you decide.</div>
           <div class="summary">
@@ -576,9 +588,9 @@
             <div class="two">
               <label><span data-i18n="field.package">Visit Option</span>
                 <select id="package" name="package">
-                  <option value="Family Visit" data-i18n="select.family">Family Visit - from $125</option>
-                  <option value="Event Visit" data-i18n="select.event">Event Visit - from $225</option>
-                  <option value="Christmas Eve" data-i18n="select.eve">Christmas Eve Gift Delivery - from $250</option>
+                  <option value="Family Visit" data-i18n="select.family">Family Visit</option>
+                  <option value="Event Visit" data-i18n="select.event">Event Visit</option>
+                  <option value="Christmas Eve" data-i18n="select.eve">Christmas Eve</option>
                   <option value="Not sure yet" data-i18n="select.unsure">Not sure yet</option>
                 </select>
               </label>
@@ -661,10 +673,10 @@
         "nav.options": "Options",
         "nav.call": "Call",
         "hero.eyebrow": "Tell us what you need",
-        "hero.title": "Let us know where Papa Noel should visit.",
-        "hero.copy": "Send the date, city, and type of celebration. We will reply with availability and help you choose the right visit.",
+        "hero.title": "Tell us the basics. We will help plan the visit.",
+        "hero.copy": "You do not need every detail yet. Send the date, city, and celebration type, and we will reply with the best visit option and next steps.",
         "options.eyebrow": "Visit Options",
-        "options.title": "Pick the visit that feels closest.",
+        "options.title": "Tap the visit that feels closest.",
         "package.family": "Family Visit",
         "package.event": "Event Visit",
         "package.eve": "Christmas Eve",
@@ -686,9 +698,9 @@
         "field.eventType": "Celebration Type",
         "field.details": "Tell us about the event",
         "field.gifts": "Gift Details",
-        "select.family": "Family Visit - from $125",
-        "select.event": "Event Visit - from $225",
-        "select.eve": "Christmas Eve Gift Delivery - from $250",
+        "select.family": "Family Visit",
+        "select.event": "Event Visit",
+        "select.eve": "Christmas Eve",
         "select.unsure": "Not sure yet",
         "type.family": "Family / home",
         "type.school": "School / daycare",
@@ -721,10 +733,10 @@
         "nav.options": "Opciones",
         "nav.call": "Llamar",
         "hero.eyebrow": "Cuéntanos qué necesitas",
-        "hero.title": "Dinos dónde debe visitar Papa Noel.",
-        "hero.copy": "Envía la fecha, ciudad y tipo de celebración. Te responderemos con disponibilidad y te ayudamos a escoger la visita correcta.",
+        "hero.title": "Cuéntanos lo básico. Te ayudamos a planear la visita.",
+        "hero.copy": "No necesitas tener todos los detalles todavía. Envía la fecha, ciudad y tipo de celebración, y te respondemos con la mejor opción y próximos pasos.",
         "options.eyebrow": "Opciones de Visita",
-        "options.title": "Escoge la visita que más se parezca.",
+        "options.title": "Toca la visita que más se parezca.",
         "package.family": "Visita Familiar",
         "package.event": "Visita para Evento",
         "package.eve": "Nochebuena",
@@ -746,9 +758,9 @@
         "field.eventType": "Tipo de Celebración",
         "field.details": "Cuéntanos sobre el evento",
         "field.gifts": "Detalles de Regalos",
-        "select.family": "Visita familiar - desde $125",
-        "select.event": "Visita para evento - desde $225",
-        "select.eve": "Entrega de regalos en Nochebuena - desde $250",
+        "select.family": "Visita Familiar",
+        "select.event": "Visita para Evento",
+        "select.eve": "Nochebuena",
         "select.unsure": "No estoy seguro",
         "type.family": "Familia / casa",
         "type.school": "Escuela / daycare",
@@ -840,7 +852,25 @@
         button.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
       localStorage.setItem("miamiPapaNoelLanguage", currentLanguage);
+      syncPackageButtons();
       buildMessage();
+    }
+
+    function syncPackageButtons() {
+      const selected = document.getElementById("package").value;
+      document.querySelectorAll("[data-package-choice]").forEach((button) => {
+        const isSelected = button.getAttribute("data-package-choice") === selected;
+        button.classList.toggle("is-selected", isSelected);
+        button.setAttribute("aria-pressed", isSelected ? "true" : "false");
+      });
+    }
+
+    function choosePackage(choice) {
+      const select = document.getElementById("package");
+      select.value = choice;
+      syncPackageButtons();
+      buildMessage();
+      document.getElementById("booking-form").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function applyPackageFromUrl() {
@@ -910,6 +940,9 @@
     }
 
     document.getElementById("build").addEventListener("click", buildMessage);
+    document.querySelectorAll("[data-package-choice]").forEach((button) => {
+      button.addEventListener("click", () => choosePackage(button.getAttribute("data-package-choice")));
+    });
     copyMessage.addEventListener("click", async () => {
       const dictionary = translations[currentLanguage] || translations.en;
       await writeClipboard(message.textContent);
@@ -918,7 +951,17 @@
         copyMessage.textContent = dictionary["message.copyButton"];
       }, 1600);
     });
-    fields.forEach((id) => document.getElementById(id).addEventListener("change", buildMessage));
+    fields.forEach((id) => {
+      const field = document.getElementById(id);
+      field.addEventListener("input", () => {
+        syncPackageButtons();
+        buildMessage();
+      });
+      field.addEventListener("change", () => {
+        syncPackageButtons();
+        buildMessage();
+      });
+    });
     document.querySelectorAll("[data-lang]").forEach((button) => {
       button.addEventListener("click", () => setLanguage(button.getAttribute("data-lang")));
     });
