@@ -6,6 +6,7 @@
 - Create Instagram.
 - Create Facebook Page.
 - Create WhatsApp Business.
+- Create Google Business Profile using `google-business-profile-launch.md`.
 - Create Google Calendar.
 - Decide payment methods.
 - Confirm the website uses `305-244-0360`, `bookings@miamipapanoel.com`, and `@miamipapanoel`.
@@ -26,6 +27,7 @@
   - Services
   - Reviews
 - Ask past contacts for reviews or permission to repost.
+- Add 10-15 approved photos to Google Business Profile.
 
 ## Day 4 - Lead List
 

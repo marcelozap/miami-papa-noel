@@ -22,6 +22,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `social-posts.md` - ready-to-post English and Spanish captions.
 - `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
 - `business/one-page-flyer.html` - printable one-page flyer.
+- `business/google-business-profile-launch.md` - paste-ready Google Business Profile content.
 - `assets/` - copied Santa photos for marketing use.
 
 ## Fastest path to clients
