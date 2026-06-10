@@ -1051,7 +1051,7 @@
         right: 0;
         bottom: 0;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 8px;
         padding: 10px 12px;
         background: rgba(35, 27, 25, .94);
@@ -1068,6 +1068,7 @@
         color: white;
         background: var(--velvet);
         text-decoration: none;
+        font-size: 13px;
         font-weight: 900;
       }
 
@@ -1119,6 +1120,7 @@
           <p class="hero-copy" data-i18n="hero.copy">Tell us what you are celebrating. We will help choose the right visit, keep the details easy, and bring smiles in English or Spanish.</p>
           <div class="actions">
             <a class="button" href="checkout.html" data-i18n="hero.primary">Find the Right Visit</a>
+            <a class="button secondary" href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="hero.whatsapp">WhatsApp</a>
             <a class="button secondary" href="tel:+13052440360" data-i18n="hero.secondary">Call or Text</a>
           </div>
         </div>
@@ -1486,6 +1488,7 @@
     <span class="footer-subline" data-i18n="footer.subline">Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events</span>
   </footer>
   <div class="mobile-sticky" aria-label="Quick booking actions">
+    <a href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="sticky.whatsapp">WhatsApp</a>
     <a href="tel:+13052440360" data-i18n="sticky.call">Call / Text</a>
     <a href="book.html?source=home" data-i18n="sticky.request">Request Visit</a>
   </div>
@@ -1504,6 +1507,7 @@
         "hero.title": "A warm Papa Noel visit, planned with heart.",
         "hero.copy": "Tell us what you are celebrating. We will help choose the right visit, keep the details easy, and bring smiles in English or Spanish.",
         "hero.primary": "Find the Right Visit",
+        "hero.whatsapp": "WhatsApp",
         "hero.secondary": "Call or Text",
         "hero.cardTitle": "What are you planning?",
         "hero.cardCopy": "Choose the closest moment. If you are not sure, send a message and we will recommend the best fit.",
@@ -1641,8 +1645,9 @@
         "cta.whatsapp": "WhatsApp",
         "cta.email": "Email Availability",
         "footer.subline": "Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events",
+        "sticky.whatsapp": "WhatsApp",
         "sticky.call": "Call / Text",
-        "sticky.request": "Request Visit"
+        "sticky.request": "Request"
       },
       es: {
         "brand.subtitle": "Visitas Privadas de Santa",
@@ -1657,6 +1662,7 @@
         "hero.title": "Una visita cálida de Papa Noel, preparada con cariño.",
         "hero.copy": "Cuéntanos qué estás celebrando. Te ayudamos a escoger la visita correcta, mantener los detalles sencillos y llevar sonrisas en inglés o español.",
         "hero.primary": "Encontrar la Visita",
+        "hero.whatsapp": "WhatsApp",
         "hero.secondary": "Llamar o Escribir",
         "hero.cardTitle": "¿Qué estás planificando?",
         "hero.cardCopy": "Escoge el momento más parecido. Si no estás seguro, envíanos un mensaje y te recomendamos la mejor opción.",
@@ -1794,8 +1800,9 @@
         "cta.whatsapp": "WhatsApp",
         "cta.email": "Enviar Correo",
         "footer.subline": "Visitas privadas bilingües de Santa para familias, negocios, escuelas y eventos comunitarios en Miami-Doral",
+        "sticky.whatsapp": "WhatsApp",
         "sticky.call": "Llamar / Texto",
-        "sticky.request": "Solicitar Visita"
+        "sticky.request": "Solicitar"
       }
     };
 
