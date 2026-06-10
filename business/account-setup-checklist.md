@@ -20,7 +20,7 @@ See `business-email-setup.md` for the recommended setup path.
 Suggested handles:
 
 - `@miamipapanoel`
-- `@papanolemiami`
+- `@papanoelmiami`
 - `@papanoel.doral`
 - `@santamiamipapanoel`
 
@@ -66,7 +66,7 @@ Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearb
 
 ### Booking Form
 
-Start with the website `book.html`. Later, connect one of these:
+Start with the website booking page: `https://miamipapanoel.com/book`. Later, connect one of these:
 
 - Google Forms
 - Tally

@@ -26,7 +26,7 @@ Main message:
 Send people to:
 
 - Website homepage
-- `book.html`
+- `https://miamipapanoel.com/book`
 - Instagram DM
 - WhatsApp Business
 

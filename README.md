@@ -8,9 +8,9 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 - `checkout.html` - package pricing and reservation path
 - `book.html` - booking request funnel
 
-## Update Before Launch
+## Public Contact Details
 
-Confirm these contact details before public launch:
+Use these details consistently across the website, profiles, and outreach:
 
 - Phone: `305-244-0360`
 - Email: `bookings@miamipapanoel.com`
