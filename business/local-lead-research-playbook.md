@@ -116,6 +116,7 @@ Add 10 leads to `lead-tracker.csv` with:
 - Instagram or website
 - Phone or email if public
 - Package Interest
+- Lead Source
 - Next Action
 
 ### 30 minutes: send outreach

@@ -92,6 +92,7 @@ I can send the simple visit options if helpful.
 - Event type
 - Date requested
 - Package interest
+- Lead source
 - Last message date
 - Next follow-up date
 - Notes

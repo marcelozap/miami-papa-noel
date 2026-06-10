@@ -16,6 +16,8 @@ Ask for missing details:
 - How long they want Santa
 - Whether gifts will be handed out
 
+If the request came from the website form, copy the `Lead source` line into `lead-tracker.csv`. This helps show which pages and campaigns are creating real conversations.
+
 ## 2. Qualify
 
 Check:
@@ -45,6 +47,7 @@ Save:
 - Event address
 - Date/time
 - Package
+- Lead source
 - Total price
 - Deposit paid
 - Balance due

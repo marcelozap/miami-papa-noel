@@ -558,6 +558,7 @@
           <p class="eyebrow" data-i18n="form.eyebrow">Visit Details</p>
           <h2 data-i18n="form.title">A few details are enough to start.</h2>
           <form id="booking-form">
+            <input id="source" name="source" type="hidden" value="Website booking form">
             <div class="two">
               <label><span data-i18n="field.name">Your Name</span>
                 <input id="name" name="name" autocomplete="name" required>
@@ -660,7 +661,7 @@
   </div>
 
   <script>
-    const fields = ["name", "phone", "email", "date", "time", "city", "guests", "package", "eventType", "details", "gifts"];
+    const fields = ["name", "phone", "email", "date", "time", "city", "guests", "package", "eventType", "source", "details", "gifts"];
     const message = document.getElementById("message");
     const smsLink = document.getElementById("smsLink");
     const whatsappLink = document.getElementById("whatsappLink");
@@ -807,6 +808,7 @@
         guests: "Estimated guests",
         package: "Visit option",
         eventType: "Celebration type",
+        source: "Lead source",
         details: "Event notes",
         gifts: "Gift details",
         subject: "Miami Papa Noel visit request"
@@ -822,6 +824,7 @@
         guests: "Invitados aproximados",
         package: "Opción de visita",
         eventType: "Tipo de celebración",
+        source: "Origen del lead",
         details: "Notas del evento",
         gifts: "Detalles de regalos",
         subject: "Solicitud de visita Miami Papa Noel"
@@ -838,6 +841,32 @@
         return field.options[field.selectedIndex]?.textContent.trim() || "";
       }
       return field.value.trim();
+    }
+
+    function normalizeLeadSource(source) {
+      const normalized = (source || "").toLowerCase().replace(/[-_]+/g, " ").trim();
+      const sources = {
+        "home": "Homepage",
+        "homepage": "Homepage",
+        "checkout": "Visit options page",
+        "links": "Link-in-bio page",
+        "events": "Events page",
+        "christmas eve": "Christmas Eve page",
+        "christmas-eve": "Christmas Eve page",
+        "summer santa": "Summer Santa page",
+        "summer-santa": "Summer Santa page",
+        "schools": "Schools and daycares page",
+        "schools daycares": "Schools and daycares page",
+        "hoa": "HOA and apartments page",
+        "hoa apartments": "HOA and apartments page",
+        "partners": "Partner page",
+        "reviews": "Reviews and real moments page",
+        "google business": "Google Business Profile",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "referral": "Referral"
+      };
+      return sources[normalized] || source || "Website booking form";
     }
 
     function setLanguage(lang) {
@@ -881,6 +910,8 @@
 
     function applyPackageFromUrl() {
       const params = new URLSearchParams(window.location.search);
+      document.getElementById("source").value = normalizeLeadSource(params.get("source") || params.get("utm_source") || params.get("ref"));
+
       const selectedPackage = params.get("package");
       if (selectedPackage) {
         const select = document.getElementById("package");
@@ -936,6 +967,7 @@
         labels.guests + ": " + value("guests"),
         labels.package + ": " + displayValue("package"),
         labels.eventType + ": " + displayValue("eventType"),
+        labels.source + ": " + value("source"),
         "",
         labels.details + ":",
         value("details"),
