@@ -9,7 +9,7 @@ Goal: create steady conversations with families, schools, HOAs, daycares, busine
 - Make 2 calls or WhatsApp messages.
 - Follow up with 3 people from earlier conversations.
 - Post 1 story or photo.
-- Log every lead in `lead-tracker.csv`.
+- Log every lead in `../lead-tracker.csv`.
 
 ## Weekly Focus
 

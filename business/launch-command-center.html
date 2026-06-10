@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Miami Papa Noel Launch Command Center</title>
+  <link rel="icon" href="../assets/christmas-tree-icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #171313;
+      --charcoal: #231b19;
+      --velvet: #8f1f2d;
+      --pine: #123f35;
+      --gold: #c9993f;
+      --paper: #fff9ef;
+      --snow: #ffffff;
+      --mist: #f4efe6;
+      --muted: #70625b;
+      --line: #e4d5c0;
+      --shadow: 0 18px 42px rgba(36, 24, 18, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 24px;
+      color: white;
+      background: rgba(35, 27, 25, .96);
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .brand strong {
+      display: block;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .brand span {
+      color: rgba(255, 255, 255, .72);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 6px;
+      color: rgba(255, 255, 255, .88);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .hero {
+      padding: 58px 0 38px;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(35, 27, 25, .96), rgba(95, 17, 27, .84)),
+        url("../assets/optimized/santa-community-event-1600.jpg") center / cover no-repeat;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 30px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #f2d69a;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 16px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: .92;
+    }
+
+    h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(32px, 4.6vw, 52px);
+      line-height: .96;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, .88);
+      font-size: 21px;
+      font-weight: 750;
+    }
+
+    .today-card {
+      padding: 22px;
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 249, 239, .96);
+      border: 1px solid rgba(255, 255, 255, .42);
+      box-shadow: var(--shadow);
+    }
+
+    .today-card strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .score {
+      padding: 12px;
+      border-radius: 6px;
+      background: rgba(143, 31, 45, .08);
+      font-weight: 900;
+    }
+
+    .score b {
+      display: block;
+      color: var(--velvet);
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .score span {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    section {
+      padding: 62px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 26px;
+    }
+
+    .section-head p,
+    .lead {
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 650;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--snow);
+      box-shadow: 0 14px 32px rgba(36, 24, 18, .08);
+    }
+
+    .card p {
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist label {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border-radius: 6px;
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      font-weight: 750;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      accent-color: var(--velvet);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 14px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      color: #211607;
+      background: var(--gold);
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .button.secondary {
+      color: white;
+      background: var(--velvet);
+    }
+
+    .button.ghost {
+      color: var(--ink);
+      background: transparent;
+      border-color: var(--line);
+    }
+
+    .script-box {
+      min-width: 0;
+      min-height: 220px;
+      padding: 16px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: var(--charcoal);
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      font-weight: 650;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .link-list a {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 13px 14px;
+      border-radius: 6px;
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-weight: 850;
+    }
+
+    .link-list span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: var(--velvet);
+      background: #f7eadf;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .status-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .status-list span {
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: white;
+      background: var(--pine);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .dark-band {
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(18, 63, 53, .94), rgba(95, 17, 27, .82)),
+        url("../assets/optimized/santa-family-event-1600.jpg") center / cover no-repeat;
+    }
+
+    .dark-band .lead {
+      color: rgba(255, 255, 255, .82);
+    }
+
+    .dark-band .card {
+      color: var(--ink);
+      background: rgba(255, 249, 239, .96);
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 30;
+      right: 18px;
+      bottom: 18px;
+      padding: 12px 14px;
+      border-radius: 6px;
+      color: white;
+      background: var(--pine);
+      box-shadow: var(--shadow);
+      font-weight: 900;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .2s ease, transform .2s ease;
+      pointer-events: none;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      padding: 28px;
+      color: rgba(255, 255, 255, .78);
+      background: var(--charcoal);
+      text-align: center;
+      font-weight: 750;
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero-grid,
+      .section-head,
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 30px, 1180px);
+      }
+
+      .hero {
+        padding: 42px 0 30px;
+      }
+
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button,
+      .nav a {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../">
+      <img src="../assets/christmas-tree-icon.svg" alt="">
+      <span>
+        <strong>Miami Papa Noel</strong>
+        <span>Internal Launch Command Center</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Command center navigation">
+      <a href="#today">Today</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#links">Links</a>
+      <a href="../lead-tracker.csv">Lead Tracker</a>
+      <a href="../">Website</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Private internal page</p>
+          <h1>Open this before outreach.</h1>
+          <p class="hero-copy">A daily command center for getting Miami Papa Noel more inquiries: send messages, share the right page, track every lead, and follow up without guessing.</p>
+        </div>
+        <aside class="today-card" aria-label="Daily minimum">
+          <strong>Daily minimum</strong>
+          <div class="score-grid">
+            <div class="score"><b>10</b><span>DMs</span></div>
+            <div class="score"><b>5</b><span>Emails</span></div>
+            <div class="score"><b>2</b><span>Calls / WhatsApps</span></div>
+            <div class="score"><b>3</b><span>Follow-ups</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="today">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Today</p>
+            <h2>Do the small things that create conversations.</h2>
+          </div>
+          <p>Use this as a 30-minute working session. Check things off, copy the scripts, then log every reply in the tracker.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Outreach block</h3>
+            <ul class="checklist">
+              <li><label><input type="checkbox"> Send 10 Instagram or Facebook DMs</label></li>
+              <li><label><input type="checkbox"> Send 5 emails to schools, HOAs, businesses, or partners</label></li>
+              <li><label><input type="checkbox"> Make 2 calls or WhatsApp messages</label></li>
+              <li><label><input type="checkbox"> Add every lead to the tracker</label></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Follow-up block</h3>
+            <ul class="checklist">
+              <li><label><input type="checkbox"> Follow up with 3 warm leads</label></li>
+              <li><label><input type="checkbox"> Send photos/proof to anyone who asked</label></li>
+              <li><label><input type="checkbox"> Ask one completed visit for review or referral</label></li>
+              <li><label><input type="checkbox"> Move stale leads to the next follow-up date</label></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Post block</h3>
+            <ul class="checklist">
+              <li><label><input type="checkbox"> Post 1 story or photo</label></li>
+              <li><label><input type="checkbox"> Share one real visit moment or service page</label></li>
+              <li><label><input type="checkbox"> Add one approved photo to the proof folder or profile</label></li>
+              <li><label><input type="checkbox"> Note which post created replies</label></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-band" id="scripts">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Copy scripts</p>
+            <h2>Pick a message and send it.</h2>
+          </div>
+          <p class="lead">The fastest path is not perfect wording. It is a warm message, the right link, and a follow-up date.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>English DM</h3>
+            <div class="script-box" id="scriptEnglish">Hi! I help book Miami Papa Noel, a warm bilingual Santa serving Miami-Doral and nearby areas since 2017.
+
+He is available for family visits, schools, daycares, businesses, HOAs, toy drives, Christmas in July, and Christmas Eve gift delivery.
+
+Would you like photos and visit options?
+
+Website: https://miamipapanoel.com
+Photos/proof: https://miamipapanoel.com/reviews
+Call/Text: 305-244-0360</div>
+            <div class="button-row">
+              <button class="button" type="button" data-copy="#scriptEnglish">Copy English DM</button>
+              <a class="button secondary" href="https://miamipapanoel.com/book?source=instagram" target="_blank" rel="noopener">Instagram Booking Link</a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Spanish DM</h3>
+            <div class="script-box" id="scriptSpanish">Hola! Estoy ayudando a reservar visitas para Miami Papa Noel, un Santa bilingue con experiencia desde 2017 en Miami-Doral y areas cercanas.
+
+Esta disponible para visitas familiares, escuelas, daycares, negocios, comunidades, donaciones de juguetes, Christmas in July y entregas de regalos en Nochebuena.
+
+Le puedo enviar fotos y opciones?
+
+Pagina: https://miamipapanoel.com
+Fotos/prueba: https://miamipapanoel.com/reviews
+Llamar/Texto: 305-244-0360</div>
+            <div class="button-row">
+              <button class="button" type="button" data-copy="#scriptSpanish">Copy Spanish DM</button>
+              <a class="button secondary" href="https://miamipapanoel.com/links" target="_blank" rel="noopener">Link-in-Bio</a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Partner DM</h3>
+            <div class="script-box" id="scriptPartner">Hi! I saw your work and thought there may be a nice partnership opportunity.
+
+Miami Papa Noel is a bilingual Santa available for events, photos, pet photos, Christmas in July, and gift deliveries in Miami-Doral and nearby areas.
+
+If you ever have clients asking for Santa, we can refer business both ways or plan a small pop-up.
+
+Partner info: https://miamipapanoel.com/partners</div>
+            <div class="button-row">
+              <button class="button" type="button" data-copy="#scriptPartner">Copy Partner DM</button>
+              <a class="button secondary" href="https://miamipapanoel.com/partners" target="_blank" rel="noopener">Partner Page</a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Follow-up</h3>
+            <div class="script-box" id="scriptFollowUp">Hi! Just following up in case you are planning a holiday event. December weekends and Christmas Eve usually fill first, so we are starting early.
+
+I can send the simple visit options if helpful.
+
+Options: https://miamipapanoel.com/checkout
+Book: https://miamipapanoel.com/book</div>
+            <div class="button-row">
+              <button class="button" type="button" data-copy="#scriptFollowUp">Copy Follow-Up</button>
+              <a class="button secondary" href="https://miamipapanoel.com/checkout" target="_blank" rel="noopener">Visit Options</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="links">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Send the right page</p>
+            <h2>Match the link to what they need.</h2>
+          </div>
+          <p>Every conversation should point to the clearest next step. Use tracked booking links when the person is ready to send details.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Ready to book</h3>
+            <div class="link-list">
+              <a href="https://miamipapanoel.com/book?source=instagram" target="_blank" rel="noopener">Instagram booking <span>></span></a>
+              <a href="https://miamipapanoel.com/book?source=facebook" target="_blank" rel="noopener">Facebook booking <span>></span></a>
+              <a href="https://miamipapanoel.com/book?source=google%20business" target="_blank" rel="noopener">Google booking <span>></span></a>
+              <a href="https://miamipapanoel.com/book?source=referral" target="_blank" rel="noopener">Referral booking <span>></span></a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Need proof</h3>
+            <div class="link-list">
+              <a href="https://miamipapanoel.com/reviews" target="_blank" rel="noopener">Real moments and proof <span>></span></a>
+              <a href="https://miamipapanoel.com/after-visit" target="_blank" rel="noopener">After-visit review/referral <span>></span></a>
+              <a href="https://miamipapanoel.com/links" target="_blank" rel="noopener">Quick links page <span>></span></a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Need the right offer</h3>
+            <div class="link-list">
+              <a href="https://miamipapanoel.com/service-areas" target="_blank" rel="noopener">Service areas <span>></span></a>
+              <a href="https://miamipapanoel.com/schools-daycares" target="_blank" rel="noopener">Schools and daycares <span>></span></a>
+              <a href="https://miamipapanoel.com/hoa-apartments" target="_blank" rel="noopener">HOAs and apartments <span>></span></a>
+              <a href="https://miamipapanoel.com/christmas-eve" target="_blank" rel="noopener">Christmas Eve <span>></span></a>
+              <a href="https://miamipapanoel.com/summer-santa" target="_blank" rel="noopener">Summer Santa <span>></span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Who to contact</p>
+            <h2>Rotate through these targets.</h2>
+          </div>
+          <p>Do not only message families. Events and partners can create bigger bookings and repeat referrals.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Family and kids</h3>
+            <p>Daycares, preschools, elementary PTAs, churches, pediatric offices, kids dental offices, camps, family photographers.</p>
+            <div class="pill-row">
+              <span class="pill">Schools</span>
+              <span class="pill">Daycares</span>
+              <span class="pill">Parents</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Communities</h3>
+            <p>HOAs, apartment communities, condos, clubhouses, property managers, resident event committees, toy drives.</p>
+            <div class="pill-row">
+              <span class="pill">HOA</span>
+              <span class="pill">Apartments</span>
+              <span class="pill">Toy Drives</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Local partners</h3>
+            <p>Balloon decorators, party rentals, event planners, cafes, bakeries, pet groomers, salons, photographers.</p>
+            <div class="pill-row">
+              <span class="pill">Pop-ups</span>
+              <span class="pill">Mini-sessions</span>
+              <span class="pill">Referrals</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-band">
+      <div class="shell grid-2">
+        <article>
+          <p class="eyebrow">Lead tracker rule</p>
+          <h2>Every reply becomes a row.</h2>
+          <p class="lead">A lead is not real until it is in the tracker with a follow-up date. The money is in the follow-up.</p>
+          <div class="button-row">
+            <a class="button" href="../lead-tracker.csv">Open Lead Tracker</a>
+            <a class="button secondary" href="booking-sop.md">Booking SOP</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Use these statuses</h3>
+          <div class="status-list">
+            <span>New lead</span>
+            <span>Contacted</span>
+            <span>Interested</span>
+            <span>Sent options</span>
+            <span>Waiting for details</span>
+            <span>Deposit requested</span>
+            <span>Booked</span>
+            <span>Completed</span>
+            <span>Review requested</span>
+            <span>Referral requested</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Private internal page. Public customer site: miamipapanoel.com
+  </footer>
+
+  <div class="toast" id="toast">Copied</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      window.setTimeout(() => toast.classList.remove("is-visible"), 1400);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+      showToast("Copied");
+    }
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = document.querySelector(button.getAttribute("data-copy"));
+        if (target) copyText(target.textContent.trim());
+      });
+    });
+  </script>
+</body>
+</html>

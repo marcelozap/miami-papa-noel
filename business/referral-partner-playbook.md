@@ -36,7 +36,7 @@ Do this for 30-45 minutes per day.
 
 1. Pick one category and one city.
 2. Find 10 good leads on Instagram, Google Maps, Facebook, or local groups.
-3. Add each lead to `lead-tracker.csv`.
+3. Add each lead to `../lead-tracker.csv`.
 4. Send 5-10 personal messages.
 5. Follow up with yesterday's warm leads.
 6. Save screenshots or notes only if they help remember the conversation.
@@ -144,7 +144,7 @@ Do not promise exclusivity, discounts, commissions, or a referral fee until the 
 
 ## Partner Lead Statuses
 
-Use these statuses in `lead-tracker.csv`:
+Use these statuses in `../lead-tracker.csv`:
 
 - New lead
 - Contacted

@@ -32,7 +32,7 @@
 
 ## Day 4 - Lead List
 
-Add 100 leads to `lead-tracker.csv`:
+Add 100 leads to `../lead-tracker.csv`:
 
 - 25 daycares/schools
 - 20 HOAs/apartments
@@ -42,6 +42,8 @@ Add 100 leads to `lead-tracker.csv`:
 - 10 nonprofits/toy drives
 
 ## Day 5 - Outreach
+
+Open `launch-command-center.html` first.
 
 Send:
 

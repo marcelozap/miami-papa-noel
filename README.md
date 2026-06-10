@@ -30,6 +30,7 @@ Use these details consistently across the website, profiles, and outreach:
 
 Open `business/` for the operating docs:
 
+- Launch command center
 - Account setup checklist
 - Brand/profile copy
 - Sales funnel

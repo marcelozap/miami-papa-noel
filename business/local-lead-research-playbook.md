@@ -2,7 +2,7 @@
 
 Goal: build a real list of local prospects who are likely to book Papa Noel for December events, Christmas Eve gift delivery, toy drives, photo days, and Christmas in July.
 
-Use this with `lead-tracker.csv`. Do not send mass copy-paste spam. Add one personal line to every message so it feels human.
+Use this with `../lead-tracker.csv`. Do not send mass copy-paste spam. Add one personal line to every message so it feels human.
 
 Send event leads here when they ask for more details:
 
@@ -108,7 +108,7 @@ Skip a lead if:
 
 Pick one category and one area. Example: `Doral daycares`.
 
-Add 10 leads to `lead-tracker.csv` with:
+Add 10 leads to `../lead-tracker.csv` with:
 
 - Business Name
 - Type

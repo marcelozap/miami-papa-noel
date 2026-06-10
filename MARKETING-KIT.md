@@ -42,6 +42,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `lead-tracker.csv` - spreadsheet template for tracking potential clients.
 - `social-posts.md` - ready-to-post English and Spanish captions.
 - `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
+- `business/launch-command-center.html` - internal daily outreach dashboard with scripts, links, checklist, and tracker shortcuts.
 - `business/referral-partner-playbook.md` - partner outreach routine for photographers, vendors, restaurants, pet businesses, and family businesses.
 - `business/one-page-flyer.html` - printable one-page flyer.
 - `business/google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
