@@ -4,6 +4,10 @@ Goal: build a real list of local prospects who are likely to book Papa Noel for 
 
 Use this with `lead-tracker.csv`. Do not send mass copy-paste spam. Add one personal line to every message so it feels human.
 
+Send event leads here when they ask for more details:
+
+`https://miamipapanoel.com/events`
+
 ## Best Lead Types
 
 Start with people who already serve families, children, communities, or holiday events.
@@ -133,11 +137,15 @@ Lead with: warm bilingual Santa, calm with shy children, photo time, story time,
 
 Best package: Event Visit.
 
+Send: `https://miamipapanoel.com/events`
+
 ### HOA or Apartment Community
 
 Lead with: lobby photos, resident holiday party, clubhouse visit, gift table support.
 
 Best package: Event Visit.
+
+Send: `https://miamipapanoel.com/events`
 
 ### Family Photographer
 
@@ -145,11 +153,15 @@ Lead with: Santa mini-sessions, photo-ready Santa, bilingual interaction, referr
 
 Best package: Event Visit.
 
+Send: `https://miamipapanoel.com/events`
+
 ### Restaurant or Retail
 
 Lead with: family foot traffic, customer appreciation, brunch or photo pop-up.
 
 Best package: Event Visit.
+
+Send: `https://miamipapanoel.com/events`
 
 ### Family or Parent Lead
 
@@ -162,6 +174,8 @@ Best package: Family Visit or Christmas Eve.
 Lead with: toy drive, gift handoff, community support, sponsor-supported event.
 
 Best package: Custom quote.
+
+Send: `https://miamipapanoel.com/events`
 
 ## Follow-Up Rhythm
 

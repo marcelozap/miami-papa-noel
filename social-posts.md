@@ -11,6 +11,7 @@ Booking now for the 2026 holiday season.
 Call/Text: 305-244-0360
 Instagram: @miamipapanoel
 Book: https://miamipapanoel.com/links
+Events: https://miamipapanoel.com/events
 
 ## Post 1 - Spanish
 
@@ -23,6 +24,7 @@ Reservas abiertas para la temporada navideña 2026.
 Llama/Texto: 305-244-0360
 Instagram: @miamipapanoel
 Reservas: https://miamipapanoel.com/links
+Eventos: https://miamipapanoel.com/events
 
 ## Post 2 - Christmas in July
 
@@ -33,6 +35,7 @@ Santa is available this summer for photo pop-ups, daycare visits, toy drive kick
 Book a magical summer moment now and reserve your December date early.
 
 Call/Text: 305-244-0360
+Event info: https://miamipapanoel.com/events
 
 ## Post 3 - Nonprofit Angle
 
@@ -43,6 +46,7 @@ Papa Noel is available for nonprofit events, sponsor-supported toy drives, and c
 If your organization is planning something for children this year, we would love to help.
 
 Call/Text: 305-244-0360
+Event info: https://miamipapanoel.com/events
 
 ## Post 4 - Christmas Eve
 

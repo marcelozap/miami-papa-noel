@@ -13,8 +13,9 @@ This folder turns the website into an operating system for the business.
 7. `30-day-client-sprint.md` - daily outreach routine and bilingual messages.
 8. `local-lead-research-playbook.md` - how to build a real local lead list.
 9. `../links.html` - quick link-in-bio page for Instagram and social profiles.
-10. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
-11. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
+10. `../events.html` - outreach landing page for schools, HOAs, businesses, toy drives, and event partners.
+11. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
+12. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
 
 ## Core Rule
 

@@ -32,6 +32,10 @@ Quick booking links:
 
 `https://miamipapanoel.com/links`
 
+Event visit page:
+
+`https://miamipapanoel.com/events`
+
 Direct booking form:
 
 `https://miamipapanoel.com/book`
