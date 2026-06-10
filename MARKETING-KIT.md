@@ -43,6 +43,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `social-posts.md` - ready-to-post English and Spanish captions.
 - `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
 - `business/launch-command-center.html` - internal daily outreach dashboard with scripts, links, checklist, and tracker shortcuts.
+- `business/quote-builder.html` - internal quote builder for sending polished text, WhatsApp, or email pricing replies.
 - `business/referral-partner-playbook.md` - partner outreach routine for photographers, vendors, restaurants, pet businesses, and family businesses.
 - `business/one-page-flyer.html` - printable one-page flyer.
 - `business/google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
@@ -58,4 +59,5 @@ Use this same information everywhere so families see one clear way to contact Pa
 4. Ask past clients and nonprofits for short testimonials.
 5. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
 6. Send the reviews page when a parent, school, HOA, or business asks to see proof.
-7. Use `business/google-social-launch-kit.md` to set up Google Business Profile, Instagram, WhatsApp Business, and the first posts.
+7. Use `business/quote-builder.html` after a lead shares date, city, and event details so pricing replies stay fast and professional.
+8. Use `business/google-social-launch-kit.md` to set up Google Business Profile, Instagram, WhatsApp Business, and the first posts.

@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Miami Papa Noel Quote Builder</title>
+  <link rel="icon" href="../assets/christmas-tree-icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #171313;
+      --charcoal: #231b19;
+      --velvet: #8f1f2d;
+      --pine: #123f35;
+      --gold: #c9993f;
+      --paper: #fff9ef;
+      --snow: #ffffff;
+      --muted: #70625b;
+      --line: #e4d5c0;
+      --shadow: 0 18px 42px rgba(36, 24, 18, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 24px;
+      color: white;
+      background: rgba(35, 27, 25, .96);
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .brand strong {
+      display: block;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .brand span {
+      color: rgba(255, 255, 255, .72);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 6px;
+      color: rgba(255, 255, 255, .88);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .hero {
+      padding: 50px 0 34px;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(35, 27, 25, .96), rgba(95, 17, 27, .84)),
+        url("../assets/optimized/santa-photo-2-1600.jpg") center / cover no-repeat;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 30px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #f2d69a;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 16px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(46px, 7vw, 84px);
+      line-height: .92;
+    }
+
+    h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(32px, 4.4vw, 50px);
+      line-height: .96;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, .88);
+      font-size: 21px;
+      font-weight: 750;
+    }
+
+    .rule-card {
+      padding: 22px;
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 249, 239, .96);
+      box-shadow: var(--shadow);
+    }
+
+    .rule-card ul {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    section {
+      padding: 54px 0;
+    }
+
+    .builder-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 520px) minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--snow);
+      box-shadow: 0 14px 32px rgba(36, 24, 18, .08);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink);
+      background: #fffdf8;
+      font: inherit;
+      font-weight: 700;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      text-transform: none;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .quote-output {
+      min-height: 520px;
+      padding: 18px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: var(--charcoal);
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 14px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      color: #211607;
+      background: var(--gold);
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .button.secondary {
+      color: white;
+      background: var(--velvet);
+    }
+
+    .button.ghost {
+      color: var(--ink);
+      background: transparent;
+      border-color: var(--line);
+    }
+
+    .mini-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 14px 0 0;
+    }
+
+    .mini-summary div {
+      padding: 12px;
+      border-radius: 6px;
+      background: #f7eadf;
+      font-weight: 900;
+    }
+
+    .mini-summary span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .hint {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 30;
+      right: 18px;
+      bottom: 18px;
+      padding: 12px 14px;
+      border-radius: 6px;
+      color: white;
+      background: var(--pine);
+      box-shadow: var(--shadow);
+      font-weight: 900;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .2s ease, transform .2s ease;
+      pointer-events: none;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      padding: 28px;
+      color: rgba(255, 255, 255, .78);
+      background: var(--charcoal);
+      text-align: center;
+      font-weight: 750;
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero-grid,
+      .builder-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 30px, 1160px);
+      }
+
+      .form-grid,
+      .mini-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .button,
+      .nav a {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="launch-command-center.html">
+      <img src="../assets/christmas-tree-icon.svg" alt="">
+      <span>
+        <strong>Miami Papa Noel</strong>
+        <span>Internal Quote Builder</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Quote builder navigation">
+      <a href="launch-command-center.html">Command Center</a>
+      <a href="booking-sop.md">Booking SOP</a>
+      <a href="offer-and-pricing.md">Pricing</a>
+      <a href="../book.html?source=quote-builder">Booking Form</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Internal sales tool</p>
+          <h1>Reply with a clear quote in two minutes.</h1>
+          <p class="hero-copy">Use this after you know the date, city, event type, package, and price. It builds a polished message for text, WhatsApp, or email.</p>
+        </div>
+        <aside class="rule-card">
+          <h3>Before sending</h3>
+          <ul>
+            <li>Check calendar availability first.</li>
+            <li>Do not hold a date without deposit.</li>
+            <li>Confirm address, parking, and gift labels before event day.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell builder-grid">
+        <form class="panel" id="quoteForm">
+          <p class="eyebrow">Quote details</p>
+          <h2>Fill what you know.</h2>
+          <div class="form-grid">
+            <label>Language
+              <select id="language">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+              </select>
+            </label>
+            <label>Client name
+              <input id="clientName" placeholder="Maria">
+            </label>
+            <label>Client phone
+              <input id="clientPhone" inputmode="tel" placeholder="305-555-1234">
+            </label>
+            <label>Client email
+              <input id="clientEmail" type="email" placeholder="client@example.com">
+            </label>
+            <label>Package
+              <select id="packageName">
+                <option>Family Visit</option>
+                <option>Event Visit</option>
+                <option>Christmas Eve</option>
+                <option>Nonprofit / Toy Drive</option>
+                <option>Custom Visit</option>
+              </select>
+            </label>
+            <label>Visit length
+              <input id="duration" value="45-60 minutes">
+            </label>
+            <label>Date
+              <input id="date" placeholder="Saturday, December 14">
+            </label>
+            <label>Time
+              <input id="time" placeholder="4:00 PM">
+            </label>
+            <label>City / area
+              <input id="city" placeholder="Doral">
+            </label>
+            <label>Event type
+              <input id="eventType" placeholder="HOA holiday party">
+            </label>
+            <label>Estimated guests
+              <input id="guests" placeholder="30 children, 40 adults">
+            </label>
+            <label>Gifts?
+              <select id="gifts">
+                <option value="No gift handoff">No gift handoff</option>
+                <option value="Santa will hand out labeled gifts">Santa will hand out labeled gifts</option>
+                <option value="Need details about gifts">Need details about gifts</option>
+              </select>
+            </label>
+            <label>Total price
+              <input id="total" inputmode="decimal" placeholder="225">
+            </label>
+            <label>Deposit %
+              <select id="depositPercent">
+                <option value="30">30%</option>
+                <option value="40">40%</option>
+                <option value="50">50%</option>
+              </select>
+            </label>
+            <label>Custom deposit
+              <input id="customDeposit" inputmode="decimal" placeholder="Leave blank to calculate">
+            </label>
+            <label>Balance due
+              <input id="balance" inputmode="decimal" placeholder="Auto-calculated unless filled">
+            </label>
+            <label class="full">Important notes or missing details
+              <textarea id="notes" placeholder="Example: need exact address, parking instructions, gift labels, final guest count."></textarea>
+            </label>
+          </div>
+          <div class="mini-summary">
+            <div><span>Total</span><b id="summaryTotal">TBD</b></div>
+            <div><span>Deposit</span><b id="summaryDeposit">TBD</b></div>
+            <div><span>Balance</span><b id="summaryBalance">TBD</b></div>
+          </div>
+          <p class="hint">Tip: quote higher for prime December weekends, Christmas Eve evenings, long travel, large events, or hard parking.</p>
+        </form>
+
+        <aside class="panel">
+          <p class="eyebrow">Generated reply</p>
+          <h2>Copy and send.</h2>
+          <div class="quote-output" id="quoteOutput"></div>
+          <div class="button-row">
+            <button class="button" type="button" id="copyQuote">Copy Quote</button>
+            <a class="button secondary" id="whatsappLink" href="https://wa.me/?text=" target="_blank" rel="noopener">WhatsApp Client</a>
+            <a class="button ghost" id="smsLink" href="sms:?&body=">Text Client</a>
+            <a class="button ghost" id="emailLink" href="mailto:?subject=Miami%20Papa%20Noel%20quote">Email Client</a>
+          </div>
+          <p class="hint">This tool does not send anything by itself. You can edit the message before sending.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Internal tool. Do not promise a date until availability and deposit are confirmed.
+  </footer>
+
+  <div class="toast" id="toast">Copied</div>
+
+  <script>
+    const fields = ["language", "clientName", "clientPhone", "clientEmail", "packageName", "duration", "date", "time", "city", "eventType", "guests", "gifts", "total", "depositPercent", "customDeposit", "balance", "notes"];
+    const packageDetails = {
+      "Family Visit": {
+        en: ["photos with Santa", "a warm child greeting", "optional family-provided gift handoff"],
+        es: ["fotos con Santa", "saludo calido para los ninos", "entrega opcional de regalos provistos por la familia"]
+      },
+      "Event Visit": {
+        en: ["photos with guests", "warm greetings in English or Spanish", "gift table or toy drive support if planned"],
+        es: ["fotos con invitados", "saludos calidos en ingles o espanol", "apoyo con regalos o toy drive si esta planificado"]
+      },
+      "Christmas Eve": {
+        en: ["scheduled Christmas Eve arrival", "family-provided labeled gift delivery", "photos and a short surprise moment"],
+        es: ["llegada programada en Nochebuena", "entrega de regalos marcados provistos por la familia", "fotos y un momento corto de sorpresa"]
+      },
+      "Nonprofit / Toy Drive": {
+        en: ["Santa appearance for children or families", "photos and greetings", "toy drive or sponsor-supported moment"],
+        es: ["visita de Santa para ninos o familias", "fotos y saludos", "momento para toy drive o patrocinio"]
+      },
+      "Custom Visit": {
+        en: ["a Santa visit planned around your event", "photos and warm greetings", "details confirmed before deposit"],
+        es: ["una visita de Santa organizada segun el evento", "fotos y saludos calidos", "detalles confirmados antes del deposito"]
+      }
+    };
+    const packageLabels = {
+      "Family Visit": { en: "Family Visit", es: "Visita Familiar" },
+      "Event Visit": { en: "Event Visit", es: "Visita para Evento" },
+      "Christmas Eve": { en: "Christmas Eve", es: "Nochebuena" },
+      "Nonprofit / Toy Drive": { en: "Nonprofit / Toy Drive", es: "Sin fines de lucro / Toy Drive" },
+      "Custom Visit": { en: "Custom Visit", es: "Visita Personalizada" }
+    };
+    const giftLabels = {
+      "No gift handoff": { en: "No gift handoff", es: "Sin entrega de regalos" },
+      "Santa will hand out labeled gifts": { en: "Santa will hand out labeled gifts", es: "Santa entregara regalos marcados" },
+      "Need details about gifts": { en: "Need details about gifts", es: "Necesitamos detalles de los regalos" }
+    };
+
+    const output = document.getElementById("quoteOutput");
+    const toast = document.getElementById("toast");
+    const whatsappLink = document.getElementById("whatsappLink");
+    const smsLink = document.getElementById("smsLink");
+    const emailLink = document.getElementById("emailLink");
+
+    function value(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function numberValue(id) {
+      const raw = value(id).replace(/[^0-9.]/g, "");
+      return raw ? Number(raw) : 0;
+    }
+
+    function money(amount) {
+      return amount > 0 ? "$" + Math.round(amount).toLocaleString("en-US") : "TBD";
+    }
+
+    function phoneDigits(phone) {
+      const digits = phone.replace(/\D/g, "");
+      if (digits.length === 10) return "1" + digits;
+      if (digits.length === 11 && digits.startsWith("1")) return digits;
+      return "";
+    }
+
+    function calculatedDeposit() {
+      const custom = numberValue("customDeposit");
+      if (custom > 0) return custom;
+      const total = numberValue("total");
+      const percent = Number(value("depositPercent") || 30);
+      return total > 0 ? total * percent / 100 : 0;
+    }
+
+    function calculatedBalance() {
+      const customBalance = numberValue("balance");
+      if (customBalance > 0) return customBalance;
+      const total = numberValue("total");
+      const deposit = calculatedDeposit();
+      return total > 0 ? Math.max(total - deposit, 0) : 0;
+    }
+
+    function line(label, text) {
+      return text ? label + ": " + text : "";
+    }
+
+    function localizedPackage(packageName, lang) {
+      return packageLabels[packageName]?.[lang] || packageName;
+    }
+
+    function localizedGifts(gifts, lang) {
+      return giftLabels[gifts]?.[lang] || gifts;
+    }
+
+    function localizedDuration(duration, lang) {
+      if (lang !== "es") return duration;
+      return duration.replace(/\bminutes\b/gi, "minutos").replace(/\bminute\b/gi, "minuto");
+    }
+
+    function buildQuote() {
+      const lang = value("language") === "es" ? "es" : "en";
+      const name = value("clientName") || (lang === "es" ? "Hola" : "Hi");
+      const packageName = value("packageName");
+      const clientPhone = phoneDigits(value("clientPhone"));
+      const clientEmail = value("clientEmail");
+      const details = packageDetails[packageName][lang];
+      const packageTitle = localizedPackage(packageName, lang);
+      const total = numberValue("total");
+      const deposit = calculatedDeposit();
+      const balance = calculatedBalance();
+      const notes = value("notes");
+      const city = value("city");
+      const date = value("date");
+      const time = value("time");
+      const eventType = value("eventType");
+      const guests = value("guests");
+      const duration = localizedDuration(value("duration"), lang);
+      const gifts = localizedGifts(value("gifts"), lang);
+
+      document.getElementById("summaryTotal").textContent = money(total);
+      document.getElementById("summaryDeposit").textContent = money(deposit);
+      document.getElementById("summaryBalance").textContent = money(balance);
+
+      let text;
+      if (lang === "es") {
+        text = [
+          name === "Hola" ? "Hola! Gracias por los detalles." : "Hola " + name + "! Gracias por los detalles.",
+          "",
+          "Para " + (eventType || "la visita") + (city ? " en " + city : "") + (date ? " el " + date : "") + (time ? " a las " + time : "") + ", recomiendo: " + packageTitle + ".",
+          "",
+          "Incluye:",
+          "- " + details.join("\n- "),
+          duration ? "" : "",
+          duration ? "Duracion estimada: " + duration : "",
+          guests ? line("Invitados aproximados", guests) : "",
+          gifts ? line("Regalos", gifts) : "",
+          "",
+          total > 0 ? "Total: " + money(total) : "El precio final se confirma cuando tengamos los detalles completos.",
+          deposit > 0 ? "Deposito para reservar: " + money(deposit) : "El deposito se confirma con el precio final.",
+          balance > 0 ? "Balance restante: " + money(balance) : "",
+          "",
+          "La fecha y hora se confirman solo despues del deposito y la confirmacion final.",
+          "Antes del evento necesitamos direccion exacta, parking/acceso, persona de contacto y detalles de regalos si Santa los va a entregar.",
+          notes ? "\nNotas: " + notes : "",
+          "",
+          "Miami Papa Noel | 305-244-0360"
+        ].filter(Boolean).join("\n");
+      } else {
+        text = [
+          name === "Hi" ? "Hi! Thank you for the details." : "Hi " + name + "! Thank you for the details.",
+          "",
+          "For " + (eventType || "the visit") + (city ? " in " + city : "") + (date ? " on " + date : "") + (time ? " at " + time : "") + ", I recommend: " + packageTitle + ".",
+          "",
+          "It includes:",
+          "- " + details.join("\n- "),
+          duration ? "" : "",
+          duration ? "Estimated visit length: " + duration : "",
+          guests ? line("Estimated guests", guests) : "",
+          gifts ? line("Gifts", gifts) : "",
+          "",
+          total > 0 ? "Total: " + money(total) : "Final price can be confirmed once all details are complete.",
+          deposit > 0 ? "Deposit to reserve: " + money(deposit) : "Deposit will be confirmed with final price.",
+          balance > 0 ? "Remaining balance: " + money(balance) : "",
+          "",
+          "The date and time are confirmed only after deposit and final confirmation.",
+          "Before the event we need exact address, parking/access details, contact person, and gift details if Santa will hand out gifts.",
+          notes ? "\nNotes: " + notes : "",
+          "",
+          "Miami Papa Noel | 305-244-0360"
+        ].filter(Boolean).join("\n");
+      }
+
+      output.textContent = text;
+      whatsappLink.href = "https://wa.me/" + clientPhone + "?text=" + encodeURIComponent(text);
+      smsLink.href = "sms:" + (clientPhone ? "+" + clientPhone : "") + "?&body=" + encodeURIComponent(text);
+      emailLink.href = "mailto:" + encodeURIComponent(clientEmail) + "?subject=" + encodeURIComponent("Miami Papa Noel quote") + "&body=" + encodeURIComponent(text);
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      window.setTimeout(() => toast.classList.remove("is-visible"), 1400);
+    }
+
+    async function copyQuote() {
+      try {
+        await navigator.clipboard.writeText(output.textContent);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = output.textContent;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+      showToast("Quote copied");
+    }
+
+    fields.forEach((id) => {
+      document.getElementById(id).addEventListener("input", buildQuote);
+      document.getElementById(id).addEventListener("change", buildQuote);
+    });
+
+    document.getElementById("copyQuote").addEventListener("click", copyQuote);
+    buildQuote();
+  </script>
+</body>
+</html>

@@ -31,6 +31,8 @@ Check:
 
 ## 3. Quote
 
+Use `quote-builder.html` after you know the date, time, city, event type, estimated guests, package, and price. It creates a polished English or Spanish reply for text, WhatsApp, or email.
+
 Send package recommendation:
 
 `For this event, I recommend the [PACKAGE]. It includes [DETAILS]. The price is [$___]. A [$___] deposit holds the date and the remaining balance is due before or at arrival.`
