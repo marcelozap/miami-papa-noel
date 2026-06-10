@@ -11,8 +11,9 @@ This folder turns the website into an operating system for the business.
 5. `booking-sop.md` - exact process from inquiry to event.
 6. `launch-checklist.md` - what to do in the first 7 days.
 7. `30-day-client-sprint.md` - daily outreach routine and bilingual messages.
-8. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
-9. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
+8. `local-lead-research-playbook.md` - how to build a real local lead list.
+9. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
+10. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
 
 ## Core Rule
 

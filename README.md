@@ -23,6 +23,7 @@ Open `business/` for the operating docs:
 - Account setup checklist
 - Brand/profile copy
 - Sales funnel
+- Local lead research playbook
 - Booking SOP
 - Client message templates
 - Pricing framework
