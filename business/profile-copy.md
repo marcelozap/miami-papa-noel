@@ -44,6 +44,10 @@ Summer Santa and Christmas in July:
 
 `https://miamipapanoel.com/summer-santa`
 
+Service areas:
+
+`https://miamipapanoel.com/service-areas`
+
 Schools and daycares:
 
 `https://miamipapanoel.com/schools-daycares`
@@ -63,3 +67,11 @@ Reviews and real visit moments:
 Direct booking form:
 
 `https://miamipapanoel.com/book`
+
+Google Business Profile booking link:
+
+`https://miamipapanoel.com/book?source=google%20business`
+
+Instagram DM booking link:
+
+`https://miamipapanoel.com/book?source=instagram`

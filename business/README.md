@@ -17,12 +17,14 @@ This folder turns the website into an operating system for the business.
 11. `../events.html` - outreach landing page for schools, HOAs, businesses, toy drives, and event partners.
 12. `../christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
 13. `../summer-santa.html` - focused Summer Santa and Christmas-in-July page for off-season bookings.
-14. `../schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
-15. `../hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
-16. `../partners.html` - referral-partner page for photographers, vendors, pet businesses, restaurants, and local family businesses.
-17. `../reviews.html` - proof page with real visit photos, community notes, and review collection guidance.
-18. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
-19. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
+14. `../service-areas.html` - local service-area page for Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.
+15. `../schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
+16. `../hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
+17. `../partners.html` - referral-partner page for photographers, vendors, pet businesses, restaurants, and local family businesses.
+18. `../reviews.html` - proof page with real visit photos, community notes, and review collection guidance.
+19. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
+20. `google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
+21. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
 
 ## Core Rule
 

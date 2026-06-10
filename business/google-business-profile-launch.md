@@ -14,7 +14,11 @@ Website:
 
 Booking link:
 
-`https://miamipapanoel.com/book`
+`https://miamipapanoel.com/book?source=google%20business`
+
+Service areas link:
+
+`https://miamipapanoel.com/service-areas`
 
 Phone:
 
@@ -100,7 +104,7 @@ Partner page to send to photographers, vendors, and local businesses:
 
 `https://miamipapanoel.com/partners`
 
-## First 5 Google Posts
+## First 6 Google Posts
 
 ### Post 1: Now Booking
 
@@ -108,7 +112,19 @@ Miami Papa Noel is now booking warm bilingual Santa visits for families, schools
 
 Book early for December weekends and Christmas Eve.
 
-https://miamipapanoel.com/book
+Button URL:
+
+https://miamipapanoel.com/book?source=google%20business
+
+### Post 1B: Service Areas
+
+Looking for Santa in Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, or nearby areas?
+
+Miami Papa Noel brings warm bilingual Santa visits to homes, schools, HOAs, businesses, toy drives, and Christmas Eve surprises.
+
+Button URL:
+
+https://miamipapanoel.com/service-areas
 
 ### Post 2: Christmas Eve
 
@@ -116,13 +132,17 @@ Imagine the children opening the door and seeing Papa Noel arrive with their gif
 
 Christmas Eve gift delivery is limited and scheduled by visit window. Families provide clearly labeled gifts, and Papa Noel creates the magical moment.
 
-https://miamipapanoel.com/christmas-eve
+Button URL:
+
+https://miamipapanoel.com/book?package=Christmas%20Eve&source=google%20business
 
 ### Post 3: Schools and Daycares
 
 Papa Noel is available for schools, daycares, classroom greetings, story time, photos, and holiday celebrations.
 
 Visits can be in English or Spanish and are paced gently for children.
+
+Button URL:
 
 https://miamipapanoel.com/schools-daycares
 
@@ -132,6 +152,8 @@ Planning a holiday party for an HOA, apartment community, restaurant, office, or
 
 Miami Papa Noel can support photos, guest greetings, toy drives, and family-friendly event moments.
 
+Button URL:
+
 https://miamipapanoel.com/hoa-apartments
 
 ### Post 5: Christmas in July
@@ -139,6 +161,8 @@ https://miamipapanoel.com/hoa-apartments
 Christmas magic does not have to wait until December.
 
 Ask about Christmas in July, daycare story time, pet photos, toy drive kickoffs, summer family days, and early holiday bookings.
+
+Button URL:
 
 https://miamipapanoel.com/summer-santa
 

@@ -14,6 +14,7 @@ Book: https://miamipapanoel.com/links
 Events: https://miamipapanoel.com/events
 Christmas Eve: https://miamipapanoel.com/christmas-eve
 Summer Santa: https://miamipapanoel.com/summer-santa
+Service Areas: https://miamipapanoel.com/service-areas
 Schools/Daycares: https://miamipapanoel.com/schools-daycares
 HOAs/Apartments: https://miamipapanoel.com/hoa-apartments
 Partners: https://miamipapanoel.com/partners
@@ -33,6 +34,7 @@ Reservas: https://miamipapanoel.com/links
 Eventos: https://miamipapanoel.com/events
 Nochebuena: https://miamipapanoel.com/christmas-eve
 Santa en Verano: https://miamipapanoel.com/summer-santa
+Areas de Servicio: https://miamipapanoel.com/service-areas
 Escuelas/Daycares: https://miamipapanoel.com/schools-daycares
 HOAs/Apartamentos: https://miamipapanoel.com/hoa-apartments
 Aliados: https://miamipapanoel.com/partners
@@ -96,7 +98,29 @@ Miami Papa Noel está disponible para mini sesiones con Santa, pop-ups de Christ
 Llama/Texto: 305-244-0360
 Info para aliados: https://miamipapanoel.com/partners
 
-## Post 3E - Proof and Real Moments
+## Post 3E - Service Areas
+
+Looking for Santa in Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, or nearby areas?
+
+Miami Papa Noel brings warm bilingual Santa visits to homes, schools, daycares, HOAs, businesses, toy drives, Christmas in July events, and Christmas Eve surprises.
+
+Send your date, city, and visit type. We will confirm availability and the best option.
+
+Call/Text: 305-244-0360
+Areas served: https://miamipapanoel.com/service-areas
+
+## Post 3E - Areas de Servicio
+
+Buscas Santa en Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables o areas cercanas?
+
+Miami Papa Noel ofrece visitas calidas y bilingues para casas, escuelas, daycares, HOAs, negocios, toy drives, Christmas in July y sorpresas de Nochebuena.
+
+Envia fecha, ciudad y tipo de visita. Confirmamos disponibilidad y la mejor opcion.
+
+Llama/Texto: 305-244-0360
+Areas servidas: https://miamipapanoel.com/service-areas
+
+## Post 3F - Proof and Real Moments
 
 Want to see what a Miami Papa Noel visit feels like before booking?
 
@@ -107,7 +131,7 @@ Warm bilingual Santa visits for Miami-Doral and nearby areas.
 Call/Text: 305-244-0360
 Photos and proof: https://miamipapanoel.com/reviews
 
-## Post 3E - Prueba y Momentos Reales
+## Post 3F - Prueba y Momentos Reales
 
 Quieres ver cómo se siente una visita de Miami Papa Noel antes de reservar?
 
