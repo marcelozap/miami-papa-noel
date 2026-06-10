@@ -176,7 +176,7 @@
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
     }
 
@@ -310,6 +310,27 @@
       text-align: center;
     }
 
+    .footer-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-weight: 900;
+    }
+
+    .footer-mark img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .footer-subline {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255, 255, 255, .68);
+      font-size: 13px;
+    }
+
     @media (max-width: 980px) {
       .pricing-grid,
       .checkout-grid {
@@ -371,14 +392,14 @@
         <div class="section-head">
           <div>
             <p class="eyebrow">Starting Prices</p>
-            <h2>Four easy ways to book Papa Noel.</h2>
+            <h2>Three easy ways to book Papa Noel.</h2>
           </div>
           <p>These are starting prices. Final pricing depends on the date, location, length, guest count, and travel.</p>
         </div>
         <div class="pricing-grid">
           <article class="price-card">
-            <div class="badge">Home</div>
-            <h3>Home Visit</h3>
+            <div class="badge">Family</div>
+            <h3>Family Visit</h3>
             <div class="price"><strong>$125+</strong><span>20-30 minutes</span></div>
             <ul>
               <li>Photos with Santa</li>
@@ -386,31 +407,19 @@
               <li>Optional gift handoff</li>
               <li>Best for small families</li>
             </ul>
-            <a class="button dark" href="book.html?package=Home%20Visit">Request Home Visit</a>
+            <a class="button dark" href="book.html?package=Family%20Visit">Request Family Visit</a>
           </article>
           <article class="price-card featured">
             <div class="badge">Most Popular</div>
-            <h3>Party Visit</h3>
+            <h3>Event Visit</h3>
             <div class="price"><strong>$225+</strong><span>45-60 minutes</span></div>
             <ul>
-              <li>Family or business party</li>
+              <li>Parties, schools, or businesses</li>
               <li>Photos and greetings</li>
               <li>Gift table support</li>
-              <li>Great for churches/restaurants</li>
+              <li>Large events quoted as needed</li>
             </ul>
-            <a class="button" href="book.html?package=Party%20Visit">Request Party Visit</a>
-          </article>
-          <article class="price-card">
-            <div class="badge">Event</div>
-            <h3>Community Event</h3>
-            <div class="price"><strong>$375+</strong><span>1-2 hours</span></div>
-            <ul>
-              <li>HOAs and apartments</li>
-              <li>Schools and daycares</li>
-              <li>Business activations</li>
-              <li>Photo line experience</li>
-            </ul>
-            <a class="button dark" href="book.html?package=Community%20Event">Request Event Visit</a>
+            <a class="button" href="book.html?package=Event%20Visit">Request Event Visit</a>
           </article>
           <article class="price-card">
             <div class="badge">Limited</div>
@@ -462,7 +471,12 @@
   </main>
 
   <footer>
-    Miami Papa Noel | Packages, reservations, and premium Santa visits
+    <span class="footer-mark">
+      <img src="assets/christmas-tree-icon.svg" alt="">
+      Miami Papa Noel
+      <img src="assets/santa-hat-icon.svg" alt="">
+    </span>
+    <span class="footer-subline">Packages, reservations, and premium Santa visits</span>
   </footer>
 </body>
 </html>

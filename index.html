@@ -28,9 +28,8 @@
       "areaServed": ["Miami", "Doral", "Hialeah", "Kendall", "Sweetwater", "Miami Lakes", "Coral Gables"],
       "sameAs": ["https://www.instagram.com/miamipapanoel"],
       "makesOffer": [
-        {"@type": "Offer", "name": "Mini Home Santa Visit", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 125}},
-        {"@type": "Offer", "name": "Classic Party Santa Visit", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 225}},
-        {"@type": "Offer", "name": "Community and Business Santa Event", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 375}},
+        {"@type": "Offer", "name": "Family Santa Visit", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 125}},
+        {"@type": "Offer", "name": "Event Santa Visit", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 225}},
         {"@type": "Offer", "name": "Christmas Eve Gift Delivery", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 250}}
       ]
     }
@@ -419,7 +418,7 @@
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
     }
 
@@ -656,6 +655,27 @@
       text-align: center;
     }
 
+    .footer-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-weight: 900;
+    }
+
+    .footer-mark img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .footer-subline {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255, 255, 255, .68);
+      font-size: 13px;
+    }
+
     @media (max-width: 980px) {
       .nav {
         display: none;
@@ -852,14 +872,14 @@
         <div class="section-head">
           <div>
             <p class="eyebrow">Packages and Pricing</p>
-            <h2>Clear options with professional event expectations.</h2>
+            <h2>Three simple ways to book Papa Noel.</h2>
           </div>
-          <p>Pricing is listed as starting rates. Final quotes depend on date, location, length, guest count, travel, and Christmas Eve demand.</p>
+          <p>Choose the closest option. Bigger events can be quoted after we see the date, location, and guest count.</p>
         </div>
         <div class="pricing-grid">
           <article class="price-card">
-            <div class="badge">Home</div>
-            <h3>Home Visit</h3>
+            <div class="badge">Family</div>
+            <h3>Family Visit</h3>
             <div class="price"><strong>$125+</strong><span>20-30 minutes</span></div>
             <ul>
               <li>Photos with Santa</li>
@@ -867,31 +887,19 @@
               <li>Optional gift handoff</li>
               <li>Best for small families</li>
             </ul>
-            <a class="button dark" href="book.html?package=Home%20Visit">Request Home Visit</a>
+            <a class="button dark" href="book.html?package=Family%20Visit">Request Family Visit</a>
           </article>
           <article class="price-card featured">
             <div class="badge">Most Popular</div>
-            <h3>Party Visit</h3>
+            <h3>Event Visit</h3>
             <div class="price"><strong>$225+</strong><span>45-60 minutes</span></div>
             <ul>
-              <li>Family or business party</li>
+              <li>Parties, schools, or businesses</li>
               <li>Photos and greetings</li>
               <li>Gift table support</li>
-              <li>Great for restaurants/churches</li>
+              <li>Large events quoted as needed</li>
             </ul>
-            <a class="button" href="book.html?package=Party%20Visit">Request Party Visit</a>
-          </article>
-          <article class="price-card">
-            <div class="badge">Events</div>
-            <h3>Community Event</h3>
-            <div class="price"><strong>$375+</strong><span>1-2 hours</span></div>
-            <ul>
-              <li>HOAs and apartments</li>
-              <li>Schools and daycares</li>
-              <li>Business activations</li>
-              <li>Photo line experience</li>
-            </ul>
-            <a class="button dark" href="book.html?package=Community%20Event">Request Event Visit</a>
+            <a class="button" href="book.html?package=Event%20Visit">Request Event Visit</a>
           </article>
           <article class="price-card">
             <div class="badge">Limited</div>
@@ -917,7 +925,7 @@
           <h2>Summer Santa keeps the calendar moving before December.</h2>
           <p class="lead">Christmas in July, toy drive kickoffs, pet photos, daycare story time, and early-booking promotions create content and revenue before the holiday rush.</p>
           <div class="actions">
-            <a class="button" href="book.html?package=Christmas%20in%20July">Plan Summer Santa</a>
+          <a class="button" href="book.html?package=Event%20Visit">Plan Summer Santa</a>
           </div>
         </div>
         <div class="pill-grid">
@@ -1042,7 +1050,12 @@
   </main>
 
   <footer>
-    Miami Papa Noel | Premium bilingual Santa visits for Miami-Doral families, businesses, schools, and community events
+    <span class="footer-mark">
+      <img src="assets/christmas-tree-icon.svg" alt="">
+      Miami Papa Noel
+      <img src="assets/santa-hat-icon.svg" alt="">
+    </span>
+    <span class="footer-subline">Premium bilingual Santa visits for Miami-Doral families, businesses, schools, and community events</span>
   </footer>
 </body>
 </html>

@@ -370,6 +370,27 @@
       text-align: center;
     }
 
+    .footer-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-weight: 900;
+    }
+
+    .footer-mark img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .footer-subline {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255, 255, 255, .68);
+      font-size: 13px;
+    }
+
     @media (max-width: 860px) {
       .topbar nav {
         display: none;
@@ -427,9 +448,8 @@
           <p class="eyebrow">Simple Visits</p>
           <h2>Most clients only need one of these.</h2>
           <div class="quick-packages" aria-label="Simple packages">
-            <div class="quick-package"><span>Home Visit</span><span>$125+</span></div>
-            <div class="quick-package"><span>Party Visit</span><span>$225+</span></div>
-            <div class="quick-package"><span>Community Event</span><span>$375+</span></div>
+            <div class="quick-package"><span>Family Visit</span><span>$125+</span></div>
+            <div class="quick-package"><span>Event Visit</span><span>$225+</span></div>
             <div class="quick-package"><span>Christmas Eve</span><span>$250+</span></div>
           </div>
           <div class="simple-note">Not sure which one fits? Choose "Not sure yet" and we will recommend the best option.</div>
@@ -474,11 +494,9 @@
             <div class="two">
               <label>Visit Option
                 <select id="package" name="package">
-                  <option>Home Visit - $125+</option>
-                  <option>Party Visit - $225+</option>
-                  <option>Community Event - $375+</option>
+                  <option>Family Visit - $125+</option>
+                  <option>Event Visit - $225+</option>
                   <option>Christmas Eve Gift Delivery - $250+</option>
-                  <option>Christmas in July / Summer Santa</option>
                   <option>Not sure yet</option>
                 </select>
               </label>
@@ -529,7 +547,12 @@
   </main>
 
   <footer>
-    Miami Papa Noel | Premium bilingual Santa visits for Miami-Doral and nearby areas
+    <span class="footer-mark">
+      <img src="assets/christmas-tree-icon.svg" alt="">
+      Miami Papa Noel
+      <img src="assets/santa-hat-icon.svg" alt="">
+    </span>
+    <span class="footer-subline">Premium bilingual Santa visits for Miami-Doral and nearby areas</span>
   </footer>
 
   <script>
@@ -546,7 +569,7 @@
       const selectedPackage = new URLSearchParams(window.location.search).get("package");
       if (!selectedPackage) return;
       const select = document.getElementById("package");
-      const normalized = selectedPackage.toLowerCase().replace("mini", "home").replace("classic", "party").replace("christmas eve", "eve");
+      const normalized = selectedPackage.toLowerCase().replace("mini", "family").replace("home", "family").replace("classic", "event").replace("party", "event").replace("community", "event").replace("christmas eve", "eve");
       const match = Array.from(select.options).find((option) => option.textContent.toLowerCase().includes(normalized) || normalized.includes(option.textContent.toLowerCase().split(" ")[0]));
       if (match) select.value = match.value;
     }

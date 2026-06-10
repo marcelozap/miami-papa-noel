@@ -2,7 +2,7 @@
 
 These are suggested ranges. Adjust based on travel distance, date, time, and demand.
 
-## Private Family Visit
+## Family Visit
 
 Best for homes, birthdays, small family parties, and surprise visits.
 
@@ -12,9 +12,9 @@ Best for homes, birthdays, small family parties, and surprise visits.
 - Optional family-provided gift handoff.
 - Suggested public starting price: $125+.
 
-## Party Visit
+## Event Visit
 
-Best for larger family parties, restaurants, churches, and small business events.
+Best for larger family parties, restaurants, churches, small business events, schools, daycares, and community events.
 
 - 45-60 minutes.
 - Photos with guests.
@@ -22,24 +22,7 @@ Best for larger family parties, restaurants, churches, and small business events
 - Gift handoff if gifts are prepared and labeled.
 - Suggested public starting price: $225+.
 
-## Residential Community Event
-
-Best for apartment buildings, condos, HOAs, and clubhouses.
-
-- 1-2 hours.
-- Photo line with Santa.
-- Optional gift table or toy drive.
-- Works well with decorators, balloon artists, photographers, and elves.
-- Suggested public starting price: $375+.
-
-## Business Appearance
-
-Best for stores, offices, shopping plazas, restaurants, and client appreciation events.
-
-- 1-2 hours.
-- Photos with customers or employees.
-- Holiday brand activation.
-- Suggested public starting price: $375+.
+Larger residential communities, schools, business activations, and long events should be quoted higher after details are reviewed.
 
 ## Christmas Eve Gift Delivery
 

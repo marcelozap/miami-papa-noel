@@ -4,7 +4,7 @@ Do not publish exact prices until the family agrees. Use ranges privately until 
 
 ## Suggested Packages
 
-### Mini Visit
+### Family Visit
 
 Use for:
 
@@ -24,7 +24,7 @@ Suggested range:
 
 `Starting at $125`
 
-### Party Visit
+### Event Visit
 
 Use for:
 
@@ -32,6 +32,7 @@ Use for:
 - Restaurants
 - Churches
 - Small business events
+- Schools, daycares, HOAs, and community events
 
 Includes:
 
@@ -44,27 +45,7 @@ Suggested range:
 
 `Starting at $225`
 
-### Community Event
-
-Use for:
-
-- HOAs
-- Apartment communities
-- Schools
-- Daycares
-- Business events
-- Toy drives
-
-Includes:
-
-- 1-2 hours
-- Photo line
-- Guest interaction
-- Event support
-
-Suggested range:
-
-`Starting at $375`
+Large communities, schools, business activations, and long events can be quoted higher after details are reviewed.
 
 ### Christmas Eve Delivery
 
