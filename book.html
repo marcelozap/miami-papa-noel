@@ -476,9 +476,9 @@
   <main>
     <section class="hero">
       <div class="shell">
-          <p class="eyebrow hero-kicker"><img class="hero-tree" src="assets/christmas-tree-icon.svg" alt=""> Private visit request</p>
-        <h1>Request a private Miami Papa Noel visit.</h1>
-        <p>Share a few details about the celebration. We will reply with availability, pricing, and the best visit option.</p>
+          <p class="eyebrow hero-kicker"><img class="hero-tree" src="assets/christmas-tree-icon.svg" alt=""> Tell us what you need</p>
+        <h1>Let us know where Papa Noel should visit.</h1>
+        <p>Send the date, city, and type of celebration. We will reply with availability and help you choose the right visit.</p>
       </div>
     </section>
 
@@ -486,13 +486,13 @@
       <div class="shell grid">
         <aside class="card highlight-card">
           <p class="eyebrow">Visit Options</p>
-          <h2>Choose the closest fit.</h2>
+          <h2>Pick the visit that feels closest.</h2>
           <div class="quick-packages" aria-label="Private visit options">
             <div class="quick-package"><span>Family Visit</span><span>From $125</span></div>
             <div class="quick-package"><span>Event Visit</span><span>From $225</span></div>
             <div class="quick-package"><span>Christmas Eve</span><span>From $250</span></div>
           </div>
-          <div class="simple-note">Not sure which one fits? Choose "Not sure yet" and we will recommend the most appropriate option.</div>
+          <div class="simple-note">Not sure which one fits? Choose "Not sure yet" and we will help you decide.</div>
           <div class="summary">
             <div>Call/Text: 305-244-0360</div>
             <div>Email: bookings@miamipapanoel.com</div>
@@ -501,8 +501,8 @@
         </aside>
 
         <div class="card">
-          <p class="eyebrow">Event Details</p>
-          <h2>Share the event details.</h2>
+          <p class="eyebrow">Visit Details</p>
+          <h2>A few details are enough to start.</h2>
           <form id="booking-form">
             <div class="two">
               <label>Your Name
@@ -558,12 +558,12 @@
               <textarea id="gifts" name="gifts" placeholder="If Santa will hand out gifts, please tell us how many and if they will be labeled."></textarea>
             </label>
             <div class="actions">
-              <button type="button" id="build">Build Booking Message</button>
+              <button type="button" id="build">Create Text Message</button>
               <a class="button secondary" id="smsLink" href="sms:+13052440360">Text Request</a>
               <a class="button outline" id="emailLink" href="mailto:bookings@miamipapanoel.com">Email Request</a>
             </div>
           </form>
-          <p class="note">For fastest booking, send the generated message by text. You can add the exact address later if needed.</p>
+          <p class="note">For the fastest reply, send the text message. You can add the exact address later if needed.</p>
         </div>
       </div>
     </section>
@@ -571,16 +571,16 @@
     <section class="message-section">
       <div class="shell grid">
         <div>
-          <p class="eyebrow">Prepared Inquiry</p>
-          <h2>One polished message.</h2>
-          <p>This gives us everything needed to reply with availability, pricing, and reservation details.</p>
+          <p class="eyebrow">Ready to Send</p>
+          <h2>One simple message.</h2>
+          <p>This gives us what we need to reply with availability, pricing, and next steps.</p>
           <div class="actions">
             <a class="button" href="checkout.html">Back to Packages</a>
           </div>
         </div>
         <div>
-          <div class="message-box" id="message">Fill out the booking form and click "Build Booking Message."</div>
-          <p class="note">Booking is confirmed after availability, deposit, address, and event details are finalized.</p>
+          <div class="message-box" id="message">Fill out the form and click "Create Text Message."</div>
+          <p class="note">The visit is confirmed after availability, deposit, address, and details are finalized.</p>
         </div>
       </div>
     </section>
@@ -620,7 +620,7 @@
 
     function buildMessage() {
       const lines = [
-        "Hello Miami Papa Noel, I would like to request availability.",
+        "Hello Miami Papa Noel, I would like to request a visit.",
         "",
         "Name: " + value("name"),
         "Phone: " + value("phone"),
