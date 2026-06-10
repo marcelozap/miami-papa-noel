@@ -14,7 +14,7 @@
   <meta property="og:description" content="Private Santa visits, photos, toy drives, novenas, business events, community events, and Christmas Eve gift delivery in Miami-Doral.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://miamipapanoel.com/">
-  <meta property="og:image" content="https://miamipapanoel.com/assets/santa-family-event.jpg">
+  <meta property="og:image" content="https://miamipapanoel.com/assets/optimized/santa-family-event-1600.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
     {
@@ -162,7 +162,7 @@
       background:
         linear-gradient(90deg, rgba(23, 19, 19, .90) 0%, rgba(23, 19, 19, .62) 45%, rgba(23, 19, 19, .18) 100%),
         linear-gradient(180deg, rgba(23, 19, 19, .08) 0%, rgba(23, 19, 19, .74) 100%),
-        url("assets/santa-family-event.jpg") center / cover no-repeat;
+        url("assets/optimized/santa-family-event-1600.jpg") center / cover no-repeat;
     }
 
     .hero-grid {
@@ -486,7 +486,7 @@
       color: white;
       background:
         linear-gradient(90deg, rgba(95, 17, 27, .94), rgba(18, 63, 53, .84)),
-        url("assets/santa-pet-visit.jpg") center / cover no-repeat;
+        url("assets/optimized/santa-pet-visit-1600.jpg") center / cover no-repeat;
     }
 
     .summer-grid {
@@ -516,6 +516,88 @@
 
     .gallery-section {
       background: white;
+    }
+
+    .details-section {
+      background: var(--paper);
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .detail-panel {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 18px 44px rgba(52, 32, 22, .07);
+    }
+
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: var(--mist);
+      color: #493d38;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .spanish-panel {
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(95, 17, 27, .96), rgba(18, 63, 53, .92)),
+        url("assets/optimized/santa-photo-1-1600.jpg") center / cover no-repeat;
+    }
+
+    .spanish-panel .eyebrow,
+    .spanish-panel h2,
+    .spanish-panel .lead {
+      color: white;
+    }
+
+    .video-section {
+      color: white;
+      background: var(--charcoal);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .video-card {
+      min-height: 320px;
+      display: grid;
+      align-items: end;
+      padding: 24px;
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(23, 19, 19, .16), rgba(23, 19, 19, .86)),
+        var(--video-bg) center / cover no-repeat;
+      border: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .video-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 22px;
+    }
+
+    .video-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, .78);
+      font-weight: 600;
     }
 
     .gallery {
@@ -626,7 +708,7 @@
       color: white;
       background:
         linear-gradient(90deg, rgba(23, 19, 19, .88), rgba(95, 17, 27, .82)),
-        url("assets/santa-community-event.jpg") center / cover no-repeat;
+        url("assets/optimized/santa-community-event-1600.jpg") center / cover no-repeat;
     }
 
     .cta-panel {
@@ -653,6 +735,10 @@
       color: rgba(255, 255, 255, .82);
       background: var(--charcoal);
       text-align: center;
+    }
+
+    .mobile-sticky {
+      display: none;
     }
 
     .footer-mark {
@@ -696,6 +782,11 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .details-grid,
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
       .gallery {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -726,7 +817,7 @@
         padding: 104px 0 38px;
         background:
           linear-gradient(180deg, rgba(23, 19, 19, .18) 0%, rgba(23, 19, 19, .86) 100%),
-          url("assets/santa-family-event.jpg") center / cover no-repeat;
+          url("assets/optimized/santa-family-event-1600.jpg") center / cover no-repeat;
       }
 
       .hero-card {
@@ -754,6 +845,42 @@
 
       .button {
         width: 100%;
+      }
+
+      body {
+        padding-bottom: 72px;
+      }
+
+      .mobile-sticky {
+        position: fixed;
+        z-index: 30;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 10px 12px;
+        background: rgba(35, 27, 25, .94);
+        border-top: 1px solid rgba(255, 255, 255, .14);
+        backdrop-filter: blur(12px);
+      }
+
+      .mobile-sticky a {
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        color: white;
+        background: var(--velvet);
+        text-decoration: none;
+        font-weight: 900;
+      }
+
+      .mobile-sticky a:first-child {
+        color: #211607;
+        background: var(--gold);
       }
 
       .gallery img,
@@ -823,8 +950,8 @@
           <p class="lead">He has supported activities connected with Doral Club and the University of Miami Mailman Center for Child Development. The work matters most when it brings children comfort, wonder, and a memory their family can hold onto.</p>
         </div>
         <div class="mosaic">
-          <img src="assets/santa-photo-2.jpg" alt="Papa Noel seated beside a decorated Christmas tree">
-          <img src="assets/santa-photo-1.jpg" alt="Papa Noel posing for Christmas photos with guests">
+          <img src="assets/optimized/santa-photo-2-1600.jpg" alt="Papa Noel seated beside a decorated Christmas tree">
+          <img src="assets/optimized/santa-photo-1-1600.jpg" alt="Papa Noel posing for Christmas photos with guests">
         </div>
       </div>
     </section>
@@ -939,6 +1066,58 @@
       </div>
     </section>
 
+    <section class="details-section">
+      <div class="shell details-grid">
+        <article class="detail-panel spanish-panel">
+          <p class="eyebrow">Disponible en Español</p>
+          <h2>Una visita privada de Papa Noel para momentos inolvidables.</h2>
+          <p class="lead">Servicio bilingue para familias, escuelas, negocios, comunidades, donaciones de juguetes, novenas y entregas de regalos en Nochebuena.</p>
+          <div class="actions">
+            <a class="button" href="book.html">Solicitar disponibilidad</a>
+          </div>
+        </article>
+        <article class="detail-panel">
+          <p class="eyebrow">Included</p>
+          <h2>Everything needed for a polished visit.</h2>
+          <div class="chip-grid">
+            <span class="chip">Photos with Santa</span>
+            <span class="chip">Child greeting</span>
+            <span class="chip">Gift handoff</span>
+            <span class="chip">Story time option</span>
+            <span class="chip">Toy drive support</span>
+            <span class="chip">Bilingual interaction</span>
+          </div>
+          <p class="lead" style="margin-top: 20px;">Service areas include Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Video Moments</p>
+            <h2>See the warmth before you book.</h2>
+          </div>
+          <p>Short video previews can be shared with planners on request. Public clips will be added as family permissions are confirmed.</p>
+        </div>
+        <div class="video-grid">
+          <article class="video-card" style="--video-bg: url('assets/optimized/santa-family-event-1600.jpg');">
+            <div>
+              <strong>Private family moments</strong>
+              <p>Video available on request.</p>
+            </div>
+          </article>
+          <article class="video-card" style="--video-bg: url('assets/optimized/santa-community-event-1600.jpg');">
+            <div>
+              <strong>Community event moments</strong>
+              <p>Video available on request.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="gallery" class="gallery-section">
       <div class="shell">
         <div class="section-head">
@@ -949,21 +1128,21 @@
           <p>Use these moments to help families, businesses, and communities feel confident before they book.</p>
         </div>
         <div class="gallery">
-          <img src="assets/santa-family-event.jpg" alt="Papa Noel with a family at a Christmas event">
-          <img src="assets/santa-photo-2.jpg" alt="Papa Noel seated by a decorated Christmas tree">
-          <img src="assets/santa-gift-delivery.jpg" alt="Papa Noel handing out gifts at a children event">
-          <img src="assets/santa-community-event.jpg" alt="Papa Noel with children and entertainers at a community event">
-          <img src="assets/santa-pet-visit.jpg" alt="Papa Noel with a family dog during Christmas">
-          <img src="assets/extra/20231214_114914.jpg" alt="Papa Noel at a holiday appearance">
-          <img src="assets/extra/20231210_171256.jpg" alt="Papa Noel at a Christmas celebration">
-          <img src="assets/testimonial-instagram.jpg" alt="Community testimonial for a toy drive">
+          <img src="assets/optimized/santa-family-event-1600.jpg" alt="Papa Noel with a family at a Christmas event">
+          <img src="assets/optimized/santa-photo-2-1600.jpg" alt="Papa Noel seated by a decorated Christmas tree">
+          <img src="assets/optimized/santa-gift-delivery-1400.jpg" alt="Papa Noel handing out gifts at a children event">
+          <img src="assets/optimized/santa-community-event-1600.jpg" alt="Papa Noel with children and entertainers at a community event">
+          <img src="assets/optimized/santa-pet-visit-1600.jpg" alt="Papa Noel with a family dog during Christmas">
+          <img src="assets/optimized/extra-20231214-114914-1200.jpg" alt="Papa Noel at a holiday appearance">
+          <img src="assets/optimized/extra-20231210-171256-1200.jpg" alt="Papa Noel at a Christmas celebration">
+          <img src="assets/optimized/testimonial-instagram-1000.jpg" alt="Community testimonial for a toy drive">
         </div>
       </div>
     </section>
 
     <section class="proof">
       <div class="shell proof-grid">
-        <img class="feature-img" src="assets/santa-card.jpg" alt="Printed Christmas photo card featuring Papa Noel" style="aspect-ratio: 4 / 3;">
+        <img class="feature-img" src="assets/optimized/santa-card-1400.jpg" alt="Printed Christmas photo card featuring Papa Noel" style="aspect-ratio: 4 / 3;">
         <div class="quote">
           <blockquote>"Cada donacion, cada juguete, cada hora de ayuda es un mundo para estos ninos."</blockquote>
           <p>Community work is one of the reasons Miami Papa Noel continues this tradition every year.</p>
@@ -1057,5 +1236,9 @@
     </span>
     <span class="footer-subline">Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events</span>
   </footer>
+  <div class="mobile-sticky" aria-label="Quick booking actions">
+    <a href="tel:+13052440360">Call / Text</a>
+    <a href="book.html">Request Visit</a>
+  </div>
 </body>
 </html>

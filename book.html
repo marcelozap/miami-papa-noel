@@ -14,7 +14,7 @@
   <meta property="og:description" content="Request availability for a private bilingual Santa visit in Miami-Doral and nearby areas.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://miamipapanoel.com/book.html">
-  <meta property="og:image" content="https://miamipapanoel.com/assets/santa-community-event.jpg">
+  <meta property="og:image" content="https://miamipapanoel.com/assets/optimized/santa-community-event-1600.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <style>
     :root {
@@ -112,7 +112,7 @@
       color: white;
       background:
         linear-gradient(90deg, rgba(23, 19, 19, .92), rgba(18, 63, 53, .72)),
-        url("assets/santa-photo-2.jpg") center / cover no-repeat;
+        url("assets/optimized/santa-photo-2-1600.jpg") center / cover no-repeat;
     }
 
     .hero-kicker {
@@ -185,7 +185,7 @@
       color: white;
       background:
         linear-gradient(180deg, rgba(95, 17, 27, .88), rgba(35, 27, 25, .88)),
-        url("assets/santa-card.jpg") center / cover no-repeat;
+        url("assets/optimized/santa-card-1400.jpg") center / cover no-repeat;
       border-color: rgba(255, 255, 255, .2);
     }
 
@@ -391,6 +391,10 @@
       font-size: 13px;
     }
 
+    .mobile-sticky {
+      display: none;
+    }
+
     @media (max-width: 860px) {
       .topbar nav {
         display: none;
@@ -403,6 +407,42 @@
 
       .actions {
         display: grid;
+      }
+
+      body {
+        padding-bottom: 72px;
+      }
+
+      .mobile-sticky {
+        position: fixed;
+        z-index: 30;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 10px 12px;
+        background: rgba(35, 27, 25, .94);
+        border-top: 1px solid rgba(255, 255, 255, .14);
+        backdrop-filter: blur(12px);
+      }
+
+      .mobile-sticky a {
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        color: white;
+        background: var(--velvet);
+        text-decoration: none;
+        font-weight: 900;
+      }
+
+      .mobile-sticky a:first-child {
+        color: #211607;
+        background: var(--gold);
       }
     }
 
@@ -554,6 +594,10 @@
     </span>
     <span class="footer-subline">Private bilingual Santa visits for Miami-Doral and nearby areas</span>
   </footer>
+  <div class="mobile-sticky" aria-label="Quick booking actions">
+    <a href="tel:+13052440360">Call / Text</a>
+    <a href="#booking-form">Event Details</a>
+  </div>
 
   <script>
     const fields = ["name", "phone", "email", "date", "time", "city", "guests", "package", "eventType", "details", "gifts"];
