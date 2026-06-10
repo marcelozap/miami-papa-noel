@@ -12,6 +12,10 @@ Send school, daycare, preschool, and camp leads here:
 
 `https://miamipapanoel.com/schools-daycares`
 
+Send HOA, apartment, condo, clubhouse, and resident event leads here:
+
+`https://miamipapanoel.com/hoa-apartments`
+
 ## Best Lead Types
 
 Start with people who already serve families, children, communities, or holiday events.
@@ -149,7 +153,7 @@ Lead with: lobby photos, resident holiday party, clubhouse visit, gift table sup
 
 Best package: Event Visit.
 
-Send: `https://miamipapanoel.com/events`
+Send: `https://miamipapanoel.com/hoa-apartments`
 
 ### Family Photographer
 

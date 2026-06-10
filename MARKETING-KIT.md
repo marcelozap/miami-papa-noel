@@ -15,6 +15,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - Christmas Eve page: `https://miamipapanoel.com/christmas-eve`
 - Summer Santa page: `https://miamipapanoel.com/summer-santa`
 - Schools and daycares page: `https://miamipapanoel.com/schools-daycares`
+- HOAs and apartments page: `https://miamipapanoel.com/hoa-apartments`
 - Booking form: `https://miamipapanoel.com/book`
 
 ## Files
@@ -25,6 +26,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
 - `summer-santa.html` - focused Summer Santa and Christmas-in-July page for off-season bookings.
 - `schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
+- `hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
 - `book.html` - booking request form.
 - `campaign-plan.md` - what to do each month and who to target.
 - `packages-and-pricing.md` - service menu and suggested pricing structure.

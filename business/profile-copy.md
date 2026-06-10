@@ -48,6 +48,10 @@ Schools and daycares:
 
 `https://miamipapanoel.com/schools-daycares`
 
+HOAs and apartments:
+
+`https://miamipapanoel.com/hoa-apartments`
+
 Direct booking form:
 
 `https://miamipapanoel.com/book`

@@ -15,6 +15,7 @@ Events: https://miamipapanoel.com/events
 Christmas Eve: https://miamipapanoel.com/christmas-eve
 Summer Santa: https://miamipapanoel.com/summer-santa
 Schools/Daycares: https://miamipapanoel.com/schools-daycares
+HOAs/Apartments: https://miamipapanoel.com/hoa-apartments
 
 ## Post 1 - Spanish
 
@@ -31,6 +32,7 @@ Eventos: https://miamipapanoel.com/events
 Nochebuena: https://miamipapanoel.com/christmas-eve
 Santa en Verano: https://miamipapanoel.com/summer-santa
 Escuelas/Daycares: https://miamipapanoel.com/schools-daycares
+HOAs/Apartamentos: https://miamipapanoel.com/hoa-apartments
 
 ## Post 2 - Christmas in July
 
@@ -62,6 +64,15 @@ Miami Papa Noel offers warm bilingual visits with photos, classroom greetings, s
 
 Call/Text: 305-244-0360
 School visit info: https://miamipapanoel.com/schools-daycares
+
+## Post 3C - HOAs and Apartment Communities
+
+Planning a resident holiday party, clubhouse event, lobby photo day, or community toy drive?
+
+Miami Papa Noel brings a warm bilingual Santa visit for HOAs, apartments, condos, clubhouses, and residential communities across Miami-Doral and nearby areas.
+
+Call/Text: 305-244-0360
+Community visit info: https://miamipapanoel.com/hoa-apartments
 
 ## Post 4 - Christmas Eve
 
