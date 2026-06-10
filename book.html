@@ -107,6 +107,38 @@
       text-decoration: none;
     }
 
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .language-toggle {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .10);
+    }
+
+    .language-toggle button {
+      min-width: 42px;
+      min-height: 32px;
+      border: 0;
+      border-radius: 999px;
+      color: rgba(255, 255, 255, .82);
+      background: transparent;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .language-toggle button.is-active {
+      color: #211607;
+      background: var(--gold);
+    }
+
     .hero {
       padding: 78px 0;
       color: white;
@@ -400,6 +432,10 @@
         display: none;
       }
 
+      .top-actions {
+        gap: 10px;
+      }
+
       .grid,
       .two {
         grid-template-columns: 1fr;
@@ -462,108 +498,114 @@
     <a class="brand" href="/">
       <span class="brand-text">
         <strong>Miami Papa Noel</strong>
-        <span>Private Request</span>
+        <span data-i18n="brand.subtitle">Visit Request</span>
       </span>
       <img class="brand-hat" src="assets/santa-hat-icon.svg" alt="">
     </a>
-    <nav aria-label="Booking navigation">
-      <a href="/">Website</a>
-      <a href="checkout.html">Packages</a>
-      <a href="tel:+13052440360">Call</a>
-    </nav>
+    <div class="top-actions">
+      <nav aria-label="Booking navigation">
+        <a href="/" data-i18n="nav.website">Website</a>
+        <a href="checkout.html" data-i18n="nav.options">Options</a>
+        <a href="tel:+13052440360" data-i18n="nav.call">Call</a>
+      </nav>
+      <div class="language-toggle" aria-label="Choose language">
+        <button type="button" class="is-active" data-lang="en">EN</button>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+    </div>
   </header>
 
   <main>
     <section class="hero">
       <div class="shell">
-          <p class="eyebrow hero-kicker"><img class="hero-tree" src="assets/christmas-tree-icon.svg" alt=""> Tell us what you need</p>
-        <h1>Let us know where Papa Noel should visit.</h1>
-        <p>Send the date, city, and type of celebration. We will reply with availability and help you choose the right visit.</p>
+          <p class="eyebrow hero-kicker"><img class="hero-tree" src="assets/christmas-tree-icon.svg" alt=""> <span data-i18n="hero.eyebrow">Tell us what you need</span></p>
+        <h1 data-i18n="hero.title">Let us know where Papa Noel should visit.</h1>
+        <p data-i18n="hero.copy">Send the date, city, and type of celebration. We will reply with availability and help you choose the right visit.</p>
       </div>
     </section>
 
     <section>
       <div class="shell grid">
         <aside class="card highlight-card">
-          <p class="eyebrow">Visit Options</p>
-          <h2>Pick the visit that feels closest.</h2>
+          <p class="eyebrow" data-i18n="options.eyebrow">Visit Options</p>
+          <h2 data-i18n="options.title">Pick the visit that feels closest.</h2>
           <div class="quick-packages" aria-label="Private visit options">
-            <div class="quick-package"><span>Family Visit</span><span>From $125</span></div>
-            <div class="quick-package"><span>Event Visit</span><span>From $225</span></div>
-            <div class="quick-package"><span>Christmas Eve</span><span>From $250</span></div>
+            <div class="quick-package"><span data-i18n="package.family">Family Visit</span><span data-i18n="price.family">From $125</span></div>
+            <div class="quick-package"><span data-i18n="package.event">Event Visit</span><span data-i18n="price.event">From $225</span></div>
+            <div class="quick-package"><span data-i18n="package.eve">Christmas Eve</span><span data-i18n="price.eve">From $250</span></div>
           </div>
-          <div class="simple-note">Not sure which one fits? Choose "Not sure yet" and we will help you decide.</div>
+          <div class="simple-note" data-i18n="options.note">Not sure which one fits? Choose "Not sure yet" and we will help you decide.</div>
           <div class="summary">
-            <div>Call/Text: 305-244-0360</div>
+            <div><span data-i18n="summary.phone">Call/Text</span>: 305-244-0360</div>
             <div>Email: bookings@miamipapanoel.com</div>
             <div>Instagram: @miamipapanoel</div>
           </div>
         </aside>
 
         <div class="card">
-          <p class="eyebrow">Visit Details</p>
-          <h2>A few details are enough to start.</h2>
+          <p class="eyebrow" data-i18n="form.eyebrow">Visit Details</p>
+          <h2 data-i18n="form.title">A few details are enough to start.</h2>
           <form id="booking-form">
             <div class="two">
-              <label>Your Name
+              <label><span data-i18n="field.name">Your Name</span>
                 <input id="name" name="name" autocomplete="name" required>
               </label>
-              <label>Phone
+              <label><span data-i18n="field.phone">Phone</span>
                 <input id="phone" name="phone" autocomplete="tel" required>
               </label>
             </div>
-            <label>Email
+            <label><span data-i18n="field.email">Email</span>
               <input id="email" name="email" type="email" autocomplete="email">
             </label>
             <div class="two">
-              <label>Event Date
+              <label><span data-i18n="field.date">Event Date</span>
                 <input id="date" name="date" type="date" required>
               </label>
-              <label>Start Time
+              <label><span data-i18n="field.time">Start Time</span>
                 <input id="time" name="time" type="time">
               </label>
             </div>
             <div class="two">
-              <label>City / Area
-                <input id="city" name="city" placeholder="Doral, Miami Lakes, Kendall..." required>
+              <label><span data-i18n="field.city">City / Area</span>
+                <input id="city" name="city" placeholder="Doral, Miami Lakes, Kendall..." data-i18n-placeholder="placeholder.city" required>
               </label>
-              <label>Estimated Guests
-                <input id="guests" name="guests" placeholder="Example: 25 children, 40 adults">
+              <label><span data-i18n="field.guests">Estimated Guests</span>
+                <input id="guests" name="guests" placeholder="Example: 25 children, 40 adults" data-i18n-placeholder="placeholder.guests">
               </label>
             </div>
             <div class="two">
-              <label>Visit Option
+              <label><span data-i18n="field.package">Visit Option</span>
                 <select id="package" name="package">
-                  <option>Family Visit - from $125</option>
-                  <option>Event Visit - from $225</option>
-                  <option>Christmas Eve Gift Delivery - from $250</option>
-                  <option>Not sure yet</option>
+                  <option value="Family Visit" data-i18n="select.family">Family Visit - from $125</option>
+                  <option value="Event Visit" data-i18n="select.event">Event Visit - from $225</option>
+                  <option value="Christmas Eve" data-i18n="select.eve">Christmas Eve Gift Delivery - from $250</option>
+                  <option value="Not sure yet" data-i18n="select.unsure">Not sure yet</option>
                 </select>
               </label>
-              <label>Celebration Type
+              <label><span data-i18n="field.eventType">Celebration Type</span>
                 <select id="eventType" name="eventType">
-                  <option>Family / home</option>
-                  <option>School / daycare</option>
-                  <option>Business / community</option>
-                  <option>Christmas Eve gifts</option>
-                  <option>Nonprofit / toy drive</option>
-                  <option>Other / not sure</option>
+                  <option value="Family / home" data-i18n="type.family">Family / home</option>
+                  <option value="School / daycare" data-i18n="type.school">School / daycare</option>
+                  <option value="Business / community" data-i18n="type.business">Business / community</option>
+                  <option value="Christmas Eve gifts" data-i18n="type.eve">Christmas Eve gifts</option>
+                  <option value="Nonprofit / toy drive" data-i18n="type.nonprofit">Nonprofit / toy drive</option>
+                  <option value="Other / not sure" data-i18n="type.other">Other / not sure</option>
                 </select>
               </label>
             </div>
-            <label>Tell us about the event
-              <textarea id="details" name="details" placeholder="Example: family party, photos with children, Santa handing out gifts, school visit, toy drive, etc."></textarea>
+            <label><span data-i18n="field.details">Tell us about the event</span>
+              <textarea id="details" name="details" placeholder="Example: family party, photos with children, Santa handing out gifts, school visit, toy drive, etc." data-i18n-placeholder="placeholder.details"></textarea>
             </label>
-            <label>Gift Details
-              <textarea id="gifts" name="gifts" placeholder="If Santa will hand out gifts, please tell us how many and if they will be labeled."></textarea>
+            <label><span data-i18n="field.gifts">Gift Details</span>
+              <textarea id="gifts" name="gifts" placeholder="If Santa will hand out gifts, please tell us how many and if they will be labeled." data-i18n-placeholder="placeholder.gifts"></textarea>
             </label>
             <div class="actions">
-              <button type="button" id="build">Create Text Message</button>
-              <a class="button secondary" id="smsLink" href="sms:+13052440360">Text Request</a>
-              <a class="button outline" id="emailLink" href="mailto:bookings@miamipapanoel.com">Email Request</a>
+              <button type="button" id="build" data-i18n="form.build">Create Text Message</button>
+              <a class="button secondary" id="smsLink" href="sms:+13052440360" data-i18n="form.text">Text Request</a>
+              <a class="button outline" id="emailLink" href="mailto:bookings@miamipapanoel.com" data-i18n="form.email">Email Request</a>
             </div>
           </form>
-          <p class="note">For the fastest reply, send the text message. You can add the exact address later if needed.</p>
+          <p class="note" data-i18n="form.note">For the fastest reply, send the text message. You can add the exact address later if needed.</p>
         </div>
       </div>
     </section>
@@ -571,16 +613,16 @@
     <section class="message-section">
       <div class="shell grid">
         <div>
-          <p class="eyebrow">Ready to Send</p>
-          <h2>One simple message.</h2>
-          <p>This gives us what we need to reply with availability, pricing, and next steps.</p>
+          <p class="eyebrow" data-i18n="message.eyebrow">Ready to Send</p>
+          <h2 data-i18n="message.title">One simple message.</h2>
+          <p data-i18n="message.copy">This gives us what we need to reply with availability, pricing, and next steps.</p>
           <div class="actions">
-            <a class="button" href="checkout.html">Back to Packages</a>
+            <a class="button" href="checkout.html" data-i18n="message.back">Back to Options</a>
           </div>
         </div>
         <div>
-          <div class="message-box" id="message">Fill out the form and click "Create Text Message."</div>
-          <p class="note">The visit is confirmed after availability, deposit, address, and details are finalized.</p>
+          <div class="message-box" id="message" data-empty-en="Fill out the form and click &quot;Create Text Message.&quot;" data-empty-es="Llena el formulario y toca &quot;Crear Mensaje.&quot;">Fill out the form and click "Create Text Message."</div>
+          <p class="note" data-i18n="message.note">The visit is confirmed after availability, deposit, address, and details are finalized.</p>
         </div>
       </div>
     </section>
@@ -595,8 +637,8 @@
     <span class="footer-subline">Private bilingual Santa visits for Miami-Doral and nearby areas</span>
   </footer>
   <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="tel:+13052440360">Call / Text</a>
-    <a href="#booking-form">Event Details</a>
+    <a href="tel:+13052440360" data-i18n="sticky.call">Call / Text</a>
+    <a href="#booking-form" data-i18n="sticky.details">Visit Details</a>
   </div>
 
   <script>
@@ -604,51 +646,243 @@
     const message = document.getElementById("message");
     const smsLink = document.getElementById("smsLink");
     const emailLink = document.getElementById("emailLink");
+    let currentLanguage = localStorage.getItem("miamiPapaNoelLanguage") || "en";
+
+    const translations = {
+      en: {
+        "brand.subtitle": "Visit Request",
+        "nav.website": "Website",
+        "nav.options": "Options",
+        "nav.call": "Call",
+        "hero.eyebrow": "Tell us what you need",
+        "hero.title": "Let us know where Papa Noel should visit.",
+        "hero.copy": "Send the date, city, and type of celebration. We will reply with availability and help you choose the right visit.",
+        "options.eyebrow": "Visit Options",
+        "options.title": "Pick the visit that feels closest.",
+        "package.family": "Family Visit",
+        "package.event": "Event Visit",
+        "package.eve": "Christmas Eve",
+        "price.family": "From $125",
+        "price.event": "From $225",
+        "price.eve": "From $250",
+        "options.note": "Not sure which one fits? Choose \"Not sure yet\" and we will help you decide.",
+        "summary.phone": "Call/Text",
+        "form.eyebrow": "Visit Details",
+        "form.title": "A few details are enough to start.",
+        "field.name": "Your Name",
+        "field.phone": "Phone",
+        "field.email": "Email",
+        "field.date": "Event Date",
+        "field.time": "Start Time",
+        "field.city": "City / Area",
+        "field.guests": "Estimated Guests",
+        "field.package": "Visit Option",
+        "field.eventType": "Celebration Type",
+        "field.details": "Tell us about the event",
+        "field.gifts": "Gift Details",
+        "select.family": "Family Visit - from $125",
+        "select.event": "Event Visit - from $225",
+        "select.eve": "Christmas Eve Gift Delivery - from $250",
+        "select.unsure": "Not sure yet",
+        "type.family": "Family / home",
+        "type.school": "School / daycare",
+        "type.business": "Business / community",
+        "type.eve": "Christmas Eve gifts",
+        "type.nonprofit": "Nonprofit / toy drive",
+        "type.other": "Other / not sure",
+        "placeholder.city": "Doral, Miami Lakes, Kendall...",
+        "placeholder.guests": "Example: 25 children, 40 adults",
+        "placeholder.details": "Example: family party, photos with children, Santa handing out gifts, school visit, toy drive, etc.",
+        "placeholder.gifts": "If Santa will hand out gifts, please tell us how many and if they will be labeled.",
+        "form.build": "Create Text Message",
+        "form.text": "Text Request",
+        "form.email": "Email Request",
+        "form.note": "For the fastest reply, send the text message. You can add the exact address later if needed.",
+        "message.eyebrow": "Ready to Send",
+        "message.title": "One simple message.",
+        "message.copy": "This gives us what we need to reply with availability, pricing, and next steps.",
+        "message.back": "Back to Options",
+        "message.note": "The visit is confirmed after availability, deposit, address, and details are finalized.",
+        "sticky.call": "Call / Text",
+        "sticky.details": "Visit Details"
+      },
+      es: {
+        "brand.subtitle": "Solicitud de Visita",
+        "nav.website": "Inicio",
+        "nav.options": "Opciones",
+        "nav.call": "Llamar",
+        "hero.eyebrow": "Cuéntanos qué necesitas",
+        "hero.title": "Dinos dónde debe visitar Papa Noel.",
+        "hero.copy": "Envía la fecha, ciudad y tipo de celebración. Te responderemos con disponibilidad y te ayudamos a escoger la visita correcta.",
+        "options.eyebrow": "Opciones de Visita",
+        "options.title": "Escoge la visita que más se parezca.",
+        "package.family": "Visita Familiar",
+        "package.event": "Visita para Evento",
+        "package.eve": "Nochebuena",
+        "price.family": "Desde $125",
+        "price.event": "Desde $225",
+        "price.eve": "Desde $250",
+        "options.note": "¿No estás seguro? Escoge \"No estoy seguro\" y te ayudamos a decidir.",
+        "summary.phone": "Llamar/Texto",
+        "form.eyebrow": "Detalles de la Visita",
+        "form.title": "Con pocos detalles podemos empezar.",
+        "field.name": "Tu Nombre",
+        "field.phone": "Teléfono",
+        "field.email": "Correo",
+        "field.date": "Fecha del Evento",
+        "field.time": "Hora",
+        "field.city": "Ciudad / Área",
+        "field.guests": "Invitados Aproximados",
+        "field.package": "Opción de Visita",
+        "field.eventType": "Tipo de Celebración",
+        "field.details": "Cuéntanos sobre el evento",
+        "field.gifts": "Detalles de Regalos",
+        "select.family": "Visita familiar - desde $125",
+        "select.event": "Visita para evento - desde $225",
+        "select.eve": "Entrega de regalos en Nochebuena - desde $250",
+        "select.unsure": "No estoy seguro",
+        "type.family": "Familia / casa",
+        "type.school": "Escuela / daycare",
+        "type.business": "Negocio / comunidad",
+        "type.eve": "Regalos de Nochebuena",
+        "type.nonprofit": "Sin fines de lucro / donación",
+        "type.other": "Otro / no estoy seguro",
+        "placeholder.city": "Doral, Miami Lakes, Kendall...",
+        "placeholder.guests": "Ejemplo: 25 niños, 40 adultos",
+        "placeholder.details": "Ejemplo: fiesta familiar, fotos con niños, Santa entregando regalos, visita escolar, donación de juguetes, etc.",
+        "placeholder.gifts": "Si Santa entregará regalos, dinos cuántos son y si estarán marcados con nombres.",
+        "form.build": "Crear Mensaje",
+        "form.text": "Enviar Texto",
+        "form.email": "Enviar Correo",
+        "form.note": "Para una respuesta más rápida, envía el mensaje de texto. Puedes agregar la dirección exacta después.",
+        "message.eyebrow": "Listo para Enviar",
+        "message.title": "Un mensaje sencillo.",
+        "message.copy": "Esto nos da lo necesario para responder con disponibilidad, precio y próximos pasos.",
+        "message.back": "Volver a Opciones",
+        "message.note": "La visita queda confirmada después de disponibilidad, depósito, dirección y detalles finales.",
+        "sticky.call": "Llamar / Texto",
+        "sticky.details": "Detalles"
+      }
+    };
+
+    const messageLabels = {
+      en: {
+        first: "Hello Miami Papa Noel, I would like to request a visit.",
+        name: "Name",
+        phone: "Phone",
+        email: "Email",
+        date: "Event date",
+        time: "Start time",
+        city: "City / area",
+        guests: "Estimated guests",
+        package: "Visit option",
+        eventType: "Celebration type",
+        details: "Event notes",
+        gifts: "Gift details",
+        subject: "Miami Papa Noel visit request"
+      },
+      es: {
+        first: "Hola Miami Papa Noel, me gustaría solicitar una visita.",
+        name: "Nombre",
+        phone: "Teléfono",
+        email: "Correo",
+        date: "Fecha del evento",
+        time: "Hora",
+        city: "Ciudad / área",
+        guests: "Invitados aproximados",
+        package: "Opción de visita",
+        eventType: "Tipo de celebración",
+        details: "Notas del evento",
+        gifts: "Detalles de regalos",
+        subject: "Solicitud de visita Miami Papa Noel"
+      }
+    };
 
     function value(id) {
       return document.getElementById(id).value.trim();
+    }
+
+    function displayValue(id) {
+      const field = document.getElementById(id);
+      if (field.tagName === "SELECT") {
+        return field.options[field.selectedIndex]?.textContent.trim() || "";
+      }
+      return field.value.trim();
+    }
+
+    function setLanguage(lang) {
+      const dictionary = translations[lang] || translations.en;
+      currentLanguage = dictionary === translations.es ? "es" : "en";
+      document.documentElement.lang = currentLanguage;
+      document.querySelectorAll("[data-i18n]").forEach((item) => {
+        const key = item.getAttribute("data-i18n");
+        if (dictionary[key]) item.textContent = dictionary[key];
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((item) => {
+        const key = item.getAttribute("data-i18n-placeholder");
+        if (dictionary[key]) item.setAttribute("placeholder", dictionary[key]);
+      });
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        const isActive = button.getAttribute("data-lang") === currentLanguage;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+      localStorage.setItem("miamiPapaNoelLanguage", currentLanguage);
+      buildMessage();
     }
 
     function applyPackageFromUrl() {
       const selectedPackage = new URLSearchParams(window.location.search).get("package");
       if (!selectedPackage) return;
       const select = document.getElementById("package");
-      const normalized = selectedPackage.toLowerCase().replace("mini", "family").replace("home", "family").replace("classic", "event").replace("party", "event").replace("community", "event").replace("christmas eve", "eve");
-      const match = Array.from(select.options).find((option) => option.textContent.toLowerCase().includes(normalized) || normalized.includes(option.textContent.toLowerCase().split(" ")[0]));
+      const normalized = selectedPackage.toLowerCase();
+      let target = "Not sure yet";
+      if (normalized.includes("christmas") || normalized.includes("nochebuena")) {
+        target = "Christmas Eve";
+      } else if (normalized.includes("family") || normalized.includes("home") || normalized.includes("famil")) {
+        target = "Family Visit";
+      } else if (normalized.includes("event") || normalized.includes("party") || normalized.includes("community") || normalized.includes("school") || normalized.includes("business")) {
+        target = "Event Visit";
+      }
+      const match = Array.from(select.options).find((option) => option.value === target);
       if (match) select.value = match.value;
     }
 
     function buildMessage() {
+      const labels = messageLabels[currentLanguage] || messageLabels.en;
       const lines = [
-        "Hello Miami Papa Noel, I would like to request a visit.",
+        labels.first,
         "",
-        "Name: " + value("name"),
-        "Phone: " + value("phone"),
-        "Email: " + value("email"),
-        "Event date: " + value("date"),
-        "Start time: " + value("time"),
-        "City / area: " + value("city"),
-        "Estimated guests: " + value("guests"),
-        "Visit option: " + value("package"),
-        "Celebration type: " + value("eventType"),
+        labels.name + ": " + value("name"),
+        labels.phone + ": " + value("phone"),
+        labels.email + ": " + value("email"),
+        labels.date + ": " + value("date"),
+        labels.time + ": " + value("time"),
+        labels.city + ": " + value("city"),
+        labels.guests + ": " + value("guests"),
+        labels.package + ": " + displayValue("package"),
+        labels.eventType + ": " + displayValue("eventType"),
         "",
-        "Event notes:",
+        labels.details + ":",
         value("details"),
         "",
-        "Gift details:",
+        labels.gifts + ":",
         value("gifts")
       ];
 
       const text = lines.join("\n");
       message.textContent = text;
       smsLink.href = "sms:+13052440360?&body=" + encodeURIComponent(text);
-      emailLink.href = "mailto:bookings@miamipapanoel.com?subject=" + encodeURIComponent("Miami Papa Noel private visit request") + "&body=" + encodeURIComponent(text);
+      emailLink.href = "mailto:bookings@miamipapanoel.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
     }
 
     document.getElementById("build").addEventListener("click", buildMessage);
     fields.forEach((id) => document.getElementById(id).addEventListener("change", buildMessage));
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.getAttribute("data-lang")));
+    });
     applyPackageFromUrl();
-    buildMessage();
+    setLanguage(currentLanguage);
   </script>
 </body>
 </html>

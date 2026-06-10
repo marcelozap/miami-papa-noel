@@ -107,6 +107,38 @@
       text-decoration: none;
     }
 
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .language-toggle {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .10);
+    }
+
+    .language-toggle button {
+      min-width: 42px;
+      min-height: 32px;
+      border: 0;
+      border-radius: 999px;
+      color: rgba(255, 255, 255, .82);
+      background: transparent;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .language-toggle button.is-active {
+      color: #211607;
+      background: var(--gold);
+    }
+
     .hero {
       padding: 84px 0;
       color: white;
@@ -359,6 +391,10 @@
         display: none;
       }
 
+      .top-actions {
+        gap: 10px;
+      }
+
       .section-head {
         display: block;
       }
@@ -415,23 +451,29 @@
     <a class="brand" href="/">
       <span class="brand-text">
         <strong>Miami Papa Noel</strong>
-        <span>Private Visit Options</span>
+        <span data-i18n="brand.subtitle">Visit Options</span>
       </span>
       <img class="brand-hat" src="assets/santa-hat-icon.svg" alt="">
     </a>
-    <nav aria-label="Checkout navigation">
-      <a href="/">Website</a>
-      <a href="book.html">Book</a>
-      <a href="tel:+13052440360">Call</a>
-    </nav>
+    <div class="top-actions">
+      <nav aria-label="Checkout navigation">
+        <a href="/" data-i18n="nav.website">Website</a>
+        <a href="book.html" data-i18n="nav.book">Book</a>
+        <a href="tel:+13052440360" data-i18n="nav.call">Call</a>
+      </nav>
+      <div class="language-toggle" aria-label="Choose language">
+        <button type="button" class="is-active" data-lang="en">EN</button>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+    </div>
   </header>
 
   <main>
     <section class="hero">
       <div class="shell">
-        <p class="eyebrow">Choose your visit</p>
-        <h1>Pick the Papa Noel visit that feels right.</h1>
-        <p>Start with the closest option. We will confirm availability, final price, and next steps after you send the details.</p>
+        <p class="eyebrow" data-i18n="hero.eyebrow">Choose your visit</p>
+        <h1 data-i18n="hero.title">Pick the Papa Noel visit that feels right.</h1>
+        <p data-i18n="hero.copy">Start with the closest option. We will confirm availability, final price, and next steps after you send the details.</p>
       </div>
     </section>
 
@@ -439,80 +481,80 @@
       <div class="shell">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Starting Prices</p>
-            <h2>Three simple ways to bring Papa Noel to your celebration.</h2>
+            <p class="eyebrow" data-i18n="prices.eyebrow">Starting Prices</p>
+            <h2 data-i18n="prices.title">Three simple ways to bring Papa Noel to your celebration.</h2>
           </div>
-          <p>These are starting prices. Final pricing depends on the date, location, visit length, guest count, and travel.</p>
+          <p data-i18n="prices.copy">These are starting prices. Final pricing depends on the date, location, visit length, guest count, and travel.</p>
         </div>
         <div class="pricing-grid">
           <article class="price-card">
-            <div class="badge">Family</div>
-            <h3>Family Visit</h3>
-            <div class="price"><em>From</em><strong>$125</strong><span>20-30 minutes</span></div>
+            <div class="badge" data-i18n="badge.family">Family</div>
+            <h3 data-i18n="package.family">Family Visit</h3>
+            <div class="price"><em data-i18n="price.from">From</em><strong>$125</strong><span>20-30 minutes</span></div>
             <ul>
-              <li>Photos with Santa</li>
-              <li>Short child greeting</li>
-              <li>Optional gift handoff</li>
-              <li>Best for intimate family moments</li>
+              <li data-i18n="family.one">Photos with Santa</li>
+              <li data-i18n="family.two">Short child greeting</li>
+              <li data-i18n="family.three">Optional gift handoff</li>
+              <li data-i18n="family.four">Best for intimate family moments</li>
             </ul>
-            <a class="button dark" href="book.html?package=Family%20Visit">Ask About Family Visit</a>
+            <a class="button dark" href="book.html?package=Family%20Visit" data-i18n="cta.family">Ask About Family Visit</a>
           </article>
           <article class="price-card featured">
-            <div class="badge">Most Popular</div>
-            <h3>Event Visit</h3>
-            <div class="price"><em>From</em><strong>$225</strong><span>45-60 minutes</span></div>
+            <div class="badge" data-i18n="badge.popular">Most Popular</div>
+            <h3 data-i18n="package.event">Event Visit</h3>
+            <div class="price"><em data-i18n="price.from">From</em><strong>$225</strong><span>45-60 minutes</span></div>
             <ul>
-              <li>Parties, schools, or businesses</li>
-              <li>Photos and greetings</li>
-              <li>Gift table support</li>
-              <li>Extended appearances available</li>
+              <li data-i18n="event.one">Parties, schools, or businesses</li>
+              <li data-i18n="event.two">Photos and greetings</li>
+              <li data-i18n="event.three">Gift table support</li>
+              <li data-i18n="event.four">Extended appearances available</li>
             </ul>
-            <a class="button" href="book.html?package=Event%20Visit">Ask About Event Visit</a>
+            <a class="button" href="book.html?package=Event%20Visit" data-i18n="cta.event">Ask About Event Visit</a>
           </article>
           <article class="price-card">
-            <div class="badge">Limited</div>
-            <h3>Christmas Eve</h3>
-            <div class="price"><em>From</em><strong>$250</strong><span>scheduled window</span></div>
+            <div class="badge" data-i18n="badge.limited">Limited</div>
+            <h3 data-i18n="package.eve">Christmas Eve</h3>
+            <div class="price"><em data-i18n="price.from">From</em><strong>$250</strong><span data-i18n="price.window">scheduled window</span></div>
             <ul>
-              <li>Reserved holiday date</li>
-              <li>Labeled gift delivery</li>
-              <li>Photos and surprise moment</li>
-              <li>Limited evening slots</li>
+              <li data-i18n="eve.one">Reserved holiday date</li>
+              <li data-i18n="eve.two">Labeled gift delivery</li>
+              <li data-i18n="eve.three">Photos and surprise moment</li>
+              <li data-i18n="eve.four">Limited evening slots</li>
             </ul>
-            <a class="button dark" href="book.html?package=Christmas%20Eve">Ask About Christmas Eve</a>
+            <a class="button dark" href="book.html?package=Christmas%20Eve" data-i18n="cta.eve">Ask About Christmas Eve</a>
           </article>
         </div>
-        <p class="fine-print">Nonprofit, toy drive, sponsor-supported, and Christmas in July events can be quoted separately.</p>
+        <p class="fine-print" data-i18n="prices.note">Nonprofit, toy drive, sponsor-supported, and Christmas in July events can be quoted separately.</p>
       </div>
     </section>
 
     <section class="checkout">
       <div class="shell checkout-grid">
         <div class="panel">
-          <p class="eyebrow">How It Works</p>
-          <h2>No payment until we confirm the visit.</h2>
-          <p>Send the request first. We confirm the time, final price, and travel. Then a deposit saves the date.</p>
+          <p class="eyebrow" data-i18n="works.eyebrow">How It Works</p>
+          <h2 data-i18n="works.title">No payment until we confirm the visit.</h2>
+          <p data-i18n="works.copy">Send the request first. We confirm the time, final price, and travel. Then a deposit saves the date.</p>
           <div class="deposit-list">
-            <div>1. Pick a visit</div>
-            <div>2. Send event details</div>
-            <div>3. Confirm availability</div>
-            <div>4. Place deposit</div>
+            <div data-i18n="works.one">1. Pick a visit</div>
+            <div data-i18n="works.two">2. Send event details</div>
+            <div data-i18n="works.three">3. Confirm availability</div>
+            <div data-i18n="works.four">4. Place deposit</div>
           </div>
         </div>
         <div class="panel">
-          <p class="eyebrow">What to Prepare</p>
-          <h2>Helpful details for a faster reply.</h2>
-          <p>Have these ready when you request a visit. It helps us answer quickly.</p>
+          <p class="eyebrow" data-i18n="prepare.eyebrow">What to Prepare</p>
+          <h2 data-i18n="prepare.title">Helpful details for a faster reply.</h2>
+          <p data-i18n="prepare.copy">Have these ready when you request a visit. It helps us answer quickly.</p>
           <div class="deposit-list">
-            <div>Event date and start time</div>
-            <div>City or neighborhood</div>
-            <div>Number of children or guests</div>
-            <div>Gift handoff details, if any</div>
+            <div data-i18n="prepare.one">Event date and start time</div>
+            <div data-i18n="prepare.two">City or neighborhood</div>
+            <div data-i18n="prepare.three">Number of children or guests</div>
+            <div data-i18n="prepare.four">Gift handoff details, if any</div>
           </div>
           <div class="actions" style="margin-top: 18px;">
-            <a class="button" href="book.html">Request a Visit</a>
+            <a class="button" href="book.html" data-i18n="prepare.cta">Request a Visit</a>
           </div>
-          <p class="fine-print">Booking is confirmed only after availability, deposit, address, parking details, and calendar confirmation.</p>
+          <p class="fine-print" data-i18n="prepare.note">Booking is confirmed only after availability, deposit, address, parking details, and calendar confirmation.</p>
         </div>
       </div>
     </section>
@@ -524,11 +566,147 @@
       Miami Papa Noel
       <img src="assets/santa-hat-icon.svg" alt="">
     </span>
-    <span class="footer-subline">Private visit options, reservations, and bilingual Santa appearances</span>
+    <span class="footer-subline" data-i18n="footer.subline">Visit options, reservations, and bilingual Santa appearances</span>
   </footer>
   <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="tel:+13052440360">Call / Text</a>
-    <a href="book.html">Request Visit</a>
+    <a href="tel:+13052440360" data-i18n="sticky.call">Call / Text</a>
+    <a href="book.html" data-i18n="sticky.request">Request Visit</a>
   </div>
+  <script>
+    const translations = {
+      en: {
+        "brand.subtitle": "Visit Options",
+        "nav.website": "Website",
+        "nav.book": "Book",
+        "nav.call": "Call",
+        "hero.eyebrow": "Choose your visit",
+        "hero.title": "Pick the Papa Noel visit that feels right.",
+        "hero.copy": "Start with the closest option. We will confirm availability, final price, and next steps after you send the details.",
+        "prices.eyebrow": "Starting Prices",
+        "prices.title": "Three simple ways to bring Papa Noel to your celebration.",
+        "prices.copy": "These are starting prices. Final pricing depends on the date, location, visit length, guest count, and travel.",
+        "badge.family": "Family",
+        "badge.popular": "Most Popular",
+        "badge.limited": "Limited",
+        "package.family": "Family Visit",
+        "package.event": "Event Visit",
+        "package.eve": "Christmas Eve",
+        "price.from": "From",
+        "price.window": "scheduled window",
+        "family.one": "Photos with Santa",
+        "family.two": "Short child greeting",
+        "family.three": "Optional gift handoff",
+        "family.four": "Best for intimate family moments",
+        "event.one": "Parties, schools, or businesses",
+        "event.two": "Photos and greetings",
+        "event.three": "Gift table support",
+        "event.four": "Extended appearances available",
+        "eve.one": "Reserved holiday date",
+        "eve.two": "Labeled gift delivery",
+        "eve.three": "Photos and surprise moment",
+        "eve.four": "Limited evening slots",
+        "cta.family": "Ask About Family Visit",
+        "cta.event": "Ask About Event Visit",
+        "cta.eve": "Ask About Christmas Eve",
+        "prices.note": "Nonprofit, toy drive, sponsor-supported, and Christmas in July events can be quoted separately.",
+        "works.eyebrow": "How It Works",
+        "works.title": "No payment until we confirm the visit.",
+        "works.copy": "Send the request first. We confirm the time, final price, and travel. Then a deposit saves the date.",
+        "works.one": "1. Pick a visit",
+        "works.two": "2. Send event details",
+        "works.three": "3. Confirm availability",
+        "works.four": "4. Place deposit",
+        "prepare.eyebrow": "What to Prepare",
+        "prepare.title": "Helpful details for a faster reply.",
+        "prepare.copy": "Have these ready when you request a visit. It helps us answer quickly.",
+        "prepare.one": "Event date and start time",
+        "prepare.two": "City or neighborhood",
+        "prepare.three": "Number of children or guests",
+        "prepare.four": "Gift handoff details, if any",
+        "prepare.cta": "Request a Visit",
+        "prepare.note": "Booking is confirmed only after availability, deposit, address, parking details, and calendar confirmation.",
+        "footer.subline": "Visit options, reservations, and bilingual Santa appearances",
+        "sticky.call": "Call / Text",
+        "sticky.request": "Request Visit"
+      },
+      es: {
+        "brand.subtitle": "Opciones de Visita",
+        "nav.website": "Inicio",
+        "nav.book": "Reservar",
+        "nav.call": "Llamar",
+        "hero.eyebrow": "Escoge tu visita",
+        "hero.title": "Elige la visita de Papa Noel que se siente correcta.",
+        "hero.copy": "Empieza con la opción más parecida. Confirmaremos disponibilidad, precio final y próximos pasos después de recibir los detalles.",
+        "prices.eyebrow": "Precios Iniciales",
+        "prices.title": "Tres formas sencillas de llevar a Papa Noel a tu celebración.",
+        "prices.copy": "Estos son precios iniciales. El precio final depende de fecha, ubicación, duración, invitados y viaje.",
+        "badge.family": "Familia",
+        "badge.popular": "Más Popular",
+        "badge.limited": "Limitado",
+        "package.family": "Visita Familiar",
+        "package.event": "Visita para Evento",
+        "package.eve": "Nochebuena",
+        "price.from": "Desde",
+        "price.window": "horario reservado",
+        "family.one": "Fotos con Santa",
+        "family.two": "Saludo corto para niños",
+        "family.three": "Entrega de regalo opcional",
+        "family.four": "Ideal para momentos familiares",
+        "event.one": "Fiestas, escuelas o negocios",
+        "event.two": "Fotos y saludos",
+        "event.three": "Apoyo con mesa de regalos",
+        "event.four": "Visitas extendidas disponibles",
+        "eve.one": "Fecha navideña reservada",
+        "eve.two": "Entrega de regalos marcados",
+        "eve.three": "Fotos y momento sorpresa",
+        "eve.four": "Espacios limitados en la noche",
+        "cta.family": "Preguntar por Visita Familiar",
+        "cta.event": "Preguntar por Evento",
+        "cta.eve": "Preguntar por Nochebuena",
+        "prices.note": "Eventos sin fines de lucro, donaciones de juguetes, patrocinadores y Christmas in July se pueden cotizar aparte.",
+        "works.eyebrow": "Cómo Funciona",
+        "works.title": "No pagas hasta que confirmemos la visita.",
+        "works.copy": "Primero envía la solicitud. Confirmamos hora, precio final y viaje. Luego un depósito guarda la fecha.",
+        "works.one": "1. Escoge una visita",
+        "works.two": "2. Envía los detalles",
+        "works.three": "3. Confirmamos disponibilidad",
+        "works.four": "4. Das el depósito",
+        "prepare.eyebrow": "Qué Preparar",
+        "prepare.title": "Detalles útiles para responder más rápido.",
+        "prepare.copy": "Ten esto listo cuando pidas una visita. Nos ayuda a contestar rápido.",
+        "prepare.one": "Fecha y hora del evento",
+        "prepare.two": "Ciudad o vecindario",
+        "prepare.three": "Número de niños o invitados",
+        "prepare.four": "Detalles de regalos, si aplica",
+        "prepare.cta": "Solicitar Visita",
+        "prepare.note": "La visita se confirma después de disponibilidad, depósito, dirección, estacionamiento y confirmación en calendario.",
+        "footer.subline": "Opciones de visita, reservas y apariciones bilingües de Santa",
+        "sticky.call": "Llamar / Texto",
+        "sticky.request": "Solicitar Visita"
+      }
+    };
+
+    function setLanguage(lang) {
+      const dictionary = translations[lang] || translations.en;
+      const activeLang = dictionary === translations.es ? "es" : "en";
+      document.documentElement.lang = activeLang;
+      document.querySelectorAll("[data-i18n]").forEach((item) => {
+        const key = item.getAttribute("data-i18n");
+        if (dictionary[key]) item.textContent = dictionary[key];
+      });
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        const isActive = button.getAttribute("data-lang") === activeLang;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+      localStorage.setItem("miamiPapaNoelLanguage", activeLang);
+    }
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.getAttribute("data-lang")));
+    });
+
+    setLanguage(localStorage.getItem("miamiPapaNoelLanguage") || "en");
+  </script>
 </body>
 </html>
