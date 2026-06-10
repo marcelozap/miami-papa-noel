@@ -23,9 +23,9 @@ Papa Noel has supported community activities connected with Doral Club and the U
 
 ## Spanish Bio
 
-Miami Papa Noel ofrece visitas bilingues de Santa Claus para familias, escuelas, negocios, comunidades residenciales, organizaciones sin fines de lucro, donaciones de juguetes, novenas, sesiones de fotos y entregas de regalos en Nochebuena en Miami-Doral y areas cercanas.
+Miami Papa Noel ofrece visitas bilingües de Santa Claus para familias, escuelas, negocios, comunidades residenciales, organizaciones sin fines de lucro, donaciones de juguetes, novenas, sesiones de fotos y entregas de regalos en Nochebuena en Miami-Doral y áreas cercanas.
 
-Desde 2017, Papa Noel ha llevado alegria navidena a ninos y familias. Lo que comenzo como una actividad de fotos navidenas se convirtio en eventos familiares, empresariales, comunitarios y colaboraciones con organizaciones que ayudan a ninos.
+Desde 2017, Papa Noel ha llevado alegría navideña a niños y familias. Lo que comenzó como una actividad de fotos navideñas se convirtió en eventos familiares, empresariales, comunitarios y colaboraciones con organizaciones que ayudan a niños.
 
 ## Instagram Bio
 

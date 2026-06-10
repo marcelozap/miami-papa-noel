@@ -10,6 +10,7 @@ This folder turns the website into an operating system for the business.
 4. `sales-funnel.md` - how strangers become paid bookings.
 5. `booking-sop.md` - exact process from inquiry to event.
 6. `launch-checklist.md` - what to do in the first 7 days.
+7. `30-day-client-sprint.md` - daily outreach routine and bilingual messages.
 
 ## Core Rule
 

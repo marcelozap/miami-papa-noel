@@ -2,19 +2,25 @@
 
 ## Instagram DM - English
 
-Hi! My name is [YOUR NAME], and I help book Santa visits for my dad, a warm bilingual Santa with experience since 2017 in Miami-Doral and nearby areas.
+Hi! I help book visits for Miami Papa Noel, a warm bilingual Santa with experience since 2017 in Miami-Doral and nearby areas.
 
 He is available for family parties, businesses, schools, residential communities, Christmas in July events, toy drives, photo sessions, Christmas novenas, and Christmas Eve gift deliveries.
 
-Would you like me to send photos, packages, and availability for the 2026 holiday season?
+Would you like me to send photos, visit options, and availability for the 2026 holiday season?
+
+Website: https://miamipapanoel.com
+Call/Text: 305-244-0360
 
 ## Instagram DM - Spanish
 
-Hola! Soy [YOUR NAME], y estoy ayudando a reservar eventos para mi papa, Papa Noel. Tiene experiencia desde 2017 en Miami-Doral y areas cercanas.
+Hola! Estoy ayudando a reservar visitas para Miami Papa Noel. Tiene experiencia desde 2017 en Miami-Doral y áreas cercanas.
 
-Esta disponible para fiestas familiares, negocios, escuelas, comunidades residenciales, Christmas in July, donaciones de juguetes, sesiones de fotos, novenas y entregas de regalos en Nochebuena.
+Está disponible para fiestas familiares, negocios, escuelas, comunidades residenciales, Christmas in July, donaciones de juguetes, sesiones de fotos, novenas y entregas de regalos en Nochebuena.
 
-Le puedo enviar fotos, paquetes y disponibilidad para la temporada navidena 2026?
+Le puedo enviar fotos, opciones y disponibilidad para la temporada navideña 2026?
+
+Página: https://miamipapanoel.com
+Llamar/Texto: 305-244-0360
 
 ## Follow-Up
 
@@ -28,7 +34,7 @@ Subject: Santa Visit for Your 2026 Holiday Event
 
 Hello,
 
-My name is [YOUR NAME], and I help coordinate bookings for [SANTA NAME], a bilingual Santa serving Miami-Doral and nearby areas.
+I help coordinate bookings for Miami Papa Noel, a bilingual Santa serving Miami-Doral and nearby areas.
 
 He has been creating Christmas experiences since 2017, including family parties, business events, residential communities, Christmas novenas, nonprofit toy drives, photo sessions, and Christmas Eve gift deliveries. He has also supported community events connected with Doral Club activities and the University of Miami Mailman Center for Child Development.
 
@@ -45,13 +51,14 @@ We are currently booking:
 I would be happy to send photos, package options, and availability.
 
 Thank you,
-[YOUR NAME]
-[PHONE]
-[INSTAGRAM]
+Miami Papa Noel
+305-244-0360
+@miamipapanoel
+https://miamipapanoel.com
 
 ## Phone Call Opener
 
-Hi, my name is [YOUR NAME]. I am helping book a professional bilingual Santa for local holiday events. I wanted to ask who handles your Christmas events or family activities, because we are already booking for 2026.
+Hi, I am helping book Miami Papa Noel for local holiday events. I wanted to ask who handles your Christmas events or family activities, because we are already booking for 2026.
 
 ## Partnership Message
 

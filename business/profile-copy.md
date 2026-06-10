@@ -28,4 +28,4 @@ Thank you for messaging Miami Papa Noel. We may be at an event or helping anothe
 
 Book Papa Noel:
 
-`https://miamipapanoel.com/book.html`
+`https://miamipapanoel.com/book`

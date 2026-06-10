@@ -8,19 +8,21 @@ Available for family parties, businesses, schools, daycares, residential communi
 
 Booking now for the 2026 holiday season.
 
-Call/Text: [PHONE]
-Instagram: [INSTAGRAM]
+Call/Text: 305-244-0360
+Instagram: @miamipapanoel
+Website: https://miamipapanoel.com
 
 ## Post 1 - Spanish
 
 Lleva la magia de la Navidad a tu evento con una visita de Papa Noel.
 
-Disponible para fiestas familiares, negocios, escuelas, daycares, comunidades residenciales, donaciones de juguetes, sesiones de fotos, novenas, Christmas in July y entregas de regalos en Nochebuena en Miami-Doral y areas cercanas.
+Disponible para fiestas familiares, negocios, escuelas, daycares, comunidades residenciales, donaciones de juguetes, sesiones de fotos, novenas, Christmas in July y entregas de regalos en Nochebuena en Miami-Doral y áreas cercanas.
 
-Reservas abiertas para la temporada navidena 2026.
+Reservas abiertas para la temporada navideña 2026.
 
-Llama/Texto: [PHONE]
-Instagram: [INSTAGRAM]
+Llama/Texto: 305-244-0360
+Instagram: @miamipapanoel
+Página: https://miamipapanoel.com
 
 ## Post 2 - Christmas in July
 
@@ -30,7 +32,7 @@ Santa is available this summer for photo pop-ups, daycare visits, toy drive kick
 
 Book a magical summer moment now and reserve your December date early.
 
-Call/Text: [PHONE]
+Call/Text: 305-244-0360
 
 ## Post 3 - Nonprofit Angle
 
@@ -40,7 +42,7 @@ Papa Noel is available for nonprofit events, sponsor-supported toy drives, and c
 
 If your organization is planning something for children this year, we would love to help.
 
-Call/Text: [PHONE]
+Call/Text: 305-244-0360
 
 ## Post 4 - Christmas Eve
 
@@ -50,7 +52,7 @@ Christmas Eve gift delivery bookings are limited and scheduled by time window. F
 
 Reserve early.
 
-Call/Text: [PHONE]
+Call/Text: 305-244-0360
 
 ## Story Ideas
 

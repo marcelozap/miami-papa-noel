@@ -1,5 +1,5 @@
-Business Name,Type,Area,Contact Name,Phone,Email,Instagram,First Contact Date,Follow-Up Date,Status,Notes
-Example Daycare,Daycare,Doral,,,,,2026-06-10,2026-06-12,Not contacted,Ask about Christmas in July or December event
-Example HOA,Residential Community,Miami Lakes,,,,,2026-06-10,2026-06-12,Not contacted,Ask who handles holiday events
-Example Pet Groomer,Pet Business,Kendall,,,,,2026-06-10,2026-06-12,Not contacted,Pitch pet photos with Santa
-Example Church,Church,Hialeah,,,,,2026-06-10,2026-06-12,Not contacted,Pitch toy drive and novena visit
+Business Name,Type,Area,Contact Name,Phone,Email,Instagram,First Contact Date,Follow-Up Date,Status,Package Interest,Next Action,Notes
+Example Daycare,Daycare,Doral,,,,,2026-06-10,2026-06-12,New lead,Event Visit,Send DM,Ask about Christmas in July or December event
+Example HOA,Residential Community,Miami Lakes,,,,,2026-06-10,2026-06-12,New lead,Event Visit,Find event contact,Ask who handles holiday events
+Example Pet Groomer,Pet Business,Kendall,,,,,2026-06-10,2026-06-12,New lead,Event Visit,Pitch partnership,Pitch pet photos with Santa
+Example Church,Church,Hialeah,,,,,2026-06-10,2026-06-12,New lead,Nonprofit / Toy Drive,Send email,Pitch toy drive and novena visit

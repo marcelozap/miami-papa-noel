@@ -2,15 +2,15 @@
 
 This folder is a starter kit to help book Santa clients in Miami-Doral and nearby areas.
 
-## What to edit first
+## Public booking info
 
-Replace these placeholders everywhere:
+Use this same information everywhere so families see one clear way to contact Papa Noel:
 
-- `[PHONE]`
-- `[INSTAGRAM]`
-- `[EMAIL]`
-- `[BOOKING LINK]`
-- `[SANTA NAME]`
+- Phone/Text: `305-244-0360`
+- Email: `bookings@miamipapanoel.com`
+- Instagram: `@miamipapanoel`
+- Website: `https://miamipapanoel.com`
+- Booking form: `https://miamipapanoel.com/book`
 
 ## Files
 
@@ -20,6 +20,7 @@ Replace these placeholders everywhere:
 - `outreach-scripts.md` - messages for Instagram, WhatsApp, email, and phone.
 - `lead-tracker.csv` - spreadsheet template for tracking potential clients.
 - `social-posts.md` - ready-to-post English and Spanish captions.
+- `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
 - `assets/` - copied Santa photos for marketing use.
 
 ## Fastest path to clients
