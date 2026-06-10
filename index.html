@@ -915,6 +915,25 @@
         gap: 10px;
       }
 
+      .brand {
+        min-width: 0;
+        white-space: normal;
+      }
+
+      .brand-text {
+        min-width: 0;
+      }
+
+      .brand span {
+        max-width: 154px;
+        line-height: 1.12;
+        white-space: normal;
+      }
+
+      .brand-hat {
+        width: 34px;
+      }
+
       .hero-grid,
       .story-grid,
       .summer-grid,
@@ -1046,14 +1065,14 @@
     <a class="brand" href="/">
       <span class="brand-text">
         <strong>Miami Papa Noel</strong>
-        <span data-i18n="brand.subtitle">Santa Visits</span>
+        <span data-i18n="brand.subtitle">Private Santa Visits</span>
       </span>
       <img class="brand-hat" src="assets/santa-hat-icon.svg" alt="">
     </a>
     <div class="top-actions">
       <nav class="nav" aria-label="Main navigation">
         <a href="#services" data-i18n="nav.services">Services</a>
-        <a href="#packages" data-i18n="nav.packages">Packages</a>
+        <a href="#packages" data-i18n="nav.packages">Options</a>
         <a href="#gallery" data-i18n="nav.photos">Photos</a>
         <a href="#faq" data-i18n="nav.faq">FAQ</a>
         <a class="nav-cta" href="checkout.html" data-i18n="nav.request">Request Visit</a>
@@ -1069,17 +1088,17 @@
     <section class="hero">
       <div class="shell hero-grid">
         <div>
-          <p class="eyebrow" data-i18n="hero.eyebrow">Santa visits in Miami-Doral</p>
-          <h1 data-i18n="hero.title">A warm visit from Papa Noel, made easy for your family.</h1>
-          <p class="hero-copy" data-i18n="hero.copy">Tell us the date, place, and kind of celebration. Papa Noel brings the smiles, photos, and Christmas magic in English or Spanish.</p>
+          <p class="eyebrow" data-i18n="hero.eyebrow">Private Santa visits in Miami-Doral</p>
+          <h1 data-i18n="hero.title">A warm Papa Noel visit, planned with heart.</h1>
+          <p class="hero-copy" data-i18n="hero.copy">Tell us what you are celebrating. We will help choose the right visit, keep the details easy, and bring smiles in English or Spanish.</p>
           <div class="actions">
-            <a class="button" href="checkout.html" data-i18n="hero.primary">Choose Your Visit</a>
+            <a class="button" href="checkout.html" data-i18n="hero.primary">Find the Right Visit</a>
             <a class="button secondary" href="tel:+13052440360" data-i18n="hero.secondary">Call or Text</a>
           </div>
         </div>
         <aside class="hero-card" aria-label="Booking highlights">
-          <strong data-i18n="hero.cardTitle">What kind of visit do you need?</strong>
-          <p data-i18n="hero.cardCopy">Pick the closest one. If you are not sure, send a message and we will help you choose.</p>
+          <strong data-i18n="hero.cardTitle">What are you planning?</strong>
+          <p data-i18n="hero.cardCopy">Choose the closest moment. If you are not sure, send a message and we will recommend the best fit.</p>
           <div class="need-list" aria-label="Choose a visit type">
             <a class="need-link" href="book.html?package=Family%20Visit">
               <b data-i18n="need.family">Family or home visit</b>
@@ -1101,14 +1120,14 @@
     <div class="trust-strip" aria-label="Trust highlights">
       <div class="trust-item"><strong>2017</strong><span data-i18n="trust.one">Making Christmas memories in Miami</span></div>
       <div class="trust-item"><strong>4+</strong><span data-i18n="trust.two">Years helping community events</span></div>
-      <div class="trust-item"><strong>2</strong><span data-i18n="trust.three">English and Spanish visits</span></div>
+      <div class="trust-item"><strong>2</strong><span data-i18n="trust.three">Bilingual visits for families</span></div>
       <div class="trust-item"><strong>24</strong><span data-i18n="trust.four">Christmas Eve spots go quickly</span></div>
     </div>
 
     <section id="story">
       <div class="shell story-grid">
         <div class="story-copy">
-          <p class="eyebrow">The Story</p>
+          <p class="eyebrow" data-i18n="story.eyebrow">The Story</p>
           <h2 data-i18n="story.title">A Santa tradition with a big community heart.</h2>
           <p class="lead" data-i18n="story.copyOne">Miami Papa Noel began in 2017 when a Metro by T-Mobile office wanted Christmas activities for children visiting the store. What started as a simple photo backdrop became a tradition: novenas, gift deliveries, family parties, business events, residential communities, and nonprofit moments.</p>
           <p class="lead" data-i18n="story.copyTwo">He has supported activities connected with Doral Club and the University of Miami Mailman Center for Child Development. The best part is still the same: seeing children feel surprised, comfortable, and happy.</p>
@@ -1124,7 +1143,7 @@
       <div class="shell">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Services</p>
+            <p class="eyebrow" data-i18n="services.eyebrow">Services</p>
             <h2 data-i18n="services.title">For homes, schools, parties, and community celebrations.</h2>
           </div>
           <p data-i18n="services.copy">Each visit can include photos, greetings, story time, gift delivery, toy drive support, or a simple surprise hello.</p>
@@ -1139,20 +1158,20 @@
             <p data-i18n="services.eveCopy">Santa arrives with family-provided labeled gifts for a magical Christmas Eve surprise.</p>
           </article>
           <article class="service-card">
-            <h3>Schools and Daycares</h3>
-            <p>Photo time, story time, classroom greetings, and calm child-friendly interaction.</p>
+            <h3 data-i18n="services.schoolTitle">Schools and Daycares</h3>
+            <p data-i18n="services.schoolCopy">Photo time, story time, classroom greetings, and calm child-friendly interaction.</p>
           </article>
           <article class="service-card">
-            <h3>Neighborhood Events</h3>
-            <p>Condo, apartment, HOA, and clubhouse holiday events with photos and greetings.</p>
+            <h3 data-i18n="services.neighborhoodTitle">Neighborhood Events</h3>
+            <p data-i18n="services.neighborhoodCopy">Condo, apartment, HOA, and clubhouse holiday events with photos and greetings.</p>
           </article>
           <article class="service-card">
-            <h3>Local Business Events</h3>
-            <p>Retail events, restaurants, office family days, and customer appreciation celebrations.</p>
+            <h3 data-i18n="services.businessTitle">Local Business Events</h3>
+            <p data-i18n="services.businessCopy">Retail events, restaurants, office family days, and customer appreciation celebrations.</p>
           </article>
           <article class="service-card">
-            <h3>Nonprofits and Toy Drives</h3>
-            <p>Community events, sponsor-supported visits, donation moments, and children-focused celebrations.</p>
+            <h3 data-i18n="services.nonprofitTitle">Nonprofits and Toy Drives</h3>
+            <p data-i18n="services.nonprofitCopy">Community events, sponsor-supported visits, donation moments, and children-focused celebrations.</p>
           </article>
         </div>
       </div>
@@ -1192,70 +1211,70 @@
       <div class="shell">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Visit Options</p>
+            <p class="eyebrow" data-i18n="packages.eyebrow">Visit Options</p>
             <h2 data-i18n="packages.title">Pick the closest visit. We will help with the rest.</h2>
           </div>
           <p data-i18n="packages.copy">Start with one of these. Larger or longer events can be priced after we know the date, location, and number of guests.</p>
         </div>
         <div class="pricing-grid">
           <article class="price-card">
-            <div class="badge">Family</div>
-            <h3>Family Visit</h3>
-            <div class="price"><em>From</em><strong>$125</strong><span>20-30 minutes</span></div>
+            <div class="badge" data-i18n="badge.family">Family</div>
+            <h3 data-i18n="package.family">Family Visit</h3>
+            <div class="price"><em data-i18n="price.from">From</em><strong>$125</strong><span>20-30 minutes</span></div>
             <ul>
-              <li>Photos with Santa</li>
-              <li>Warm child greeting</li>
-              <li>Optional gift handoff</li>
-              <li>Best for intimate family moments</li>
+              <li data-i18n="family.one">Photos with Santa</li>
+              <li data-i18n="family.two">Warm child greeting</li>
+              <li data-i18n="family.three">Optional gift handoff</li>
+              <li data-i18n="family.four">Best for intimate family moments</li>
             </ul>
             <a class="button dark" href="book.html?package=Family%20Visit" data-i18n="packages.familyCta">Ask About Family Visit</a>
           </article>
           <article class="price-card featured">
-            <div class="badge">Most Popular</div>
-            <h3>Event Visit</h3>
-            <div class="price"><em>From</em><strong>$225</strong><span>45-60 minutes</span></div>
+            <div class="badge" data-i18n="badge.popular">Most Popular</div>
+            <h3 data-i18n="package.event">Event Visit</h3>
+            <div class="price"><em data-i18n="price.from">From</em><strong>$225</strong><span>45-60 minutes</span></div>
             <ul>
-              <li>Parties, schools, or businesses</li>
-              <li>Photos and greetings</li>
-              <li>Gift table support</li>
-              <li>Extended appearances available</li>
+              <li data-i18n="event.one">Parties, schools, or businesses</li>
+              <li data-i18n="event.two">Photos and greetings</li>
+              <li data-i18n="event.three">Gift table support</li>
+              <li data-i18n="event.four">Extended appearances available</li>
             </ul>
             <a class="button" href="book.html?package=Event%20Visit" data-i18n="packages.eventCta">Ask About Event Visit</a>
           </article>
           <article class="price-card">
-            <div class="badge">Limited</div>
-            <h3>Christmas Eve</h3>
-            <div class="price"><em>From</em><strong>$250</strong><span>scheduled window</span></div>
+            <div class="badge" data-i18n="badge.limited">Limited</div>
+            <h3 data-i18n="package.eve">Christmas Eve</h3>
+            <div class="price"><em data-i18n="price.from">From</em><strong>$250</strong><span data-i18n="price.window">scheduled window</span></div>
             <ul>
-              <li>Reserved holiday date</li>
-              <li>Labeled gift delivery</li>
-              <li>Photos and surprise moment</li>
-              <li>Limited evening slots</li>
+              <li data-i18n="eve.one">Reserved holiday date</li>
+              <li data-i18n="eve.two">Labeled gift delivery</li>
+              <li data-i18n="eve.three">Photos and surprise moment</li>
+              <li data-i18n="eve.four">Limited evening slots</li>
             </ul>
             <a class="button dark" href="book.html?package=Christmas%20Eve" data-i18n="packages.eveCta">Ask About Christmas Eve</a>
           </article>
         </div>
-        <p class="fine-print">Deposit required to hold a confirmed date. Nonprofit and sponsor-supported community rates may be available when the event supports children or toy donations.</p>
+        <p class="fine-print" data-i18n="packages.note">Deposit required to hold a confirmed date. Nonprofit and sponsor-supported community rates may be available when the event supports children or toy donations.</p>
       </div>
     </section>
 
     <section class="summer">
       <div class="shell summer-grid">
         <div>
-          <p class="eyebrow">Summer Santa</p>
-          <h2>Christmas magic does not have to wait until December.</h2>
-          <p class="lead">Christmas in July, toy drive kickoffs, pet photos, daycare story time, and birthday surprises can bring a little holiday joy early.</p>
+          <p class="eyebrow" data-i18n="summer.eyebrow">Summer Santa</p>
+          <h2 data-i18n="summer.title">Christmas magic does not have to wait until December.</h2>
+          <p class="lead" data-i18n="summer.copy">Christmas in July, toy drive kickoffs, pet photos, daycare story time, and birthday surprises can bring a little holiday joy early.</p>
           <div class="actions">
-          <a class="button" href="book.html?package=Event%20Visit">Plan Summer Santa</a>
+          <a class="button" href="book.html?package=Event%20Visit" data-i18n="summer.cta">Plan Summer Santa</a>
           </div>
         </div>
         <div class="pill-grid">
-          <div class="pill">Christmas in July photo pop-ups</div>
-          <div class="pill">Toy drive kickoff events</div>
-          <div class="pill">Daycare and camp story time</div>
-          <div class="pill">Pet photos with Santa</div>
-          <div class="pill">Birthday surprise visits</div>
-          <div class="pill">Corporate family days</div>
+          <div class="pill" data-i18n="summer.one">Christmas in July photo pop-ups</div>
+          <div class="pill" data-i18n="summer.two">Toy drive kickoff events</div>
+          <div class="pill" data-i18n="summer.three">Daycare and camp story time</div>
+          <div class="pill" data-i18n="summer.four">Pet photos with Santa</div>
+          <div class="pill" data-i18n="summer.five">Birthday surprise visits</div>
+          <div class="pill" data-i18n="summer.six">Corporate family days</div>
         </div>
       </div>
     </section>
@@ -1263,25 +1282,25 @@
     <section class="details-section">
       <div class="shell details-grid">
         <article class="detail-panel spanish-panel">
-          <p class="eyebrow">Disponible en Español</p>
-          <h2>Una visita privada de Papa Noel para momentos inolvidables.</h2>
-          <p class="lead">Servicio bilingüe para familias, escuelas, negocios, comunidades, donaciones de juguetes, novenas y entregas de regalos en Nochebuena.</p>
+          <p class="eyebrow" data-i18n="spanish.eyebrow">Available in Spanish</p>
+          <h2 data-i18n="spanish.title">A private Papa Noel visit for unforgettable moments.</h2>
+          <p class="lead" data-i18n="spanish.copy">Bilingual service for families, schools, businesses, communities, toy drives, novenas, and Christmas Eve gift deliveries.</p>
           <div class="actions">
-            <a class="button" href="book.html">Solicitar disponibilidad</a>
+            <a class="button" href="book.html" data-i18n="spanish.cta">Request availability</a>
           </div>
         </article>
         <article class="detail-panel">
-          <p class="eyebrow">Included</p>
-          <h2>Everything needed for a sweet, easy visit.</h2>
+          <p class="eyebrow" data-i18n="included.eyebrow">Included</p>
+          <h2 data-i18n="included.title">Everything needed for a sweet, easy visit.</h2>
           <div class="chip-grid">
-            <span class="chip">Photos with Santa</span>
-            <span class="chip">Child greeting</span>
-            <span class="chip">Gift handoff</span>
-            <span class="chip">Story time option</span>
-            <span class="chip">Toy drive support</span>
-            <span class="chip">Bilingual interaction</span>
+            <span class="chip" data-i18n="included.one">Photos with Santa</span>
+            <span class="chip" data-i18n="included.two">Child greeting</span>
+            <span class="chip" data-i18n="included.three">Gift handoff</span>
+            <span class="chip" data-i18n="included.four">Story time option</span>
+            <span class="chip" data-i18n="included.five">Toy drive support</span>
+            <span class="chip" data-i18n="included.six">Bilingual interaction</span>
           </div>
-          <p class="lead" style="margin-top: 20px;">Service areas include Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.</p>
+          <p class="lead" style="margin-top: 20px;" data-i18n="included.area">Service areas include Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.</p>
         </article>
       </div>
     </section>
@@ -1290,22 +1309,22 @@
       <div class="shell">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Video Moments</p>
-            <h2>A little preview helps families feel comfortable.</h2>
+            <p class="eyebrow" data-i18n="video.eyebrow">Video Moments</p>
+            <h2 data-i18n="video.title">A little preview helps families feel comfortable.</h2>
           </div>
-          <p>Short video previews can be shared on request. Public clips will be added only when families are comfortable with it.</p>
+          <p data-i18n="video.copy">Short video previews can be shared on request. Public clips will be added only when families are comfortable with it.</p>
         </div>
         <div class="video-grid">
           <article class="video-card" style="--video-bg: url('assets/optimized/santa-family-event-1600.jpg');">
             <div>
-              <strong>Private family moments</strong>
-              <p>Video available on request.</p>
+              <strong data-i18n="video.family">Private family moments</strong>
+              <p data-i18n="video.available">Video available on request.</p>
             </div>
           </article>
           <article class="video-card" style="--video-bg: url('assets/optimized/santa-community-event-1600.jpg');">
             <div>
-              <strong>Community event moments</strong>
-              <p>Video available on request.</p>
+              <strong data-i18n="video.community">Community event moments</strong>
+              <p data-i18n="video.available">Video available on request.</p>
             </div>
           </article>
         </div>
@@ -1316,10 +1335,10 @@
       <div class="shell">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Photo Gallery</p>
-            <h2>Real smiles from real visits.</h2>
+            <p class="eyebrow" data-i18n="gallery.eyebrow">Photo Gallery</p>
+            <h2 data-i18n="gallery.title">Real smiles from real visits.</h2>
           </div>
-          <p>A few moments from family visits, community events, toy drives, and holiday celebrations.</p>
+          <p data-i18n="gallery.copy">A few moments from family visits, community events, toy drives, and holiday celebrations.</p>
         </div>
         <div class="gallery">
           <img src="assets/optimized/santa-family-event-1600.jpg" alt="Papa Noel with a family at a Christmas event">
@@ -1338,8 +1357,8 @@
       <div class="shell proof-grid">
         <img class="feature-img" src="assets/optimized/santa-card-1400.jpg" alt="Printed Christmas photo card featuring Papa Noel" style="aspect-ratio: 4 / 3;">
         <div class="quote">
-          <blockquote>"Cada donación, cada juguete, cada hora de ayuda es un mundo para estos niños."</blockquote>
-          <p>Community work is one of the reasons Miami Papa Noel continues this tradition every year.</p>
+          <blockquote data-i18n="proof.quote">"Every donation, every toy, every hour of help means the world to these children."</blockquote>
+          <p data-i18n="proof.copy">Community work is one of the reasons Miami Papa Noel continues this tradition every year.</p>
         </div>
       </div>
     </section>
@@ -1348,26 +1367,26 @@
       <div class="shell">
         <div class="section-head">
           <div>
-            <p class="eyebrow">How Booking Works</p>
-            <h2>Simple steps, no pressure.</h2>
+            <p class="eyebrow" data-i18n="flow.eyebrow">How Booking Works</p>
+            <h2 data-i18n="flow.title">Simple steps, no pressure.</h2>
           </div>
-          <p>Send the basics first. We will reply with availability, price, and the next step.</p>
+          <p data-i18n="flow.copy">Send the basics first. We will reply with availability, price, and the next step.</p>
         </div>
         <div class="flow-grid">
           <article class="flow-step">
             <strong>01</strong>
-            <h3>Choose a visit</h3>
-            <p>Pick the closest visit type. If you are unsure, choose "not sure yet" on the form.</p>
+            <h3 data-i18n="flow.oneTitle">Choose a visit</h3>
+            <p data-i18n="flow.oneCopy">Pick the closest visit type. If you are unsure, choose "not sure yet" on the form.</p>
           </article>
           <article class="flow-step">
             <strong>02</strong>
-            <h3>Confirm details</h3>
-            <p>Share date, time, city, guest count, address, parking, and whether gifts will be handed out.</p>
+            <h3 data-i18n="flow.twoTitle">Confirm details</h3>
+            <p data-i18n="flow.twoCopy">Share date, time, city, guest count, address, parking, and whether gifts will be handed out.</p>
           </article>
           <article class="flow-step">
             <strong>03</strong>
-            <h3>Save the date</h3>
-            <p>After availability is confirmed, a deposit holds the date and the final balance is due before or at arrival.</p>
+            <h3 data-i18n="flow.threeTitle">Save the date</h3>
+            <p data-i18n="flow.threeCopy">After availability is confirmed, a deposit holds the date and the final balance is due before or at arrival.</p>
           </article>
         </div>
       </div>
@@ -1377,27 +1396,27 @@
       <div class="shell">
         <div class="section-head">
           <div>
-            <p class="eyebrow">FAQ</p>
-            <h2>Good to know.</h2>
+            <p class="eyebrow" data-i18n="faq.eyebrow">FAQ</p>
+            <h2 data-i18n="faq.title">Good to know.</h2>
           </div>
-          <p>Quick answers before you send a request.</p>
+          <p data-i18n="faq.copy">Quick answers before you send a request.</p>
         </div>
         <div class="faq-grid">
           <article class="faq-item">
-            <h3>Do you serve outside Doral?</h3>
-            <p>Yes. Miami Papa Noel serves Miami-Doral and nearby areas including Hialeah, Kendall, Sweetwater, Miami Lakes, and Coral Gables. Travel may affect pricing.</p>
+            <h3 data-i18n="faq.oneQ">Do you serve outside Doral?</h3>
+            <p data-i18n="faq.oneA">Yes. Miami Papa Noel serves Miami-Doral and nearby areas including Hialeah, Kendall, Sweetwater, Miami Lakes, and Coral Gables. Travel may affect pricing.</p>
           </article>
           <article class="faq-item">
-            <h3>Can Santa deliver gifts?</h3>
-            <p>Yes. Gifts must be provided by the family or organizer and clearly labeled with each child's name.</p>
+            <h3 data-i18n="faq.twoQ">Can Santa deliver gifts?</h3>
+            <p data-i18n="faq.twoA">Yes. Gifts must be provided by the family or organizer and clearly labeled with each child's name.</p>
           </article>
           <article class="faq-item">
-            <h3>Is a deposit required?</h3>
-            <p>Yes. The date is confirmed only after deposit, event details, and calendar confirmation.</p>
+            <h3 data-i18n="faq.threeQ">Is a deposit required?</h3>
+            <p data-i18n="faq.threeA">Yes. The date is confirmed only after deposit, event details, and calendar confirmation.</p>
           </article>
           <article class="faq-item">
-            <h3>Can nonprofits book a visit?</h3>
-            <p>Yes. Nonprofit, toy drive, and sponsor-supported community options may be available depending on date and event needs.</p>
+            <h3 data-i18n="faq.fourQ">Can nonprofits book a visit?</h3>
+            <p data-i18n="faq.fourA">Yes. Nonprofit, toy drive, and sponsor-supported community options may be available depending on date and event needs.</p>
           </article>
         </div>
       </div>
@@ -1405,19 +1424,19 @@
 
     <section class="cta">
       <div class="shell cta-panel">
-        <p class="eyebrow">Dates Available</p>
-        <h2>Ready to make it special?</h2>
-        <p class="lead">Send the date, city, time, visit type, and gift details. We will reply with availability, pricing, and how to reserve.</p>
+        <p class="eyebrow" data-i18n="cta.eyebrow">Dates Available</p>
+        <h2 data-i18n="cta.title">Ready to make it special?</h2>
+        <p class="lead" data-i18n="cta.copy">Send the date, city, time, visit type, and gift details. We will reply with availability, pricing, and how to reserve.</p>
         <div class="contact-row">
           <div class="contact-chip">305-244-0360</div>
           <div class="contact-chip">bookings@miamipapanoel.com</div>
           <div class="contact-chip">@miamipapanoel</div>
         </div>
         <div class="actions">
-          <a class="button" href="checkout.html">Request a Visit</a>
-          <a class="button secondary" href="tel:+13052440360">Call or Text</a>
-          <a class="button secondary" href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener">WhatsApp</a>
-          <a class="button secondary" href="mailto:bookings@miamipapanoel.com">Email Availability</a>
+          <a class="button" href="checkout.html" data-i18n="cta.primary">Request a Visit</a>
+          <a class="button secondary" href="tel:+13052440360" data-i18n="cta.call">Call or Text</a>
+          <a class="button secondary" href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="cta.whatsapp">WhatsApp</a>
+          <a class="button secondary" href="mailto:bookings@miamipapanoel.com" data-i18n="cta.email">Email Availability</a>
         </div>
       </div>
     </section>
@@ -1429,28 +1448,28 @@
       Miami Papa Noel
       <img src="assets/santa-hat-icon.svg" alt="">
     </span>
-    <span class="footer-subline">Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events</span>
+    <span class="footer-subline" data-i18n="footer.subline">Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events</span>
   </footer>
   <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="tel:+13052440360">Call / Text</a>
-    <a href="book.html">Request Visit</a>
+    <a href="tel:+13052440360" data-i18n="sticky.call">Call / Text</a>
+    <a href="book.html" data-i18n="sticky.request">Request Visit</a>
   </div>
   <script>
     const translations = {
       en: {
-        "brand.subtitle": "Santa Visits",
+        "brand.subtitle": "Private Santa Visits",
         "nav.services": "Services",
-        "nav.packages": "Packages",
+        "nav.packages": "Options",
         "nav.photos": "Photos",
         "nav.faq": "FAQ",
         "nav.request": "Request Visit",
-        "hero.eyebrow": "Santa visits in Miami-Doral",
-        "hero.title": "A warm visit from Papa Noel, made easy for your family.",
-        "hero.copy": "Tell us the date, place, and kind of celebration. Papa Noel brings the smiles, photos, and Christmas magic in English or Spanish.",
-        "hero.primary": "Choose Your Visit",
+        "hero.eyebrow": "Private Santa visits in Miami-Doral",
+        "hero.title": "A warm Papa Noel visit, planned with heart.",
+        "hero.copy": "Tell us what you are celebrating. We will help choose the right visit, keep the details easy, and bring smiles in English or Spanish.",
+        "hero.primary": "Find the Right Visit",
         "hero.secondary": "Call or Text",
-        "hero.cardTitle": "What kind of visit do you need?",
-        "hero.cardCopy": "Pick the closest one. If you are not sure, send a message and we will help you choose.",
+        "hero.cardTitle": "What are you planning?",
+        "hero.cardCopy": "Choose the closest moment. If you are not sure, send a message and we will recommend the best fit.",
         "need.family": "Family or home visit",
         "need.familyText": "Photos, a warm hello, and optional gift handoff",
         "need.event": "School, party, or business event",
@@ -1459,17 +1478,27 @@
         "need.eveText": "Santa arrives with labeled gifts for the surprise",
         "trust.one": "Making Christmas memories in Miami",
         "trust.two": "Years helping community events",
-        "trust.three": "English and Spanish visits",
+        "trust.three": "Bilingual visits for families",
         "trust.four": "Christmas Eve spots go quickly",
+        "story.eyebrow": "The Story",
         "story.title": "A Santa tradition with a big community heart.",
         "story.copyOne": "Miami Papa Noel began in 2017 when a Metro by T-Mobile office wanted Christmas activities for children visiting the store. What started as a simple photo backdrop became a tradition: novenas, gift deliveries, family parties, business events, residential communities, and nonprofit moments.",
         "story.copyTwo": "He has supported activities connected with Doral Club and the University of Miami Mailman Center for Child Development. The best part is still the same: seeing children feel surprised, comfortable, and happy.",
+        "services.eyebrow": "Services",
         "services.title": "For homes, schools, parties, and community celebrations.",
         "services.copy": "Each visit can include photos, greetings, story time, gift delivery, toy drive support, or a simple surprise hello.",
         "services.homeTitle": "Home Visits",
         "services.homeCopy": "Warm visits for family parties, birthdays, photos, and surprise moments at home.",
         "services.eveTitle": "Christmas Eve Gifts",
         "services.eveCopy": "Santa arrives with family-provided labeled gifts for a magical Christmas Eve surprise.",
+        "services.schoolTitle": "Schools and Daycares",
+        "services.schoolCopy": "Photo time, story time, classroom greetings, and calm child-friendly interaction.",
+        "services.neighborhoodTitle": "Neighborhood Events",
+        "services.neighborhoodCopy": "Condo, apartment, HOA, and clubhouse holiday events with photos and greetings.",
+        "services.businessTitle": "Local Business Events",
+        "services.businessCopy": "Retail events, restaurants, office family days, and customer appreciation celebrations.",
+        "services.nonprofitTitle": "Nonprofits and Toy Drives",
+        "services.nonprofitCopy": "Community events, sponsor-supported visits, donation moments, and children-focused celebrations.",
         "comfort.eyebrow": "What to Expect",
         "comfort.title": "A calm, happy visit from the first hello.",
         "comfort.copy": "Families and organizers can keep it simple. Papa Noel arrives ready for photos, greetings, and the little details that make children feel comfortable.",
@@ -1481,26 +1510,112 @@
         "comfort.threeCopy": "Greetings can be in the language that feels most natural for your family or guests.",
         "comfort.fourTitle": "Gift handoff made easy",
         "comfort.fourCopy": "If Santa is delivering gifts, labeled names and a simple plan keep the surprise smooth.",
+        "packages.eyebrow": "Visit Options",
         "packages.title": "Pick the closest visit. We will help with the rest.",
         "packages.copy": "Start with one of these. Larger or longer events can be priced after we know the date, location, and number of guests.",
+        "badge.family": "Family",
+        "badge.popular": "Most Popular",
+        "badge.limited": "Limited",
+        "package.family": "Family Visit",
+        "package.event": "Event Visit",
+        "package.eve": "Christmas Eve",
+        "price.from": "From",
+        "price.window": "scheduled window",
+        "family.one": "Photos with Santa",
+        "family.two": "Warm child greeting",
+        "family.three": "Optional gift handoff",
+        "family.four": "Best for intimate family moments",
+        "event.one": "Parties, schools, or businesses",
+        "event.two": "Photos and greetings",
+        "event.three": "Gift table support",
+        "event.four": "Extended appearances available",
+        "eve.one": "Reserved holiday date",
+        "eve.two": "Labeled gift delivery",
+        "eve.three": "Photos and surprise moment",
+        "eve.four": "Limited evening slots",
         "packages.familyCta": "Ask About Family Visit",
         "packages.eventCta": "Ask About Event Visit",
-        "packages.eveCta": "Ask About Christmas Eve"
+        "packages.eveCta": "Ask About Christmas Eve",
+        "packages.note": "Deposit required to hold a confirmed date. Nonprofit and sponsor-supported community rates may be available when the event supports children or toy donations.",
+        "summer.eyebrow": "Summer Santa",
+        "summer.title": "Christmas magic does not have to wait until December.",
+        "summer.copy": "Christmas in July, toy drive kickoffs, pet photos, daycare story time, and birthday surprises can bring a little holiday joy early.",
+        "summer.cta": "Plan Summer Santa",
+        "summer.one": "Christmas in July photo pop-ups",
+        "summer.two": "Toy drive kickoff events",
+        "summer.three": "Daycare and camp story time",
+        "summer.four": "Pet photos with Santa",
+        "summer.five": "Birthday surprise visits",
+        "summer.six": "Corporate family days",
+        "spanish.eyebrow": "Available in Spanish",
+        "spanish.title": "A private Papa Noel visit for unforgettable moments.",
+        "spanish.copy": "Bilingual service for families, schools, businesses, communities, toy drives, novenas, and Christmas Eve gift deliveries.",
+        "spanish.cta": "Request availability",
+        "included.eyebrow": "Included",
+        "included.title": "Everything needed for a sweet, easy visit.",
+        "included.one": "Photos with Santa",
+        "included.two": "Child greeting",
+        "included.three": "Gift handoff",
+        "included.four": "Story time option",
+        "included.five": "Toy drive support",
+        "included.six": "Bilingual interaction",
+        "included.area": "Service areas include Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.",
+        "video.eyebrow": "Video Moments",
+        "video.title": "A little preview helps families feel comfortable.",
+        "video.copy": "Short video previews can be shared on request. Public clips will be added only when families are comfortable with it.",
+        "video.family": "Private family moments",
+        "video.community": "Community event moments",
+        "video.available": "Video available on request.",
+        "gallery.eyebrow": "Photo Gallery",
+        "gallery.title": "Real smiles from real visits.",
+        "gallery.copy": "A few moments from family visits, community events, toy drives, and holiday celebrations.",
+        "proof.quote": "\"Every donation, every toy, every hour of help means the world to these children.\"",
+        "proof.copy": "Community work is one of the reasons Miami Papa Noel continues this tradition every year.",
+        "flow.eyebrow": "How Booking Works",
+        "flow.title": "Simple steps, no pressure.",
+        "flow.copy": "Send the basics first. We will reply with availability, price, and the next step.",
+        "flow.oneTitle": "Choose a visit",
+        "flow.oneCopy": "Pick the closest visit type. If you are unsure, choose \"not sure yet\" on the form.",
+        "flow.twoTitle": "Confirm details",
+        "flow.twoCopy": "Share date, time, city, guest count, address, parking, and whether gifts will be handed out.",
+        "flow.threeTitle": "Save the date",
+        "flow.threeCopy": "After availability is confirmed, a deposit holds the date and the final balance is due before or at arrival.",
+        "faq.eyebrow": "FAQ",
+        "faq.title": "Good to know.",
+        "faq.copy": "Quick answers before you send a request.",
+        "faq.oneQ": "Do you serve outside Doral?",
+        "faq.oneA": "Yes. Miami Papa Noel serves Miami-Doral and nearby areas including Hialeah, Kendall, Sweetwater, Miami Lakes, and Coral Gables. Travel may affect pricing.",
+        "faq.twoQ": "Can Santa deliver gifts?",
+        "faq.twoA": "Yes. Gifts must be provided by the family or organizer and clearly labeled with each child's name.",
+        "faq.threeQ": "Is a deposit required?",
+        "faq.threeA": "Yes. The date is confirmed only after deposit, event details, and calendar confirmation.",
+        "faq.fourQ": "Can nonprofits book a visit?",
+        "faq.fourA": "Yes. Nonprofit, toy drive, and sponsor-supported community options may be available depending on date and event needs.",
+        "cta.eyebrow": "Dates Available",
+        "cta.title": "Ready to make it special?",
+        "cta.copy": "Send the date, city, time, visit type, and gift details. We will reply with availability, pricing, and how to reserve.",
+        "cta.primary": "Request a Visit",
+        "cta.call": "Call or Text",
+        "cta.whatsapp": "WhatsApp",
+        "cta.email": "Email Availability",
+        "footer.subline": "Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events",
+        "sticky.call": "Call / Text",
+        "sticky.request": "Request Visit"
       },
       es: {
-        "brand.subtitle": "Visitas de Papa Noel",
+        "brand.subtitle": "Visitas Privadas de Santa",
         "nav.services": "Servicios",
         "nav.packages": "Opciones",
         "nav.photos": "Fotos",
         "nav.faq": "Preguntas",
         "nav.request": "Solicitar Visita",
-        "hero.eyebrow": "Visitas de Papa Noel en Miami-Doral",
-        "hero.title": "Una visita cálida de Papa Noel, fácil para tu familia.",
-        "hero.copy": "Cuéntanos la fecha, el lugar y el tipo de celebración. Papa Noel lleva sonrisas, fotos y magia navideña en inglés o español.",
-        "hero.primary": "Elegir Visita",
+        "hero.eyebrow": "Visitas privadas de Santa en Miami-Doral",
+        "hero.title": "Una visita cálida de Papa Noel, preparada con cariño.",
+        "hero.copy": "Cuéntanos qué estás celebrando. Te ayudamos a escoger la visita correcta, mantener los detalles sencillos y llevar sonrisas en inglés o español.",
+        "hero.primary": "Encontrar la Visita",
         "hero.secondary": "Llamar o Escribir",
-        "hero.cardTitle": "¿Qué tipo de visita necesitas?",
-        "hero.cardCopy": "Escoge la opción más parecida. Si no estás seguro, envíanos un mensaje y te ayudamos.",
+        "hero.cardTitle": "¿Qué estás planificando?",
+        "hero.cardCopy": "Escoge el momento más parecido. Si no estás seguro, envíanos un mensaje y te recomendamos la mejor opción.",
         "need.family": "Visita familiar o en casa",
         "need.familyText": "Fotos, saludo cariñoso y entrega de regalos opcional",
         "need.event": "Escuela, fiesta o negocio",
@@ -1509,17 +1624,27 @@
         "need.eveText": "Santa llega con regalos marcados para la sorpresa",
         "trust.one": "Creando recuerdos navideños en Miami",
         "trust.two": "Años apoyando eventos comunitarios",
-        "trust.three": "Visitas en inglés y español",
+        "trust.three": "Visitas bilingües para familias",
         "trust.four": "Nochebuena se reserva rápido",
+        "story.eyebrow": "La Historia",
         "story.title": "Una tradición de Santa con corazón comunitario.",
         "story.copyOne": "Miami Papa Noel comenzó en 2017 cuando una oficina de Metro by T-Mobile quiso hacer actividades navideñas para los niños que visitaban la tienda. Lo que empezó con un fondo para fotos se convirtió en una tradición: novenas, entregas de regalos, fiestas familiares, eventos de negocios, comunidades residenciales y momentos sin fines de lucro.",
         "story.copyTwo": "Ha apoyado actividades relacionadas con Doral Club y el Mailman Center for Child Development de la University of Miami. Lo más bonito sigue siendo lo mismo: ver a los niños sorprendidos, cómodos y felices.",
+        "services.eyebrow": "Servicios",
         "services.title": "Para casas, escuelas, fiestas y celebraciones comunitarias.",
         "services.copy": "Cada visita puede incluir fotos, saludos, cuento navideño, entrega de regalos, apoyo para donaciones o una sorpresa sencilla.",
         "services.homeTitle": "Visitas en Casa",
         "services.homeCopy": "Visitas cálidas para fiestas familiares, cumpleaños, fotos y sorpresas en casa.",
         "services.eveTitle": "Regalos de Nochebuena",
         "services.eveCopy": "Santa llega con regalos marcados por la familia para una sorpresa mágica de Nochebuena.",
+        "services.schoolTitle": "Escuelas y Daycares",
+        "services.schoolCopy": "Fotos, cuento navideño, saludos en salones y trato tranquilo para los niños.",
+        "services.neighborhoodTitle": "Eventos de Comunidad",
+        "services.neighborhoodCopy": "Eventos en condominios, apartamentos, HOA y clubhouses con fotos y saludos.",
+        "services.businessTitle": "Eventos de Negocios",
+        "services.businessCopy": "Tiendas, restaurantes, días familiares de oficina y celebraciones para clientes.",
+        "services.nonprofitTitle": "Donaciones y Toy Drives",
+        "services.nonprofitCopy": "Eventos comunitarios, visitas patrocinadas, donaciones y celebraciones enfocadas en niños.",
         "comfort.eyebrow": "Qué Esperar",
         "comfort.title": "Una visita tranquila y feliz desde el primer saludo.",
         "comfort.copy": "Las familias y organizadores pueden mantenerlo sencillo. Papa Noel llega listo para fotos, saludos y los detalles que ayudan a los niños a sentirse cómodos.",
@@ -1531,27 +1656,122 @@
         "comfort.threeCopy": "Los saludos pueden ser en el idioma que se sienta más natural para tu familia o invitados.",
         "comfort.fourTitle": "Entrega de regalos sencilla",
         "comfort.fourCopy": "Si Santa entregará regalos, nombres marcados y un plan simple mantienen la sorpresa organizada.",
+        "packages.eyebrow": "Opciones de Visita",
         "packages.title": "Escoge la visita más cercana. Te ayudamos con lo demás.",
         "packages.copy": "Empieza con una de estas opciones. Los eventos más grandes o largos se cotizan después de saber fecha, lugar y cantidad de invitados.",
+        "badge.family": "Familia",
+        "badge.popular": "Más Popular",
+        "badge.limited": "Limitado",
+        "package.family": "Visita Familiar",
+        "package.event": "Visita para Evento",
+        "package.eve": "Nochebuena",
+        "price.from": "Desde",
+        "price.window": "horario reservado",
+        "family.one": "Fotos con Santa",
+        "family.two": "Saludo cálido para niños",
+        "family.three": "Entrega de regalo opcional",
+        "family.four": "Ideal para momentos familiares",
+        "event.one": "Fiestas, escuelas o negocios",
+        "event.two": "Fotos y saludos",
+        "event.three": "Apoyo con mesa de regalos",
+        "event.four": "Visitas extendidas disponibles",
+        "eve.one": "Fecha navideña reservada",
+        "eve.two": "Entrega de regalos marcados",
+        "eve.three": "Fotos y momento sorpresa",
+        "eve.four": "Espacios limitados en la noche",
         "packages.familyCta": "Preguntar por Visita Familiar",
         "packages.eventCta": "Preguntar por Evento",
-        "packages.eveCta": "Preguntar por Nochebuena"
+        "packages.eveCta": "Preguntar por Nochebuena",
+        "packages.note": "Se requiere depósito para guardar una fecha confirmada. Pueden existir opciones comunitarias para eventos sin fines de lucro, donaciones de juguetes o visitas patrocinadas.",
+        "summer.eyebrow": "Santa en Verano",
+        "summer.title": "La magia navideña no tiene que esperar hasta diciembre.",
+        "summer.copy": "Christmas in July, inicio de donaciones, fotos con mascotas, cuentos en daycare y sorpresas de cumpleaños pueden traer alegría navideña antes de tiempo.",
+        "summer.cta": "Planificar Santa en Verano",
+        "summer.one": "Fotos de Christmas in July",
+        "summer.two": "Inicio de donaciones de juguetes",
+        "summer.three": "Cuentos para daycares y campamentos",
+        "summer.four": "Fotos de mascotas con Santa",
+        "summer.five": "Sorpresas de cumpleaños",
+        "summer.six": "Días familiares corporativos",
+        "spanish.eyebrow": "Disponible en Español",
+        "spanish.title": "Una visita privada de Papa Noel para momentos inolvidables.",
+        "spanish.copy": "Servicio bilingüe para familias, escuelas, negocios, comunidades, donaciones de juguetes, novenas y entregas de regalos en Nochebuena.",
+        "spanish.cta": "Solicitar disponibilidad",
+        "included.eyebrow": "Incluido",
+        "included.title": "Todo lo necesario para una visita dulce y sencilla.",
+        "included.one": "Fotos con Santa",
+        "included.two": "Saludo para niños",
+        "included.three": "Entrega de regalos",
+        "included.four": "Opción de cuento navideño",
+        "included.five": "Apoyo para donaciones",
+        "included.six": "Interacción bilingüe",
+        "included.area": "Áreas de servicio: Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables y comunidades cercanas.",
+        "video.eyebrow": "Momentos en Video",
+        "video.title": "Un pequeño adelanto ayuda a las familias a sentirse cómodas.",
+        "video.copy": "Se pueden compartir videos cortos por solicitud. Los clips públicos se agregan solo cuando las familias estén cómodas.",
+        "video.family": "Momentos familiares privados",
+        "video.community": "Momentos de eventos comunitarios",
+        "video.available": "Video disponible por solicitud.",
+        "gallery.eyebrow": "Galería de Fotos",
+        "gallery.title": "Sonrisas reales de visitas reales.",
+        "gallery.copy": "Algunos momentos de visitas familiares, eventos comunitarios, donaciones de juguetes y celebraciones navideñas.",
+        "proof.quote": "\"Cada donación, cada juguete, cada hora de ayuda es un mundo para estos niños.\"",
+        "proof.copy": "El trabajo comunitario es una de las razones por las que Miami Papa Noel continúa esta tradición cada año.",
+        "flow.eyebrow": "Cómo Funciona",
+        "flow.title": "Pasos sencillos, sin presión.",
+        "flow.copy": "Envía primero lo básico. Respondemos con disponibilidad, precio y el próximo paso.",
+        "flow.oneTitle": "Escoge una visita",
+        "flow.oneCopy": "Escoge el tipo de visita más cercano. Si no estás seguro, elige \"no estoy seguro\" en el formulario.",
+        "flow.twoTitle": "Confirma detalles",
+        "flow.twoCopy": "Comparte fecha, hora, ciudad, invitados, dirección, estacionamiento y si Santa entregará regalos.",
+        "flow.threeTitle": "Guarda la fecha",
+        "flow.threeCopy": "Después de confirmar disponibilidad, un depósito guarda la fecha y el balance se paga antes o al llegar.",
+        "faq.eyebrow": "Preguntas",
+        "faq.title": "Bueno saberlo.",
+        "faq.copy": "Respuestas rápidas antes de enviar tu solicitud.",
+        "faq.oneQ": "¿Atienden fuera de Doral?",
+        "faq.oneA": "Sí. Miami Papa Noel atiende Miami-Doral y áreas cercanas como Hialeah, Kendall, Sweetwater, Miami Lakes y Coral Gables. El viaje puede afectar el precio.",
+        "faq.twoQ": "¿Santa puede entregar regalos?",
+        "faq.twoA": "Sí. Los regalos los provee la familia u organizador y deben estar marcados claramente con el nombre de cada niño.",
+        "faq.threeQ": "¿Se requiere depósito?",
+        "faq.threeA": "Sí. La fecha queda confirmada solo después del depósito, detalles del evento y confirmación en calendario.",
+        "faq.fourQ": "¿Pueden reservar organizaciones sin fines de lucro?",
+        "faq.fourA": "Sí. Puede haber opciones para eventos sin fines de lucro, donaciones de juguetes o visitas patrocinadas según la fecha y necesidades del evento.",
+        "cta.eyebrow": "Fechas Disponibles",
+        "cta.title": "¿Listo para hacerlo especial?",
+        "cta.copy": "Envía la fecha, ciudad, hora, tipo de visita y detalles de regalos. Respondemos con disponibilidad, precio y cómo reservar.",
+        "cta.primary": "Solicitar Visita",
+        "cta.call": "Llamar o Escribir",
+        "cta.whatsapp": "WhatsApp",
+        "cta.email": "Enviar Correo",
+        "footer.subline": "Visitas privadas bilingües de Santa para familias, negocios, escuelas y eventos comunitarios en Miami-Doral",
+        "sticky.call": "Llamar / Texto",
+        "sticky.request": "Solicitar Visita"
       }
+    };
+
+    const whatsappMessages = {
+      en: "Hello Miami Papa Noel, I would like to request a visit.",
+      es: "Hola Miami Papa Noel, me gustaría solicitar una visita."
     };
 
     function setLanguage(lang) {
       const dictionary = translations[lang] || translations.en;
-      document.documentElement.lang = lang;
+      const activeLang = dictionary === translations.es ? "es" : "en";
+      document.documentElement.lang = activeLang;
       document.querySelectorAll("[data-i18n]").forEach((item) => {
         const key = item.getAttribute("data-i18n");
         if (dictionary[key]) item.textContent = dictionary[key];
       });
       document.querySelectorAll("[data-lang]").forEach((button) => {
-        const isActive = button.getAttribute("data-lang") === lang;
+        const isActive = button.getAttribute("data-lang") === activeLang;
         button.classList.toggle("is-active", isActive);
         button.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
-      localStorage.setItem("miamiPapaNoelLanguage", lang);
+      document.querySelectorAll("[data-whatsapp-cta]").forEach((link) => {
+        link.href = "https://wa.me/13052440360?text=" + encodeURIComponent(whatsappMessages[activeLang]);
+      });
+      localStorage.setItem("miamiPapaNoelLanguage", activeLang);
     }
 
     document.querySelectorAll("[data-lang]").forEach((button) => {
