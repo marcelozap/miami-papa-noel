@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Miami Papa Noel Flyer</title>
+  <style>
+    :root {
+      --ink: #1b1513;
+      --velvet: #8f1f2d;
+      --pine: #123f35;
+      --gold: #c9993f;
+      --paper: #fff9ef;
+      --line: #eadcc8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #ede5d8;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+
+    .page {
+      width: min(8.5in, 100%);
+      min-height: 11in;
+      margin: 0 auto;
+      padding: .45in;
+      background: var(--paper);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+      padding-bottom: 24px;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--velvet);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 54px;
+      line-height: .94;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .lead {
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .contact {
+      display: grid;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 16px;
+      color: white;
+      background: var(--pine);
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .card strong {
+      display: block;
+      color: var(--velvet);
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    ul {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .bilingual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 8px;
+      color: white;
+      background: var(--velvet);
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-weight: 900;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .page {
+        width: 8.5in;
+        min-height: 11in;
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 24px;
+      }
+
+      .hero,
+      .grid,
+      .bilingual {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Miami-Doral and nearby areas</p>
+        <h1>Miami Papa Noel</h1>
+        <p class="lead">Warm bilingual Santa visits for families, schools, businesses, communities, toy drives, and Christmas Eve gift delivery.</p>
+        <p>Since 2017, Papa Noel has helped create calm, happy Christmas moments for children and families across Miami-Doral.</p>
+        <div class="contact">
+          <div>Call/Text: 305-244-0360</div>
+          <div>Website: miamipapanoel.com</div>
+          <div>Instagram: @miamipapanoel</div>
+        </div>
+      </div>
+      <img src="../assets/optimized/santa-family-event-1600.jpg" alt="Miami Papa Noel with a family">
+    </section>
+
+    <section class="grid" aria-label="Visit options">
+      <article class="card">
+        <strong>Family Visit</strong>
+        <ul>
+          <li>Photos with Santa</li>
+          <li>Warm child greeting</li>
+          <li>Optional gift handoff</li>
+          <li>From $125</li>
+        </ul>
+      </article>
+      <article class="card">
+        <strong>Event Visit</strong>
+        <ul>
+          <li>Schools and daycares</li>
+          <li>Businesses and HOAs</li>
+          <li>Photo lines and greetings</li>
+          <li>From $225</li>
+        </ul>
+      </article>
+      <article class="card">
+        <strong>Christmas Eve</strong>
+        <ul>
+          <li>Reserved visit window</li>
+          <li>Labeled gift delivery</li>
+          <li>Photos and surprise moment</li>
+          <li>From $250</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="bilingual">
+      <div>
+        <h2>English</h2>
+        <p>Good with shy children, ready for photos, and available for private homes, events, toy drives, and community celebrations.</p>
+      </div>
+      <div lang="es">
+        <h2>Español</h2>
+        <p>Paciente con niños tímidos, listo para fotos y disponible para casas, eventos, donaciones de juguetes y celebraciones comunitarias.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Best For</h2>
+      <p>Family parties, apartment communities, HOAs, daycares, schools, churches, restaurants, customer appreciation events, Christmas in July, nonprofit toy drives, pet photos, and Christmas Eve gift delivery.</p>
+    </section>
+
+    <p class="footer">Book early for December weekends and Christmas Eve. Visit miamipapanoel.com/book</p>
+  </main>
+</body>
+</html>

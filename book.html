@@ -602,6 +602,7 @@
             <div class="actions">
               <button type="button" id="build" data-i18n="form.build">Create Text Message</button>
               <a class="button secondary" id="smsLink" href="sms:+13052440360" data-i18n="form.text">Text Request</a>
+              <a class="button secondary" id="whatsappLink" href="https://wa.me/13052440360" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
               <a class="button outline" id="emailLink" href="mailto:bookings@miamipapanoel.com" data-i18n="form.email">Email Request</a>
             </div>
           </form>
@@ -648,6 +649,7 @@
     const fields = ["name", "phone", "email", "date", "time", "city", "guests", "package", "eventType", "details", "gifts"];
     const message = document.getElementById("message");
     const smsLink = document.getElementById("smsLink");
+    const whatsappLink = document.getElementById("whatsappLink");
     const emailLink = document.getElementById("emailLink");
     const copyMessage = document.getElementById("copyMessage");
     let currentLanguage = localStorage.getItem("miamiPapaNoelLanguage") || "en";
@@ -700,6 +702,7 @@
         "placeholder.gifts": "If Santa will hand out gifts, please tell us how many and if they will be labeled.",
         "form.build": "Create Text Message",
         "form.text": "Text Request",
+        "form.whatsapp": "WhatsApp Request",
         "form.email": "Email Request",
         "form.note": "For the fastest reply, send the text message. You can add the exact address later if needed.",
         "message.eyebrow": "Ready to Send",
@@ -759,6 +762,7 @@
         "placeholder.gifts": "Si Santa entregará regalos, dinos cuántos son y si estarán marcados con nombres.",
         "form.build": "Crear Mensaje",
         "form.text": "Enviar Texto",
+        "form.whatsapp": "Enviar WhatsApp",
         "form.email": "Enviar Correo",
         "form.note": "Para una respuesta más rápida, envía el mensaje de texto. Puedes agregar la dirección exacta después.",
         "message.eyebrow": "Listo para Enviar",
@@ -881,6 +885,7 @@
       const text = lines.join("\n");
       message.textContent = text;
       smsLink.href = "sms:+13052440360?&body=" + encodeURIComponent(text);
+      whatsappLink.href = "https://wa.me/13052440360?text=" + encodeURIComponent(text);
       emailLink.href = "mailto:bookings@miamipapanoel.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
     }
 

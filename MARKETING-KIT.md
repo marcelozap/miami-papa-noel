@@ -21,6 +21,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `lead-tracker.csv` - spreadsheet template for tracking potential clients.
 - `social-posts.md` - ready-to-post English and Spanish captions.
 - `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
+- `business/one-page-flyer.html` - printable one-page flyer.
 - `assets/` - copied Santa photos for marketing use.
 
 ## Fastest path to clients
