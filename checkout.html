@@ -6,6 +6,7 @@
   <title>Santa Visit Packages | Miami Papa Noel</title>
   <meta name="description" content="Choose a simple Miami Papa Noel Santa visit package and request availability.">
   <link rel="canonical" href="https://miamipapanoel.com/checkout.html">
+  <link rel="icon" href="assets/christmas-tree-icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
@@ -63,9 +64,15 @@
     }
 
     .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-text {
       display: grid;
       gap: 1px;
-      text-decoration: none;
     }
 
     .brand strong {
@@ -80,6 +87,13 @@
       font-weight: 800;
       letter-spacing: .08em;
       text-transform: uppercase;
+    }
+
+    .brand-hat {
+      width: 42px;
+      height: 28px;
+      object-fit: contain;
+      transform: rotate(8deg);
     }
 
     .topbar nav {
@@ -330,8 +344,11 @@
 <body>
   <header class="topbar">
     <a class="brand" href="/">
-      <strong>Miami Papa Noel</strong>
-      <span>Simple Packages</span>
+      <span class="brand-text">
+        <strong>Miami Papa Noel</strong>
+        <span>Simple Packages</span>
+      </span>
+      <img class="brand-hat" src="assets/santa-hat-icon.svg" alt="">
     </a>
     <nav aria-label="Checkout navigation">
       <a href="/">Website</a>

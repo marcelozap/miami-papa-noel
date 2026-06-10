@@ -6,6 +6,7 @@
   <title>Book Miami Papa Noel | Santa Visit Request</title>
   <meta name="description" content="Request availability for a warm bilingual Papa Noel Santa visit in Miami-Doral and nearby areas.">
   <link rel="canonical" href="https://miamipapanoel.com/book.html">
+  <link rel="icon" href="assets/christmas-tree-icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
@@ -63,9 +64,15 @@
     }
 
     .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-text {
       display: grid;
       gap: 1px;
-      text-decoration: none;
     }
 
     .brand strong {
@@ -80,6 +87,13 @@
       font-weight: 800;
       letter-spacing: .08em;
       text-transform: uppercase;
+    }
+
+    .brand-hat {
+      width: 42px;
+      height: 28px;
+      object-fit: contain;
+      transform: rotate(8deg);
     }
 
     .topbar nav {
@@ -99,6 +113,18 @@
       background:
         linear-gradient(90deg, rgba(23, 19, 19, .92), rgba(18, 63, 53, .72)),
         url("assets/santa-photo-2.jpg") center / cover no-repeat;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-tree {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
     }
 
     .eyebrow {
@@ -373,8 +399,11 @@
 <body>
   <header class="topbar">
     <a class="brand" href="/">
-      <strong>Miami Papa Noel</strong>
-      <span>Booking Request</span>
+      <span class="brand-text">
+        <strong>Miami Papa Noel</strong>
+        <span>Booking Request</span>
+      </span>
+      <img class="brand-hat" src="assets/santa-hat-icon.svg" alt="">
     </a>
     <nav aria-label="Booking navigation">
       <a href="/">Website</a>
@@ -386,7 +415,7 @@
   <main>
     <section class="hero">
       <div class="shell">
-          <p class="eyebrow">Reserve a Santa visit</p>
+          <p class="eyebrow hero-kicker"><img class="hero-tree" src="assets/christmas-tree-icon.svg" alt=""> Reserve a Santa visit</p>
         <h1>Bring Miami Papa Noel to your event.</h1>
         <p>Send the date, location, and type of celebration. We will reply with availability, pricing, and the best visit option.</p>
       </div>

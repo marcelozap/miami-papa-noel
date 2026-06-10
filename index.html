@@ -6,6 +6,7 @@
   <title>Miami Papa Noel | Premium Bilingual Santa Visits</title>
   <meta name="description" content="Premium bilingual Santa Claus visits for families, schools, businesses, residential communities, nonprofits, toy drives, photo sessions, Christmas novenas, Christmas in July, and Christmas Eve gift delivery in Miami-Doral.">
   <link rel="canonical" href="https://miamipapanoel.com/">
+  <link rel="icon" href="assets/christmas-tree-icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
@@ -101,10 +102,16 @@
     }
 
     .brand {
-      display: grid;
-      gap: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
       white-space: nowrap;
+    }
+
+    .brand-text {
+      display: grid;
+      gap: 1px;
     }
 
     .brand strong {
@@ -119,6 +126,13 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .08em;
+    }
+
+    .brand-hat {
+      width: 42px;
+      height: 28px;
+      object-fit: contain;
+      transform: rotate(8deg);
     }
 
     .nav {
@@ -733,8 +747,11 @@
 <body>
   <header class="topbar">
     <a class="brand" href="/">
-      <strong>Miami Papa Noel</strong>
-      <span>Bilingual Santa Visits</span>
+      <span class="brand-text">
+        <strong>Miami Papa Noel</strong>
+        <span>Bilingual Santa Visits</span>
+      </span>
+      <img class="brand-hat" src="assets/santa-hat-icon.svg" alt="">
     </a>
     <nav class="nav" aria-label="Main navigation">
       <a href="#services">Services</a>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Christmas tree">
+  <rect x="27" y="48" width="10" height="10" rx="2" fill="#7a4a27"/>
+  <path d="M32 6 18 24h8L13 40h12L18 52h28L39 40h12L38 24h8L32 6Z" fill="#123f35"/>
+  <path d="M32 6 25 24h1L18 40h7l-7 12h14V6Z" fill="#1f5f4c"/>
+  <circle cx="25" cy="30" r="2.3" fill="#c9993f"/>
+  <circle cx="38" cy="36" r="2.3" fill="#c9993f"/>
+  <circle cx="30" cy="45" r="2.3" fill="#8f1f2d"/>
+  <path d="M32 3 34 8 39 8 35 11 37 16 32 13 27 16 29 11 25 8 30 8 32 3Z" fill="#d9ac4b"/>
+</svg>
