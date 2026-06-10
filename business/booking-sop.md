@@ -16,7 +16,7 @@ Ask for missing details:
 - How long they want Santa
 - Whether gifts will be handed out
 
-If the request came from the website form, copy the `Lead source` line into `lead-tracker.csv`. This helps show which pages and campaigns are creating real conversations.
+If the request came from the website form, copy the `Lead source` line into `../lead-tracker.csv`. This helps show which pages and campaigns are creating real conversations.
 
 ## 2. Qualify
 
@@ -98,4 +98,12 @@ At event:
 
 Send within 24 hours:
 
-`Thank you for having Papa Noel at your event. It was a joy to be part of it. If you have a moment, a short review or referral would help our family business so much.`
+`Thank you for having Papa Noel at your event. It was a joy to be part of it. If you have a moment, this page makes it easy to send a short review, share one approved photo, or refer another family or event: https://miamipapanoel.com/after-visit`
+
+Then update `../lead-tracker.csv`:
+
+- Status: `Review requested`
+- Follow-Up Date: 2 days after the event
+- Notes: `After-visit page sent`
+
+Use `review-referral-system.md` for the full review, photo permission, and referral workflow.

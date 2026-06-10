@@ -11,10 +11,12 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 - `events.html` - focused event-visit landing page for schools, HOAs, businesses, and toy drives
 - `christmas-eve.html` - focused Christmas Eve gift-delivery landing page for families
 - `summer-santa.html` - focused Summer Santa and Christmas-in-July landing page
+- `service-areas.html` - focused service-area page for Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities
 - `schools-daycares.html` - focused school, daycare, and classroom Santa visit landing page
 - `hoa-apartments.html` - focused HOA, apartment, condo, and resident event landing page
 - `partners.html` - focused referral-partner page for photographers, event vendors, pet businesses, and local family businesses
 - `reviews.html` - social proof page with real visit photos, community proof, and review collection guidance
+- `after-visit.html` - thank-you page for reviews, approved photo permission, and referrals
 
 ## Public Contact Details
 
@@ -33,6 +35,7 @@ Open `business/` for the operating docs:
 - Sales funnel
 - Local lead research playbook
 - Referral partner playbook
+- Review and referral system
 - Booking SOP
 - Client message templates
 - Pricing framework

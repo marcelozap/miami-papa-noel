@@ -78,6 +78,8 @@ If you have a moment, a short review or tagged post would help our family busine
 
 If you are comfortable, you can also send one approved photo we may share on the website or Instagram. We only repost photos with permission.
 
+Easy review/referral page: https://miamipapanoel.com/after-visit
+
 Proof page: https://miamipapanoel.com/reviews
 
 ## Proof Page Reply
@@ -99,3 +101,11 @@ Send the date idea, city, type of business, expected audience, and the kind of S
 ## Referral Request
 
 If you know another family, school, business, daycare, church, HOA, or nonprofit planning a holiday event, we would be grateful for the referral.
+
+Easy referral link:
+
+https://miamipapanoel.com/book?source=referral
+
+Review/referral page:
+
+https://miamipapanoel.com/after-visit

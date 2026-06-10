@@ -19,6 +19,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - HOAs and apartments page: `https://miamipapanoel.com/hoa-apartments`
 - Partner page: `https://miamipapanoel.com/partners`
 - Reviews and real moments page: `https://miamipapanoel.com/reviews`
+- After-visit review/referral page: `https://miamipapanoel.com/after-visit`
 - Booking form: `https://miamipapanoel.com/book`
 
 ## Files
@@ -33,6 +34,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
 - `partners.html` - focused referral-partner page for photographers, party vendors, pet businesses, and local family businesses.
 - `reviews.html` - social proof page with real photos, community proof, and review collection guidance.
+- `after-visit.html` - thank-you page for reviews, approved photo permission, and referrals after completed visits.
 - `book.html` - booking request form.
 - `campaign-plan.md` - what to do each month and who to target.
 - `packages-and-pricing.md` - service menu and suggested pricing structure.
@@ -43,6 +45,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/referral-partner-playbook.md` - partner outreach routine for photographers, vendors, restaurants, pet businesses, and family businesses.
 - `business/one-page-flyer.html` - printable one-page flyer.
 - `business/google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
+- `business/review-referral-system.md` - post-visit review, photo permission, and referral workflow.
 - `business/google-business-profile-launch.md` - paste-ready Google Business Profile content.
 - `assets/` - copied Santa photos for marketing use.
 

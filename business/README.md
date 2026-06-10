@@ -22,9 +22,11 @@ This folder turns the website into an operating system for the business.
 16. `../hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
 17. `../partners.html` - referral-partner page for photographers, vendors, pet businesses, restaurants, and local family businesses.
 18. `../reviews.html` - proof page with real visit photos, community notes, and review collection guidance.
-19. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
-20. `google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
-21. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
+19. `../after-visit.html` - thank-you page for reviews, approved photo permission, and referrals after completed visits.
+20. `review-referral-system.md` - post-visit review, photo permission, and referral workflow.
+21. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
+22. `google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
+23. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
 
 ## Core Rule
 

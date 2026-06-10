@@ -405,6 +405,15 @@
       list-style: none;
     }
 
+    .review-action-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .review-action-stack .actions {
+      margin-top: 0;
+    }
+
     .event-list li {
       padding: 15px 16px;
       border: 1px solid rgba(255, 255, 255, .18);
@@ -818,13 +827,18 @@
           <h2 data-i18n="collect.title">A kind word helps the next family feel comfortable.</h2>
           <p class="lead" data-i18n="collect.copy">After each visit, families are welcome to share one short review, tag Miami Papa Noel, or send one approved photo we may reuse with permission.</p>
         </div>
-        <ul class="event-list">
-          <li data-i18n="collect.one">One sentence is enough</li>
-          <li data-i18n="collect.two">Tagged posts are always appreciated</li>
-          <li data-i18n="collect.three">Approved photos may be shared with care</li>
-          <li data-i18n="collect.four">Private family moments stay private</li>
-          <li data-i18n="collect.five">Every kind note supports a family business</li>
-        </ul>
+        <div class="review-action-stack">
+          <ul class="event-list">
+            <li data-i18n="collect.one">One sentence is enough</li>
+            <li data-i18n="collect.two">Tagged posts are always appreciated</li>
+            <li data-i18n="collect.three">Approved photos may be shared with care</li>
+            <li data-i18n="collect.four">Private family moments stay private</li>
+            <li data-i18n="collect.five">Every kind note supports a family business</li>
+          </ul>
+          <div class="actions">
+            <a class="button" href="after-visit.html" data-i18n="collect.cta">Share Review or Referral</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -911,6 +925,7 @@
         "collect.three": "Approved photos may be shared with care",
         "collect.four": "Private family moments stay private",
         "collect.five": "Every kind note supports a family business",
+        "collect.cta": "Share Review or Referral",
         "cta.eyebrow": "Request a Visit",
         "cta.title": "Ready to create your own Santa moment?",
         "cta.copy": "Send the date, city, type of visit, number of guests or children, and whether gifts will be handed out. We will reply with availability and next steps.",
@@ -974,6 +989,7 @@
         "collect.three": "Las fotos aprobadas se comparten con cuidado",
         "collect.four": "Los momentos privados se quedan privados",
         "collect.five": "Cada nota amable apoya un negocio familiar",
+        "collect.cta": "Compartir Resena o Referido",
         "cta.eyebrow": "Solicitar Visita",
         "cta.title": "¿Listo para crear tu propio momento con Santa?",
         "cta.copy": "Envía fecha, ciudad, tipo de visita, cantidad de invitados o niños y si Santa entregará regalos. Respondemos con disponibilidad y próximos pasos.",
