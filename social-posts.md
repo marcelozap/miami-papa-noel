@@ -13,6 +13,7 @@ Instagram: @miamipapanoel
 Book: https://miamipapanoel.com/links
 Events: https://miamipapanoel.com/events
 Christmas Eve: https://miamipapanoel.com/christmas-eve
+Summer Santa: https://miamipapanoel.com/summer-santa
 
 ## Post 1 - Spanish
 
@@ -27,6 +28,7 @@ Instagram: @miamipapanoel
 Reservas: https://miamipapanoel.com/links
 Eventos: https://miamipapanoel.com/events
 Nochebuena: https://miamipapanoel.com/christmas-eve
+Santa en Verano: https://miamipapanoel.com/summer-santa
 
 ## Post 2 - Christmas in July
 
@@ -37,7 +39,7 @@ Santa is available this summer for photo pop-ups, daycare visits, toy drive kick
 Book a magical summer moment now and reserve your December date early.
 
 Call/Text: 305-244-0360
-Event info: https://miamipapanoel.com/events
+Summer Santa info: https://miamipapanoel.com/summer-santa
 
 ## Post 3 - Nonprofit Angle
 

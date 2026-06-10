@@ -40,6 +40,10 @@ Christmas Eve gift delivery:
 
 `https://miamipapanoel.com/christmas-eve`
 
+Summer Santa and Christmas in July:
+
+`https://miamipapanoel.com/summer-santa`
+
 Direct booking form:
 
 `https://miamipapanoel.com/book`

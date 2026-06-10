@@ -598,6 +598,7 @@
                 <select id="eventType" name="eventType">
                   <option value="Family / home" data-i18n="type.family">Family / home</option>
                   <option value="School / daycare" data-i18n="type.school">School / daycare</option>
+                  <option value="Summer Santa / Christmas in July" data-i18n="type.summer">Summer Santa / Christmas in July</option>
                   <option value="Business / community" data-i18n="type.business">Business / community</option>
                   <option value="Christmas Eve gifts" data-i18n="type.eve">Christmas Eve gifts</option>
                   <option value="Nonprofit / toy drive" data-i18n="type.nonprofit">Nonprofit / toy drive</option>
@@ -704,6 +705,7 @@
         "select.unsure": "Not sure yet",
         "type.family": "Family / home",
         "type.school": "School / daycare",
+        "type.summer": "Summer Santa / Christmas in July",
         "type.business": "Business / community",
         "type.eve": "Christmas Eve gifts",
         "type.nonprofit": "Nonprofit / toy drive",
@@ -764,6 +766,7 @@
         "select.unsure": "No estoy seguro",
         "type.family": "Familia / casa",
         "type.school": "Escuela / daycare",
+        "type.summer": "Santa en Verano / Christmas in July",
         "type.business": "Negocio / comunidad",
         "type.eve": "Regalos de Nochebuena",
         "type.nonprofit": "Sin fines de lucro / donación",
@@ -874,20 +877,36 @@
     }
 
     function applyPackageFromUrl() {
-      const selectedPackage = new URLSearchParams(window.location.search).get("package");
-      if (!selectedPackage) return;
-      const select = document.getElementById("package");
-      const normalized = selectedPackage.toLowerCase();
-      let target = "Not sure yet";
-      if (normalized.includes("christmas") || normalized.includes("nochebuena")) {
-        target = "Christmas Eve";
-      } else if (normalized.includes("family") || normalized.includes("home") || normalized.includes("famil")) {
-        target = "Family Visit";
-      } else if (normalized.includes("event") || normalized.includes("party") || normalized.includes("community") || normalized.includes("school") || normalized.includes("business")) {
-        target = "Event Visit";
+      const params = new URLSearchParams(window.location.search);
+      const selectedPackage = params.get("package");
+      if (selectedPackage) {
+        const select = document.getElementById("package");
+        const normalized = selectedPackage.toLowerCase();
+        let target = "Not sure yet";
+        if (normalized.includes("christmas") || normalized.includes("nochebuena")) {
+          target = "Christmas Eve";
+        } else if (normalized.includes("family") || normalized.includes("home") || normalized.includes("famil")) {
+          target = "Family Visit";
+        } else if (normalized.includes("event") || normalized.includes("party") || normalized.includes("community") || normalized.includes("school") || normalized.includes("business") || normalized.includes("summer") || normalized.includes("july")) {
+          target = "Event Visit";
+        }
+        const match = Array.from(select.options).find((option) => option.value === target);
+        if (match) select.value = match.value;
       }
-      const match = Array.from(select.options).find((option) => option.value === target);
-      if (match) select.value = match.value;
+
+      const selectedType = params.get("type") || params.get("eventType");
+      if (selectedType) {
+        const eventSelect = document.getElementById("eventType");
+        const normalizedType = selectedType.toLowerCase();
+        let eventTarget = "";
+        if (normalizedType.includes("summer") || normalizedType.includes("july") || normalizedType.includes("verano")) {
+          eventTarget = "Summer Santa / Christmas in July";
+        } else if (normalizedType.includes("christmas eve") || normalizedType.includes("nochebuena")) {
+          eventTarget = "Christmas Eve gifts";
+        }
+        const eventMatch = Array.from(eventSelect.options).find((option) => option.value === eventTarget);
+        if (eventMatch) eventSelect.value = eventMatch.value;
+      }
     }
 
     function buildMessage() {

@@ -161,7 +161,18 @@ Lead with: family foot traffic, customer appreciation, brunch or photo pop-up.
 
 Best package: Event Visit.
 
-Send: `https://miamipapanoel.com/events`
+Send:
+
+- Event visits: `https://miamipapanoel.com/events`
+- Summer Santa: `https://miamipapanoel.com/summer-santa`
+
+### Summer Camp, Daycare, or Pet Business
+
+Lead with: Christmas in July, daycare story time, pet photos, toy drive kickoff, and shareable family content.
+
+Best package: Event Visit.
+
+Send: `https://miamipapanoel.com/summer-santa`
 
 ### Family or Parent Lead
 
