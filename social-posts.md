@@ -12,6 +12,7 @@ Call/Text: 305-244-0360
 Instagram: @miamipapanoel
 Book: https://miamipapanoel.com/links
 Events: https://miamipapanoel.com/events
+Christmas Eve: https://miamipapanoel.com/christmas-eve
 
 ## Post 1 - Spanish
 
@@ -25,6 +26,7 @@ Llama/Texto: 305-244-0360
 Instagram: @miamipapanoel
 Reservas: https://miamipapanoel.com/links
 Eventos: https://miamipapanoel.com/events
+Nochebuena: https://miamipapanoel.com/christmas-eve
 
 ## Post 2 - Christmas in July
 
@@ -57,6 +59,7 @@ Christmas Eve gift delivery bookings are limited and scheduled by time window. F
 Reserve early.
 
 Call/Text: 305-244-0360
+Christmas Eve info: https://miamipapanoel.com/christmas-eve
 
 ## Story Ideas
 

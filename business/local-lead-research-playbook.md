@@ -169,6 +169,11 @@ Lead with: private home visit, easy gift handoff, bilingual Santa, Christmas Eve
 
 Best package: Family Visit or Christmas Eve.
 
+Send:
+
+- Family booking: `https://miamipapanoel.com/book`
+- Christmas Eve: `https://miamipapanoel.com/christmas-eve`
+
 ### Nonprofit or Church
 
 Lead with: toy drive, gift handoff, community support, sponsor-supported event.

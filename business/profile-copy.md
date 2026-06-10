@@ -36,6 +36,10 @@ Event visit page:
 
 `https://miamipapanoel.com/events`
 
+Christmas Eve gift delivery:
+
+`https://miamipapanoel.com/christmas-eve`
+
 Direct booking form:
 
 `https://miamipapanoel.com/book`

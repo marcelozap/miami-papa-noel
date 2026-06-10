@@ -10,11 +10,18 @@ Use this same information everywhere so families see one clear way to contact Pa
 - Email: `bookings@miamipapanoel.com`
 - Instagram: `@miamipapanoel`
 - Website: `https://miamipapanoel.com`
+- Social bio links: `https://miamipapanoel.com/links`
+- Event visit page: `https://miamipapanoel.com/events`
+- Christmas Eve page: `https://miamipapanoel.com/christmas-eve`
 - Booking form: `https://miamipapanoel.com/book`
 
 ## Files
 
-- `landing-page.html` - simple one-page booking page you can open in a browser.
+- `index.html` - main public website.
+- `links.html` - quick link-in-bio page for Instagram and social profiles.
+- `events.html` - focused event page for schools, HOAs, businesses, daycares, and toy drives.
+- `christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
+- `book.html` - booking request form.
 - `campaign-plan.md` - what to do each month and who to target.
 - `packages-and-pricing.md` - service menu and suggested pricing structure.
 - `outreach-scripts.md` - messages for Instagram, WhatsApp, email, and phone.

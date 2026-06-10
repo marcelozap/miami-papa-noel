@@ -9,6 +9,7 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 - `book.html` - booking request funnel
 - `links.html` - quick link-in-bio page for Instagram and social profiles
 - `events.html` - focused event-visit landing page for schools, HOAs, businesses, and toy drives
+- `christmas-eve.html` - focused Christmas Eve gift-delivery landing page for families
 
 ## Public Contact Details
 

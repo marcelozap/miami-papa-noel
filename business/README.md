@@ -14,8 +14,9 @@ This folder turns the website into an operating system for the business.
 8. `local-lead-research-playbook.md` - how to build a real local lead list.
 9. `../links.html` - quick link-in-bio page for Instagram and social profiles.
 10. `../events.html` - outreach landing page for schools, HOAs, businesses, toy drives, and event partners.
-11. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
-12. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
+11. `../christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
+12. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
+13. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
 
 ## Core Rule
 
