@@ -10,7 +10,7 @@ Best for homes, birthdays, small family parties, and surprise visits.
 - Photos with children and family.
 - Short greeting from Santa.
 - Optional family-provided gift handoff.
-- Suggested starting range: $100-$175.
+- Suggested public starting price: $125+.
 
 ## Party Visit
 
@@ -20,7 +20,7 @@ Best for larger family parties, restaurants, churches, and small business events
 - Photos with guests.
 - Santa greeting and interaction.
 - Gift handoff if gifts are prepared and labeled.
-- Suggested starting range: $175-$300.
+- Suggested public starting price: $225+.
 
 ## Residential Community Event
 
@@ -30,7 +30,7 @@ Best for apartment buildings, condos, HOAs, and clubhouses.
 - Photo line with Santa.
 - Optional gift table or toy drive.
 - Works well with decorators, balloon artists, photographers, and elves.
-- Suggested starting range: $300-$650.
+- Suggested public starting price: $375+.
 
 ## Business Appearance
 
@@ -39,7 +39,7 @@ Best for stores, offices, shopping plazas, restaurants, and client appreciation 
 - 1-2 hours.
 - Photos with customers or employees.
 - Holiday brand activation.
-- Suggested starting range: $300-$700.
+- Suggested public starting price: $375+.
 
 ## Christmas Eve Gift Delivery
 
@@ -48,7 +48,7 @@ Best for high-value bookings on December 24.
 - Santa arrives with family-provided gifts.
 - Short magical visit and photos.
 - Time windows should be tightly scheduled.
-- Suggested starting range: $175-$300 for short visit, higher for prime evening times.
+- Suggested public starting price: $250+ for short visit, higher for prime evening times.
 
 ## Nonprofit and Toy Drive Visit
 

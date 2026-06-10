@@ -22,7 +22,7 @@ Includes:
 
 Suggested range:
 
-`$100-$175`
+`Starting at $125`
 
 ### Party Visit
 
@@ -42,7 +42,7 @@ Includes:
 
 Suggested range:
 
-`$175-$300`
+`Starting at $225`
 
 ### Community Event
 
@@ -64,7 +64,7 @@ Includes:
 
 Suggested range:
 
-`$300-$650`
+`Starting at $375`
 
 ### Christmas Eve Delivery
 
@@ -82,7 +82,7 @@ Includes:
 
 Suggested range:
 
-`$175-$350+`
+`Starting at $250`
 
 ## Add Premiums
 

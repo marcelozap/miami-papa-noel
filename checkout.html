@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Packages and Checkout | Miami Papa Noel</title>
+  <meta name="description" content="Choose a Miami Papa Noel Santa visit package and start the reservation process.">
+  <link rel="canonical" href="https://miamipapanoel.com/checkout.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <meta property="og:title" content="Miami Papa Noel Packages">
+  <meta property="og:description" content="Choose a Santa visit package and start the reservation process.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://miamipapanoel.com/checkout.html">
+  <meta property="og:image" content="https://miamipapanoel.com/assets/santa-photo-2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    :root {
+      --ink: #171313;
+      --charcoal: #231b19;
+      --velvet: #8f1f2d;
+      --velvet-dark: #5f111b;
+      --pine: #123f35;
+      --gold: #c9993f;
+      --paper: #fff9ef;
+      --snow: #ffffff;
+      --mist: #f4efe6;
+      --muted: #70625b;
+      --line: #e4d5c0;
+      --shadow: 0 24px 60px rgba(36, 24, 18, .14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 44px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 28px;
+      color: white;
+      background: var(--charcoal);
+    }
+
+    .brand {
+      display: grid;
+      gap: 1px;
+      text-decoration: none;
+    }
+
+    .brand strong {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .brand span {
+      color: rgba(255, 255, 255, .76);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .topbar nav {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .topbar nav a {
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 84px 0;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(23, 19, 19, .90), rgba(18, 63, 53, .78)),
+        url("assets/santa-photo-2.jpg") center / cover no-repeat;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #f2d69a;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      letter-spacing: 0;
+    }
+
+    h1,
+    h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      line-height: .98;
+    }
+
+    h1 {
+      max-width: 880px;
+      margin-bottom: 16px;
+      font-size: clamp(46px, 7vw, 84px);
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 30px;
+    }
+
+    .section-head p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      font-size: clamp(36px, 4vw, 60px);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .price-card {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 18px 44px rgba(52, 32, 22, .08);
+    }
+
+    .price-card.featured {
+      border-color: rgba(201, 153, 63, .9);
+      box-shadow: var(--shadow);
+    }
+
+    .badge {
+      width: max-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: white;
+      background: var(--velvet);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .price strong {
+      display: block;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .price span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    ul {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .price-card li {
+      color: #493d38;
+      font-weight: 600;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 13px 18px;
+      border-radius: 6px;
+      color: #211607;
+      background: var(--gold);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .button.dark {
+      color: white;
+      background: var(--velvet);
+    }
+
+    .checkout {
+      color: white;
+      background: var(--charcoal);
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 28px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .panel h3 {
+      margin-bottom: 12px;
+      font-size: 24px;
+    }
+
+    .panel p {
+      color: rgba(255, 255, 255, .76);
+    }
+
+    .deposit-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .deposit-list div {
+      padding: 14px;
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--paper);
+      font-weight: 800;
+    }
+
+    .fine-print {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .checkout .fine-print {
+      color: rgba(255, 255, 255, .68);
+    }
+
+    footer {
+      padding: 28px;
+      color: rgba(255, 255, 255, .82);
+      background: var(--charcoal);
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .pricing-grid,
+      .checkout-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .shell {
+        width: min(100% - 32px, 1180px);
+      }
+
+      .topbar nav {
+        display: none;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .pricing-grid,
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <strong>Miami Papa Noel</strong>
+      <span>Packages</span>
+    </a>
+    <nav aria-label="Checkout navigation">
+      <a href="/">Website</a>
+      <a href="book.html">Book</a>
+      <a href="tel:+13052440360">Call</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <p class="eyebrow">Packages and reservation</p>
+        <h1>Choose the visit, then reserve the date.</h1>
+        <p>Start with a package below. After availability is confirmed, a deposit holds the date and the remaining balance is due before or at arrival.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Starting Prices</p>
+            <h2>Professional packages for every event size.</h2>
+          </div>
+          <p>Final pricing may change based on travel, date, timing, event complexity, and Christmas Eve availability.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <div class="badge">Home</div>
+            <h3>Mini Visit</h3>
+            <div class="price"><strong>$125+</strong><span>20-30 minutes</span></div>
+            <ul>
+              <li>Photos with Santa</li>
+              <li>Short child greeting</li>
+              <li>Optional gift handoff</li>
+              <li>Best for small families</li>
+            </ul>
+            <a class="button dark" href="book.html?package=Mini%20Visit">Reserve Mini Visit</a>
+          </article>
+          <article class="price-card featured">
+            <div class="badge">Most Popular</div>
+            <h3>Classic Party</h3>
+            <div class="price"><strong>$225+</strong><span>45-60 minutes</span></div>
+            <ul>
+              <li>Family or business party</li>
+              <li>Photos and greetings</li>
+              <li>Gift table support</li>
+              <li>Great for churches/restaurants</li>
+            </ul>
+            <a class="button" href="book.html?package=Classic%20Party">Reserve Party Visit</a>
+          </article>
+          <article class="price-card">
+            <div class="badge">Event</div>
+            <h3>Community Event</h3>
+            <div class="price"><strong>$375+</strong><span>1-2 hours</span></div>
+            <ul>
+              <li>HOAs and apartments</li>
+              <li>Schools and daycares</li>
+              <li>Business activations</li>
+              <li>Photo line experience</li>
+            </ul>
+            <a class="button dark" href="book.html?package=Community%20Event">Reserve Event Visit</a>
+          </article>
+          <article class="price-card">
+            <div class="badge">Limited</div>
+            <h3>Christmas Eve</h3>
+            <div class="price"><strong>$250+</strong><span>scheduled window</span></div>
+            <ul>
+              <li>Premium date</li>
+              <li>Labeled gift delivery</li>
+              <li>Photos and surprise moment</li>
+              <li>Limited evening slots</li>
+            </ul>
+            <a class="button dark" href="book.html?package=Christmas%20Eve">Reserve Eve Visit</a>
+          </article>
+        </div>
+        <p class="fine-print">Nonprofit, toy drive, sponsor-supported, and Christmas in July events can be quoted separately.</p>
+      </div>
+    </section>
+
+    <section class="checkout">
+      <div class="shell checkout-grid">
+        <div class="panel">
+          <p class="eyebrow">Checkout Process</p>
+          <h2>Deposit after confirmation.</h2>
+          <p>Because Santa visits depend on travel, date, event length, and availability, payment should happen after the family confirms the quote. This avoids double-booking and keeps Christmas Eve slots controlled.</p>
+          <div class="deposit-list">
+            <div>Step 1: Choose package</div>
+            <div>Step 2: Send request</div>
+            <div>Step 3: Confirm price and time</div>
+            <div>Step 4: Pay deposit to hold date</div>
+          </div>
+        </div>
+        <div class="panel">
+          <p class="eyebrow">Payment Setup</p>
+          <h2>Ready for Zelle, Square, or Stripe.</h2>
+          <p>Once payment details are chosen, add them here or connect payment links. For now, the site directs clients to request availability before deposit.</p>
+          <div class="deposit-list">
+            <div>Zelle: [PAYMENT INFO]</div>
+            <div>Cash App / Venmo: [PAYMENT INFO]</div>
+            <div>Square / Stripe link: [PAYMENT LINK]</div>
+          </div>
+          <div class="actions" style="margin-top: 18px;">
+            <a class="button" href="book.html">Start Booking Request</a>
+          </div>
+          <p class="fine-print">Booking is confirmed only after deposit, address, parking details, and calendar confirmation.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Miami Papa Noel | Packages, reservations, and premium Santa visits
+  </footer>
+</body>
+</html>

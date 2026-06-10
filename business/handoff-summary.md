@@ -4,6 +4,7 @@
 
 - Website homepage
 - Booking request page
+- Package and checkout/reservation page
 - Photo gallery
 - Service packages
 - Summer Santa offer

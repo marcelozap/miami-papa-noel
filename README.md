@@ -5,6 +5,7 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 ## Website Pages
 
 - `index.html` - main website
+- `checkout.html` - package pricing and reservation path
 - `book.html` - booking request funnel
 
 ## Update Before Launch
