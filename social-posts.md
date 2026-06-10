@@ -10,7 +10,7 @@ Booking now for the 2026 holiday season.
 
 Call/Text: 305-244-0360
 Instagram: @miamipapanoel
-Website: https://miamipapanoel.com
+Book: https://miamipapanoel.com/links
 
 ## Post 1 - Spanish
 
@@ -22,7 +22,7 @@ Reservas abiertas para la temporada navideña 2026.
 
 Llama/Texto: 305-244-0360
 Instagram: @miamipapanoel
-Página: https://miamipapanoel.com
+Reservas: https://miamipapanoel.com/links
 
 ## Post 2 - Christmas in July
 

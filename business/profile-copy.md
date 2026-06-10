@@ -12,6 +12,8 @@ Photos | Parties | Toy Drives | Gift Delivery
 Families | Schools | Businesses | HOAs  
 Book here:
 
+`https://miamipapanoel.com/links`
+
 ## Facebook About
 
 Miami Papa Noel offers warm bilingual Santa visits for private homes, family parties, businesses, schools, daycares, residential communities, nonprofits, toy drives, Christmas novenas, Christmas in July events, photo sessions, and Christmas Eve gift delivery in Miami-Doral and nearby areas.
@@ -26,6 +28,10 @@ Thank you for messaging Miami Papa Noel. We may be at an event or helping anothe
 
 ## Link Text
 
-Book Papa Noel:
+Quick booking links:
+
+`https://miamipapanoel.com/links`
+
+Direct booking form:
 
 `https://miamipapanoel.com/book`
