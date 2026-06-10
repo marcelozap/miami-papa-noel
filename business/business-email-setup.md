@@ -62,6 +62,89 @@ Important:
 - Forwarding receives email.
 - Sending replies from the domain may require extra SMTP setup or a paid provider.
 
+## Cloudflare Forwarding Setup For Miami Papa Noel
+
+Goal:
+
+`bookings@miamipapanoel.com` forwards to `rubiosally@hotmail.com`.
+
+### Step 1 - Add The Domain To Cloudflare
+
+1. Create or log into Cloudflare.
+2. Add site/domain:
+   - `miamipapanoel.com`
+3. Choose the free plan.
+4. Let Cloudflare scan DNS records.
+5. Before changing nameservers, make sure website DNS records exist in Cloudflare.
+
+### Step 2 - Keep Vercel Website Working
+
+If Cloudflare becomes the DNS provider, add or confirm these records in Cloudflare DNS:
+
+| Type | Name | Value |
+| --- | --- | --- |
+| A | `@` | Use the A record Vercel shows for the project/domain |
+| CNAME | `www` | Use the CNAME target Vercel shows for the project/domain |
+
+Important:
+
+Vercel often uses an apex A record and a `www` CNAME, but always copy the exact records from the Vercel domain screen.
+
+### Step 3 - Change Nameservers
+
+Cloudflare will give two nameservers.
+
+In the domain registrar or Vercel domain settings:
+
+1. Replace the current nameservers with the two Cloudflare nameservers.
+2. Wait for Cloudflare to show the domain as active.
+3. This can take minutes or several hours.
+
+### Step 4 - Enable Email Routing
+
+In Cloudflare:
+
+1. Go to `Compute > Email Service > Email Routing`.
+2. Select `Onboard Domain`.
+3. Choose `miamipapanoel.com`.
+4. Let Cloudflare add the required MX/SPF/DKIM records.
+
+### Step 5 - Add Destination Address
+
+Destination:
+
+`rubiosally@hotmail.com`
+
+Cloudflare will send a verification email to that inbox. Open the email and click the verification link.
+
+### Step 6 - Create The Business Address
+
+Create routing rule:
+
+Custom address:
+
+`bookings@miamipapanoel.com`
+
+Destination:
+
+`rubiosally@hotmail.com`
+
+Optional catch-all:
+
+Forward all other addresses at the domain to `rubiosally@hotmail.com` so typos still arrive.
+
+### Step 7 - Test
+
+Send a test email from a separate account to:
+
+`bookings@miamipapanoel.com`
+
+Confirm it arrives at:
+
+`rubiosally@hotmail.com`
+
+Then reply from the Hotmail inbox. The first version may reply from Hotmail, not from the business email. That is okay for a temporary forwarding setup.
+
 ## My Recommendation
 
 Start with:
