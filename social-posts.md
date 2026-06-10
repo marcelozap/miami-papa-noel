@@ -16,6 +16,7 @@ Christmas Eve: https://miamipapanoel.com/christmas-eve
 Summer Santa: https://miamipapanoel.com/summer-santa
 Schools/Daycares: https://miamipapanoel.com/schools-daycares
 HOAs/Apartments: https://miamipapanoel.com/hoa-apartments
+Photos/Proof: https://miamipapanoel.com/reviews
 
 ## Post 1 - Spanish
 
@@ -33,6 +34,7 @@ Nochebuena: https://miamipapanoel.com/christmas-eve
 Santa en Verano: https://miamipapanoel.com/summer-santa
 Escuelas/Daycares: https://miamipapanoel.com/schools-daycares
 HOAs/Apartamentos: https://miamipapanoel.com/hoa-apartments
+Fotos/Prueba: https://miamipapanoel.com/reviews
 
 ## Post 2 - Christmas in July
 
@@ -73,6 +75,28 @@ Miami Papa Noel brings a warm bilingual Santa visit for HOAs, apartments, condos
 
 Call/Text: 305-244-0360
 Community visit info: https://miamipapanoel.com/hoa-apartments
+
+## Post 3D - Proof and Real Moments
+
+Want to see what a Miami Papa Noel visit feels like before booking?
+
+We gathered real visit photos, community moments, and trust notes so families, schools, HOAs, and businesses can picture the experience first.
+
+Warm bilingual Santa visits for Miami-Doral and nearby areas.
+
+Call/Text: 305-244-0360
+Photos and proof: https://miamipapanoel.com/reviews
+
+## Post 3D - Prueba y Momentos Reales
+
+Quieres ver cómo se siente una visita de Miami Papa Noel antes de reservar?
+
+Reunimos fotos reales, momentos comunitarios y notas de confianza para que familias, escuelas, comunidades y negocios puedan imaginar la experiencia.
+
+Visitas cálidas y bilingües de Santa para Miami-Doral y áreas cercanas.
+
+Llama/Texto: 305-244-0360
+Fotos y prueba: https://miamipapanoel.com/reviews
 
 ## Post 4 - Christmas Eve
 

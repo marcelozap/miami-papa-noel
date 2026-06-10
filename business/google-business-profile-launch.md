@@ -88,6 +88,10 @@ Upload 10-15 strong photos before doing outreach:
 
 Avoid uploading blurry screenshots, unrelated phone screenshots, or photos where children/families did not give permission.
 
+Website proof page to send when someone asks for photos:
+
+`https://miamipapanoel.com/reviews`
+
 ## First 5 Google Posts
 
 ### Post 1: Now Booking
@@ -104,7 +108,7 @@ Imagine the children opening the door and seeing Papa Noel arrive with their gif
 
 Christmas Eve gift delivery is limited and scheduled by visit window. Families provide clearly labeled gifts, and Papa Noel creates the magical moment.
 
-https://miamipapanoel.com/book
+https://miamipapanoel.com/christmas-eve
 
 ### Post 3: Schools and Daycares
 
@@ -112,7 +116,7 @@ Papa Noel is available for schools, daycares, classroom greetings, story time, p
 
 Visits can be in English or Spanish and are paced gently for children.
 
-https://miamipapanoel.com/book
+https://miamipapanoel.com/schools-daycares
 
 ### Post 4: Communities and Businesses
 
@@ -120,7 +124,7 @@ Planning a holiday party for an HOA, apartment community, restaurant, office, or
 
 Miami Papa Noel can support photos, guest greetings, toy drives, and family-friendly event moments.
 
-https://miamipapanoel.com/book
+https://miamipapanoel.com/hoa-apartments
 
 ### Post 5: Christmas in July
 
@@ -128,7 +132,7 @@ Christmas magic does not have to wait until December.
 
 Ask about Christmas in July, daycare story time, pet photos, toy drive kickoffs, summer family days, and early holiday bookings.
 
-https://miamipapanoel.com/book
+https://miamipapanoel.com/summer-santa
 
 ## Q&A To Prepare
 
@@ -155,6 +159,8 @@ Yes. Papa Noel is available for schools, daycares, toy drives, nonprofit events,
 ## Review Request Message
 
 Hi! Thank you again for including Miami Papa Noel in your event. If you have a moment, a short Google review would help our family business so much. Even one sentence helps other families feel comfortable booking.
+
+If you are comfortable with us sharing one approved photo from the visit, please send it here. We only repost photos with permission.
 
 ## Weekly Maintenance
 

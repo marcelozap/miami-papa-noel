@@ -76,6 +76,18 @@ Thank you again for having Papa Noel at your event. It was a joy to be part of i
 
 If you have a moment, a short review or tagged post would help our family business so much. Even one sentence helps other families feel comfortable booking.
 
+If you are comfortable, you can also send one approved photo we may share on the website or Instagram. We only repost photos with permission.
+
+Proof page: https://miamipapanoel.com/reviews
+
+## Proof Page Reply
+
+Absolutely. Here are real visit moments, community proof, and photos from Miami Papa Noel:
+
+https://miamipapanoel.com/reviews
+
+If you send the date, city, event type, and guest count, I can help recommend the best visit option.
+
 ## Referral Request
 
 If you know another family, school, business, daycare, church, HOA, or nonprofit planning a holiday event, we would be grateful for the referral.

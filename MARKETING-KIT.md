@@ -16,6 +16,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - Summer Santa page: `https://miamipapanoel.com/summer-santa`
 - Schools and daycares page: `https://miamipapanoel.com/schools-daycares`
 - HOAs and apartments page: `https://miamipapanoel.com/hoa-apartments`
+- Reviews and real moments page: `https://miamipapanoel.com/reviews`
 - Booking form: `https://miamipapanoel.com/book`
 
 ## Files
@@ -27,6 +28,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `summer-santa.html` - focused Summer Santa and Christmas-in-July page for off-season bookings.
 - `schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
 - `hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
+- `reviews.html` - social proof page with real photos, community proof, and review collection guidance.
 - `book.html` - booking request form.
 - `campaign-plan.md` - what to do each month and who to target.
 - `packages-and-pricing.md` - service menu and suggested pricing structure.
@@ -44,4 +46,5 @@ Use this same information everywhere so families see one clear way to contact Pa
 2. Post 3 times per week on Instagram/Facebook starting now.
 3. Message 15 local businesses or organizations per day.
 4. Ask past clients and nonprofits for short testimonials.
-5. Create a Google Business Profile for "Santa visits Miami" searches.
+5. Send the reviews page when a parent, school, HOA, or business asks to see proof.
+6. Create a Google Business Profile for "Santa visits Miami" searches.

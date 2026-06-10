@@ -26,6 +26,7 @@
   - Events
   - Services
   - Reviews
+- Share the reviews/proof page in DMs: `https://miamipapanoel.com/reviews`
 - Ask past contacts for reviews or permission to repost.
 - Add 10-15 approved photos to Google Business Profile.
 

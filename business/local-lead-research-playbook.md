@@ -16,6 +16,10 @@ Send HOA, apartment, condo, clubhouse, and resident event leads here:
 
 `https://miamipapanoel.com/hoa-apartments`
 
+Send leads who ask for photos, past work, or proof here:
+
+`https://miamipapanoel.com/reviews`
+
 ## Best Lead Types
 
 Start with people who already serve families, children, communities, or holiday events.
@@ -205,7 +209,7 @@ Send: `https://miamipapanoel.com/events`
 
 Day 0: first message.  
 Day 2: friendly follow-up.  
-Day 7: send one photo or flyer.  
+Day 7: send the reviews page or flyer.
 Day 14: ask if they are planning December dates yet.  
 Early November: urgency follow-up for December weekends.  
 Early December: final availability follow-up.

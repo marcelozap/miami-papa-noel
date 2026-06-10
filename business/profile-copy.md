@@ -52,6 +52,10 @@ HOAs and apartments:
 
 `https://miamipapanoel.com/hoa-apartments`
 
+Reviews and real visit moments:
+
+`https://miamipapanoel.com/reviews`
+
 Direct booking form:
 
 `https://miamipapanoel.com/book`

@@ -17,6 +17,7 @@ Goal: create steady conversations with families, schools, HOAs, daycares, busine
 
 - Post the best 9 photos.
 - Ask past clients or nonprofit contacts for one short review.
+- Send the reviews page when anyone asks for photos or proof: https://miamipapanoel.com/reviews
 - Message family photographers, balloon decorators, party rentals, and event planners.
 - Offer referral partnerships.
 
@@ -47,7 +48,8 @@ He is available for family visits, schools, daycares, businesses, HOAs, toy driv
 
 Would you like photos and visit options?
 
-Website: https://miamipapanoel.com  
+Website: https://miamipapanoel.com
+Photos/proof: https://miamipapanoel.com/reviews
 Call/Text: 305-244-0360
 
 ## DM Template: Spanish
@@ -58,7 +60,8 @@ Está disponible para visitas familiares, escuelas, daycares, negocios, comunida
 
 Le puedo enviar fotos y opciones?
 
-Página: https://miamipapanoel.com  
+Página: https://miamipapanoel.com
+Fotos/prueba: https://miamipapanoel.com/reviews
 Llamar/Texto: 305-244-0360
 
 ## Follow-Up Template
