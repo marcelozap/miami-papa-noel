@@ -477,6 +477,38 @@
       color: rgba(255, 255, 255, .80);
     }
 
+    .comfort {
+      background: var(--paper);
+    }
+
+    .comfort-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .comfort-card {
+      display: grid;
+      gap: 10px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 16px 38px rgba(52, 32, 22, .07);
+    }
+
+    .comfort-card strong {
+      color: var(--velvet-dark);
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .comfort-card p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
     .packages {
       background: var(--mist);
     }
@@ -852,6 +884,7 @@
 
       .trust-strip,
       .service-grid,
+      .comfort-grid,
       .pricing-grid,
       .flow-grid,
       .faq-grid {
@@ -906,6 +939,7 @@
 
       .trust-strip,
       .service-grid,
+      .comfort-grid,
       .pricing-grid,
       .flow-grid,
       .faq-grid,
@@ -1079,6 +1113,36 @@
           <article class="service-card">
             <h3>Nonprofits and Toy Drives</h3>
             <p>Community events, sponsor-supported visits, donation moments, and children-focused celebrations.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="comfort">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" data-i18n="comfort.eyebrow">What to Expect</p>
+            <h2 data-i18n="comfort.title">A calm, happy visit from the first hello.</h2>
+          </div>
+          <p data-i18n="comfort.copy">Families and organizers can keep it simple. Papa Noel arrives ready for photos, greetings, and the little details that make children feel comfortable.</p>
+        </div>
+        <div class="comfort-grid">
+          <article class="comfort-card">
+            <strong data-i18n="comfort.oneTitle">Gentle with shy children</strong>
+            <p data-i18n="comfort.oneCopy">The visit can move slowly, with space for children who need a minute before photos.</p>
+          </article>
+          <article class="comfort-card">
+            <strong data-i18n="comfort.twoTitle">Photo-ready arrival</strong>
+            <p data-i18n="comfort.twoCopy">Santa arrives dressed, ready, and mindful of the best moment for family photos.</p>
+          </article>
+          <article class="comfort-card">
+            <strong data-i18n="comfort.threeTitle">English or Spanish</strong>
+            <p data-i18n="comfort.threeCopy">Greetings can be in the language that feels most natural for your family or guests.</p>
+          </article>
+          <article class="comfort-card">
+            <strong data-i18n="comfort.fourTitle">Gift handoff made easy</strong>
+            <p data-i18n="comfort.fourCopy">If Santa is delivering gifts, labeled names and a simple plan keep the surprise smooth.</p>
           </article>
         </div>
       </div>
@@ -1365,6 +1429,17 @@
         "services.homeCopy": "Warm visits for family parties, birthdays, photos, and surprise moments at home.",
         "services.eveTitle": "Christmas Eve Gifts",
         "services.eveCopy": "Santa arrives with family-provided labeled gifts for a magical Christmas Eve surprise.",
+        "comfort.eyebrow": "What to Expect",
+        "comfort.title": "A calm, happy visit from the first hello.",
+        "comfort.copy": "Families and organizers can keep it simple. Papa Noel arrives ready for photos, greetings, and the little details that make children feel comfortable.",
+        "comfort.oneTitle": "Gentle with shy children",
+        "comfort.oneCopy": "The visit can move slowly, with space for children who need a minute before photos.",
+        "comfort.twoTitle": "Photo-ready arrival",
+        "comfort.twoCopy": "Santa arrives dressed, ready, and mindful of the best moment for family photos.",
+        "comfort.threeTitle": "English or Spanish",
+        "comfort.threeCopy": "Greetings can be in the language that feels most natural for your family or guests.",
+        "comfort.fourTitle": "Gift handoff made easy",
+        "comfort.fourCopy": "If Santa is delivering gifts, labeled names and a simple plan keep the surprise smooth.",
         "packages.title": "Pick the closest visit. We will help with the rest.",
         "packages.copy": "Start with one of these. Larger or longer events can be priced after we know the date, location, and number of guests.",
         "packages.familyCta": "Ask About Family Visit",
@@ -1404,6 +1479,17 @@
         "services.homeCopy": "Visitas cálidas para fiestas familiares, cumpleaños, fotos y sorpresas en casa.",
         "services.eveTitle": "Regalos de Nochebuena",
         "services.eveCopy": "Santa llega con regalos marcados por la familia para una sorpresa mágica de Nochebuena.",
+        "comfort.eyebrow": "Qué Esperar",
+        "comfort.title": "Una visita tranquila y feliz desde el primer saludo.",
+        "comfort.copy": "Las familias y organizadores pueden mantenerlo sencillo. Papa Noel llega listo para fotos, saludos y los detalles que ayudan a los niños a sentirse cómodos.",
+        "comfort.oneTitle": "Paciente con niños tímidos",
+        "comfort.oneCopy": "La visita puede ir con calma, dando espacio a los niños que necesitan un minuto antes de las fotos.",
+        "comfort.twoTitle": "Listo para fotos",
+        "comfort.twoCopy": "Santa llega vestido, preparado y atento al mejor momento para las fotos familiares.",
+        "comfort.threeTitle": "Inglés o español",
+        "comfort.threeCopy": "Los saludos pueden ser en el idioma que se sienta más natural para tu familia o invitados.",
+        "comfort.fourTitle": "Entrega de regalos sencilla",
+        "comfort.fourCopy": "Si Santa entregará regalos, nombres marcados y un plan simple mantienen la sorpresa organizada.",
         "packages.title": "Escoge la visita más cercana. Te ayudamos con lo demás.",
         "packages.copy": "Empieza con una de estas opciones. Los eventos más grandes o largos se cotizan después de saber fecha, lugar y cantidad de invitados.",
         "packages.familyCta": "Preguntar por Visita Familiar",
