@@ -13,6 +13,7 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 - `summer-santa.html` - focused Summer Santa and Christmas-in-July landing page
 - `schools-daycares.html` - focused school, daycare, and classroom Santa visit landing page
 - `hoa-apartments.html` - focused HOA, apartment, condo, and resident event landing page
+- `partners.html` - focused referral-partner page for photographers, event vendors, pet businesses, and local family businesses
 - `reviews.html` - social proof page with real visit photos, community proof, and review collection guidance
 
 ## Public Contact Details

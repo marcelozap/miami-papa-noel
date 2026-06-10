@@ -34,6 +34,7 @@ Summer is the time to book early and create attention before everyone else start
 - Run Christmas in July campaign.
 - Offer discounted early-bird bookings for December deposits.
 - Contact daycares, summer camps, pet groomers, and family restaurants.
+- Send partner leads to `https://miamipapanoel.com/partners`.
 - Ask one nonprofit partner for a testimonial or permission to mention collaboration.
 
 ### August
@@ -46,6 +47,7 @@ Summer is the time to book early and create attention before everyone else start
 
 - Push residential communities and corporate holiday parties.
 - Contact event planners and balloon decorators for referral partnerships.
+- Pitch Santa mini-sessions and photo pop-ups with the partner page.
 - Post availability calendar updates weekly.
 
 ### October

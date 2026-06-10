@@ -74,6 +74,10 @@ Santa visit for toy drives, nonprofit events, sponsor-supported community events
 
 Summer Santa visit for photo pop-ups, daycares, camps, pet photos, family days, and early holiday booking events.
 
+### Partner Photo Pop-Up
+
+Santa visit for photographers, party vendors, restaurants, cafes, pet businesses, and local family businesses planning mini-sessions, pop-ups, and customer events.
+
 ## Photo Checklist
 
 Upload 10-15 strong photos before doing outreach:
@@ -91,6 +95,10 @@ Avoid uploading blurry screenshots, unrelated phone screenshots, or photos where
 Website proof page to send when someone asks for photos:
 
 `https://miamipapanoel.com/reviews`
+
+Partner page to send to photographers, vendors, and local businesses:
+
+`https://miamipapanoel.com/partners`
 
 ## First 5 Google Posts
 

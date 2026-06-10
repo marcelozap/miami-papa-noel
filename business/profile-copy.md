@@ -52,6 +52,10 @@ HOAs and apartments:
 
 `https://miamipapanoel.com/hoa-apartments`
 
+Photographers and local partners:
+
+`https://miamipapanoel.com/partners`
+
 Reviews and real visit moments:
 
 `https://miamipapanoel.com/reviews`

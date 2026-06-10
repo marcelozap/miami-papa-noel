@@ -64,6 +64,14 @@ Hi, I am helping book Miami Papa Noel for local holiday events. I wanted to ask 
 
 Hi! I saw your work and thought there may be a nice partnership opportunity. My dad is a bilingual Santa available for events, photos, and gift deliveries in Miami-Doral. If you ever have clients asking for Santa, we can refer business both ways. I can send photos and package info.
 
+Partner info: https://miamipapanoel.com/partners
+
+## Partnership Message - Spanish
+
+Hola! Vi su trabajo y pensé que puede haber una oportunidad bonita de alianza. Mi papá es un Santa bilingüe disponible para eventos, fotos y entregas de regalos en Miami-Doral. Si tienen clientes buscando Santa para fotos o eventos, podemos ayudarnos con referidos.
+
+Información para aliados: https://miamipapanoel.com/partners
+
 ## Review Request
 
 Hi! Thank you again for including Papa Noel in your event. It would help our small family business so much if you could send one short review or allow us to repost a photo/story from the event. Even one sentence helps families feel comfortable booking.

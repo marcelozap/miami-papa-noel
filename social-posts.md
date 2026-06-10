@@ -16,6 +16,7 @@ Christmas Eve: https://miamipapanoel.com/christmas-eve
 Summer Santa: https://miamipapanoel.com/summer-santa
 Schools/Daycares: https://miamipapanoel.com/schools-daycares
 HOAs/Apartments: https://miamipapanoel.com/hoa-apartments
+Partners: https://miamipapanoel.com/partners
 Photos/Proof: https://miamipapanoel.com/reviews
 
 ## Post 1 - Spanish
@@ -34,6 +35,7 @@ Nochebuena: https://miamipapanoel.com/christmas-eve
 Santa en Verano: https://miamipapanoel.com/summer-santa
 Escuelas/Daycares: https://miamipapanoel.com/schools-daycares
 HOAs/Apartamentos: https://miamipapanoel.com/hoa-apartments
+Aliados: https://miamipapanoel.com/partners
 Fotos/Prueba: https://miamipapanoel.com/reviews
 
 ## Post 2 - Christmas in July
@@ -76,7 +78,25 @@ Miami Papa Noel brings a warm bilingual Santa visit for HOAs, apartments, condos
 Call/Text: 305-244-0360
 Community visit info: https://miamipapanoel.com/hoa-apartments
 
-## Post 3D - Proof and Real Moments
+## Post 3D - Local Partner Ideas
+
+Photographers, balloon decorators, planners, restaurants, cafes, pet groomers, and local family businesses:
+
+Miami Papa Noel is available for Santa mini-sessions, Christmas in July pop-ups, pet photos, customer appreciation days, toy drives, and referral partnerships.
+
+Call/Text: 305-244-0360
+Partner info: https://miamipapanoel.com/partners
+
+## Post 3D - Ideas para Aliados Locales
+
+Fotógrafos, decoradores, planners, restaurantes, cafes, groomers y negocios familiares:
+
+Miami Papa Noel está disponible para mini sesiones con Santa, pop-ups de Christmas in July, fotos con mascotas, eventos para clientes, toy drives y alianzas de referidos.
+
+Llama/Texto: 305-244-0360
+Info para aliados: https://miamipapanoel.com/partners
+
+## Post 3E - Proof and Real Moments
 
 Want to see what a Miami Papa Noel visit feels like before booking?
 
@@ -87,7 +107,7 @@ Warm bilingual Santa visits for Miami-Doral and nearby areas.
 Call/Text: 305-244-0360
 Photos and proof: https://miamipapanoel.com/reviews
 
-## Post 3D - Prueba y Momentos Reales
+## Post 3E - Prueba y Momentos Reales
 
 Quieres ver cómo se siente una visita de Miami Papa Noel antes de reservar?
 

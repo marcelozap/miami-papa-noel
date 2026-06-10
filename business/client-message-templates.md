@@ -88,6 +88,14 @@ https://miamipapanoel.com/reviews
 
 If you send the date, city, event type, and guest count, I can help recommend the best visit option.
 
+## Partner Reply
+
+Absolutely. Here is the partner page for photographers, party vendors, pet businesses, restaurants, cafes, and local family businesses:
+
+https://miamipapanoel.com/partners
+
+Send the date idea, city, type of business, expected audience, and the kind of Santa moment you want to create. We can reply with the best visit option and availability.
+
 ## Referral Request
 
 If you know another family, school, business, daycare, church, HOA, or nonprofit planning a holiday event, we would be grateful for the referral.

@@ -16,6 +16,10 @@ Send HOA, apartment, condo, clubhouse, and resident event leads here:
 
 `https://miamipapanoel.com/hoa-apartments`
 
+Send photographers, decorators, planners, pet groomers, restaurants, cafes, bakeries, salons, and family-business leads here:
+
+`https://miamipapanoel.com/partners`
+
 Send leads who ask for photos, past work, or proof here:
 
 `https://miamipapanoel.com/reviews`
@@ -165,7 +169,7 @@ Lead with: Santa mini-sessions, photo-ready Santa, bilingual interaction, referr
 
 Best package: Event Visit.
 
-Send: `https://miamipapanoel.com/events`
+Send: `https://miamipapanoel.com/partners`
 
 ### Restaurant or Retail
 
@@ -175,7 +179,7 @@ Best package: Event Visit.
 
 Send:
 
-- Event visits: `https://miamipapanoel.com/events`
+- Partner ideas: `https://miamipapanoel.com/partners`
 - Summer Santa: `https://miamipapanoel.com/summer-santa`
 
 ### Summer Camp, Daycare, or Pet Business

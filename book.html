@@ -600,6 +600,7 @@
                   <option value="School / daycare" data-i18n="type.school">School / daycare</option>
                   <option value="Summer Santa / Christmas in July" data-i18n="type.summer">Summer Santa / Christmas in July</option>
                   <option value="Business / community" data-i18n="type.business">Business / community</option>
+                  <option value="Partner / referral" data-i18n="type.partner">Partner / referral</option>
                   <option value="Christmas Eve gifts" data-i18n="type.eve">Christmas Eve gifts</option>
                   <option value="Nonprofit / toy drive" data-i18n="type.nonprofit">Nonprofit / toy drive</option>
                   <option value="Other / not sure" data-i18n="type.other">Other / not sure</option>
@@ -707,6 +708,7 @@
         "type.school": "School / daycare",
         "type.summer": "Summer Santa / Christmas in July",
         "type.business": "Business / community",
+        "type.partner": "Partner / referral",
         "type.eve": "Christmas Eve gifts",
         "type.nonprofit": "Nonprofit / toy drive",
         "type.other": "Other / not sure",
@@ -768,6 +770,7 @@
         "type.school": "Escuela / daycare",
         "type.summer": "Santa en Verano / Christmas in July",
         "type.business": "Negocio / comunidad",
+        "type.partner": "Aliado / referido",
         "type.eve": "Regalos de Nochebuena",
         "type.nonprofit": "Sin fines de lucro / donación",
         "type.other": "Otro / no estoy seguro",
@@ -905,6 +908,8 @@
           eventTarget = "Christmas Eve gifts";
         } else if (normalizedType.includes("school") || normalizedType.includes("daycare") || normalizedType.includes("camp") || normalizedType.includes("escuela")) {
           eventTarget = "School / daycare";
+        } else if (normalizedType.includes("partner") || normalizedType.includes("referral") || normalizedType.includes("photographer") || normalizedType.includes("photo") || normalizedType.includes("planner") || normalizedType.includes("balloon") || normalizedType.includes("vendor") || normalizedType.includes("groomer") || normalizedType.includes("aliado") || normalizedType.includes("referido") || normalizedType.includes("fotogra")) {
+          eventTarget = "Partner / referral";
         } else if (normalizedType.includes("business") || normalizedType.includes("community") || normalizedType.includes("restaurant") || normalizedType.includes("hoa") || normalizedType.includes("apartment") || normalizedType.includes("condo") || normalizedType.includes("clubhouse") || normalizedType.includes("negocio") || normalizedType.includes("comunidad")) {
           eventTarget = "Business / community";
         } else if (normalizedType.includes("nonprofit") || normalizedType.includes("toy") || normalizedType.includes("drive") || normalizedType.includes("donation") || normalizedType.includes("donacion")) {
