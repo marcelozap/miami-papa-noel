@@ -5,10 +5,11 @@ This folder turns the website into an operating system for the business.
 ## Use These First
 
 1. `account-setup-checklist.md` - create the accounts.
-2. `brand-profile.md` - paste-ready bios and descriptions.
-3. `sales-funnel.md` - how strangers become paid bookings.
-4. `booking-sop.md` - exact process from inquiry to event.
-5. `launch-checklist.md` - what to do in the first 7 days.
+2. `business-email-setup.md` - create the professional email address.
+3. `brand-profile.md` - paste-ready bios and descriptions.
+4. `sales-funnel.md` - how strangers become paid bookings.
+5. `booking-sop.md` - exact process from inquiry to event.
+6. `launch-checklist.md` - what to do in the first 7 days.
 
 ## Core Rule
 

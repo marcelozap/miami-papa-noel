@@ -13,6 +13,8 @@ Suggested email:
 
 Use it for all bookings, Vercel, Google Business Profile, Instagram, Facebook, payment apps, and calendar invites.
 
+See `business-email-setup.md` for the recommended setup path.
+
 ### Instagram
 
 Suggested handles:
