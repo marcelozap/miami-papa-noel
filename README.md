@@ -9,11 +9,11 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 
 ## Update Before Launch
 
-Replace these placeholders in both HTML files:
+Confirm these contact details before public launch:
 
-- `[PHONE]`
-- `[INSTAGRAM]`
-- `[EMAIL]`
+- Phone: `305-244-0360`
+- Email: `bookings@miamipapanoel.com`
+- Instagram: `@miamipapanoel`
 
 ## Business Kit
 

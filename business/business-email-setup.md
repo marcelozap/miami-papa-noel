@@ -100,7 +100,7 @@ If needed, the business email can forward into a personal inbox at first.
 
 Example:
 
-`bookings@miamipapanoel.com` forwards to a trusted family inbox.
+`bookings@miamipapanoel.com` forwards to `rubiosally@hotmail.com`.
 
 Do not show the personal inbox publicly on the website once the business email is active.
 

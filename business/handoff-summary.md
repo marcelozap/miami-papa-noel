@@ -19,11 +19,15 @@
 
 ## What Still Needs Real Information
 
-Replace placeholders:
+Public contact info now planned for launch:
 
-- `[PHONE]`
-- `[EMAIL]`
-- `[INSTAGRAM]`
+- Phone: `305-244-0360`
+- Email: `bookings@miamipapanoel.com`
+- Instagram: `@miamipapanoel`
+- Forwarding target: `rubiosally@hotmail.com`
+
+Still replace:
+
 - `[PAYMENT INFO]`
 
 ## First Week Priority

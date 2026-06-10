@@ -357,11 +357,11 @@
             </label>
             <div class="actions">
               <button type="button" id="build">Build Booking Message</button>
-              <a class="button secondary" id="smsLink" href="sms:[PHONE]">Text Request</a>
-              <a class="button outline" id="emailLink" href="mailto:[EMAIL]">Email Request</a>
+              <a class="button secondary" id="smsLink" href="sms:+13052440360">Text Request</a>
+              <a class="button outline" id="emailLink" href="mailto:bookings@miamipapanoel.com">Email Request</a>
             </div>
           </form>
-          <p class="note">After filling the form, tap "Build Booking Message" and send it by text or email. Replace `[PHONE]` and `[EMAIL]` in the website before launch.</p>
+          <p class="note">After filling the form, tap "Build Booking Message" and send it by text or email.</p>
         </div>
       </div>
     </section>
@@ -439,8 +439,8 @@
 
       const text = lines.join("\n");
       message.textContent = text;
-      smsLink.href = "sms:[PHONE]?&body=" + encodeURIComponent(text);
-      emailLink.href = "mailto:[EMAIL]?subject=" + encodeURIComponent("Papa Noel booking request") + "&body=" + encodeURIComponent(text);
+      smsLink.href = "sms:+13052440360?&body=" + encodeURIComponent(text);
+      emailLink.href = "mailto:bookings@miamipapanoel.com?subject=" + encodeURIComponent("Papa Noel booking request") + "&body=" + encodeURIComponent(text);
     }
 
     document.getElementById("build").addEventListener("click", buildMessage);

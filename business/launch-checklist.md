@@ -8,7 +8,7 @@
 - Create WhatsApp Business.
 - Create Google Calendar.
 - Decide payment methods.
-- Replace `[PHONE]`, `[EMAIL]`, and `[INSTAGRAM]` on the website.
+- Confirm the website uses `305-244-0360`, `bookings@miamipapanoel.com`, and `@miamipapanoel`.
 
 ## Day 2 - Website and Domain
 
