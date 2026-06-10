@@ -14,6 +14,7 @@ Book: https://miamipapanoel.com/links
 Events: https://miamipapanoel.com/events
 Christmas Eve: https://miamipapanoel.com/christmas-eve
 Summer Santa: https://miamipapanoel.com/summer-santa
+Schools/Daycares: https://miamipapanoel.com/schools-daycares
 
 ## Post 1 - Spanish
 
@@ -29,6 +30,7 @@ Reservas: https://miamipapanoel.com/links
 Eventos: https://miamipapanoel.com/events
 Nochebuena: https://miamipapanoel.com/christmas-eve
 Santa en Verano: https://miamipapanoel.com/summer-santa
+Escuelas/Daycares: https://miamipapanoel.com/schools-daycares
 
 ## Post 2 - Christmas in July
 
@@ -51,6 +53,15 @@ If your organization is planning something for children this year, we would love
 
 Call/Text: 305-244-0360
 Event info: https://miamipapanoel.com/events
+
+## Post 3B - Schools and Daycares
+
+Planning a Santa visit for a school, daycare, preschool, or camp?
+
+Miami Papa Noel offers warm bilingual visits with photos, classroom greetings, story time, toy drive support, and calm interaction for shy children.
+
+Call/Text: 305-244-0360
+School visit info: https://miamipapanoel.com/schools-daycares
 
 ## Post 4 - Christmas Eve
 

@@ -44,6 +44,10 @@ Summer Santa and Christmas in July:
 
 `https://miamipapanoel.com/summer-santa`
 
+Schools and daycares:
+
+`https://miamipapanoel.com/schools-daycares`
+
 Direct booking form:
 
 `https://miamipapanoel.com/book`

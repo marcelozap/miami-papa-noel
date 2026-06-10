@@ -16,8 +16,9 @@ This folder turns the website into an operating system for the business.
 10. `../events.html` - outreach landing page for schools, HOAs, businesses, toy drives, and event partners.
 11. `../christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
 12. `../summer-santa.html` - focused Summer Santa and Christmas-in-July page for off-season bookings.
-13. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
-14. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
+13. `../schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
+14. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
+15. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
 
 ## Core Rule
 

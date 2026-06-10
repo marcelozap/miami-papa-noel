@@ -903,6 +903,14 @@
           eventTarget = "Summer Santa / Christmas in July";
         } else if (normalizedType.includes("christmas eve") || normalizedType.includes("nochebuena")) {
           eventTarget = "Christmas Eve gifts";
+        } else if (normalizedType.includes("school") || normalizedType.includes("daycare") || normalizedType.includes("camp") || normalizedType.includes("escuela")) {
+          eventTarget = "School / daycare";
+        } else if (normalizedType.includes("business") || normalizedType.includes("community") || normalizedType.includes("restaurant") || normalizedType.includes("hoa") || normalizedType.includes("negocio") || normalizedType.includes("comunidad")) {
+          eventTarget = "Business / community";
+        } else if (normalizedType.includes("nonprofit") || normalizedType.includes("toy") || normalizedType.includes("drive") || normalizedType.includes("donation") || normalizedType.includes("donacion")) {
+          eventTarget = "Nonprofit / toy drive";
+        } else if (normalizedType.includes("family") || normalizedType.includes("home") || normalizedType.includes("familia") || normalizedType.includes("casa")) {
+          eventTarget = "Family / home";
         }
         const eventMatch = Array.from(eventSelect.options).find((option) => option.value === eventTarget);
         if (eventMatch) eventSelect.value = eventMatch.value;

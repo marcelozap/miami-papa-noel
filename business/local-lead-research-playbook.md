@@ -8,6 +8,10 @@ Send event leads here when they ask for more details:
 
 `https://miamipapanoel.com/events`
 
+Send school, daycare, preschool, and camp leads here:
+
+`https://miamipapanoel.com/schools-daycares`
+
 ## Best Lead Types
 
 Start with people who already serve families, children, communities, or holiday events.
@@ -137,7 +141,7 @@ Lead with: warm bilingual Santa, calm with shy children, photo time, story time,
 
 Best package: Event Visit.
 
-Send: `https://miamipapanoel.com/events`
+Send: `https://miamipapanoel.com/schools-daycares`
 
 ### HOA or Apartment Community
 
