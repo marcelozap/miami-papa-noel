@@ -32,6 +32,7 @@ Open `business/` for the operating docs:
 - Brand/profile copy
 - Sales funnel
 - Local lead research playbook
+- Referral partner playbook
 - Booking SOP
 - Client message templates
 - Pricing framework

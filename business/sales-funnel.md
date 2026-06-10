@@ -27,6 +27,7 @@ Send people to:
 
 - Website homepage
 - `https://miamipapanoel.com/book`
+- `https://miamipapanoel.com/partners` for referral partners and vendor conversations
 - Instagram DM
 - WhatsApp Business
 
@@ -119,3 +120,4 @@ Within 24 hours:
 - 10 quote conversations
 - 3-5 deposits
 - 2 referral partners
+- 1 partner outreach block completed using `referral-partner-playbook.md`

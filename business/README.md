@@ -12,16 +12,17 @@ This folder turns the website into an operating system for the business.
 6. `launch-checklist.md` - what to do in the first 7 days.
 7. `30-day-client-sprint.md` - daily outreach routine and bilingual messages.
 8. `local-lead-research-playbook.md` - how to build a real local lead list.
-9. `../links.html` - quick link-in-bio page for Instagram and social profiles.
-10. `../events.html` - outreach landing page for schools, HOAs, businesses, toy drives, and event partners.
-11. `../christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
-12. `../summer-santa.html` - focused Summer Santa and Christmas-in-July page for off-season bookings.
-13. `../schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
-14. `../hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
-15. `../partners.html` - referral-partner page for photographers, vendors, pet businesses, restaurants, and local family businesses.
-16. `../reviews.html` - proof page with real visit photos, community notes, and review collection guidance.
-17. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
-18. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
+9. `referral-partner-playbook.md` - how to contact photographers, vendors, pet businesses, restaurants, and local partners.
+10. `../links.html` - quick link-in-bio page for Instagram and social profiles.
+11. `../events.html` - outreach landing page for schools, HOAs, businesses, toy drives, and event partners.
+12. `../christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
+13. `../summer-santa.html` - focused Summer Santa and Christmas-in-July page for off-season bookings.
+14. `../schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
+15. `../hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
+16. `../partners.html` - referral-partner page for photographers, vendors, pet businesses, restaurants, and local family businesses.
+17. `../reviews.html` - proof page with real visit photos, community notes, and review collection guidance.
+18. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
+19. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
 
 ## Core Rule
 
