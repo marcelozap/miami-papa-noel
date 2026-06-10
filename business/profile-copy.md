@@ -1,0 +1,31 @@
+# Paste-Ready Profile Copy
+
+## Google Business Description
+
+Miami Papa Noel provides bilingual Santa Claus visits for families, schools, daycares, businesses, residential communities, nonprofits, toy drives, Christmas novenas, photo sessions, Christmas in July events, and Christmas Eve gift delivery in Miami-Doral and nearby areas. With experience creating Christmas memories since 2017, Papa Noel brings warmth, patience, and holiday magic to children and community events.
+
+## Instagram Bio
+
+Miami Papa Noel  
+Bilingual Santa visits in Miami-Doral  
+Photos | Parties | Toy Drives | Gift Delivery  
+Families | Schools | Businesses | HOAs  
+Book here:
+
+## Facebook About
+
+Miami Papa Noel offers warm bilingual Santa visits for private homes, family parties, businesses, schools, daycares, residential communities, nonprofits, toy drives, Christmas novenas, Christmas in July events, photo sessions, and Christmas Eve gift delivery in Miami-Doral and nearby areas.
+
+## WhatsApp Business Greeting
+
+Hi! Thank you for contacting Miami Papa Noel. Please send your event date, time, city, event type, guest count, and whether Santa will hand out gifts. We will reply with availability and package options.
+
+## WhatsApp Away Message
+
+Thank you for messaging Miami Papa Noel. We may be at an event or helping another family right now. Please send your event details and we will reply as soon as possible.
+
+## Link Text
+
+Book Papa Noel:
+
+`https://miamipapanoel.com/book.html`

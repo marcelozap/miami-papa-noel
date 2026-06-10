@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://miamipapanoel.com/sitemap.xml

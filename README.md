@@ -1,18 +1,32 @@
 # Miami Papa Noel
 
-Static website for Papa Noel Santa visits in Miami-Doral and nearby areas.
+Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby areas.
 
-## Website
+## Website Pages
 
-The deploy entry point is `index.html`.
+- `index.html` - main website
+- `book.html` - booking request funnel
 
 ## Update Before Launch
 
-Replace these placeholders in `index.html`:
+Replace these placeholders in both HTML files:
 
 - `[PHONE]`
 - `[INSTAGRAM]`
 - `[EMAIL]`
+
+## Business Kit
+
+Open `business/` for the operating docs:
+
+- Account setup checklist
+- Brand/profile copy
+- Sales funnel
+- Booking SOP
+- Client message templates
+- Pricing framework
+- Launch checklist
+- Family roles
 
 ## Vercel
 
