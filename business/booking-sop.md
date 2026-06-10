@@ -37,9 +37,13 @@ Send package recommendation:
 
 `For this event, I recommend the [PACKAGE]. It includes [DETAILS]. The price is [$___]. A [$___] deposit holds the date and the remaining balance is due before or at arrival.`
 
+If the client does not reply, use `follow-up-builder.html` with `Quote sent, waiting` and set the next follow-up date in `../lead-tracker.csv`.
+
 ## 4. Deposit
 
 Booking is confirmed only after deposit.
+
+Use `follow-up-builder.html` with `Deposit reminder` when the client says they want the date but has not sent deposit yet.
 
 Save:
 
@@ -109,3 +113,4 @@ Then update `../lead-tracker.csv`:
 - Notes: `After-visit page sent`
 
 Use `review-referral-system.md` for the full review, photo permission, and referral workflow.
+Use `follow-up-builder.html` with `After-visit review/referral` if you want a polished text, WhatsApp, or email version.

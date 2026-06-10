@@ -32,6 +32,7 @@ Open `business/` for the operating docs:
 
 - Launch command center
 - Quote builder
+- Follow-up builder
 - Account setup checklist
 - Brand/profile copy
 - Sales funnel

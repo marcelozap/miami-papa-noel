@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Miami Papa Noel Follow-Up Builder</title>
+  <link rel="icon" href="../assets/christmas-tree-icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #171313;
+      --charcoal: #231b19;
+      --velvet: #8f1f2d;
+      --pine: #123f35;
+      --gold: #c9993f;
+      --paper: #fff9ef;
+      --snow: #ffffff;
+      --muted: #70625b;
+      --line: #e4d5c0;
+      --mist: #f5eadf;
+      --shadow: 0 18px 42px rgba(36, 24, 18, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 24px;
+      color: white;
+      background: rgba(35, 27, 25, .96);
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .brand strong {
+      display: block;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .brand span span {
+      color: rgba(255, 255, 255, .72);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 6px;
+      color: rgba(255, 255, 255, .88);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .hero {
+      padding: 50px 0 34px;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(35, 27, 25, .96), rgba(18, 63, 53, .78)),
+        url("../assets/optimized/santa-community-event-1600.jpg") center / cover no-repeat;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 30px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #f2d69a;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      letter-spacing: 0;
+    }
+
+    h1,
+    h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin-bottom: 16px;
+      font-size: clamp(46px, 7vw, 84px);
+      line-height: .92;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: clamp(32px, 4.4vw, 50px);
+      line-height: .96;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, .88);
+      font-size: 21px;
+      font-weight: 750;
+    }
+
+    .rule-card {
+      padding: 22px;
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 249, 239, .96);
+      box-shadow: var(--shadow);
+    }
+
+    .rule-card ul {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    section {
+      padding: 54px 0;
+    }
+
+    .builder-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 520px) minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--snow);
+      box-shadow: 0 14px 32px rgba(36, 24, 18, .08);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink);
+      background: #fffdf8;
+      font: inherit;
+      font-weight: 700;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      text-transform: none;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .message-output {
+      min-height: 500px;
+      padding: 18px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: var(--charcoal);
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 14px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      color: #211607;
+      background: var(--gold);
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .button.secondary {
+      color: white;
+      background: var(--velvet);
+    }
+
+    .button.ghost {
+      color: var(--ink);
+      background: transparent;
+      border-color: var(--line);
+    }
+
+    .hint {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .status-strip div {
+      padding: 12px;
+      border-radius: 6px;
+      background: var(--mist);
+      font-weight: 900;
+    }
+
+    .status-strip span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 30;
+      right: 18px;
+      bottom: 18px;
+      padding: 12px 14px;
+      border-radius: 6px;
+      color: white;
+      background: var(--pine);
+      box-shadow: var(--shadow);
+      font-weight: 900;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .2s ease, transform .2s ease;
+      pointer-events: none;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      padding: 28px;
+      color: rgba(255, 255, 255, .78);
+      background: var(--charcoal);
+      text-align: center;
+      font-weight: 750;
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero-grid,
+      .builder-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 30px, 1160px);
+      }
+
+      .form-grid,
+      .status-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .button,
+      .nav a {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="launch-command-center.html">
+      <img src="../assets/christmas-tree-icon.svg" alt="">
+      <span>
+        <strong>Miami Papa Noel</strong>
+        <span>Internal Follow-Up Builder</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Follow-up builder navigation">
+      <a href="launch-command-center.html">Command Center</a>
+      <a href="quote-builder.html">Quote Builder</a>
+      <a href="booking-sop.md">Booking SOP</a>
+      <a href="../lead-tracker.csv">Lead Tracker</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Internal conversion tool</p>
+          <h1>Send the next warm message without guessing.</h1>
+          <p class="hero-copy">Use this when someone is interested but not booked yet. Pick the situation, add the missing details, and send a clear next step.</p>
+        </div>
+        <aside class="rule-card">
+          <h3>Follow-up rhythm</h3>
+          <ul>
+            <li>Reply fast while the lead is warm.</li>
+            <li>Always include one clear next step.</li>
+            <li>Log the follow-up date in the tracker.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell builder-grid">
+        <form class="panel" id="followUpForm">
+          <p class="eyebrow">Message details</p>
+          <h2>Choose the moment.</h2>
+          <div class="form-grid">
+            <label>Language
+              <select id="language">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+              </select>
+            </label>
+            <label>Situation
+              <select id="scenario">
+                <option value="needDetails">Need event details</option>
+                <option value="proof">They asked for photos/proof</option>
+                <option value="quoteSent">Quote sent, waiting</option>
+                <option value="deposit">Deposit reminder</option>
+                <option value="quietLead">No reply follow-up</option>
+                <option value="partner">Partner follow-up</option>
+                <option value="afterVisit">After-visit review/referral</option>
+              </select>
+            </label>
+            <label>Client name
+              <input id="clientName" placeholder="Maria">
+            </label>
+            <label>Client phone
+              <input id="clientPhone" inputmode="tel" placeholder="305-555-1234">
+            </label>
+            <label>Client email
+              <input id="clientEmail" type="email" placeholder="client@example.com">
+            </label>
+            <label>Event date
+              <input id="date" placeholder="Saturday, December 14">
+            </label>
+            <label>Time
+              <input id="time" placeholder="4:00 PM">
+            </label>
+            <label>City / area
+              <input id="city" placeholder="Doral">
+            </label>
+            <label>Package / visit
+              <select id="packageName">
+                <option>Family Visit</option>
+                <option>Event Visit</option>
+                <option>Christmas Eve</option>
+                <option>Nonprofit / Toy Drive</option>
+                <option>Partner Pop-Up</option>
+                <option>Not sure yet</option>
+              </select>
+            </label>
+            <label>Deposit amount
+              <input id="deposit" inputmode="decimal" placeholder="90">
+            </label>
+            <label>Best link to include
+              <select id="linkChoice">
+                <option value="book">Booking form</option>
+                <option value="proof">Reviews / proof page</option>
+                <option value="options">Visit options</option>
+                <option value="partners">Partner page</option>
+                <option value="afterVisit">Review / referral page</option>
+              </select>
+            </label>
+            <label>Next follow-up date
+              <input id="followUpDate" placeholder="Friday morning">
+            </label>
+            <label class="full">Extra note
+              <textarea id="note" placeholder="Example: mention December weekends, parking, gift labels, exact address, or that Christmas Eve fills first."></textarea>
+            </label>
+          </div>
+          <div class="status-strip">
+            <div><span>Tracker status</span><b id="statusHint">Waiting for details</b></div>
+            <div><span>Next action</span><b id="actionHint">Ask for details</b></div>
+            <div><span>Follow up</span><b id="dateHint">Set a date</b></div>
+          </div>
+          <p class="hint">Tip: after sending, update `lead-tracker.csv` with status, next action, and the next follow-up date.</p>
+        </form>
+
+        <aside class="panel">
+          <p class="eyebrow">Generated follow-up</p>
+          <h2>Copy and send.</h2>
+          <div class="message-output" id="messageOutput"></div>
+          <div class="button-row">
+            <button class="button" type="button" id="copyMessage">Copy Message</button>
+            <a class="button secondary" id="whatsappLink" href="https://wa.me/?text=" target="_blank" rel="noopener">WhatsApp Client</a>
+            <a class="button ghost" id="smsLink" href="sms:?&body=">Text Client</a>
+            <a class="button ghost" id="emailLink" href="mailto:?subject=Miami%20Papa%20Noel%20follow-up">Email Client</a>
+          </div>
+          <p class="hint">This tool prepares the message only. Review it before sending and never mark a date confirmed until deposit is received.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Internal tool. Every warm lead should get a clear next step and a follow-up date.
+  </footer>
+
+  <div class="toast" id="toast">Copied</div>
+
+  <script>
+    const fields = ["language", "scenario", "clientName", "clientPhone", "clientEmail", "date", "time", "city", "packageName", "deposit", "linkChoice", "followUpDate", "note"];
+    const links = {
+      book: "https://miamipapanoel.com/book?source=follow-up",
+      proof: "https://miamipapanoel.com/reviews",
+      options: "https://miamipapanoel.com/checkout",
+      partners: "https://miamipapanoel.com/partners",
+      afterVisit: "https://miamipapanoel.com/after-visit"
+    };
+    const packageLabels = {
+      "Family Visit": { en: "Family Visit", es: "Visita Familiar" },
+      "Event Visit": { en: "Event Visit", es: "Visita para Evento" },
+      "Christmas Eve": { en: "Christmas Eve", es: "Nochebuena" },
+      "Nonprofit / Toy Drive": { en: "Nonprofit / Toy Drive", es: "Sin fines de lucro / Toy Drive" },
+      "Partner Pop-Up": { en: "Partner Pop-Up", es: "Pop-Up con Aliado" },
+      "Not sure yet": { en: "Not sure yet", es: "No estoy seguro" }
+    };
+    const hints = {
+      needDetails: {
+        status: "Waiting for details",
+        action: "Ask for details",
+        esStatus: "Esperando detalles",
+        esAction: "Pedir detalles"
+      },
+      proof: {
+        status: "Sent proof",
+        action: "Send reviews page",
+        esStatus: "Prueba enviada",
+        esAction: "Enviar pagina de fotos"
+      },
+      quoteSent: {
+        status: "Price sent",
+        action: "Check decision",
+        esStatus: "Precio enviado",
+        esAction: "Confirmar decision"
+      },
+      deposit: {
+        status: "Deposit requested",
+        action: "Request deposit",
+        esStatus: "Deposito solicitado",
+        esAction: "Pedir deposito"
+      },
+      quietLead: {
+        status: "Followed up",
+        action: "Send gentle follow-up",
+        esStatus: "Seguimiento enviado",
+        esAction: "Enviar seguimiento"
+      },
+      partner: {
+        status: "Partner follow-up",
+        action: "Send partner page",
+        esStatus: "Seguimiento aliado",
+        esAction: "Enviar pagina de aliados"
+      },
+      afterVisit: {
+        status: "Review requested",
+        action: "Ask for review/referral",
+        esStatus: "Review solicitado",
+        esAction: "Pedir review/referido"
+      }
+    };
+
+    const output = document.getElementById("messageOutput");
+    const toast = document.getElementById("toast");
+    const whatsappLink = document.getElementById("whatsappLink");
+    const smsLink = document.getElementById("smsLink");
+    const emailLink = document.getElementById("emailLink");
+
+    function value(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function phoneDigits(phone) {
+      const digits = phone.replace(/\D/g, "");
+      if (digits.length === 10) return "1" + digits;
+      if (digits.length === 11 && digits.startsWith("1")) return digits;
+      return "";
+    }
+
+    function money(text) {
+      const raw = text.replace(/[^0-9.]/g, "");
+      if (!raw) return "";
+      return "$" + Math.round(Number(raw)).toLocaleString("en-US");
+    }
+
+    function packageTitle(lang) {
+      const packageName = value("packageName");
+      return packageLabels[packageName]?.[lang] || packageName;
+    }
+
+    function eventLine(lang) {
+      const date = value("date");
+      const time = value("time");
+      const city = value("city");
+      const parts = [];
+      if (date) parts.push(lang === "es" ? "fecha: " + date : "date: " + date);
+      if (time) parts.push(lang === "es" ? "hora: " + time : "time: " + time);
+      if (city) parts.push(lang === "es" ? "ciudad: " + city : "city: " + city);
+      return parts.join(", ");
+    }
+
+    function selectedLink() {
+      return links[value("linkChoice")] || links.book;
+    }
+
+    function greeting(lang) {
+      const name = value("clientName");
+      if (lang === "es") return name ? "Hola " + name + "!" : "Hola!";
+      return name ? "Hi " + name + "!" : "Hi!";
+    }
+
+    function buildMessage() {
+      const lang = value("language") === "es" ? "es" : "en";
+      const scenario = value("scenario");
+      const link = selectedLink();
+      const note = value("note");
+      const followUpDate = value("followUpDate");
+      const deposit = money(value("deposit"));
+      const visit = packageTitle(lang);
+      const event = eventLine(lang);
+      const hint = hints[scenario] || hints.needDetails;
+      let lines = [];
+
+      if (scenario === "needDetails") {
+        lines = lang === "es" ? [
+          greeting(lang) + " Gracias por escribirnos sobre Miami Papa Noel.",
+          "",
+          "Para confirmar disponibilidad y recomendar la mejor visita, nos faltan estos detalles:",
+          "- Fecha y hora",
+          "- Ciudad o area",
+          "- Tipo de evento",
+          "- Cantidad aproximada de ninos/adultos",
+          "- Si Santa entregara regalos",
+          "",
+          "Puede enviarlos por aqui y le respondemos con la mejor opcion.",
+          "Formulario: " + links.book
+        ] : [
+          greeting(lang) + " Thank you for reaching out about Miami Papa Noel.",
+          "",
+          "To confirm availability and recommend the best visit, can you please send:",
+          "- Event date and start time",
+          "- City or area",
+          "- Type of celebration",
+          "- Approximate children/adults",
+          "- Whether Santa will hand out gifts",
+          "",
+          "You can send the details here and I will reply with the best option.",
+          "Request form: " + links.book
+        ];
+      } else if (scenario === "proof") {
+        lines = lang === "es" ? [
+          greeting(lang) + " Claro, aqui puede ver fotos y momentos reales de Miami Papa Noel:",
+          "",
+          links.proof,
+          "",
+          "Ha estado creando momentos navidenos desde 2017 y atiende familias, escuelas, comunidades, negocios y donaciones.",
+          "Si me envia fecha, ciudad y tipo de evento, le puedo recomendar la mejor opcion."
+        ] : [
+          greeting(lang) + " Absolutely, here are real photos and visit moments from Miami Papa Noel:",
+          "",
+          links.proof,
+          "",
+          "He has been creating Christmas moments since 2017 for families, schools, communities, businesses, and toy drives.",
+          "If you send the date, city, and event type, I can recommend the best option."
+        ];
+      } else if (scenario === "quoteSent") {
+        lines = lang === "es" ? [
+          greeting(lang) + " Solo queria darle seguimiento a la cotizacion de " + visit + ".",
+          event ? "Detalles: " + event + "." : "",
+          "",
+          "Si la fecha y hora todavia le funcionan, el proximo paso es confirmar disponibilidad final y reservar con deposito.",
+          "Las fechas de diciembre se llenan rapido, especialmente fines de semana y Nochebuena.",
+          "",
+          "Opciones: " + links.options
+        ] : [
+          greeting(lang) + " Just following up on the " + visit + " quote.",
+          event ? "Details: " + event + "." : "",
+          "",
+          "If the date and time still work for you, the next step is final availability confirmation and deposit to reserve.",
+          "December dates can fill quickly, especially weekends and Christmas Eve.",
+          "",
+          "Options: " + links.options
+        ];
+      } else if (scenario === "deposit") {
+        lines = lang === "es" ? [
+          greeting(lang) + " Para reservar Miami Papa Noel" + (event ? " (" + event + ")" : "") + ", el deposito es " + (deposit || "el monto indicado") + ".",
+          "",
+          "La fecha y hora quedan confirmadas solamente despues del deposito.",
+          "Cuando este listo/a, le puedo enviar los detalles de pago y despues confirmamos direccion, parking y regalos.",
+          "",
+          "Formulario: " + links.book
+        ] : [
+          greeting(lang) + " To reserve Miami Papa Noel" + (event ? " (" + event + ")" : "") + ", the deposit is " + (deposit || "the quoted amount") + ".",
+          "",
+          "The date and time are confirmed only after deposit.",
+          "When you are ready, I can send the payment details and then we will confirm address, parking, and gift notes.",
+          "",
+          "Request form: " + links.book
+        ];
+      } else if (scenario === "quietLead") {
+        lines = lang === "es" ? [
+          greeting(lang) + " Le escribo por si todavia esta planificando su evento navideno.",
+          "",
+          "Miami Papa Noel esta disponible para visitas familiares, escuelas, negocios, comunidades, toy drives y Nochebuena.",
+          "Si ya no lo necesita, no hay problema. Si todavia le interesa, me envia fecha y ciudad y reviso disponibilidad.",
+          "",
+          "Detalles: " + links.book
+        ] : [
+          greeting(lang) + " Just checking in in case you are still planning your holiday event.",
+          "",
+          "Miami Papa Noel is available for family visits, schools, businesses, communities, toy drives, and Christmas Eve.",
+          "No worries if you no longer need it. If you are still interested, send the date and city and I can check availability.",
+          "",
+          "Details: " + links.book
+        ];
+      } else if (scenario === "partner") {
+        lines = lang === "es" ? [
+          greeting(lang) + " Le doy seguimiento por si quiere crear algo juntos esta temporada.",
+          "",
+          "Miami Papa Noel puede funcionar muy bien para fotos familiares, pop-ups, brunch navideno, eventos de clientes, pet photos, toy drives o referidos.",
+          "Pagina para aliados: " + links.partners,
+          "",
+          "Si tiene una fecha o idea, me envia detalles y vemos una opcion sencilla."
+        ] : [
+          greeting(lang) + " Following up in case you would like to create something together this season.",
+          "",
+          "Miami Papa Noel can work well for family photos, pop-ups, holiday brunches, client events, pet photos, toy drives, or referrals.",
+          "Partner page: " + links.partners,
+          "",
+          "If you have a date or idea, send the details and we can shape a simple option."
+        ];
+      } else {
+        lines = lang === "es" ? [
+          greeting(lang) + " Gracias otra vez por recibir a Miami Papa Noel.",
+          "",
+          "Si tiene un momento, una resena corta o un referido ayudaria mucho a nuestro negocio familiar.",
+          "Tambien puede enviar una foto aprobada si esta comodo/a con que la compartamos.",
+          "",
+          "Pagina facil para resena/referido: " + links.afterVisit
+        ] : [
+          greeting(lang) + " Thank you again for having Miami Papa Noel.",
+          "",
+          "If you have a moment, a short review or referral would help our family business so much.",
+          "You can also send one approved photo if you are comfortable with us sharing it.",
+          "",
+          "Easy review/referral page: " + links.afterVisit
+        ];
+      }
+
+      if (note) {
+        lines.push("", lang === "es" ? "Nota: " + note : "Note: " + note);
+      }
+      if (followUpDate) {
+        lines.push("", lang === "es" ? "Le doy seguimiento: " + followUpDate + "." : "I will follow up: " + followUpDate + ".");
+      }
+      lines.push("", "Miami Papa Noel | 305-244-0360");
+
+      const text = lines.filter(Boolean).join("\n");
+      output.textContent = text;
+      const clientPhone = phoneDigits(value("clientPhone"));
+      const clientEmail = value("clientEmail");
+      whatsappLink.href = "https://wa.me/" + clientPhone + "?text=" + encodeURIComponent(text);
+      smsLink.href = "sms:" + (clientPhone ? "+" + clientPhone : "") + "?&body=" + encodeURIComponent(text);
+      emailLink.href = "mailto:" + encodeURIComponent(clientEmail) + "?subject=" + encodeURIComponent("Miami Papa Noel follow-up") + "&body=" + encodeURIComponent(text);
+
+      document.getElementById("statusHint").textContent = lang === "es" ? hint.esStatus : hint.status;
+      document.getElementById("actionHint").textContent = lang === "es" ? hint.esAction : hint.action;
+      document.getElementById("dateHint").textContent = followUpDate || (lang === "es" ? "Poner fecha" : "Set a date");
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      window.setTimeout(() => toast.classList.remove("is-visible"), 1400);
+    }
+
+    async function copyMessage() {
+      try {
+        await navigator.clipboard.writeText(output.textContent);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = output.textContent;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+      showToast("Message copied");
+    }
+
+    fields.forEach((id) => {
+      document.getElementById(id).addEventListener("input", buildMessage);
+      document.getElementById(id).addEventListener("change", buildMessage);
+    });
+
+    document.getElementById("copyMessage").addEventListener("click", copyMessage);
+    buildMessage();
+  </script>
+</body>
+</html>
