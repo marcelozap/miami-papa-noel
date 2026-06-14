@@ -2,6 +2,35 @@
 
 This is the last operational step before the booking form is fully automatic.
 
+## Tonight Temporary Setup
+
+To get as much working as possible tonight, the live booking form and email-request fallback are temporarily routed to:
+
+`rubiosally@hotmail.com`
+
+This lets FormSubmit send an activation email to an inbox that already works.
+
+Important:
+
+- This is temporary.
+- The public page should push people to the form, text, or WhatsApp while the business inbox is unfinished.
+- After Microsoft 365 DNS is active, switch the form action in `book.html` back to `https://formsubmit.co/bookings@miamipapanoel.com`.
+- Also switch the `mailto:` fallback in `book.html` back to `bookings@miamipapanoel.com`.
+- Then submit the form again and activate FormSubmit for the business email.
+
+Tonight activation test:
+
+1. Open `https://miamipapanoel.com/book?source=tonight-test`.
+2. Submit a test request:
+   - Name: `Test Lead`
+   - Phone: `305-244-0360`
+   - City: `Doral`
+   - Details: `Temporary Hotmail FormSubmit activation test - please ignore`
+3. Open `rubiosally@hotmail.com`.
+4. Find the FormSubmit activation email.
+5. Click the activation link.
+6. Submit the form one more time and confirm the request arrives.
+
 ## Current Status
 
 Checked with DNS on June 14, 2026:
@@ -10,7 +39,7 @@ Checked with DNS on June 14, 2026:
 - The website is live.
 - There are no public MX records for `miamipapanoel.com` yet.
 - Because there are no MX records, `bookings@miamipapanoel.com` is not ready to receive email yet.
-- The booking form already points to `bookings@miamipapanoel.com`, but FormSubmit cannot be activated until that inbox or forwarder receives email.
+- The booking form is temporarily routed to `rubiosally@hotmail.com` so leads can arrive tonight while Microsoft 365 email is unfinished.
 
 ## Best Path Before Father's Day
 

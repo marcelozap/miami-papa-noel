@@ -550,7 +550,7 @@
           <div class="simple-note" data-i18n="options.note">Not sure which one fits? Choose "Not sure yet" and we will help you decide.</div>
           <div class="summary">
             <div><span data-i18n="summary.phone">Call/Text</span>: 305-244-0360</div>
-            <div>Email: bookings@miamipapanoel.com</div>
+            <div data-i18n="summary.requests">Requests: form, text, or WhatsApp</div>
             <div>Instagram: @miamipapanoel</div>
           </div>
         </aside>
@@ -558,12 +558,14 @@
         <div class="card">
           <p class="eyebrow" data-i18n="form.eyebrow">Visit Details</p>
           <h2 data-i18n="form.title">A few details are enough to start.</h2>
-          <form id="booking-form" action="https://formsubmit.co/bookings@miamipapanoel.com" method="POST">
+          <!-- Temporary FormSubmit destination until bookings@miamipapanoel.com has MX records and can receive mail. -->
+          <form id="booking-form" action="https://formsubmit.co/rubiosally@hotmail.com" method="POST">
             <input type="hidden" name="_subject" value="New Miami Papa Noel booking request">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_next" value="https://miamipapanoel.com/thank-you">
             <input type="text" name="_honey" autocomplete="off" tabindex="-1" style="display:none">
+            <input name="routing_note" type="hidden" value="Temporary route to family backup inbox. Switch back to bookings@miamipapanoel.com after Microsoft 365 DNS and FormSubmit are active.">
             <input id="source" name="source" type="hidden" value="Website booking form">
             <input id="messageSummary" name="message_summary" type="hidden" value="">
             <div class="two">
@@ -626,7 +628,7 @@
               <button type="button" class="outline" id="build" data-i18n="form.build">Preview Text</button>
               <a class="button secondary" id="whatsappLink" href="https://wa.me/13052440360" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
               <a class="button secondary" id="smsLink" href="sms:+13052440360" data-i18n="form.text">Text Request</a>
-              <a class="button outline" id="emailLink" href="mailto:bookings@miamipapanoel.com" data-i18n="form.email">Email Request</a>
+              <a class="button outline" id="emailLink" href="mailto:rubiosally@hotmail.com" data-i18n="form.email">Email Request</a>
             </div>
           </form>
           <p class="note" data-i18n="form.note">Send the request and we will reply with availability. Text or WhatsApp are still available if you prefer.</p>
@@ -697,6 +699,7 @@
         "price.eve": "From $250",
         "options.note": "Not sure which one fits? Choose \"Not sure yet\" and we will help you decide.",
         "summary.phone": "Call/Text",
+        "summary.requests": "Requests: form, text, or WhatsApp",
         "form.eyebrow": "Visit Details",
         "form.title": "A few details are enough to start.",
         "field.name": "Your Name",
@@ -760,6 +763,7 @@
         "price.eve": "Desde $250",
         "options.note": "¿No estás seguro? Escoge \"No estoy seguro\" y te ayudamos a decidir.",
         "summary.phone": "Llamar/Texto",
+        "summary.requests": "Solicitudes: formulario, texto o WhatsApp",
         "form.eyebrow": "Detalles de la Visita",
         "form.title": "Con pocos detalles podemos empezar.",
         "field.name": "Tu Nombre",
@@ -1000,7 +1004,7 @@
       messageSummary.value = text;
       smsLink.href = "sms:+13052440360?&body=" + encodeURIComponent(text);
       whatsappLink.href = "https://wa.me/13052440360?text=" + encodeURIComponent(text);
-      emailLink.href = "mailto:bookings@miamipapanoel.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
+      emailLink.href = "mailto:rubiosally@hotmail.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
     }
 
     async function writeClipboard(text) {
