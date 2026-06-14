@@ -9,17 +9,21 @@ The goal is not "post every day." The goal is that Mom and Dad receive warm inqu
 1. A parent, school, HOA, daycare, or business searches for a Santa in Miami.
 2. They find Miami Papa Noel on Google, Instagram, Facebook, GigSalad, The Bash, or a referral link.
 3. Every profile points to `https://miamipapanoel.com/book` with a source tag.
-4. The booking form sends the request to `bookings@miamipapanoel.com`.
+4. The booking form currently sends the request to the temporary backup inbox, `rubiosally@hotmail.com`.
 5. The customer lands on `https://miamipapanoel.com/thank-you` with text and WhatsApp as urgent backups.
 6. After a completed visit, they get the review/referral page: `https://miamipapanoel.com/after-visit`.
+
+Final email target after Microsoft 365 is finished:
+
+`bookings@miamipapanoel.com`
 
 ## What Is Already Done
 
 - Website is live at `https://miamipapanoel.com`.
 - Booking page is live at `https://miamipapanoel.com/book`.
-- Booking form now has a real email submission path through FormSubmit.
+- Booking form now has a temporary working email submission path through FormSubmit.
 - Thank-you page is live at `https://miamipapanoel.com/thank-you`.
-- Text, WhatsApp, and email links still work as backup.
+- Text and WhatsApp still work as backup.
 - Summer Santa, schools/daycares, HOAs, service areas, reviews, partners, and Christmas Eve pages are already built.
 
 Important: FormSubmit usually sends a one-time activation email to the receiving address before it starts forwarding messages. Once that is confirmed, form requests should arrive automatically.

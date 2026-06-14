@@ -45,7 +45,13 @@ Checked with DNS on June 14, 2026:
 
 Keep the website DNS on Vercel for now. Do not move nameservers unless someone is watching the site afterward.
 
-Use one of these:
+The current preferred path is Microsoft 365 Business Basic because it fits Outlook/Windows and can become a real family business inbox.
+
+Use this step-by-step runbook:
+
+`microsoft-365-email-runbook.md`
+
+Fallback options:
 
 1. Google Workspace if the family wants a real Gmail-style inbox.
 2. Zoho Mail if the family wants a low-cost custom inbox.
@@ -59,7 +65,8 @@ Cloudflare Email Routing is still a good option, but it usually works best when 
 
 Recommended for fastest finish:
 
-- If budget allows: Google Workspace.
+- If using Outlook/Windows: Microsoft 365 Business Basic.
+- If budget allows and Gmail is preferred: Google Workspace.
 - If budget matters: Zoho Mail.
 - If forwarding only: ImprovMX or similar forwarding service.
 

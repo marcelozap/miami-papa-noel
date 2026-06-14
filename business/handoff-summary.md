@@ -45,14 +45,14 @@ Father's Day 2026 is Sunday, June 21. The goal is to show Dad a finished launch 
 Public contact info:
 
 - Phone: `305-244-0360`
-- Email: `bookings@miamipapanoel.com`
+- Email goal: `bookings@miamipapanoel.com`
 - Instagram: `@miamipapanoel`
-- Forwarding target: `rubiosally@hotmail.com`
+- Current temporary form destination: `rubiosally@hotmail.com`
 
 Still confirm:
 
 - MX records are added for the email provider.
-- `bookings@miamipapanoel.com` forwards correctly.
+- `bookings@miamipapanoel.com` receives mail correctly.
 - FormSubmit activation email is confirmed.
 - `[PAYMENT INFO]` is replaced before taking deposits.
 - Google Business Profile verification is completed.
@@ -62,8 +62,8 @@ Still confirm:
 1. Open `fathers-day-launch.html`.
 2. Show Dad the live website.
 3. Show Dad the QR booking card.
-4. Finish `email-form-finish.md`.
-5. Confirm booking email forwarding and FormSubmit.
+4. Activate the temporary FormSubmit email in `rubiosally@hotmail.com`.
+5. Finish `microsoft-365-email-runbook.md`.
 6. Create or finish Google Business Profile.
 7. Add the 10 strongest photos to Google and social profiles.
 8. Create GigSalad and The Bash profiles if time allows.

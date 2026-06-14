@@ -210,12 +210,13 @@ Current facts:
 - DNS provider: Vercel DNS
 - There are currently no MX records
 - Website is live
-- Booking form uses FormSubmit and sends to bookings@miamipapanoel.com
+- Booking form uses FormSubmit and is temporarily routed to rubiosally@hotmail.com
+- Final goal is bookings@miamipapanoel.com through Microsoft 365 Business Basic
 
 Explain:
 1. Why MX records are needed
 2. Why FormSubmit activation cannot work until the inbox receives email
-3. What records I should copy from Google Workspace, Zoho Mail, or ImprovMX
+3. What records I should copy from Microsoft 365 Admin Center
 4. What not to change so the website stays live
 5. How to test when it is done
 ```

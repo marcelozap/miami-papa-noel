@@ -9,7 +9,8 @@
 - Create Google Business Profile using `google-business-profile-launch.md`.
 - Create Google Calendar.
 - Decide payment methods.
-- Confirm the website uses `305-244-0360`, `bookings@miamipapanoel.com`, and `@miamipapanoel`.
+- Confirm the website uses `305-244-0360`, the booking form, WhatsApp/text, and `@miamipapanoel`.
+- Finish `microsoft-365-email-runbook.md` before publicly using `bookings@miamipapanoel.com`.
 
 ## Day 2 - Website and Domain
 
