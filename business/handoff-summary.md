@@ -26,6 +26,7 @@ Father's Day 2026 is Sunday, June 21. The goal is to show Dad a finished launch 
 - Christmas Eve page
 - Service packages
 - Booking funnel
+- Email/form finish checklist
 - Passive marketing engine
 - Directory profile kit
 - Father's Day launch page
@@ -50,6 +51,7 @@ Public contact info:
 
 Still confirm:
 
+- MX records are added for the email provider.
 - `bookings@miamipapanoel.com` forwards correctly.
 - FormSubmit activation email is confirmed.
 - `[PAYMENT INFO]` is replaced before taking deposits.
@@ -60,10 +62,11 @@ Still confirm:
 1. Open `fathers-day-launch.html`.
 2. Show Dad the live website.
 3. Show Dad the QR booking card.
-4. Confirm booking email forwarding and FormSubmit.
-5. Create or finish Google Business Profile.
-6. Add the 10 strongest photos to Google and social profiles.
-7. Create GigSalad and The Bash profiles if time allows.
+4. Finish `email-form-finish.md`.
+5. Confirm booking email forwarding and FormSubmit.
+6. Create or finish Google Business Profile.
+7. Add the 10 strongest photos to Google and social profiles.
+8. Create GigSalad and The Bash profiles if time allows.
 
 ## Who Does What
 
