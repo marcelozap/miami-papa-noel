@@ -361,7 +361,8 @@
       background: var(--pine);
     }
 
-    .button.outline {
+    .button.outline,
+    button.outline {
       color: var(--velvet);
       background: white;
       border-color: var(--velvet);
@@ -557,8 +558,14 @@
         <div class="card">
           <p class="eyebrow" data-i18n="form.eyebrow">Visit Details</p>
           <h2 data-i18n="form.title">A few details are enough to start.</h2>
-          <form id="booking-form">
+          <form id="booking-form" action="https://formsubmit.co/bookings@miamipapanoel.com" method="POST">
+            <input type="hidden" name="_subject" value="New Miami Papa Noel booking request">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://miamipapanoel.com/thank-you">
+            <input type="text" name="_honey" autocomplete="off" tabindex="-1" style="display:none">
             <input id="source" name="source" type="hidden" value="Website booking form">
+            <input id="messageSummary" name="message_summary" type="hidden" value="">
             <div class="two">
               <label><span data-i18n="field.name">Your Name</span>
                 <input id="name" name="name" autocomplete="name" required>
@@ -615,13 +622,14 @@
               <textarea id="gifts" name="gifts" placeholder="If Santa will hand out gifts, please tell us how many and if they will be labeled." data-i18n-placeholder="placeholder.gifts"></textarea>
             </label>
             <div class="actions">
-              <button type="button" id="build" data-i18n="form.build">Create Text Message</button>
-              <a class="button secondary" id="smsLink" href="sms:+13052440360" data-i18n="form.text">Text Request</a>
+              <button type="submit" data-i18n="form.submit">Send Request</button>
+              <button type="button" class="outline" id="build" data-i18n="form.build">Preview Text</button>
               <a class="button secondary" id="whatsappLink" href="https://wa.me/13052440360" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
+              <a class="button secondary" id="smsLink" href="sms:+13052440360" data-i18n="form.text">Text Request</a>
               <a class="button outline" id="emailLink" href="mailto:bookings@miamipapanoel.com" data-i18n="form.email">Email Request</a>
             </div>
           </form>
-          <p class="note" data-i18n="form.note">For the fastest reply, send the text message. You can add the exact address later if needed.</p>
+          <p class="note" data-i18n="form.note">Send the request and we will reply with availability. Text or WhatsApp are still available if you prefer.</p>
         </div>
       </div>
     </section>
@@ -637,7 +645,7 @@
           </div>
         </div>
         <div>
-          <div class="message-box" id="message" data-empty-en="Fill out the form and click &quot;Create Text Message.&quot;" data-empty-es="Llena el formulario y toca &quot;Crear Mensaje.&quot;">Fill out the form and click "Create Text Message."</div>
+          <div class="message-box" id="message" data-empty-en="Fill out the form to send a request, or preview a text message first." data-empty-es="Llena el formulario para enviar una solicitud, o revisa el mensaje primero.">Fill out the form to send a request, or preview a text message first.</div>
           <div class="actions" style="margin-top: 12px;">
             <button type="button" id="copyMessage" class="button outline" data-i18n="message.copyButton">Copy Message</button>
           </div>
@@ -667,6 +675,7 @@
     const whatsappLink = document.getElementById("whatsappLink");
     const emailLink = document.getElementById("emailLink");
     const copyMessage = document.getElementById("copyMessage");
+    const messageSummary = document.getElementById("messageSummary");
     let currentLanguage = localStorage.getItem("miamiPapaNoelLanguage") || "en";
 
     const translations = {
@@ -717,11 +726,12 @@
         "placeholder.guests": "Example: 25 children, 40 adults",
         "placeholder.details": "Example: family party, photos with children, Santa handing out gifts, school visit, toy drive, etc.",
         "placeholder.gifts": "If Santa will hand out gifts, please tell us how many and if they will be labeled.",
-        "form.build": "Create Text Message",
+        "form.submit": "Send Request",
+        "form.build": "Preview Text",
         "form.text": "Text Request",
         "form.whatsapp": "WhatsApp Request",
         "form.email": "Email Request",
-        "form.note": "For the fastest reply, send the text message. You can add the exact address later if needed.",
+        "form.note": "Send the request and we will reply with availability. Text or WhatsApp are still available if you prefer.",
         "message.eyebrow": "Ready to Send",
         "message.title": "One simple message.",
         "message.copy": "This gives us what we need to reply with availability, pricing, and next steps.",
@@ -779,11 +789,12 @@
         "placeholder.guests": "Ejemplo: 25 niños, 40 adultos",
         "placeholder.details": "Ejemplo: fiesta familiar, fotos con niños, Santa entregando regalos, visita escolar, donación de juguetes, etc.",
         "placeholder.gifts": "Si Santa entregará regalos, dinos cuántos son y si estarán marcados con nombres.",
-        "form.build": "Crear Mensaje",
+        "form.submit": "Enviar Solicitud",
+        "form.build": "Ver Mensaje",
         "form.text": "Enviar Texto",
         "form.whatsapp": "Enviar WhatsApp",
         "form.email": "Enviar Correo",
-        "form.note": "Para una respuesta más rápida, envía el mensaje de texto. Puedes agregar la dirección exacta después.",
+        "form.note": "Envía la solicitud y respondemos con disponibilidad. Texto o WhatsApp también están disponibles si prefieres.",
         "message.eyebrow": "Listo para Enviar",
         "message.title": "Un mensaje sencillo.",
         "message.copy": "Esto nos da lo necesario para responder con disponibilidad, precio y próximos pasos.",
@@ -986,6 +997,7 @@
 
       const text = lines.join("\n");
       message.textContent = text;
+      messageSummary.value = text;
       smsLink.href = "sms:+13052440360?&body=" + encodeURIComponent(text);
       whatsappLink.href = "https://wa.me/13052440360?text=" + encodeURIComponent(text);
       emailLink.href = "mailto:bookings@miamipapanoel.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
@@ -1012,6 +1024,7 @@
     }
 
     document.getElementById("build").addEventListener("click", buildMessage);
+    document.getElementById("booking-form").addEventListener("submit", buildMessage);
     document.querySelectorAll("[data-package-choice]").forEach((button) => {
       button.addEventListener("click", () => choosePackage(button.getAttribute("data-package-choice")));
     });

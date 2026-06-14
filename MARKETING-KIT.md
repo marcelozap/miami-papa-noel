@@ -21,6 +21,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - Reviews and real moments page: `https://miamipapanoel.com/reviews`
 - After-visit review/referral page: `https://miamipapanoel.com/after-visit`
 - Booking form: `https://miamipapanoel.com/book`
+- Thank-you page after a booking request: `https://miamipapanoel.com/thank-you`
 
 ## Files
 
@@ -35,6 +36,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `partners.html` - focused referral-partner page for photographers, party vendors, pet businesses, and local family businesses.
 - `reviews.html` - social proof page with real photos, community proof, and review collection guidance.
 - `after-visit.html` - thank-you page for reviews, approved photo permission, and referrals after completed visits.
+- `thank-you.html` - confirmation page after a booking form submission.
 - `book.html` - booking request form.
 - `campaign-plan.md` - what to do each month and who to target.
 - `packages-and-pricing.md` - service menu and suggested pricing structure.
@@ -42,6 +44,8 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `lead-tracker.csv` - spreadsheet template for tracking potential clients.
 - `social-posts.md` - ready-to-post English and Spanish captions.
 - `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
+- `business/passive-marketing-engine.md` - one-time setup system for Google, marketplaces, scheduled posts, reviews, and automated booking leads.
+- `business/directory-profile-kit.md` - paste-ready profile copy for Google Business Profile, GigSalad, The Bash, Instagram, Facebook, Yelp, and local directories.
 - `business/summer-client-engine.md` - active June/July outreach plan for camps, daycares, HOAs, pet businesses, local partners, and toy drives.
 - `business/summer-prospect-starter.csv` - starter prospect list for summer client outreach.
 - `business/launch-command-center.html` - internal daily outreach dashboard with scripts, links, checklist, and tracker shortcuts.
@@ -56,10 +60,10 @@ Use this same information everywhere so families see one clear way to contact Pa
 
 ## Fastest path to clients
 
-1. Fill in contact info in the files.
-2. Post 3 times per week on Instagram/Facebook starting now.
-3. Message 15 local businesses or organizations per day.
-4. For June and July, work `business/summer-client-engine.md` and `business/summer-prospect-starter.csv` first.
+1. Work `business/passive-marketing-engine.md` first so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
+2. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
+3. Confirm the FormSubmit activation email for `bookings@miamipapanoel.com` so booking form submissions arrive automatically.
+4. For June and July, use `business/summer-client-engine.md` and `business/summer-prospect-starter.csv` if you want faster summer outreach.
 5. Ask past clients and nonprofits for short testimonials.
 6. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
 7. Send the reviews page when a parent, school, HOA, or business asks to see proof.
