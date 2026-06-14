@@ -17,6 +17,7 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 - `partners.html` - focused referral-partner page for photographers, event vendors, pet businesses, and local family businesses
 - `reviews.html` - social proof page with real visit photos, community proof, and review collection guidance
 - `after-visit.html` - thank-you page for reviews, approved photo permission, and referrals
+- `thank-you.html` - confirmation page after a booking form submission
 
 ## Public Contact Details
 
@@ -30,6 +31,9 @@ Use these details consistently across the website, profiles, and outreach:
 
 Open `business/` for the operating docs:
 
+- Father's Day launch pack
+- Passive marketing engine
+- Directory profile kit
 - Launch command center
 - Quote builder
 - Follow-up builder
@@ -56,4 +60,4 @@ Use the default Vercel static site settings:
 
 ## Assets
 
-Marketing photos are in `assets/`.
+Marketing photos and QR assets are in `assets/`.

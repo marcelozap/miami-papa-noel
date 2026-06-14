@@ -1,14 +1,35 @@
 # Family Handoff Summary
 
+## Father's Day Handoff
+
+Start here:
+
+- `fathers-day-launch.html`
+
+Father's Day 2026 is Sunday, June 21. The goal is to show Dad a finished launch pack: the live website, booking form, QR card, public pages, and the simple roles for the family.
+
 ## What Has Been Created
 
 - Website homepage
+- Live domain: `https://miamipapanoel.com`
 - Booking request page
+- Thank-you page after a booking request
 - Package and checkout/reservation page
+- Link-in-bio page
 - Photo gallery
+- Reviews and real moments page
+- Service area page
+- Schools and daycares page
+- HOA and apartment page
+- Partner page
+- Summer Santa page
+- Christmas Eve page
 - Service packages
-- Summer Santa offer
 - Booking funnel
+- Passive marketing engine
+- Directory profile kit
+- Father's Day launch page
+- QR booking card asset
 - Account setup checklist
 - Profile copy for Google, Instagram, Facebook, and WhatsApp
 - Sales funnel
@@ -20,26 +41,29 @@
 
 ## What Still Needs Real Information
 
-Public contact info now planned for launch:
+Public contact info:
 
 - Phone: `305-244-0360`
 - Email: `bookings@miamipapanoel.com`
 - Instagram: `@miamipapanoel`
 - Forwarding target: `rubiosally@hotmail.com`
 
-Still replace:
+Still confirm:
 
-- `[PAYMENT INFO]`
+- `bookings@miamipapanoel.com` forwards correctly.
+- FormSubmit activation email is confirmed.
+- `[PAYMENT INFO]` is replaced before taking deposits.
+- Google Business Profile verification is completed.
 
-## First Week Priority
+## Father's Day Priority
 
-1. Finish contact info.
-2. Publish Vercel site.
-3. Connect domain.
-4. Create Instagram, Facebook, WhatsApp Business, and Google Business Profile.
-5. Post 9 photos.
-6. Build a list of 100 local leads.
-7. Start outreach every day.
+1. Open `fathers-day-launch.html`.
+2. Show Dad the live website.
+3. Show Dad the QR booking card.
+4. Confirm booking email forwarding and FormSubmit.
+5. Create or finish Google Business Profile.
+6. Add the 10 strongest photos to Google and social profiles.
+7. Create GigSalad and The Bash profiles if time allows.
 
 ## Who Does What
 
@@ -48,6 +72,8 @@ Dad:
 - Events
 - Photos
 - Warm Santa experience
+- Shares QR card or booking link when people ask
+- Does not need to run the tech
 
 Sister:
 
@@ -55,6 +81,7 @@ Sister:
 - DMs
 - Flyers
 - Follow-ups
+- Scheduled posts
 
 You:
 
@@ -62,6 +89,7 @@ You:
 - Systems
 - Lead tracker
 - Improving the funnel
+- Google/profile setup and automation
 
 ## Rule For Bookings
 

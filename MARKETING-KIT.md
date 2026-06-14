@@ -44,6 +44,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `lead-tracker.csv` - spreadsheet template for tracking potential clients.
 - `social-posts.md` - ready-to-post English and Spanish captions.
 - `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
+- `business/fathers-day-launch.html` - polished Father's Day handoff page with launch status, family roles, next steps, and a printable QR booking card.
 - `business/passive-marketing-engine.md` - one-time setup system for Google, marketplaces, scheduled posts, reviews, and automated booking leads.
 - `business/directory-profile-kit.md` - paste-ready profile copy for Google Business Profile, GigSalad, The Bash, Instagram, Facebook, Yelp, and local directories.
 - `business/summer-client-engine.md` - active June/July outreach plan for camps, daycares, HOAs, pet businesses, local partners, and toy drives.
@@ -56,17 +57,18 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
 - `business/review-referral-system.md` - post-visit review, photo permission, and referral workflow.
 - `business/google-business-profile-launch.md` - paste-ready Google Business Profile content.
-- `assets/` - copied Santa photos for marketing use.
+- `assets/` - copied Santa photos and QR assets for marketing use.
 
 ## Fastest path to clients
 
-1. Work `business/passive-marketing-engine.md` first so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
-2. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
-3. Confirm the FormSubmit activation email for `bookings@miamipapanoel.com` so booking form submissions arrive automatically.
-4. For June and July, use `business/summer-client-engine.md` and `business/summer-prospect-starter.csv` if you want faster summer outreach.
-5. Ask past clients and nonprofits for short testimonials.
-6. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
-7. Send the reviews page when a parent, school, HOA, or business asks to see proof.
-8. Use `business/quote-builder.html` after a lead shares date, city, and event details so pricing replies stay fast and professional.
-9. Use `business/follow-up-builder.html` after every warm lead so they get one clear next step and a follow-up date.
-10. Use `business/google-social-launch-kit.md` to set up Google Business Profile, Instagram, WhatsApp Business, and the first posts.
+1. Open `business/fathers-day-launch.html` for the finished family handoff and printable QR booking card.
+2. Work `business/passive-marketing-engine.md` so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
+3. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
+4. Confirm the FormSubmit activation email for `bookings@miamipapanoel.com` so booking form submissions arrive automatically.
+5. For June and July, use `business/summer-client-engine.md` and `business/summer-prospect-starter.csv` if you want faster summer outreach.
+6. Ask past clients and nonprofits for short testimonials.
+7. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
+8. Send the reviews page when a parent, school, HOA, or business asks to see proof.
+9. Use `business/quote-builder.html` after a lead shares date, city, and event details so pricing replies stay fast and professional.
+10. Use `business/follow-up-builder.html` after every warm lead so they get one clear next step and a follow-up date.
+11. Use `business/google-social-launch-kit.md` to set up Google Business Profile, Instagram, WhatsApp Business, and the first posts.
