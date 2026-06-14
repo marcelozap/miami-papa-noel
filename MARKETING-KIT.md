@@ -42,6 +42,8 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `lead-tracker.csv` - spreadsheet template for tracking potential clients.
 - `social-posts.md` - ready-to-post English and Spanish captions.
 - `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
+- `business/summer-client-engine.md` - active June/July outreach plan for camps, daycares, HOAs, pet businesses, local partners, and toy drives.
+- `business/summer-prospect-starter.csv` - starter prospect list for summer client outreach.
 - `business/launch-command-center.html` - internal daily outreach dashboard with scripts, links, checklist, and tracker shortcuts.
 - `business/quote-builder.html` - internal quote builder for sending polished text, WhatsApp, or email pricing replies.
 - `business/follow-up-builder.html` - internal follow-up builder for warm leads, proof requests, deposit reminders, partners, and after-visit review requests.
@@ -57,9 +59,10 @@ Use this same information everywhere so families see one clear way to contact Pa
 1. Fill in contact info in the files.
 2. Post 3 times per week on Instagram/Facebook starting now.
 3. Message 15 local businesses or organizations per day.
-4. Ask past clients and nonprofits for short testimonials.
-5. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
-6. Send the reviews page when a parent, school, HOA, or business asks to see proof.
-7. Use `business/quote-builder.html` after a lead shares date, city, and event details so pricing replies stay fast and professional.
-8. Use `business/follow-up-builder.html` after every warm lead so they get one clear next step and a follow-up date.
-9. Use `business/google-social-launch-kit.md` to set up Google Business Profile, Instagram, WhatsApp Business, and the first posts.
+4. For June and July, work `business/summer-client-engine.md` and `business/summer-prospect-starter.csv` first.
+5. Ask past clients and nonprofits for short testimonials.
+6. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
+7. Send the reviews page when a parent, school, HOA, or business asks to see proof.
+8. Use `business/quote-builder.html` after a lead shares date, city, and event details so pricing replies stay fast and professional.
+9. Use `business/follow-up-builder.html` after every warm lead so they get one clear next step and a follow-up date.
+10. Use `business/google-social-launch-kit.md` to set up Google Business Profile, Instagram, WhatsApp Business, and the first posts.

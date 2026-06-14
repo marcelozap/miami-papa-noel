@@ -4,6 +4,8 @@
 
 Turn local families, schools, businesses, residential communities, and nonprofits into paid bookings.
 
+The website should not be treated as the whole sales plan. It is proof after someone hears about Miami Papa Noel. The real engine is daily outreach, partner conversations, follow-up, and referrals.
+
 ## Funnel Stages
 
 ### 1. Awareness
