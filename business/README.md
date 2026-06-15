@@ -18,31 +18,32 @@ This folder turns the website into an operating system for the business.
 12. `summer-client-engine.md` - the active June/July client-acquisition plan for camps, daycares, HOAs, pet businesses, partners, and toy drives.
 13. `summer-prospect-starter.csv` - starter prospect list to research and contact first.
 14. `miami-prospect-expansion.csv` - expanded public lead list for daycares, camps, HOAs, photographers, party vendors, and pet businesses.
-15. `quote-builder.html` - internal tool for turning inquiry details into a polished text, WhatsApp, or email quote.
-16. `follow-up-builder.html` - internal tool for turning warm leads, quiet leads, proof requests, deposit reminders, partners, and completed visits into clear next-step messages.
-17. `account-setup-checklist.md` - create the accounts.
-18. `business-email-setup.md` - create the professional email address.
-19. `brand-profile.md` - paste-ready bios and descriptions.
-20. `sales-funnel.md` - how strangers become paid bookings.
-21. `booking-sop.md` - exact process from inquiry to event.
-22. `launch-checklist.md` - what to do in the first 7 days.
-23. `30-day-client-sprint.md` - daily outreach routine and bilingual messages.
-24. `local-lead-research-playbook.md` - how to build a real local lead list.
-25. `referral-partner-playbook.md` - how to contact photographers, vendors, pet businesses, restaurants, and local partners.
-26. `../links.html` - quick link-in-bio page for Instagram and social profiles.
-27. `../events.html` - outreach landing page for schools, HOAs, businesses, toy drives, and event partners.
-28. `../christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
-29. `../summer-santa.html` - focused Summer Santa and Christmas-in-July page for off-season bookings.
-30. `../service-areas.html` - local service-area page for Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.
-31. `../schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
-32. `../hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
-33. `../partners.html` - referral-partner page for photographers, vendors, pet businesses, restaurants, and local family businesses.
-34. `../reviews.html` - proof page with real visit photos, community notes, and review collection guidance.
-35. `../after-visit.html` - thank-you page for reviews, approved photo permission, and referrals after completed visits.
-36. `review-referral-system.md` - post-visit review, photo permission, and referral workflow.
-37. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
-38. `google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
-39. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
+15. `first-30-outreach-batch.md` - exact first 30 prospects, message scripts, tracking rule, and one follow-up.
+16. `quote-builder.html` - internal tool for turning inquiry details into a polished text, WhatsApp, or email quote.
+17. `follow-up-builder.html` - internal tool for turning warm leads, quiet leads, proof requests, deposit reminders, partners, and completed visits into clear next-step messages.
+18. `account-setup-checklist.md` - create the accounts.
+19. `business-email-setup.md` - create the professional email address.
+20. `brand-profile.md` - paste-ready bios and descriptions.
+21. `sales-funnel.md` - how strangers become paid bookings.
+22. `booking-sop.md` - exact process from inquiry to event.
+23. `launch-checklist.md` - what to do in the first 7 days.
+24. `30-day-client-sprint.md` - daily outreach routine and bilingual messages.
+25. `local-lead-research-playbook.md` - how to build a real local lead list.
+26. `referral-partner-playbook.md` - how to contact photographers, vendors, pet businesses, restaurants, and local partners.
+27. `../links.html` - quick link-in-bio page for Instagram and social profiles.
+28. `../events.html` - outreach landing page for schools, HOAs, businesses, toy drives, and event partners.
+29. `../christmas-eve.html` - focused Christmas Eve gift-delivery page for families.
+30. `../summer-santa.html` - focused Summer Santa and Christmas-in-July page for off-season bookings.
+31. `../service-areas.html` - local service-area page for Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.
+32. `../schools-daycares.html` - focused school, daycare, classroom, and camp visit page.
+33. `../hoa-apartments.html` - focused HOA, apartment, condo, clubhouse, and resident event page.
+34. `../partners.html` - referral-partner page for photographers, vendors, pet businesses, restaurants, and local family businesses.
+35. `../reviews.html` - proof page with real visit photos, community notes, and review collection guidance.
+36. `../after-visit.html` - thank-you page for reviews, approved photo permission, and referrals after completed visits.
+37. `review-referral-system.md` - post-visit review, photo permission, and referral workflow.
+38. `one-page-flyer.html` - printable flyer for families, schools, HOAs, and businesses.
+39. `google-social-launch-kit.md` - paste-ready Google Business Profile, Instagram, Facebook, WhatsApp, and weekly growth checklist.
+40. `google-business-profile-launch.md` - paste-ready Google Business Profile setup pack.
 
 ## Core Rule
 
