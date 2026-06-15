@@ -55,6 +55,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/directory-profile-kit.md` - paste-ready profile copy for Google Business Profile, GigSalad, The Bash, Instagram, Facebook, Yelp, and local directories.
 - `business/summer-client-engine.md` - active June/July outreach plan for camps, daycares, HOAs, pet businesses, local partners, and toy drives.
 - `business/summer-prospect-starter.csv` - starter prospect list for summer client outreach.
+- `business/miami-prospect-expansion.csv` - expanded public lead list for daycares, camps, HOAs, photographers, party vendors, and pet businesses.
 - `business/launch-command-center.html` - internal daily outreach dashboard with scripts, links, checklist, and tracker shortcuts.
 - `business/quote-builder.html` - internal quote builder for sending polished text, WhatsApp, or email pricing replies.
 - `business/follow-up-builder.html` - internal follow-up builder for warm leads, proof requests, deposit reminders, partners, and after-visit review requests.
@@ -75,10 +76,10 @@ Use this same information everywhere so families see one clear way to contact Pa
 6. Finish `business/email-form-finish.md` so `bookings@miamipapanoel.com` can receive form submissions later.
 7. Work `business/passive-marketing-engine.md` so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
 8. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
-7. For June and July, use `business/summer-client-engine.md` and `business/summer-prospect-starter.csv` if you want faster summer outreach.
-8. Ask past clients and nonprofits for short testimonials.
-9. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
-10. Send the reviews page when a parent, school, HOA, or business asks to see proof.
-11. Use `business/quote-builder.html` after a lead shares date, city, and event details so pricing replies stay fast and professional.
-12. Use `business/follow-up-builder.html` after every warm lead so they get one clear next step and a follow-up date.
-13. Use `business/google-social-launch-kit.md` to set up Google Business Profile, Instagram, WhatsApp Business, and the first posts.
+9. For June and July, use `business/summer-client-engine.md`, `business/summer-prospect-starter.csv`, and `business/miami-prospect-expansion.csv` if you want faster summer outreach.
+10. Ask past clients and nonprofits for short testimonials.
+11. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
+12. Send the reviews page when a parent, school, HOA, or business asks to see proof.
+13. Use `business/quote-builder.html` after a lead shares date, city, and event details so pricing replies stay fast and professional.
+14. Use `business/follow-up-builder.html` after every warm lead so they get one clear next step and a follow-up date.
+15. Use `business/google-social-launch-kit.md` to set up Google Business Profile, Instagram, WhatsApp Business, and the first posts.

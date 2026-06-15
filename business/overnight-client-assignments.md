@@ -76,6 +76,8 @@ Hola, gracias por escribir a Miami Papa Noel. Por favor envie fecha, ciudad, hor
 
 Send these in three batches. Do not overthink them.
 
+Use `business/miami-prospect-expansion.csv` as the first expanded list. Pick 10 schools/camps, 10 HOAs/property managers, and 10 photographers/vendors/pet businesses. If a contact form asks for a message, paste the matching script below and include the booking link.
+
 ### Batch 1 - Schools / Daycares / Camps
 
 Goal: 10 messages.
