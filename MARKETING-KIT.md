@@ -47,6 +47,9 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/fathers-day-launch.html` - polished Father's Day handoff page with launch status, family roles, next steps, and a printable QR booking card.
 - `business/email-form-finish.md` - exact final steps for email MX records, forwarding, and FormSubmit activation.
 - `business/santa-lead-generation-kit.md` - finished low-effort plan, captions, DMs, WhatsApp replies, Google description, and Copilot prompt.
+- `business/overnight-client-assignments.md` - morning assignment sheet for FormSubmit activation, family roles, first 30 messages, and tracking rules.
+- `business/lead-reply-bank.md` - bilingual copy/paste replies for lead questions, pricing, availability, proof, schools, HOAs, Christmas Eve, and follow-ups.
+- `business/tracking-link-map.md` - source-tagged booking links for Google, social profiles, marketplaces, DMs, QR cards, and campaigns.
 - `business/gemini-marketing-kit.md` - paste-ready Gemini prompts for captions, replies, outreach, Google posts, and content calendars.
 - `business/passive-marketing-engine.md` - one-time setup system for Google, marketplaces, scheduled posts, reviews, and automated booking leads.
 - `business/directory-profile-kit.md` - paste-ready profile copy for Google Business Profile, GigSalad, The Bash, Instagram, Facebook, Yelp, and local directories.
@@ -67,9 +70,11 @@ Use this same information everywhere so families see one clear way to contact Pa
 1. Open `business/fathers-day-launch.html` for the finished family handoff and printable QR booking card.
 2. Activate the temporary FormSubmit email in `rubiosally@hotmail.com`, then submit one booking test.
 3. Use `business/santa-lead-generation-kit.md` for ready captions, DMs, WhatsApp replies, and the Copilot prompt.
-4. Finish `business/email-form-finish.md` so `bookings@miamipapanoel.com` can receive form submissions later.
-5. Work `business/passive-marketing-engine.md` so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
-6. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
+4. Use `business/overnight-client-assignments.md` to split work between you, sister, Mom, and Dad.
+5. Use `business/lead-reply-bank.md` when anyone asks about pricing, availability, photos, schools, HOAs, Christmas Eve, or referrals.
+6. Finish `business/email-form-finish.md` so `bookings@miamipapanoel.com` can receive form submissions later.
+7. Work `business/passive-marketing-engine.md` so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
+8. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
 7. For June and July, use `business/summer-client-engine.md` and `business/summer-prospect-starter.csv` if you want faster summer outreach.
 8. Ask past clients and nonprofits for short testimonials.
 9. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.
