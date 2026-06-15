@@ -24,7 +24,8 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 Use these details consistently across the website, profiles, and outreach:
 
 - Phone: `305-244-0360`
-- Email: `bookings@miamipapanoel.com`
+- Email: do not publish until `bookings@miamipapanoel.com` receives test email.
+- Primary booking path: `https://miamipapanoel.com/book`
 - Instagram: `@miamipapanoel`
 
 ## Business Kit
@@ -32,6 +33,7 @@ Use these details consistently across the website, profiles, and outreach:
 Open `business/` for the operating docs:
 
 - Father's Day launch pack
+- Santa lead generation kit
 - Passive marketing engine
 - Directory profile kit
 - Launch command center

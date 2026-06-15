@@ -242,8 +242,8 @@
       padding: 128px 0 58px;
       color: white;
       background:
-        linear-gradient(90deg, rgba(23, 19, 19, .90) 0%, rgba(23, 19, 19, .62) 45%, rgba(23, 19, 19, .18) 100%),
-        linear-gradient(180deg, rgba(23, 19, 19, .08) 0%, rgba(23, 19, 19, .74) 100%),
+        linear-gradient(90deg, rgba(23, 19, 19, .96) 0%, rgba(23, 19, 19, .76) 48%, rgba(23, 19, 19, .34) 100%),
+        linear-gradient(180deg, rgba(23, 19, 19, .20) 0%, rgba(23, 19, 19, .84) 100%),
         url("assets/optimized/santa-family-event-1600.jpg") center / cover no-repeat;
     }
 
@@ -261,6 +261,7 @@
       font-weight: 900;
       letter-spacing: 0;
       text-transform: uppercase;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, .42);
     }
 
     h1,
@@ -276,6 +277,7 @@
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(52px, 7vw, 100px);
       line-height: .92;
+      text-shadow: 0 3px 22px rgba(0, 0, 0, .48);
     }
 
     .hero-copy {
@@ -283,6 +285,7 @@
       margin: 0 0 28px;
       font-size: clamp(19px, 2vw, 24px);
       font-weight: 600;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, .56);
     }
 
     .actions {
@@ -312,8 +315,8 @@
 
     .button.secondary {
       color: white;
-      background: rgba(255, 255, 255, .12);
-      border-color: rgba(255, 255, 255, .46);
+      background: rgba(23, 19, 19, .42);
+      border-color: rgba(255, 255, 255, .58);
       box-shadow: none;
     }
 
@@ -349,11 +352,13 @@
 
     .need-link {
       display: grid;
-      gap: 3px;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 3px 12px;
+      align-items: center;
       padding: 13px 14px;
       border-radius: 8px;
       color: inherit;
-      background: var(--mist);
+      background: #fffaf1;
       border: 1px solid rgba(35, 27, 25, .08);
       text-decoration: none;
       transition: transform .18s ease, border-color .18s ease;
@@ -365,14 +370,27 @@
     }
 
     .need-link b {
+      grid-column: 2;
       font-size: 16px;
       line-height: 1.2;
     }
 
     .need-link span {
+      grid-column: 2;
       color: var(--muted);
       font-size: 13px;
       font-weight: 700;
+    }
+
+    .need-icon {
+      grid-row: 1 / span 2;
+      width: 32px;
+      height: 32px;
+      padding: 6px;
+      border-radius: 999px;
+      background: var(--charcoal);
+      object-fit: contain;
+      box-shadow: 0 8px 18px rgba(35, 27, 25, .16);
     }
 
     .mini-list {
@@ -749,7 +767,7 @@
       padding: 24px;
       border-radius: 8px;
       background:
-        linear-gradient(180deg, rgba(23, 19, 19, .16), rgba(23, 19, 19, .86)),
+        linear-gradient(180deg, rgba(23, 19, 19, .34), rgba(23, 19, 19, .94)),
         var(--video-bg) center / cover no-repeat;
       border: 1px solid rgba(255, 255, 255, .16);
     }
@@ -762,7 +780,7 @@
 
     .video-card p {
       margin: 0;
-      color: rgba(255, 255, 255, .78);
+      color: rgba(255, 255, 255, .92);
       font-weight: 600;
     }
 
@@ -1006,7 +1024,7 @@
         min-height: 88vh;
         padding: 104px 0 38px;
         background:
-          linear-gradient(180deg, rgba(23, 19, 19, .18) 0%, rgba(23, 19, 19, .86) 100%),
+          linear-gradient(180deg, rgba(23, 19, 19, .46) 0%, rgba(23, 19, 19, .92) 100%),
           url("assets/optimized/santa-family-event-1600.jpg") center / cover no-repeat;
       }
 
@@ -1127,14 +1145,17 @@
           <p data-i18n="hero.cardCopy">Choose the closest moment. If you are not sure, send a message and we will recommend the best fit.</p>
           <div class="need-list" aria-label="Choose a visit type">
             <a class="need-link" href="book.html?package=Family%20Visit&source=home">
+              <img class="need-icon" src="assets/christmas-tree-icon.svg" alt="">
               <b data-i18n="need.family">Family or home visit</b>
               <span data-i18n="need.familyText">Photos, a warm hello, and optional gift handoff</span>
             </a>
             <a class="need-link" href="book.html?package=Event%20Visit&source=home">
+              <img class="need-icon" src="assets/santa-hat-icon.svg" alt="">
               <b data-i18n="need.event">School, party, or business event</b>
               <span data-i18n="need.eventText">Guest greetings, photos, story time, and event support</span>
             </a>
             <a class="need-link" href="christmas-eve.html">
+              <img class="need-icon" src="assets/christmas-tree-icon.svg" alt="">
               <b data-i18n="need.eve">Christmas Eve gift delivery</b>
               <span data-i18n="need.eveText">Santa arrives with labeled gifts for the surprise</span>
             </a>

@@ -33,7 +33,7 @@ Phone/Text:
 305-244-0360
 
 Email:
-bookings@miamipapanoel.com
+Do not list a public email yet. Use the booking form and phone until `bookings@miamipapanoel.com` is active.
 
 Do not invent reviews, guarantees, exact availability, or nonprofit partnerships. Ask people to request availability.
 ```

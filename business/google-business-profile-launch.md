@@ -26,7 +26,7 @@ Phone:
 
 Email:
 
-`bookings@miamipapanoel.com`
+Do not list email until Microsoft 365 is finished and `bookings@miamipapanoel.com` receives test email.
 
 Instagram:
 

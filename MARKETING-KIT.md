@@ -7,7 +7,7 @@ This folder is a starter kit to help book Santa clients in Miami-Doral and nearb
 Use this same information everywhere so families see one clear way to contact Papa Noel:
 
 - Phone/Text: `305-244-0360`
-- Email: `bookings@miamipapanoel.com`
+- Email: do not publish until `bookings@miamipapanoel.com` receives test email.
 - Instagram: `@miamipapanoel`
 - Website: `https://miamipapanoel.com`
 - Social bio links: `https://miamipapanoel.com/links`
@@ -46,6 +46,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/30-day-client-sprint.md` - daily outreach routine and bilingual DMs.
 - `business/fathers-day-launch.html` - polished Father's Day handoff page with launch status, family roles, next steps, and a printable QR booking card.
 - `business/email-form-finish.md` - exact final steps for email MX records, forwarding, and FormSubmit activation.
+- `business/santa-lead-generation-kit.md` - finished low-effort plan, captions, DMs, WhatsApp replies, Google description, and Copilot prompt.
 - `business/gemini-marketing-kit.md` - paste-ready Gemini prompts for captions, replies, outreach, Google posts, and content calendars.
 - `business/passive-marketing-engine.md` - one-time setup system for Google, marketplaces, scheduled posts, reviews, and automated booking leads.
 - `business/directory-profile-kit.md` - paste-ready profile copy for Google Business Profile, GigSalad, The Bash, Instagram, Facebook, Yelp, and local directories.
@@ -64,11 +65,11 @@ Use this same information everywhere so families see one clear way to contact Pa
 ## Fastest path to clients
 
 1. Open `business/fathers-day-launch.html` for the finished family handoff and printable QR booking card.
-2. Finish `business/email-form-finish.md` so `bookings@miamipapanoel.com` can receive form submissions.
-3. Use `business/gemini-marketing-kit.md` to generate captions, replies, outreach messages, and Google Business posts quickly.
-4. Work `business/passive-marketing-engine.md` so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
-5. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
-6. Confirm the FormSubmit activation email for `bookings@miamipapanoel.com` so booking form submissions arrive automatically.
+2. Activate the temporary FormSubmit email in `rubiosally@hotmail.com`, then submit one booking test.
+3. Use `business/santa-lead-generation-kit.md` for ready captions, DMs, WhatsApp replies, and the Copilot prompt.
+4. Finish `business/email-form-finish.md` so `bookings@miamipapanoel.com` can receive form submissions later.
+5. Work `business/passive-marketing-engine.md` so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
+6. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
 7. For June and July, use `business/summer-client-engine.md` and `business/summer-prospect-starter.csv` if you want faster summer outreach.
 8. Ask past clients and nonprofits for short testimonials.
 9. Send the partner page to photographers, decorators, planners, pet groomers, restaurants, and family businesses.

@@ -31,7 +31,7 @@ Use these exact links so leads are easier to track.
 ### Public Contact
 
 - Phone: `305-244-0360`
-- Email: `bookings@miamipapanoel.com`
+- Email: do not list publicly until Microsoft 365 is finished and `bookings@miamipapanoel.com` receives test email.
 - Website: `https://miamipapanoel.com`
 - Booking / appointment link: `https://miamipapanoel.com/book?source=google%20business`
 
