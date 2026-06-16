@@ -525,6 +525,28 @@
       font-weight: 650;
     }
 
+    .step-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .step-details em {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 6px 9px;
+      border: 1px solid rgba(201, 153, 63, .28);
+      border-radius: 999px;
+      color: #5f4a21;
+      background: rgba(201, 153, 63, .10);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 850;
+      line-height: 1.1;
+    }
+
     .occasion-links {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1329,6 +1351,12 @@
                 <div>
                   <strong data-i18n="signature.oneTitle">A gentle entrance</strong>
                   <p data-i18n="signature.oneCopy">Santa arrives with warmth, patience, and room for shy children to settle in.</p>
+                  <div class="step-details" aria-label="Gentle entrance details">
+                    <em data-i18n="signature.oneDetailA">Calm hello</em>
+                    <em data-i18n="signature.oneDetailB">Bilingual greeting</em>
+                    <em data-i18n="signature.oneDetailC">Shy-child friendly</em>
+                    <em data-i18n="signature.oneDetailD">Photo-ready arrival</em>
+                  </div>
                 </div>
               </article>
               <article class="signature-step">
@@ -1336,6 +1364,13 @@
                 <div>
                   <strong data-i18n="signature.twoTitle">Photos that feel natural</strong>
                   <p data-i18n="signature.twoCopy">The visit is paced for smiles, family photos, and sweet candid moments.</p>
+                  <div class="step-details" aria-label="Photo moment details">
+                    <em data-i18n="signature.twoDetailA">Family photos</em>
+                    <em data-i18n="signature.twoDetailB">Group photos</em>
+                    <em data-i18n="signature.twoDetailC">Story moment</em>
+                    <em data-i18n="signature.twoDetailD">Pet photos option</em>
+                    <em data-i18n="signature.twoDetailE">Mini-session ready</em>
+                  </div>
                 </div>
               </article>
               <article class="signature-step">
@@ -1343,6 +1378,13 @@
                 <div>
                   <strong data-i18n="signature.threeTitle">A simple plan for gifts</strong>
                   <p data-i18n="signature.threeCopy">Labeled gifts, timing, and event details stay organized before Santa arrives.</p>
+                  <div class="step-details" aria-label="Gift planning details">
+                    <em data-i18n="signature.threeDetailA">Labeled gifts</em>
+                    <em data-i18n="signature.threeDetailB">Arrival window</em>
+                    <em data-i18n="signature.threeDetailC">Parking notes</em>
+                    <em data-i18n="signature.threeDetailD">Deposit hold</em>
+                    <em data-i18n="signature.threeDetailE">Event contact</em>
+                  </div>
                 </div>
               </article>
             </div>
@@ -1745,10 +1787,24 @@
         "signature.proof": "See Real Visits",
         "signature.oneTitle": "A gentle entrance",
         "signature.oneCopy": "Santa arrives with warmth, patience, and room for shy children to settle in.",
+        "signature.oneDetailA": "Calm hello",
+        "signature.oneDetailB": "Bilingual greeting",
+        "signature.oneDetailC": "Shy-child friendly",
+        "signature.oneDetailD": "Photo-ready arrival",
         "signature.twoTitle": "Photos that feel natural",
         "signature.twoCopy": "The visit is paced for smiles, family photos, and sweet candid moments.",
+        "signature.twoDetailA": "Family photos",
+        "signature.twoDetailB": "Group photos",
+        "signature.twoDetailC": "Story moment",
+        "signature.twoDetailD": "Pet photos option",
+        "signature.twoDetailE": "Mini-session ready",
         "signature.threeTitle": "A simple plan for gifts",
         "signature.threeCopy": "Labeled gifts, timing, and event details stay organized before Santa arrives.",
+        "signature.threeDetailA": "Labeled gifts",
+        "signature.threeDetailB": "Arrival window",
+        "signature.threeDetailC": "Parking notes",
+        "signature.threeDetailD": "Deposit hold",
+        "signature.threeDetailE": "Event contact",
         "occasion.schoolSmall": "Schools",
         "occasion.school": "Daycares and camps",
         "occasion.hoaSmall": "Communities",
@@ -1920,10 +1976,24 @@
         "signature.proof": "Ver Visitas Reales",
         "signature.oneTitle": "Una entrada tranquila",
         "signature.oneCopy": "Santa llega con calidez, paciencia y espacio para que los niños tímidos se acomoden.",
+        "signature.oneDetailA": "Saludo tranquilo",
+        "signature.oneDetailB": "Saludo bilingüe",
+        "signature.oneDetailC": "Paciencia con niños tímidos",
+        "signature.oneDetailD": "Listo para fotos",
         "signature.twoTitle": "Fotos naturales",
         "signature.twoCopy": "La visita se maneja con calma para sonrisas, fotos familiares y momentos espontáneos.",
+        "signature.twoDetailA": "Fotos familiares",
+        "signature.twoDetailB": "Fotos de grupo",
+        "signature.twoDetailC": "Momento de cuento",
+        "signature.twoDetailD": "Opción con mascotas",
+        "signature.twoDetailE": "Listo para mini sesiones",
         "signature.threeTitle": "Un plan simple para regalos",
         "signature.threeCopy": "Los regalos marcados, el horario y los detalles se organizan antes de que llegue Santa.",
+        "signature.threeDetailA": "Regalos marcados",
+        "signature.threeDetailB": "Horario de llegada",
+        "signature.threeDetailC": "Notas de parqueo",
+        "signature.threeDetailD": "Depósito para guardar",
+        "signature.threeDetailE": "Contacto del evento",
         "occasion.schoolSmall": "Escuelas",
         "occasion.school": "Daycares y campamentos",
         "occasion.hoaSmall": "Comunidades",
