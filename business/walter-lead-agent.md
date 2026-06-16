@@ -20,6 +20,16 @@ Miami Papa Noel is not just a Christmas website. It is a small family business t
 
 Walter exists so the business does not sit still. A static website only helps when people find it. Walter's job is to keep finding places where Papa Noel belongs.
 
+## Autonomous Factory
+
+Walter does not need the human to choose the daily task.
+
+Use these files as the operating rules:
+
+- `walter-autonomy-loop.md` - daily lane rotation and output contract.
+- `walter-elf-roster.md` - 14 specialist elf roles Walter can activate.
+- `walter-workshop.html` - visual workshop for the lead factory.
+
 ## What Walter Does
 
 Every run, Walter should produce a short lead brief with:

@@ -497,6 +497,49 @@
       font-weight: 650;
     }
 
+    .factory-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .elf {
+      min-height: 116px;
+      padding: 12px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .62);
+    }
+
+    .elf-badge {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 8px;
+      border-radius: 50%;
+      color: white;
+      background: var(--pine);
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .elf strong {
+      display: block;
+      line-height: 1.1;
+      font-size: .9rem;
+    }
+
+    .elf span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: .74rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
     .footer-actions {
       display: flex;
       flex-wrap: wrap;
@@ -533,6 +576,10 @@
       .world {
         min-height: 420px;
       }
+
+      .factory-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 620px) {
@@ -562,6 +609,10 @@
         grid-column: 2;
         width: fit-content;
       }
+
+      .factory-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
   </style>
 </head>
@@ -576,6 +627,7 @@
     </a>
     <nav class="top-actions" aria-label="Walter tools">
       <a class="button" href="walter-lead-agent.md">Runbook</a>
+      <a class="button" href="walter-elf-roster.md">Elves</a>
       <a class="button" href="first-30-outreach-batch.md">First 30</a>
       <a class="button primary" href="../book.html">Booking Page</a>
     </nav>
@@ -597,8 +649,8 @@
             <strong>10 leads</strong>
           </div>
           <div class="status-card">
-            <span>Human work</span>
-            <strong>Reply only</strong>
+            <span>Elf crew</span>
+            <strong>14 roles</strong>
           </div>
           <div class="status-card">
             <span>Safety</span>
@@ -635,6 +687,84 @@
             <strong>Walter</strong>
             <span>Lead agent</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel section" aria-label="Santa factory elf roster" style="margin-top: 18px;">
+      <p class="eyebrow">Santa factory</p>
+      <h2>Fourteen elves, one captain.</h2>
+      <p>Walter chooses the active crew each day. The elves do the thinking around leads, fit, messages, proof, tracking, replies, booking, and reviews. The family only gets the clean hand-off.</p>
+      <div class="factory-grid">
+        <div class="elf">
+          <div class="elf-badge">1</div>
+          <strong>Scout Elf</strong>
+          <span>Finds public prospects.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">2</div>
+          <strong>Map Elf</strong>
+          <span>Groups leads by area.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">3</div>
+          <strong>Fit Elf</strong>
+          <span>Decides good fit or skip.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">4</div>
+          <strong>Offer Elf</strong>
+          <span>Matches the right visit.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">5</div>
+          <strong>Message Elf</strong>
+          <span>Writes first outreach.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">6</div>
+          <strong>Follow-Up Elf</strong>
+          <span>Prepares one follow-up.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">7</div>
+          <strong>Proof Elf</strong>
+          <span>Picks the best proof link.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">8</div>
+          <strong>Schools Elf</strong>
+          <span>Daycares, camps, schools.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">9</div>
+          <strong>Community Elf</strong>
+          <span>HOAs and apartments.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">10</div>
+          <strong>Photo Elf</strong>
+          <span>Mini-session partners.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">11</div>
+          <strong>Party Elf</strong>
+          <span>Vendors and venues.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">12</div>
+          <strong>Pet Elf</strong>
+          <span>Pet photo pop-ups.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">13</div>
+          <strong>Tracker Elf</strong>
+          <span>Formats tracker rows.</span>
+        </div>
+        <div class="elf">
+          <div class="elf-badge">14</div>
+          <strong>Closer Elf</strong>
+          <span>Leaves one next action.</span>
         </div>
       </div>
     </section>

@@ -58,6 +58,8 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/miami-prospect-expansion.csv` - expanded public lead list for daycares, camps, HOAs, photographers, party vendors, and pet businesses.
 - `business/first-30-outreach-batch.md` - exact first 30 prospects, message scripts, tracking rule, and one follow-up.
 - `business/walter-lead-agent.md` - purpose and rules for Walter, the automated lead research agent.
+- `business/walter-autonomy-loop.md` - self-steering daily lane rotation so Walter does not need prompts.
+- `business/walter-elf-roster.md` - 14 specialist elf roles inside Walter's autonomous lead factory.
 - `business/walter-workshop.html` - visual agent workspace showing Walter's lead loop and quick links.
 - `business/launch-command-center.html` - internal daily outreach dashboard with scripts, links, checklist, and tracker shortcuts.
 - `business/quote-builder.html` - internal quote builder for sending polished text, WhatsApp, or email pricing replies.
