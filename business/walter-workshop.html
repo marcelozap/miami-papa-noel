@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Walter Workshop | Miami Papa Noel</title>
+  <link rel="icon" href="../assets/christmas-tree-icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1412;
+      --charcoal: #251b19;
+      --night: #140f0e;
+      --pine: #123f35;
+      --pine-soft: #dfeee7;
+      --velvet: #922132;
+      --gold: #c99a43;
+      --cream: #fff8ec;
+      --paper: #f6ecdd;
+      --line: rgba(80, 56, 42, .18);
+      --muted: #74645b;
+      --shadow: 0 24px 70px rgba(35, 24, 18, .16);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(201, 154, 67, .18), transparent 26%),
+        linear-gradient(135deg, #fff8ec 0%, #f7ead6 42%, #e6f0e8 100%);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 22px;
+      color: white;
+      background: rgba(28, 20, 18, .94);
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 31px;
+      height: 31px;
+    }
+
+    .brand strong {
+      display: block;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.3rem;
+      line-height: 1;
+      letter-spacing: .01em;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 2px;
+      color: rgba(255, 255, 255, .68);
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: var(--radius);
+      color: white;
+      font-size: .86rem;
+      font-weight: 900;
+      text-decoration: none;
+      background: rgba(255, 255, 255, .08);
+    }
+
+    .button.primary {
+      color: #211815;
+      border-color: transparent;
+      background: var(--gold);
+    }
+
+    main {
+      width: min(1180px, calc(100% - 34px));
+      margin: 0 auto;
+      padding: 34px 0 54px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, .95fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 248, 236, .82);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .intro {
+      padding: clamp(24px, 4vw, 46px);
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--gold);
+      font-size: .8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(3.4rem, 8vw, 7.4rem);
+      letter-spacing: 0;
+    }
+
+    .intro-copy {
+      max-width: 650px;
+      margin: 18px 0 0;
+      color: #3f302b;
+      font-size: clamp(1rem, 1.4vw, 1.18rem);
+      font-weight: 700;
+    }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .status-card {
+      min-height: 90px;
+      padding: 14px;
+      border: 1px solid rgba(35, 27, 25, .12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .62);
+    }
+
+    .status-card span {
+      display: block;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .status-card strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+    .workshop {
+      min-height: 430px;
+      position: relative;
+      padding: 22px;
+      color: white;
+      background:
+        linear-gradient(180deg, rgba(20, 15, 14, .45), rgba(20, 15, 14, .92)),
+        url("../assets/optimized/santa-community-event-1600.jpg") center / cover;
+    }
+
+    .world {
+      position: relative;
+      min-height: 386px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255, 255, 255, .06) 1px, transparent 1px),
+        rgba(20, 15, 14, .52);
+      background-size: 42px 42px;
+      overflow: hidden;
+    }
+
+    .orbit {
+      position: absolute;
+      inset: 34px;
+      border: 1px dashed rgba(255, 255, 255, .18);
+      border-radius: 999px;
+      transform: rotate(-9deg);
+    }
+
+    .agent {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      top: 50%;
+      width: 116px;
+      min-height: 142px;
+      translate: -50% -48%;
+      display: grid;
+      place-items: center;
+      gap: 8px;
+      padding: 14px 12px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: var(--radius);
+      background: rgba(255, 248, 236, .93);
+      color: var(--ink);
+      box-shadow: 0 22px 42px rgba(0, 0, 0, .28);
+    }
+
+    .agent .face {
+      position: relative;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fff, #f3dcc4);
+      border: 3px solid var(--gold);
+    }
+
+    .agent .face::before,
+    .agent .face::after {
+      content: "";
+      position: absolute;
+      top: 22px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--charcoal);
+    }
+
+    .agent .face::before {
+      left: 14px;
+    }
+
+    .agent .face::after {
+      right: 14px;
+    }
+
+    .agent img {
+      position: absolute;
+      width: 38px;
+      top: -16px;
+      right: -10px;
+      transform: rotate(16deg);
+    }
+
+    .agent strong {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    .agent span {
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .signal {
+      position: absolute;
+      z-index: 2;
+      width: 112px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: var(--radius);
+      color: white;
+      background: rgba(18, 63, 53, .82);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, .24);
+      animation: float 4.8s ease-in-out infinite;
+    }
+
+    .signal small {
+      display: block;
+      color: rgba(255, 255, 255, .66);
+      font-size: .66rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .signal strong {
+      display: block;
+      margin-top: 4px;
+      font-size: .92rem;
+      line-height: 1.15;
+    }
+
+    .signal.one {
+      left: 22px;
+      top: 34px;
+    }
+
+    .signal.two {
+      right: 26px;
+      top: 68px;
+      animation-delay: .7s;
+      background: rgba(143, 31, 45, .82);
+    }
+
+    .signal.three {
+      left: 44px;
+      bottom: 42px;
+      animation-delay: 1.4s;
+      background: rgba(77, 50, 34, .86);
+    }
+
+    .signal.four {
+      right: 42px;
+      bottom: 32px;
+      animation-delay: 2.1s;
+    }
+
+    .pulse {
+      position: absolute;
+      height: 2px;
+      width: 34%;
+      left: 13%;
+      top: 49%;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      animation: scan 2.9s linear infinite;
+      opacity: .9;
+    }
+
+    .pulse.alt {
+      left: auto;
+      right: 12%;
+      top: 58%;
+      animation-delay: 1.2s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes scan {
+      0% {
+        transform: translateX(-38px);
+        opacity: 0;
+      }
+      18%, 82% {
+        opacity: .9;
+      }
+      100% {
+        transform: translateX(70px);
+        opacity: 0;
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .section {
+      padding: 24px;
+    }
+
+    .section h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+    }
+
+    .section p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .lane-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .lane {
+      display: grid;
+      grid-template-columns: 42px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .58);
+    }
+
+    .lane-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      color: white;
+      background: var(--pine);
+      font-weight: 900;
+    }
+
+    .lane strong,
+    .lane span {
+      display: block;
+    }
+
+    .lane span {
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 650;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border: 1px solid rgba(201, 154, 67, .42);
+      border-radius: 999px;
+      color: #6f4a08;
+      background: rgba(201, 154, 67, .14);
+      font-size: .74rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .brief {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .brief-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .62);
+    }
+
+    .brief-card strong {
+      display: block;
+    }
+
+    .brief-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .86rem;
+      font-weight: 650;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .footer-actions .button {
+      color: var(--ink);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, .66);
+    }
+
+    .footer-actions .button.primary {
+      background: var(--gold);
+      border-color: transparent;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .status-strip {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .workshop,
+      .intro {
+        min-height: auto;
+      }
+
+      .world {
+        min-height: 420px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        justify-content: flex-start;
+      }
+
+      main {
+        width: min(100% - 22px, 1180px);
+        padding-top: 18px;
+      }
+
+      .status-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .lane {
+        grid-template-columns: 38px 1fr;
+      }
+
+      .pill {
+        grid-column: 2;
+        width: fit-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <img src="../assets/christmas-tree-icon.svg" alt="">
+      <span>
+        <strong>Walter Workshop</strong>
+        <span>Miami Papa Noel lead agent</span>
+      </span>
+    </a>
+    <nav class="top-actions" aria-label="Walter tools">
+      <a class="button" href="walter-lead-agent.md">Runbook</a>
+      <a class="button" href="first-30-outreach-batch.md">First 30</a>
+      <a class="button primary" href="../book.html">Booking Page</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Walter overview">
+      <div class="panel intro">
+        <p class="eyebrow">Lead agent view</p>
+        <h1>Walter keeps the business moving.</h1>
+        <p class="intro-copy">A small visual workspace for the daily lead loop: find public prospects, match the right offer, prepare the message, and hand one clean action to the family.</p>
+        <div class="status-strip">
+          <div class="status-card">
+            <span>Prospects loaded</span>
+            <strong id="prospectCount">Checking</strong>
+          </div>
+          <div class="status-card">
+            <span>Daily target</span>
+            <strong>10 leads</strong>
+          </div>
+          <div class="status-card">
+            <span>Human work</span>
+            <strong>Reply only</strong>
+          </div>
+          <div class="status-card">
+            <span>Safety</span>
+            <strong>No logins</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel workshop">
+        <div class="world" aria-label="Animated lead workflow">
+          <div class="orbit"></div>
+          <div class="pulse"></div>
+          <div class="pulse alt"></div>
+          <div class="signal one">
+            <small>Research</small>
+            <strong>Public leads</strong>
+          </div>
+          <div class="signal two">
+            <small>Match</small>
+            <strong>Best offer</strong>
+          </div>
+          <div class="signal three">
+            <small>Prepare</small>
+            <strong>DM script</strong>
+          </div>
+          <div class="signal four">
+            <small>Hand off</small>
+            <strong>One action</strong>
+          </div>
+          <div class="agent">
+            <div class="face">
+              <img src="../assets/santa-hat-icon.svg" alt="">
+            </div>
+            <strong>Walter</strong>
+            <span>Lead agent</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Walter workflow">
+      <div class="panel section">
+        <h2>What Walter watches</h2>
+        <p>Walter focuses on places where Papa Noel can create a real moment, especially outside December.</p>
+        <div class="lane-list">
+          <div class="lane">
+            <div class="lane-icon">1</div>
+            <div>
+              <strong>Schools, daycares, camps</strong>
+              <span>Story visits, photo moments, Christmas in July.</span>
+            </div>
+            <span class="pill">Kids</span>
+          </div>
+          <div class="lane">
+            <div class="lane-icon">2</div>
+            <div>
+              <strong>HOAs and residential communities</strong>
+              <span>Clubhouse events, resident parties, family photo stations.</span>
+            </div>
+            <span class="pill">Events</span>
+          </div>
+          <div class="lane">
+            <div class="lane-icon">3</div>
+            <div>
+              <strong>Photographers and party vendors</strong>
+              <span>Holiday mini sessions, decorated setups, referral partners.</span>
+            </div>
+            <span class="pill">Partners</span>
+          </div>
+          <div class="lane">
+            <div class="lane-icon">4</div>
+            <div>
+              <strong>Pet businesses</strong>
+              <span>Pet photos with Santa and family-friendly store events.</span>
+            </div>
+            <span class="pill">Pop-ups</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel section">
+        <h2>Today’s brief shape</h2>
+        <p>Walter’s daily output should be short enough to act on before work starts.</p>
+        <div class="brief">
+          <div class="brief-card">
+            <strong>10 prospects</strong>
+            <span>Name, lane, area, public contact path, and why it fits.</span>
+          </div>
+          <div class="brief-card">
+            <strong>One message per lane</strong>
+            <span>Warm, bilingual-friendly, Miami, not corporate.</span>
+          </div>
+          <div class="brief-card">
+            <strong>One follow-up</strong>
+            <span>Respectful, no pressure, and no spam loop.</span>
+          </div>
+          <div class="brief-card">
+            <strong>One next action</strong>
+            <span>Send, save, follow up, or add replies to the tracker.</span>
+          </div>
+        </div>
+        <div class="footer-actions">
+          <a class="button primary" href="miami-prospect-expansion.csv">Open Prospect CSV</a>
+          <a class="button" href="lead-reply-bank.md">Reply Bank</a>
+          <a class="button" href="../lead-tracker.csv">Lead Tracker</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    async function loadProspects() {
+      const countTarget = document.getElementById("prospectCount");
+      try {
+        const response = await fetch("miami-prospect-expansion.csv", { cache: "no-store" });
+        const text = await response.text();
+        const rows = text.trim().split(/\r?\n/).filter(Boolean);
+        const count = Math.max(rows.length - 1, 0);
+        countTarget.textContent = count ? String(count) : "Ready";
+      } catch (error) {
+        countTarget.textContent = "Ready";
+      }
+    }
+
+    loadProspects();
+  </script>
+</body>
+</html>
