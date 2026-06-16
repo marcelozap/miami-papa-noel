@@ -36,6 +36,10 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `partners.html` - focused referral-partner page for photographers, party vendors, pet businesses, and local family businesses.
 - `reviews.html` - social proof page with real photos, community proof, and review collection guidance.
 - `after-visit.html` - thank-you page for reviews, approved photo permission, and referrals after completed visits.
+- `doral-daycare-santa.html` - focused SEO page for Doral daycares, preschools, schools, and camps.
+- `miami-hoa-santa-events.html` - focused SEO page for HOAs, apartments, condos, and community events.
+- `pet-photos-with-santa-miami.html` - focused SEO page for pet photos with Santa.
+- `santa-for-photo-sessions-miami.html` - focused SEO page for photographers and holiday mini sessions.
 - `thank-you.html` - confirmation page after a booking form submission.
 - `book.html` - booking request form.
 - `campaign-plan.md` - what to do each month and who to target.
@@ -61,6 +65,11 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/walter-autonomy-loop.md` - self-steering daily lane rotation so Walter does not need prompts.
 - `business/walter-elf-roster.md` - 14 specialist elf roles inside Walter's autonomous lead factory.
 - `business/walter-workshop.html` - visual agent workspace showing Walter's lead loop and quick links.
+- `business/walter-daily-brief-template.md` - exact template for Walter's daily autonomous lead brief.
+- `business/lead-dashboard.html` - internal dashboard for lead lanes, statuses, and daily actions.
+- `business/spanish-family-handoff.md` - Spanish family guide so Mom can see the business flow without tech.
+- `business/bilingual-outreach-pack.md` - English and Spanish messages for families, schools, HOAs, photographers, pet businesses, and follow-ups.
+- `business/partner-pitch-sheet.html` - printable partner flyer with QR booking code.
 - `business/launch-command-center.html` - internal daily outreach dashboard with scripts, links, checklist, and tracker shortcuts.
 - `business/quote-builder.html` - internal quote builder for sending polished text, WhatsApp, or email pricing replies.
 - `business/follow-up-builder.html` - internal follow-up builder for warm leads, proof requests, deposit reminders, partners, and after-visit review requests.

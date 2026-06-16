@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Lead Dashboard | Miami Papa Noel</title>
+  <link rel="icon" href="../assets/christmas-tree-icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1412;
+      --charcoal: #251b19;
+      --pine: #123f35;
+      --velvet: #8f1f2d;
+      --gold: #c9993f;
+      --paper: #fff8ed;
+      --mist: #f3eadb;
+      --line: #e1d2bf;
+      --muted: #6d5f56;
+      --shadow: 0 18px 44px rgba(35, 24, 18, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--paper), #e8f1ea);
+      font-family: Inter, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 16px 22px;
+      color: white;
+      background: rgba(35, 27, 25, .96);
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .brand strong {
+      display: block;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .brand span {
+      display: block;
+      color: rgba(255, 255, 255, .7);
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 13px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 8px;
+      color: white;
+      background: rgba(255, 255, 255, .08);
+      font-size: .84rem;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      color: #201714;
+      background: var(--gold);
+      border-color: transparent;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    h1, h2, h3 { margin: 0; line-height: 1; }
+
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(3rem, 7vw, 6.4rem);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 248, 237, .82);
+      box-shadow: var(--shadow);
+    }
+
+    .hero p,
+    .panel p {
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      min-height: 88px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .62);
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 1.45rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .lane-list,
+    .task-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .62);
+    }
+
+    .row strong,
+    .row span { display: block; }
+
+    .row span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 650;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(18, 63, 53, .12);
+      color: var(--pine);
+      font-size: .74rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .72);
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: .86rem;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="../index.html">
+      <img src="../assets/christmas-tree-icon.svg" alt="">
+      <span>
+        <strong>Lead Dashboard</strong>
+        <span>Miami Papa Noel</span>
+      </span>
+    </a>
+    <nav class="actions" aria-label="Lead tools">
+      <a class="button" href="walter-workshop.html">Walter</a>
+      <a class="button" href="first-30-outreach-batch.md">First 30</a>
+      <a class="button" href="../lead-tracker.csv">CSV</a>
+      <a class="button primary" href="../book.html">Booking Page</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="panel">
+        <h1>One place to move leads.</h1>
+        <p>This is the internal view for keeping Miami Papa Noel from becoming a pile of messages. Walter finds prospects. The family sends the prepared messages. Every real reply gets one row in the tracker.</p>
+        <div class="stats">
+          <div class="stat">
+            <span>Prospect pool</span>
+            <strong id="prospects">Checking</strong>
+          </div>
+          <div class="stat">
+            <span>Daily send</span>
+            <strong>10</strong>
+          </div>
+          <div class="stat">
+            <span>Follow-up</span>
+            <strong>3 days</strong>
+          </div>
+          <div class="stat">
+            <span>Parent work</span>
+            <strong>Reply</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Today</h2>
+        <div class="task-list">
+          <div class="row">
+            <div>
+              <strong>Open Walter's brief</strong>
+              <span>Use the lane and 10 prospects Walter prepared.</span>
+            </div>
+            <span class="pill">Start</span>
+          </div>
+          <div class="row">
+            <div>
+              <strong>Send 10 messages</strong>
+              <span>Use the exact script. Do not rewrite while tired.</span>
+            </div>
+            <span class="pill">Action</span>
+          </div>
+          <div class="row">
+            <div>
+              <strong>Track replies only</strong>
+              <span>New lead, waiting for details, price sent, booked, completed.</span>
+            </div>
+            <span class="pill">Keep</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Lead lanes</h2>
+        <div class="lane-list">
+          <div class="row"><div><strong>Schools / daycares / camps</strong><span>Christmas in July, classroom visits, family day.</span></div><span class="pill">Mon</span></div>
+          <div class="row"><div><strong>HOAs / apartments</strong><span>Resident events, clubhouses, photo stations.</span></div><span class="pill">Tue</span></div>
+          <div class="row"><div><strong>Photographers</strong><span>Holiday minis, Santa add-ons, referral partners.</span></div><span class="pill">Wed</span></div>
+          <div class="row"><div><strong>Party vendors</strong><span>Decorators, balloons, venues, family businesses.</span></div><span class="pill">Thu</span></div>
+          <div class="row"><div><strong>Pet businesses</strong><span>Pet photos with Santa, store pop-ups.</span></div><span class="pill">Fri</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Tracker statuses</h2>
+        <table>
+          <thead>
+            <tr><th>Status</th><th>Meaning</th><th>Next action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>New lead</td><td>Prospect found or first message sent.</td><td>Follow up in 3 days.</td></tr>
+            <tr><td>Waiting for details</td><td>They replied but details are missing.</td><td>Ask date, city, time, event type.</td></tr>
+            <tr><td>Price sent</td><td>They have enough details for a range.</td><td>Ask if they want to reserve.</td></tr>
+            <tr><td>Deposit requested</td><td>Date and details are ready.</td><td>Hold only after deposit.</td></tr>
+            <tr><td>Booked</td><td>Confirmed event.</td><td>Send reminder before visit.</td></tr>
+            <tr><td>Completed</td><td>Visit happened.</td><td>Ask for review and referral.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    async function countProspects() {
+      const node = document.getElementById("prospects");
+      try {
+        const response = await fetch("miami-prospect-expansion.csv", { cache: "no-store" });
+        const text = await response.text();
+        node.textContent = String(Math.max(text.trim().split(/\r?\n/).length - 1, 0));
+      } catch (error) {
+        node.textContent = "Ready";
+      }
+    }
+    countProspects();
+  </script>
+</body>
+</html>
