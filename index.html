@@ -429,6 +429,135 @@
       line-height: 1;
     }
 
+    .signature {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(35, 27, 25, .96), rgba(18, 63, 53, .92)),
+        url("assets/optimized/santa-photo-2-1600.jpg") center / cover;
+    }
+
+    .signature::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 16% 24%, rgba(242, 214, 154, .18), transparent 28%),
+        radial-gradient(circle at 82% 30%, rgba(143, 31, 45, .22), transparent 24%),
+        linear-gradient(90deg, rgba(23, 19, 19, .86), rgba(23, 19, 19, .46));
+      pointer-events: none;
+    }
+
+    .signature .shell {
+      position: relative;
+      z-index: 1;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .signature-copy {
+      padding: clamp(24px, 4vw, 44px);
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 8px;
+      background: rgba(23, 19, 19, .36);
+      backdrop-filter: blur(12px);
+    }
+
+    .signature-copy p {
+      color: rgba(255, 255, 255, .82);
+    }
+
+    .signature-copy h2 {
+      color: white;
+    }
+
+    .signature-steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .signature-step {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: 8px;
+      background: rgba(255, 249, 239, .94);
+      color: var(--ink);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, .14);
+    }
+
+    .signature-step span {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #211607;
+      background: var(--gold);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .signature-step strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 18px;
+    }
+
+    .signature-step p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .occasion-links {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .occasion-link {
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 7px;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      background: rgba(255, 255, 255, .10);
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .occasion-link:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, .16);
+    }
+
+    .occasion-link strong,
+    .occasion-link small {
+      display: block;
+    }
+
+    .occasion-link small {
+      color: rgba(255, 255, 255, .72);
+      font-weight: 800;
+    }
+
     section {
       padding: 86px 0;
     }
@@ -976,6 +1105,7 @@
 
       .hero-grid,
       .story-grid,
+      .signature-grid,
       .summer-grid,
       .proof-grid {
         grid-template-columns: 1fr;
@@ -987,6 +1117,10 @@
       .pricing-grid,
       .flow-grid,
       .faq-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .occasion-links {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1043,6 +1177,7 @@
       .flow-grid,
       .faq-grid,
       .gallery,
+      .occasion-links,
       .pill-grid,
       .mosaic {
         grid-template-columns: 1fr;
@@ -1132,8 +1267,8 @@
       <div class="shell hero-grid">
         <div>
           <p class="eyebrow" data-i18n="hero.eyebrow">Private Santa visits in Miami-Doral</p>
-          <h1 data-i18n="hero.title">A warm Papa Noel visit, planned with heart.</h1>
-          <p class="hero-copy" data-i18n="hero.copy">Tell us what you are celebrating. We will help choose the right visit, keep the details easy, and bring smiles in English or Spanish.</p>
+          <h1 data-i18n="hero.title">A private Papa Noel visit children remember.</h1>
+          <p class="hero-copy" data-i18n="hero.copy">A warm, bilingual, photo-ready Santa experience for homes, schools, communities, businesses, and Christmas Eve surprises in Miami-Doral.</p>
           <div class="actions">
             <a class="button" href="checkout.html" data-i18n="hero.primary">Find the Right Visit</a>
             <a class="button secondary" href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="hero.whatsapp">WhatsApp</a>
@@ -1170,6 +1305,65 @@
       <div class="trust-item"><strong>2</strong><span data-i18n="trust.three">Bilingual visits for families</span></div>
       <div class="trust-item"><strong>24</strong><span data-i18n="trust.four">Christmas Eve spots go quickly</span></div>
     </div>
+
+    <section class="signature">
+      <div class="shell">
+        <div class="signature-grid">
+          <div class="signature-copy">
+            <p class="eyebrow" data-i18n="signature.eyebrow">The Signature Experience</p>
+            <h2 data-i18n="signature.title">A real Santa moment, not just a costume.</h2>
+            <p class="lead" data-i18n="signature.copy">The best visits feel calm, personal, and beautifully timed. Miami Papa Noel helps families, schools, communities, and businesses create a moment children can believe in and adults can actually enjoy.</p>
+            <div class="actions section-actions">
+              <a class="button" href="book.html?source=signature-home" data-i18n="signature.cta">Plan the Moment</a>
+              <a class="button secondary" href="reviews.html?source=signature-home" data-i18n="signature.proof">See Real Visits</a>
+            </div>
+          </div>
+          <div>
+            <div class="signature-steps" aria-label="Signature visit details">
+              <article class="signature-step">
+                <span>1</span>
+                <div>
+                  <strong data-i18n="signature.oneTitle">A gentle entrance</strong>
+                  <p data-i18n="signature.oneCopy">Santa arrives with warmth, patience, and room for shy children to settle in.</p>
+                </div>
+              </article>
+              <article class="signature-step">
+                <span>2</span>
+                <div>
+                  <strong data-i18n="signature.twoTitle">Photos that feel natural</strong>
+                  <p data-i18n="signature.twoCopy">The visit is paced for smiles, family photos, and sweet candid moments.</p>
+                </div>
+              </article>
+              <article class="signature-step">
+                <span>3</span>
+                <div>
+                  <strong data-i18n="signature.threeTitle">A simple plan for gifts</strong>
+                  <p data-i18n="signature.threeCopy">Labeled gifts, timing, and event details stay organized before Santa arrives.</p>
+                </div>
+              </article>
+            </div>
+            <div class="occasion-links" aria-label="Popular Santa visit pages">
+              <a class="occasion-link" href="doral-daycare-santa.html">
+                <small data-i18n="occasion.schoolSmall">Schools</small>
+                <strong data-i18n="occasion.school">Daycares and camps</strong>
+              </a>
+              <a class="occasion-link" href="miami-hoa-santa-events.html">
+                <small data-i18n="occasion.hoaSmall">Communities</small>
+                <strong data-i18n="occasion.hoa">HOA events</strong>
+              </a>
+              <a class="occasion-link" href="pet-photos-with-santa-miami.html">
+                <small data-i18n="occasion.petSmall">Pop-ups</small>
+                <strong data-i18n="occasion.pet">Pet photos</strong>
+              </a>
+              <a class="occasion-link" href="santa-for-photo-sessions-miami.html">
+                <small data-i18n="occasion.photoSmall">Partners</small>
+                <strong data-i18n="occasion.photo">Photo sessions</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="story">
       <div class="shell story-grid">
@@ -1523,8 +1717,8 @@
         "nav.faq": "FAQ",
         "nav.request": "Request Visit",
         "hero.eyebrow": "Private Santa visits in Miami-Doral",
-        "hero.title": "A warm Papa Noel visit, planned with heart.",
-        "hero.copy": "Tell us what you are celebrating. We will help choose the right visit, keep the details easy, and bring smiles in English or Spanish.",
+        "hero.title": "A private Papa Noel visit children remember.",
+        "hero.copy": "A warm, bilingual, photo-ready Santa experience for homes, schools, communities, businesses, and Christmas Eve surprises in Miami-Doral.",
         "hero.primary": "Find the Right Visit",
         "hero.whatsapp": "WhatsApp",
         "hero.secondary": "Call or Text",
@@ -1540,6 +1734,25 @@
         "trust.two": "Years helping community events",
         "trust.three": "Bilingual visits for families",
         "trust.four": "Christmas Eve spots go quickly",
+        "signature.eyebrow": "The Signature Experience",
+        "signature.title": "A real Santa moment, not just a costume.",
+        "signature.copy": "The best visits feel calm, personal, and beautifully timed. Miami Papa Noel helps families, schools, communities, and businesses create a moment children can believe in and adults can actually enjoy.",
+        "signature.cta": "Plan the Moment",
+        "signature.proof": "See Real Visits",
+        "signature.oneTitle": "A gentle entrance",
+        "signature.oneCopy": "Santa arrives with warmth, patience, and room for shy children to settle in.",
+        "signature.twoTitle": "Photos that feel natural",
+        "signature.twoCopy": "The visit is paced for smiles, family photos, and sweet candid moments.",
+        "signature.threeTitle": "A simple plan for gifts",
+        "signature.threeCopy": "Labeled gifts, timing, and event details stay organized before Santa arrives.",
+        "occasion.schoolSmall": "Schools",
+        "occasion.school": "Daycares and camps",
+        "occasion.hoaSmall": "Communities",
+        "occasion.hoa": "HOA events",
+        "occasion.petSmall": "Pop-ups",
+        "occasion.pet": "Pet photos",
+        "occasion.photoSmall": "Partners",
+        "occasion.photo": "Photo sessions",
         "story.eyebrow": "The Story",
         "story.title": "A Santa tradition with a big community heart.",
         "story.copyOne": "Miami Papa Noel began in 2017 when a Metro by T-Mobile office wanted Christmas activities for children visiting the store. What started as a simple photo backdrop became a tradition: novenas, gift deliveries, family parties, business events, residential communities, and nonprofit moments.",
@@ -1679,8 +1892,8 @@
         "nav.faq": "Preguntas",
         "nav.request": "Solicitar Visita",
         "hero.eyebrow": "Visitas privadas de Santa en Miami-Doral",
-        "hero.title": "Una visita cálida de Papa Noel, preparada con cariño.",
-        "hero.copy": "Cuéntanos qué estás celebrando. Te ayudamos a escoger la visita correcta, mantener los detalles sencillos y llevar sonrisas en inglés o español.",
+        "hero.title": "Una visita privada de Papa Noel que los niños recuerdan.",
+        "hero.copy": "Una experiencia cálida, bilingüe y lista para fotos en casas, escuelas, comunidades, negocios y sorpresas de Nochebuena en Miami-Doral.",
         "hero.primary": "Encontrar la Visita",
         "hero.whatsapp": "WhatsApp",
         "hero.secondary": "Llamar o Escribir",
@@ -1696,6 +1909,25 @@
         "trust.two": "Años apoyando eventos comunitarios",
         "trust.three": "Visitas bilingües para familias",
         "trust.four": "Nochebuena se reserva rápido",
+        "signature.eyebrow": "La Experiencia Especial",
+        "signature.title": "Un momento real con Santa, no solo un disfraz.",
+        "signature.copy": "Las mejores visitas se sienten tranquilas, personales y bien preparadas. Miami Papa Noel ayuda a familias, escuelas, comunidades y negocios a crear un momento que los niños puedan creer y los adultos puedan disfrutar.",
+        "signature.cta": "Planificar el Momento",
+        "signature.proof": "Ver Visitas Reales",
+        "signature.oneTitle": "Una entrada tranquila",
+        "signature.oneCopy": "Santa llega con calidez, paciencia y espacio para que los niños tímidos se acomoden.",
+        "signature.twoTitle": "Fotos naturales",
+        "signature.twoCopy": "La visita se maneja con calma para sonrisas, fotos familiares y momentos espontáneos.",
+        "signature.threeTitle": "Un plan simple para regalos",
+        "signature.threeCopy": "Los regalos marcados, el horario y los detalles se organizan antes de que llegue Santa.",
+        "occasion.schoolSmall": "Escuelas",
+        "occasion.school": "Daycares y campamentos",
+        "occasion.hoaSmall": "Comunidades",
+        "occasion.hoa": "Eventos HOA",
+        "occasion.petSmall": "Pop-ups",
+        "occasion.pet": "Fotos con mascotas",
+        "occasion.photoSmall": "Aliados",
+        "occasion.photo": "Sesiones de fotos",
         "story.eyebrow": "La Historia",
         "story.title": "Una tradición de Santa con corazón comunitario.",
         "story.copyOne": "Miami Papa Noel comenzó en 2017 cuando una oficina de Metro by T-Mobile quiso hacer actividades navideñas para los niños que visitaban la tienda. Lo que empezó con un fondo para fotos se convirtió en una tradición: novenas, entregas de regalos, fiestas familiares, eventos de negocios, comunidades residenciales y momentos sin fines de lucro.",
