@@ -249,8 +249,8 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) 350px;
-      gap: 38px;
+      grid-template-columns: minmax(0, 1.14fr) 320px;
+      gap: 30px;
       align-items: end;
     }
 
@@ -326,23 +326,24 @@
     }
 
     .hero-card {
-      padding: 24px;
+      padding: 18px;
       border-radius: 8px;
-      background: rgba(255, 249, 239, .94);
+      background: rgba(255, 249, 239, .90);
       color: var(--ink);
-      box-shadow: var(--shadow);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, .18);
       border: 1px solid rgba(255, 255, 255, .5);
     }
 
     .hero-card strong {
       display: block;
-      margin-bottom: 6px;
-      font-size: 18px;
+      margin-bottom: 4px;
+      font-size: 16px;
     }
 
     .hero-card p {
-      margin: 0 0 16px;
+      margin: 0 0 12px;
       color: var(--muted);
+      font-size: 14px;
     }
 
     .need-list {
@@ -352,10 +353,10 @@
 
     .need-link {
       display: grid;
-      grid-template-columns: 38px minmax(0, 1fr);
-      gap: 3px 12px;
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 2px 10px;
       align-items: center;
-      padding: 13px 14px;
+      padding: 11px 12px;
       border-radius: 8px;
       color: inherit;
       background: #fffaf1;
@@ -371,22 +372,22 @@
 
     .need-link b {
       grid-column: 2;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 1.2;
     }
 
     .need-link span {
       grid-column: 2;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
     }
 
     .need-icon {
       grid-row: 1 / span 2;
-      width: 32px;
-      height: 32px;
-      padding: 6px;
+      width: 26px;
+      height: 26px;
+      padding: 5px;
       border-radius: 999px;
       background: var(--charcoal);
       object-fit: contain;
@@ -411,22 +412,25 @@
     .trust-strip {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      color: white;
-      background: var(--charcoal);
+      color: rgba(255, 255, 255, .84);
+      background: #211917;
     }
 
     .trust-item {
-      padding: 24px 28px;
+      padding: 16px 24px;
       border-right: 1px solid rgba(255, 255, 255, .12);
     }
 
     .trust-item strong {
+      display: none;
+    }
+
+    .trust-item span {
       display: block;
-      margin-bottom: 5px;
       color: #f2d69a;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 30px;
-      line-height: 1;
+      font-size: 13px;
+      font-weight: 850;
+      text-align: center;
     }
 
     .signature {
@@ -1276,23 +1280,23 @@
           </div>
         </div>
         <aside class="hero-card" aria-label="Booking highlights">
-          <strong data-i18n="hero.cardTitle">What are you planning?</strong>
-          <p data-i18n="hero.cardCopy">Choose the closest moment. If you are not sure, send a message and we will recommend the best fit.</p>
+          <strong data-i18n="hero.cardTitle">Choose a visit</strong>
+          <p data-i18n="hero.cardCopy">Start with the closest fit.</p>
           <div class="need-list" aria-label="Choose a visit type">
             <a class="need-link" href="book.html?package=Family%20Visit&source=home">
               <img class="need-icon" src="assets/christmas-tree-icon.svg" alt="">
-              <b data-i18n="need.family">Family or home visit</b>
-              <span data-i18n="need.familyText">Photos, a warm hello, and optional gift handoff</span>
+              <b data-i18n="need.family">Home visit</b>
+              <span data-i18n="need.familyText">Photos and gift handoff</span>
             </a>
             <a class="need-link" href="book.html?package=Event%20Visit&source=home">
               <img class="need-icon" src="assets/santa-hat-icon.svg" alt="">
-              <b data-i18n="need.event">School, party, or business event</b>
-              <span data-i18n="need.eventText">Guest greetings, photos, story time, and event support</span>
+              <b data-i18n="need.event">Event visit</b>
+              <span data-i18n="need.eventText">Schools, parties, communities</span>
             </a>
             <a class="need-link" href="christmas-eve.html">
               <img class="need-icon" src="assets/christmas-tree-icon.svg" alt="">
-              <b data-i18n="need.eve">Christmas Eve gift delivery</b>
-              <span data-i18n="need.eveText">Santa arrives with labeled gifts for the surprise</span>
+              <b data-i18n="need.eve">Christmas Eve</b>
+              <span data-i18n="need.eveText">Labeled gift delivery</span>
             </a>
           </div>
         </aside>
@@ -1722,14 +1726,14 @@
         "hero.primary": "Find the Right Visit",
         "hero.whatsapp": "WhatsApp",
         "hero.secondary": "Call or Text",
-        "hero.cardTitle": "What are you planning?",
-        "hero.cardCopy": "Choose the closest moment. If you are not sure, send a message and we will recommend the best fit.",
-        "need.family": "Family or home visit",
-        "need.familyText": "Photos, a warm hello, and optional gift handoff",
-        "need.event": "School, party, or business event",
-        "need.eventText": "Guest greetings, photos, story time, and event support",
-        "need.eve": "Christmas Eve gift delivery",
-        "need.eveText": "Santa arrives with labeled gifts for the surprise",
+        "hero.cardTitle": "Choose a visit",
+        "hero.cardCopy": "Start with the closest fit.",
+        "need.family": "Home visit",
+        "need.familyText": "Photos and gift handoff",
+        "need.event": "Event visit",
+        "need.eventText": "Schools, parties, communities",
+        "need.eve": "Christmas Eve",
+        "need.eveText": "Labeled gift delivery",
         "trust.one": "Making Christmas memories in Miami",
         "trust.two": "Years helping community events",
         "trust.three": "Bilingual visits for families",
@@ -1897,14 +1901,14 @@
         "hero.primary": "Encontrar la Visita",
         "hero.whatsapp": "WhatsApp",
         "hero.secondary": "Llamar o Escribir",
-        "hero.cardTitle": "¿Qué estás planificando?",
-        "hero.cardCopy": "Escoge el momento más parecido. Si no estás seguro, envíanos un mensaje y te recomendamos la mejor opción.",
-        "need.family": "Visita familiar o en casa",
-        "need.familyText": "Fotos, saludo cariñoso y entrega de regalos opcional",
-        "need.event": "Escuela, fiesta o negocio",
-        "need.eventText": "Saludos, fotos, cuento navideño y apoyo durante el evento",
-        "need.eve": "Entrega de regalos en Nochebuena",
-        "need.eveText": "Santa llega con regalos marcados para la sorpresa",
+        "hero.cardTitle": "Escoge visita",
+        "hero.cardCopy": "Empieza con la opción más cercana.",
+        "need.family": "Visita en casa",
+        "need.familyText": "Fotos y entrega de regalos",
+        "need.event": "Visita para evento",
+        "need.eventText": "Escuelas, fiestas, comunidades",
+        "need.eve": "Nochebuena",
+        "need.eveText": "Entrega de regalos marcados",
         "trust.one": "Creando recuerdos navideños en Miami",
         "trust.two": "Años apoyando eventos comunitarios",
         "trust.three": "Visitas bilingües para familias",
