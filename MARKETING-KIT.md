@@ -57,6 +57,7 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/summer-prospect-starter.csv` - starter prospect list for summer client outreach.
 - `business/miami-prospect-expansion.csv` - expanded public lead list for daycares, camps, HOAs, photographers, party vendors, and pet businesses.
 - `business/first-30-outreach-batch.md` - exact first 30 prospects, message scripts, tracking rule, and one follow-up.
+- `business/walter-lead-agent.md` - purpose and rules for Walter, the automated lead research agent.
 - `business/launch-command-center.html` - internal daily outreach dashboard with scripts, links, checklist, and tracker shortcuts.
 - `business/quote-builder.html` - internal quote builder for sending polished text, WhatsApp, or email pricing replies.
 - `business/follow-up-builder.html` - internal follow-up builder for warm leads, proof requests, deposit reminders, partners, and after-visit review requests.
