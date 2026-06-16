@@ -23,9 +23,8 @@ This folder turns the website into an operating system for the business.
 17. `walter-autonomy-loop.md` - the self-steering daily lane rotation and output contract.
 18. `walter-elf-roster.md` - 14 specialist elf roles inside Walter's lead factory.
 19. `walter-workshop.html` - visual agent workspace showing Walter's lead loop, elf roster, and quick links.
-20. `santa-workshop-live.html` - live visualizer for Walter, Ms. Claus, elves, lead flow, and counts.
-21. `ms-claus-structure-agent.md` - structure and quality-control agent that reduces clutter.
-22. `walter-daily-brief-template.md` - exact template for each autonomous Walter lead brief.
+20. `ms-claus-structure-agent.md` - structure and quality-control agent that reduces clutter.
+21. `walter-daily-brief-template.md` - exact template for each autonomous Walter lead brief.
 23. `lead-dashboard.html` - internal dashboard for lead lanes, statuses, and daily actions.
 24. `spanish-family-handoff.md` - Spanish guide for Mom and family roles.
 25. `bilingual-outreach-pack.md` - English and Spanish copy/paste outreach and reply messages.

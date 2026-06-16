@@ -65,7 +65,6 @@ Use this same information everywhere so families see one clear way to contact Pa
 - `business/walter-autonomy-loop.md` - self-steering daily lane rotation so Walter does not need prompts.
 - `business/walter-elf-roster.md` - 14 specialist elf roles inside Walter's autonomous lead factory.
 - `business/walter-workshop.html` - visual agent workspace showing Walter's lead loop and quick links.
-- `business/santa-workshop-live.html` - live visualizer for Walter, Ms. Claus, elves, lead flow, and counts.
 - `business/ms-claus-structure-agent.md` - structure and quality-control agent that keeps the site from getting cluttered.
 - `business/walter-daily-brief-template.md` - exact template for Walter's daily autonomous lead brief.
 - `business/lead-dashboard.html` - internal dashboard for lead lanes, statuses, and daily actions.
