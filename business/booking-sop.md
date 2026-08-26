@@ -76,6 +76,13 @@ Include:
 - Parking notes
 - Gift notes
 
+For Dec 12, 13, 19, 20, and Dec 24, assign `target_date`, `time_slot_id`, `state`,
+`deposit_status`, and `zelle_memo_id` in `../lead-tracker.csv` from
+`../schedules/peak_slots_2026.json`. Before changing a lead to `DEPOSIT_PAID` or
+`CONFIRMED`, run:
+
+`python scripts/validate_slot_confirmations.py`
+
 ## 6. 48-Hour Confirmation
 
 Send:

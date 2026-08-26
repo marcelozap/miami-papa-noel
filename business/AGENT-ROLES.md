@@ -96,7 +96,7 @@ COI / insurance / background-check reply · corporate invoice, W-9, net-15.
 
 1. **50% non-refundable retainer, by Zelle to `305-244-0360`.** Memo must carry **the event date and the
    client's name** — without it the payment cannot be matched to a booking.
-2. Balance due on arrival, cash or Zelle. Peak dates: 50% at booking, balance due 7 days prior.
+2. Balance due on arrival by Zelle. Peak dates: 50% at booking, balance due 7 days prior.
 3. On clearance: send the confirmation receipt, put it on the calendar as
    `CONFIRMED - Papa Noel - Client Name - City`, and set Status to **Booked**.
 4. **Never discount the peak dates** — Dec 12, 13, 19, 20 and Dec 24.

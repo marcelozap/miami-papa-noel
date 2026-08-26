@@ -518,7 +518,7 @@ English:
 ```text
 Hi [CLIENT NAME], I understand, and depending on the event that may be the right choice.
 
-Here is the honest difference. Papa Noel has been doing this since 2017, he arrives insured with a certificate we provide free, and he runs the entire visit in Spanish and English. Across the Santas listed in Miami, Hialeah and Fort Lauderdale, almost none advertise Spanish. In a room where half the grandparents speak it, that is the whole visit, not a detail.
+Here is the honest difference. Papa Noel has been doing this since 2017, and he runs the entire visit in Spanish and English. Across the Santas listed in Miami, Hialeah and Fort Lauderdale, almost none advertise Spanish. In a room where half the grandparents speak it, that is the whole visit, not a detail.
 
 The standard family visit is $325 for the first hour, $150 per extra half hour. I hold that rate.
 
@@ -532,7 +532,7 @@ Spanish:
 ```text
 Hola [CLIENT NAME], lo entiendo, y segun el evento puede ser la opcion correcta.
 
-Le explico la diferencia con franqueza. Papa Noel hace esto desde 2017, llega asegurado y el certificado se lo damos sin costo, y hace toda la visita en espanol e ingles. De todos los Santas que se anuncian en Miami, Hialeah y Fort Lauderdale, casi ninguno ofrece espanol. En un salon donde la mitad de los abuelos lo hablan, eso no es un detalle, es la visita completa.
+Le explico la diferencia con franqueza. Papa Noel hace esto desde 2017 y hace toda la visita en espanol e ingles. De todos los Santas que se anuncian en Miami, Hialeah y Fort Lauderdale, casi ninguno ofrece espanol. En un salon donde la mitad de los abuelos lo hablan, eso no es un detalle, es la visita completa.
 
 La visita familiar estandar es $325 la primera hora y $150 cada media hora adicional. Ese precio lo mantengo.
 
@@ -548,7 +548,7 @@ English:
 ```text
 Hi [CLIENT NAME], here is the booking policy.
 
-A 50% non-refundable retainer reserves the date, by Zelle to 305-244-0360. Please put [EVENT DATE] and [CLIENT NAME] in the memo. The balance is due on arrival, cash or Zelle. A date is not booked until the deposit clears.
+A 50% non-refundable retainer reserves the date, by Zelle to 305-244-0360. Please put [EVENT DATE] and [CLIENT NAME] in the memo. The balance is due on arrival by Zelle. A date is not booked until the deposit clears.
 
 On peak dates, 50% is due at booking and the balance 7 days prior.
 
@@ -560,7 +560,7 @@ Spanish:
 ```text
 Hola [CLIENT NAME], esta es la politica de reserva.
 
-Un deposito no reembolsable del 50% separa la fecha, por Zelle al 305-244-0360. Por favor pongan [EVENT DATE] y [CLIENT NAME] en la nota. El balance se paga al llegar, en efectivo o por Zelle. La fecha no queda reservada hasta que el deposito se acredite.
+Un deposito no reembolsable del 50% separa la fecha, por Zelle al 305-244-0360. Por favor pongan [EVENT DATE] y [CLIENT NAME] en la nota. El balance se paga al llegar por Zelle. La fecha no queda reservada hasta que el deposito se acredite.
 
 En fechas pico, el 50% se paga al reservar y el balance 7 dias antes.
 

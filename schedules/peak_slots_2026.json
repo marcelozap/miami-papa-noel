@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "business": "Miami Papa Noel",
+  "season": 2026,
+  "timezone": "America/New_York",
+  "allowed_states": [
+    "OPEN",
+    "HOLD_48HR",
+    "DEPOSIT_PAID",
+    "CONFIRMED"
+  ],
+  "state_transitions": {
+    "OPEN": [
+      "HOLD_48HR"
+    ],
+    "HOLD_48HR": [
+      "OPEN",
+      "DEPOSIT_PAID"
+    ],
+    "DEPOSIT_PAID": [
+      "CONFIRMED"
+    ],
+    "CONFIRMED": []
+  },
+  "payment_policy": {
+    "deposit_method": "Zelle",
+    "deposit_amount": "50%",
+    "zelle_phone": "305-244-0360",
+    "memo_format": "[EVENT DATE] - [CLIENT NAME]",
+    "no_other_customer_payment_methods": true
+  },
+  "rates": {
+    "peak_first_hour": 425,
+    "christmas_eve_slot_45_min": 500
+  },
+  "route_notes": {
+    "peak_dates": "Peak applies Dec 12, 13, 19, and 20 after 4pm. Never discounted.",
+    "christmas_eve": "Dec 24 is sold in contiguous 45-minute slots until 8pm. Geographic order keeps the route deterministic and prevents ad hoc double-booking."
+  },
+  "slots": [
+    {
+      "slot_id": "PEAK-2026-12-12-1600",
+      "date": "2026-12-12",
+      "start_time": "16:00",
+      "end_time": "17:00",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Doral / Sweetwater / Miami Springs"
+    },
+    {
+      "slot_id": "PEAK-2026-12-12-1730",
+      "date": "2026-12-12",
+      "start_time": "17:30",
+      "end_time": "18:30",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Westchester / Coral Gables / South Miami"
+    },
+    {
+      "slot_id": "PEAK-2026-12-12-1900",
+      "date": "2026-12-12",
+      "start_time": "19:00",
+      "end_time": "20:00",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Kendall / Pinecrest / Palmetto Bay"
+    },
+    {
+      "slot_id": "PEAK-2026-12-13-1600",
+      "date": "2026-12-13",
+      "start_time": "16:00",
+      "end_time": "17:00",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Doral / Sweetwater / Miami Springs"
+    },
+    {
+      "slot_id": "PEAK-2026-12-13-1730",
+      "date": "2026-12-13",
+      "start_time": "17:30",
+      "end_time": "18:30",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Westchester / Coral Gables / South Miami"
+    },
+    {
+      "slot_id": "PEAK-2026-12-13-1900",
+      "date": "2026-12-13",
+      "start_time": "19:00",
+      "end_time": "20:00",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Kendall / Pinecrest / Palmetto Bay"
+    },
+    {
+      "slot_id": "PEAK-2026-12-19-1600",
+      "date": "2026-12-19",
+      "start_time": "16:00",
+      "end_time": "17:00",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Doral / Sweetwater / Miami Springs"
+    },
+    {
+      "slot_id": "PEAK-2026-12-19-1730",
+      "date": "2026-12-19",
+      "start_time": "17:30",
+      "end_time": "18:30",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Westchester / Coral Gables / South Miami"
+    },
+    {
+      "slot_id": "PEAK-2026-12-19-1900",
+      "date": "2026-12-19",
+      "start_time": "19:00",
+      "end_time": "20:00",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Kendall / Pinecrest / Palmetto Bay"
+    },
+    {
+      "slot_id": "PEAK-2026-12-20-1600",
+      "date": "2026-12-20",
+      "start_time": "16:00",
+      "end_time": "17:00",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Doral / Sweetwater / Miami Springs"
+    },
+    {
+      "slot_id": "PEAK-2026-12-20-1730",
+      "date": "2026-12-20",
+      "start_time": "17:30",
+      "end_time": "18:30",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Westchester / Coral Gables / South Miami"
+    },
+    {
+      "slot_id": "PEAK-2026-12-20-1900",
+      "date": "2026-12-20",
+      "start_time": "19:00",
+      "end_time": "20:00",
+      "duration_minutes": 60,
+      "rate": 425,
+      "state": "OPEN",
+      "route_zone": "Kendall / Pinecrest / Palmetto Bay"
+    },
+    {
+      "slot_id": "EVE-2026-12-24-1530",
+      "date": "2026-12-24",
+      "start_time": "15:30",
+      "end_time": "16:15",
+      "duration_minutes": 45,
+      "rate": 500,
+      "state": "OPEN",
+      "route_order": 1,
+      "route_zone": "Doral / Sweetwater"
+    },
+    {
+      "slot_id": "EVE-2026-12-24-1615",
+      "date": "2026-12-24",
+      "start_time": "16:15",
+      "end_time": "17:00",
+      "duration_minutes": 45,
+      "rate": 500,
+      "state": "OPEN",
+      "route_order": 2,
+      "route_zone": "Miami Springs / Hialeah / Miami Lakes"
+    },
+    {
+      "slot_id": "EVE-2026-12-24-1700",
+      "date": "2026-12-24",
+      "start_time": "17:00",
+      "end_time": "17:45",
+      "duration_minutes": 45,
+      "rate": 500,
+      "state": "OPEN",
+      "route_order": 3,
+      "route_zone": "Westchester / Fontainebleau"
+    },
+    {
+      "slot_id": "EVE-2026-12-24-1745",
+      "date": "2026-12-24",
+      "start_time": "17:45",
+      "end_time": "18:30",
+      "duration_minutes": 45,
+      "rate": 500,
+      "state": "OPEN",
+      "route_order": 4,
+      "route_zone": "Coral Gables / South Miami"
+    },
+    {
+      "slot_id": "EVE-2026-12-24-1830",
+      "date": "2026-12-24",
+      "start_time": "18:30",
+      "end_time": "19:15",
+      "duration_minutes": 45,
+      "rate": 500,
+      "state": "OPEN",
+      "route_order": 5,
+      "route_zone": "Kendall / Pinecrest"
+    },
+    {
+      "slot_id": "EVE-2026-12-24-1915",
+      "date": "2026-12-24",
+      "start_time": "19:15",
+      "end_time": "20:00",
+      "duration_minutes": 45,
+      "rate": 500,
+      "state": "OPEN",
+      "route_order": 6,
+      "route_zone": "Brickell / Downtown Miami"
+    }
+  ]
+}

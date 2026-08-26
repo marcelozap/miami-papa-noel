@@ -1,15 +1,17 @@
-# Wave 1 — Outreach Batch 01 · five targets, ready to send
+# Wave 1 — Outreach Batch 01 · five targets, gated draft
 
 Built 26 Aug 2026 from `claude/wave1-leadtracker.csv`. Every contact below is a verified row.
 Combined reach: **roughly 1,000+ associations** across Miami-Dade and Broward from five emails.
 
 > ## ⛔ Send-gate: buy the insurance first
-> Every email below says **"fully insured."** That is not true yet. Buy the Insurance Canopy
+> Local policy status: **NOT ACTIVE / NOT VERIFIED**. Every email below says **"fully insured."**
+> That is not sendable yet. Buy the Insurance Canopy
 > Entertainers Annual policy — **$199, about 15 minutes,
 > `app.insurancecanopy.com/policy/buy/entertainersannual`** — before this batch goes out. It is $1M
 > each occurrence / $2M aggregate with unlimited free additional-insured certificates, which is exactly
 > what a property manager will ask you for the moment one of them says yes.
-> If you send before buying, cut the word "insured" from every message.
+> If you send before buying, cut every "insured", "fully insured", "COI", and certificate claim from
+> every message.
 
 **The ask in all five: $550 for a two-hour community event.** It is the highest-value thing a property
 manager can approve without a board vote, and at an effective $275/hour it reads as a discount against
