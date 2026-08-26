@@ -37,7 +37,7 @@ https://miamipapanoel.com/book
 English:
 
 ```text
-Pricing depends on date, city, visit length, event type, number of children/guests, and whether Santa will hand out gifts. Family visits usually start from $125, event visits from $225, and Christmas Eve gift delivery from $250.
+Pricing depends on date, city, visit length, event type, number of children/guests, and whether Santa will hand out gifts. Family visits start at $325 for the first hour, event visits at $450, HOA and community events at $550 for two hours, schools and daycares at $275 for a weekday daytime hour, and Christmas Eve gift delivery at $500 per 45-minute slot.
 
 Send the event details here and we will reply with the best option:
 https://miamipapanoel.com/book
@@ -46,7 +46,7 @@ https://miamipapanoel.com/book
 Spanish:
 
 ```text
-El precio depende de la fecha, ciudad, duracion de la visita, tipo de evento, cantidad de ninos/invitados y si Papa Noel entregara regalos. Las visitas familiares usualmente comienzan desde $125, eventos desde $225 y entrega de regalos en Nochebuena desde $250.
+El precio depende de la fecha, ciudad, duracion de la visita, tipo de evento, cantidad de ninos/invitados y si Papa Noel entregara regalos. Las visitas familiares comienzan en $325 la primera hora, los eventos en $450, los eventos de HOA y comunidades en $550 por dos horas, escuelas y guarderias en $275 por una hora entre semana, y la entrega de regalos en Nochebuena en $500 por bloque de 45 minutos.
 
 Envie los detalles aqui y le respondemos con la mejor opcion:
 https://miamipapanoel.com/book

@@ -47,9 +47,9 @@ Pricing depends on date, location, length of visit, number of children, gifts, p
 
 Starter guidance:
 
-- Family visits: from $125
-- Event visits: from $225
-- Christmas Eve gift delivery: from $250
+- Family visits: from $325 (first hour)
+- Event visits: from $450 (corporate first hour); HOA / community $550 for 2 hours; schools and daycares $275 weekday daytime
+- Christmas Eve gift delivery: from $500 per 45-minute slot
 
 Final price is confirmed after availability, address, visit window, and details.
 

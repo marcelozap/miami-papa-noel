@@ -22,7 +22,7 @@ Includes:
 
 Suggested range:
 
-`Starting at $125`
+`Starting at $325`
 
 ### Event Visit
 
@@ -43,7 +43,7 @@ Includes:
 
 Suggested range:
 
-`Starting at $225`
+`Starting at $450`
 
 Large communities, schools, business activations, and long events can be quoted higher after details are reviewed.
 
@@ -63,7 +63,7 @@ Includes:
 
 Suggested range:
 
-`Starting at $250`
+`Starting at $500`
 
 ## Add Premiums
 
