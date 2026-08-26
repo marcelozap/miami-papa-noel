@@ -19,7 +19,7 @@ Miami Papa Noel provides warm bilingual Santa Claus visits for families, schools
 
 Miami Papa Noel began in 2017 when a Metro by T-Mobile office wanted to create Christmas activities for children visiting the store. What started with a holiday photo backdrop grew into Santa appearances, Christmas novenas, private gift deliveries, family celebrations, business events, residential community parties, and nonprofit collaborations.
 
-Papa Noel has supported community activities connected with Doral Club and the University of Miami Mailman Center for Child Development. His favorite part of the work is creating magical moments for children and helping community organizations bring joy during the holiday season.
+Papa Noel has supported polished family, business, nonprofit, and luxury residential celebrations where warmth, patience, and photo-ready details matter. His favorite part of the work is creating magical moments for children and helping community organizations bring joy during the holiday season.
 
 ## Spanish Bio
 

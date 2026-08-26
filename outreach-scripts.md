@@ -36,7 +36,7 @@ Hello,
 
 I help coordinate bookings for Miami Papa Noel, a bilingual Santa serving Miami-Doral and nearby areas.
 
-He has been creating Christmas experiences since 2017, including family parties, business events, residential communities, Christmas novenas, nonprofit toy drives, photo sessions, and Christmas Eve gift deliveries. He has also supported community events connected with Doral Club activities and the University of Miami Mailman Center for Child Development.
+He has been creating Christmas experiences since 2017, including family parties, business events, residential communities, Christmas novenas, nonprofit toy drives, photo sessions, and Christmas Eve gift deliveries. He brings a warm, polished, photo-ready presence for community celebrations where children, families, and organizers all need to feel comfortable.
 
 We are currently booking:
 
