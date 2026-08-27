@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Miami Papa Noel — December Slot Board</title>
+  <style>
+    :root {
+      --bg: #101216;
+      --panel: #181b22;
+      --panel-2: #20242d;
+      --ink: #f3f5f8;
+      --muted: #aeb6c2;
+      --line: #343946;
+      --open: #64748b;
+      --held: #8b1f2d;
+      --deposit: #9a6a18;
+      --booked: #1f7a5c;
+      --focus: #7dd3fc;
+      --shadow: 0 20px 50px rgba(0, 0, 0, .35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.4;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 24px));
+      margin: 0 auto;
+      padding: 18px 0 42px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: 0 -12px 18px;
+      padding: 14px 12px 16px;
+      background: linear-gradient(180deg, rgba(16, 18, 22, .98), rgba(16, 18, 22, .92));
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(24px, 6vw, 42px);
+      letter-spacing: 0;
+      line-height: 1.05;
+    }
+
+    .rule {
+      margin: 0;
+      color: #f6d6dc;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      min-height: 46px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--panel-2);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .btn.danger {
+      border-color: rgba(139, 31, 45, .8);
+      background: #2a151b;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .summary-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card.eve,
+    .summary-card.overall {
+      grid-column: 1 / -1;
+    }
+
+    .summary-card.eve {
+      border-color: rgba(154, 106, 24, .75);
+      background: #211d17;
+    }
+
+    .summary-card.overall {
+      background: #171e25;
+    }
+
+    .summary-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .summary-card .big {
+      font-size: clamp(22px, 7vw, 34px);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .money-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .date-section {
+      margin-top: 22px;
+    }
+
+    .date-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(20px, 5vw, 30px);
+      letter-spacing: 0;
+    }
+
+    .date-meta {
+      color: var(--muted);
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .slot {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+    }
+
+    .slot-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px;
+      border-left: 6px solid var(--open);
+      background: rgba(255, 255, 255, .025);
+    }
+
+    .slot[data-status="Held"] .slot-top {
+      border-left-color: var(--held);
+      background: rgba(139, 31, 45, .18);
+    }
+
+    .slot[data-status="Deposit sent"] .slot-top {
+      border-left-color: var(--deposit);
+      background: rgba(154, 106, 24, .18);
+    }
+
+    .slot[data-status="Booked"] .slot-top {
+      border-left-color: var(--booked);
+      background: rgba(31, 122, 92, .18);
+    }
+
+    .time {
+      font-size: 22px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .rate {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .fields {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: #0f1116;
+      padding: 10px;
+    }
+
+    textarea {
+      min-height: 72px;
+      resize: vertical;
+    }
+
+    .status {
+      font-weight: 900;
+    }
+
+    .slot[data-status="Held"] select {
+      border-color: var(--held);
+      background: #1f1116;
+    }
+
+    .message {
+      min-height: 24px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      .summary-grid,
+      .slots {
+        grid-template-columns: 1fr;
+      }
+
+      .date-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .date-meta {
+        text-align: left;
+      }
+
+      .toolbar .btn {
+        flex: 1 1 100%;
+      }
+
+      header {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Miami Papa Noel — December Slot Board</h1>
+      <p class="rule">Booked / Reservado means the 50% deposit has cleared. Held / Apartado is unpaid and risky.</p>
+      <div class="toolbar" aria-label="Board actions / Acciones del tablero">
+        <button class="btn" id="copySummary" type="button">Copy summary / Copiar resumen</button>
+        <button class="btn" id="exportJson" type="button">Export JSON / Exportar JSON</button>
+        <button class="btn" id="importJson" type="button">Import JSON / Importar JSON</button>
+        <button class="btn danger" id="resetBoard" type="button">Reset / Borrar todo</button>
+        <input class="hidden" id="importFile" type="file" accept="application/json,.json">
+      </div>
+      <div class="message" id="message" role="status" aria-live="polite"></div>
+    </header>
+
+    <section class="summary-grid" id="summary" aria-label="Live totals / Totales en vivo"></section>
+    <main id="board"></main>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var STORAGE_KEY = "miamiPapaNoelDecemberSlotBoard.v1";
+
+      var STATUS_LABELS = {
+        "Open": "Open / Disponible",
+        "Held": "Held / Apartado",
+        "Deposit sent": "Deposit sent / Depósito enviado",
+        "Booked": "Booked / Reservado"
+      };
+
+      var STATUS_ORDER = ["Open", "Held", "Deposit sent", "Booked"];
+
+      var DATES = [
+        {
+          id: "dec24",
+          label: "Wed Dec 24 / mié 24 dic",
+          shortLabel: "Christmas Eve / Nochebuena",
+          group: "Christmas Eve / Nochebuena",
+          slots: [
+            ["dec24-1500", "3:00pm", 500, "Christmas Eve / Nochebuena"],
+            ["dec24-1600", "4:00pm", 500, "Christmas Eve / Nochebuena"],
+            ["dec24-1700", "5:00pm", 500, "Christmas Eve / Nochebuena"],
+            ["dec24-1800", "6:00pm", 500, "Christmas Eve / Nochebuena"],
+            ["dec24-1900", "7:00pm", 500, "Christmas Eve / Nochebuena"],
+            ["dec24-2000", "8:00pm", 500, "Christmas Eve / Nochebuena"],
+            ["dec24-late-2100", "9:00pm", 375, "Sneak-a-peek / Miradita"],
+            ["dec24-late-2145", "9:45pm", 375, "Sneak-a-peek / Miradita"],
+            ["dec24-late-2230", "10:30pm", 375, "Sneak-a-peek / Miradita"]
+          ]
+        },
+        {
+          id: "dec12",
+          label: "Fri Dec 12 / vie 12 dic",
+          shortLabel: "Dec 12 / 12 dic",
+          group: "Peak evening / Noche pico",
+          slots: [
+            ["dec12-1600", "4:00pm", 425, "Peak evening / Noche pico"],
+            ["dec12-1730", "5:30pm", 425, "Peak evening / Noche pico"],
+            ["dec12-1900", "7:00pm", 425, "Peak evening / Noche pico"],
+            ["dec12-2030", "8:30pm", 425, "Peak evening / Noche pico"]
+          ]
+        },
+        {
+          id: "dec13",
+          label: "Sat Dec 13 / sáb 13 dic",
+          shortLabel: "Dec 13 / 13 dic",
+          group: "Peak evening / Noche pico",
+          slots: [
+            ["dec13-1600", "4:00pm", 425, "Peak evening / Noche pico"],
+            ["dec13-1730", "5:30pm", 425, "Peak evening / Noche pico"],
+            ["dec13-1900", "7:00pm", 425, "Peak evening / Noche pico"],
+            ["dec13-2030", "8:30pm", 425, "Peak evening / Noche pico"]
+          ]
+        },
+        {
+          id: "dec19",
+          label: "Fri Dec 19 / vie 19 dic",
+          shortLabel: "Dec 19 / 19 dic",
+          group: "Peak evening / Noche pico",
+          slots: [
+            ["dec19-1600", "4:00pm", 425, "Peak evening / Noche pico"],
+            ["dec19-1730", "5:30pm", 425, "Peak evening / Noche pico"],
+            ["dec19-1900", "7:00pm", 425, "Peak evening / Noche pico"],
+            ["dec19-2030", "8:30pm", 425, "Peak evening / Noche pico"]
+          ]
+        },
+        {
+          id: "dec20",
+          label: "Sat Dec 20 / sáb 20 dic",
+          shortLabel: "Dec 20 / 20 dic",
+          group: "Peak evening / Noche pico",
+          slots: [
+            ["dec20-1600", "4:00pm", 425, "Peak evening / Noche pico"],
+            ["dec20-1730", "5:30pm", 425, "Peak evening / Noche pico"],
+            ["dec20-1900", "7:00pm", 425, "Peak evening / Noche pico"],
+            ["dec20-2030", "8:30pm", 425, "Peak evening / Noche pico"]
+          ]
+        }
+      ];
+
+      var state = loadState();
+
+      function emptySlot() {
+        return {
+          status: "Open",
+          name: "",
+          phone: "",
+          address: "",
+          note: ""
+        };
+      }
+
+      function allSlots() {
+        var slots = [];
+        DATES.forEach(function (date) {
+          date.slots.forEach(function (slot) {
+            slots.push({
+              id: slot[0],
+              time: slot[1],
+              rate: slot[2],
+              type: slot[3],
+              dateId: date.id,
+              dateLabel: date.label,
+              dateShortLabel: date.shortLabel
+            });
+          });
+        });
+        return slots;
+      }
+
+      function loadState() {
+        var saved = {};
+        try {
+          var raw = window.localStorage.getItem(STORAGE_KEY);
+          if (raw) saved = JSON.parse(raw) || {};
+        } catch (error) {
+          saved = {};
+        }
+
+        allSlots().forEach(function (slot) {
+          if (!saved[slot.id]) saved[slot.id] = emptySlot();
+          if (STATUS_ORDER.indexOf(saved[slot.id].status) === -1) saved[slot.id].status = "Open";
+          saved[slot.id].name = saved[slot.id].name || "";
+          saved[slot.id].phone = saved[slot.id].phone || "";
+          saved[slot.id].address = saved[slot.id].address || "";
+          saved[slot.id].note = saved[slot.id].note || "";
+        });
+
+        return saved;
+      }
+
+      function saveState() {
+        try {
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          return true;
+        } catch (error) {
+          showMessage("Storage blocked / Almacenamiento bloqueado. Changes may not survive reload / Los cambios pueden perderse al recargar.");
+          return false;
+        }
+      }
+
+      function money(value) {
+        return "$" + value.toLocaleString("en-US");
+      }
+
+      function totalsFor(dateId) {
+        var total = 0;
+        var booked = 0;
+        var confirmed = 0;
+        var risk = 0;
+
+        allSlots().forEach(function (slot) {
+          if (dateId && slot.dateId !== dateId) return;
+          total += 1;
+          var slotState = state[slot.id] || emptySlot();
+          if (slotState.status === "Booked") {
+            booked += 1;
+            confirmed += slot.rate;
+          }
+          if (slotState.status === "Held") {
+            risk += slot.rate;
+          }
+        });
+
+        return {
+          total: total,
+          booked: booked,
+          confirmed: confirmed,
+          risk: risk
+        };
+      }
+
+      function renderSummary() {
+        var summary = document.getElementById("summary");
+        var overall = totalsFor();
+        var eve = totalsFor("dec24");
+        var html = "";
+
+        html += summaryCard("Overall / Total", overall, "overall");
+        html += summaryCard("Christmas Eve / Nochebuena", eve, "eve");
+
+        DATES.forEach(function (date) {
+          html += summaryCard(date.shortLabel, totalsFor(date.id), "");
+        });
+
+        summary.innerHTML = html;
+      }
+
+      function summaryCard(title, totals, extraClass) {
+        return [
+          '<article class="summary-card ' + extraClass + '">',
+          '<strong>' + escapeHtml(title) + '</strong>',
+          '<div class="big">' + totals.booked + " / " + totals.total + '</div>',
+          '<div class="money-line">',
+          '<span>Money confirmed / Dinero confirmado: ' + money(totals.confirmed) + '</span>',
+          '<span>Money at risk / Dinero en riesgo: ' + money(totals.risk) + '</span>',
+          '</div>',
+          '</article>'
+        ].join("");
+      }
+
+      function renderBoard() {
+        var board = document.getElementById("board");
+        var html = "";
+
+        DATES.forEach(function (date) {
+          var totals = totalsFor(date.id);
+          html += '<section class="date-section">';
+          html += '<div class="date-head">';
+          html += '<div><h2>' + escapeHtml(date.label) + '</h2><div class="date-meta">' + escapeHtml(date.group) + '</div></div>';
+          html += '<div class="date-meta">Booked / Reservado: ' + totals.booked + " / " + totals.total + '<br>Confirmed / Confirmado: ' + money(totals.confirmed) + '</div>';
+          html += '</div>';
+          html += '<div class="slots">';
+
+          date.slots.forEach(function (slot) {
+            html += renderSlot(slot);
+          });
+
+          html += '</div></section>';
+        });
+
+        board.innerHTML = html;
+        bindSlotEvents();
+        renderSummary();
+      }
+
+      function renderSlot(slot) {
+        var id = slot[0];
+        var data = state[id] || emptySlot();
+        var status = data.status || "Open";
+
+        return [
+          '<article class="slot" data-slot-id="' + escapeHtml(id) + '" data-status="' + escapeHtml(status) + '">',
+          '<div class="slot-top">',
+          '<div><div class="time">' + escapeHtml(slot[1]) + '</div><div class="date-meta">' + escapeHtml(slot[3]) + '</div></div>',
+          '<div class="rate">' + money(slot[2]) + '</div>',
+          '</div>',
+          '<div class="fields">',
+          '<label>Status / Estado',
+          '<select class="status" data-field="status">',
+          statusOptions(status),
+          '</select>',
+          '</label>',
+          '<label>Client name / Nombre del cliente',
+          '<input data-field="name" value="' + escapeHtml(data.name) + '" autocomplete="off">',
+          '</label>',
+          '<label>Phone / Teléfono',
+          '<input data-field="phone" value="' + escapeHtml(data.phone) + '" inputmode="tel" autocomplete="off">',
+          '</label>',
+          '<label>Address or neighborhood / Dirección o zona',
+          '<input data-field="address" value="' + escapeHtml(data.address) + '" autocomplete="off">',
+          '</label>',
+          '<label>Note / Nota',
+          '<textarea data-field="note">' + escapeHtml(data.note) + '</textarea>',
+          '</label>',
+          '</div>',
+          '</article>'
+        ].join("");
+      }
+
+      function statusOptions(selected) {
+        return STATUS_ORDER.map(function (status) {
+          return '<option value="' + escapeHtml(status) + '"' + (status === selected ? " selected" : "") + '>' + escapeHtml(STATUS_LABELS[status]) + '</option>';
+        }).join("");
+      }
+
+      function bindSlotEvents() {
+        document.querySelectorAll(".slot").forEach(function (slotEl) {
+          var slotId = slotEl.getAttribute("data-slot-id");
+          slotEl.querySelectorAll("[data-field]").forEach(function (field) {
+            field.addEventListener("input", function () {
+              updateField(slotId, field);
+            });
+            field.addEventListener("change", function () {
+              updateField(slotId, field);
+            });
+          });
+        });
+      }
+
+      function updateField(slotId, field) {
+        var key = field.getAttribute("data-field");
+        if (!state[slotId]) state[slotId] = emptySlot();
+        state[slotId][key] = field.value;
+
+        var slotEl = document.querySelector('[data-slot-id="' + cssEscape(slotId) + '"]');
+        if (key === "status" && slotEl) {
+          slotEl.setAttribute("data-status", field.value);
+        }
+
+        saveState();
+        renderSummary();
+      }
+
+      function nonOpenSlots() {
+        return allSlots().filter(function (slot) {
+          return state[slot.id] && state[slot.id].status !== "Open";
+        });
+      }
+
+      function copySummary() {
+        var lines = nonOpenSlots().map(function (slot) {
+          var data = state[slot.id];
+          return [
+            slot.dateLabel,
+            slot.time,
+            STATUS_LABELS[data.status] || data.status,
+            data.name || "[No name / Sin nombre]",
+            data.phone || "[No phone / Sin teléfono]"
+          ].join(" | ");
+        });
+
+        var text = lines.length ? lines.join("\n") : "No non-open slots / No hay horarios ocupados.";
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () {
+            showMessage("Summary copied / Resumen copiado.");
+          }).catch(function () {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      }
+
+      function fallbackCopy(text) {
+        var area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "readonly");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        document.body.appendChild(area);
+        area.select();
+
+        try {
+          document.execCommand("copy");
+          showMessage("Summary copied / Resumen copiado.");
+        } catch (error) {
+          showMessage("Copy failed / No se pudo copiar. Select and copy manually / Copie manualmente.");
+          area.style.position = "static";
+          area.style.left = "auto";
+          area.style.width = "100%";
+          area.style.marginTop = "12px";
+        }
+
+        if (area.parentNode && area.style.position === "fixed") {
+          document.body.removeChild(area);
+        }
+      }
+
+      function exportJson() {
+        var payload = {
+          title: "Miami Papa Noel — December Slot Board",
+          exportedAt: new Date().toISOString(),
+          version: 1,
+          slots: state
+        };
+
+        var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = "miami-papa-noel-slot-board.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showMessage("JSON exported / JSON exportado.");
+      }
+
+      function importJsonFile(file) {
+        if (!file) return;
+
+        var reader = new FileReader();
+        reader.onload = function () {
+          try {
+            var payload = JSON.parse(String(reader.result || "{}"));
+            var incoming = payload.slots || payload;
+            var next = loadState();
+
+            allSlots().forEach(function (slot) {
+              if (incoming[slot.id]) {
+                next[slot.id] = {
+                  status: STATUS_ORDER.indexOf(incoming[slot.id].status) === -1 ? "Open" : incoming[slot.id].status,
+                  name: incoming[slot.id].name || "",
+                  phone: incoming[slot.id].phone || "",
+                  address: incoming[slot.id].address || "",
+                  note: incoming[slot.id].note || ""
+                };
+              }
+            });
+
+            state = next;
+            saveState();
+            renderBoard();
+            showMessage("JSON imported / JSON importado.");
+          } catch (error) {
+            showMessage("Import failed / Falló la importación.");
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function resetBoard() {
+        var ok = window.confirm("Reset the whole board? / ¿Borrar todo el tablero?");
+        if (!ok) return;
+
+        state = {};
+        allSlots().forEach(function (slot) {
+          state[slot.id] = emptySlot();
+        });
+
+        saveState();
+        renderBoard();
+        showMessage("Board reset / Tablero borrado.");
+      }
+
+      function showMessage(text) {
+        document.getElementById("message").textContent = text;
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function cssEscape(value) {
+        if (window.CSS && window.CSS.escape) return window.CSS.escape(value);
+        return String(value).replace(/"/g, '\\"');
+      }
+
+      document.getElementById("copySummary").addEventListener("click", copySummary);
+      document.getElementById("exportJson").addEventListener("click", exportJson);
+      document.getElementById("importJson").addEventListener("click", function () {
+        document.getElementById("importFile").click();
+      });
+      document.getElementById("importFile").addEventListener("change", function (event) {
+        importJsonFile(event.target.files && event.target.files[0]);
+        event.target.value = "";
+      });
+      document.getElementById("resetBoard").addEventListener("click", resetBoard);
+
+      renderBoard();
+    })();
+  </script>
+</body>
+</html>
