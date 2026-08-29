@@ -2,6 +2,9 @@
 
 Use this process for every lead.
 
+For the full state machine, role responsibilities, validation gates, and manual
+fallback process, use `seasonal-ops-workflow.md`.
+
 ## 1. New Inquiry
 
 Reply within 2 hours when possible.
@@ -35,7 +38,7 @@ Use `quote-builder.html` after you know the date, time, city, event type, estima
 
 Send package recommendation:
 
-`For this event, I recommend the [PACKAGE]. It includes [DETAILS]. The price is [$___]. A [$___] deposit holds the date and the remaining balance is due before or at arrival.`
+`For this event, I recommend the [PACKAGE]. It includes [DETAILS]. The price is [$___]. A 50% Zelle retainer holds the date after it clears. Please use memo: [EVENT DATE] - [CLIENT NAME].`
 
 If the client does not reply, use `follow-up-builder.html` with `Quote sent, waiting` and set the next follow-up date in `../lead-tracker.csv`.
 
@@ -82,6 +85,10 @@ For Dec 12, 13, 19, 20, and Dec 24, assign `target_date`, `time_slot_id`, `state
 `CONFIRMED`, run:
 
 `python scripts/validate_slot_confirmations.py`
+
+If the validator fails, the booking is not operationally confirmed yet. Fix the
+tracker, payment memo, slot ID, or missing customer detail before sending a final
+confirmation.
 
 ## 6. 48-Hour Confirmation
 

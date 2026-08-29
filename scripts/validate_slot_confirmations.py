@@ -24,6 +24,7 @@ REQUIRED_COLUMNS = {
 
 LOCKING_STATES = {"HOLD_48HR", "DEPOSIT_PAID", "CONFIRMED"}
 TERMINAL_STATES = {"DEPOSIT_PAID", "CONFIRMED"}
+ACTIVE_STATES = LOCKING_STATES | {"OPEN"}
 DEPOSIT_STATUSES = {
     "",
     "UNPAID",
@@ -32,6 +33,9 @@ DEPOSIT_STATUSES = {
     "TRANSFERRED",
     "FORFEIT",
 }
+CUSTOMER_NAME_FIELDS = ("Business Name", "Contact Name")
+CUSTOMER_CONTACT_FIELDS = ("Phone", "Email", "Instagram")
+CUSTOMER_LOCATION_FIELDS = ("Area", "Notes")
 
 
 def load_slots() -> dict[str, dict[str, str]]:
@@ -69,6 +73,10 @@ def row_label(row_number: int, row: dict[str, str]) -> str:
     return f"row {row_number} ({name})"
 
 
+def has_any_value(row: dict[str, str], fields: tuple[str, ...]) -> bool:
+    return any((row.get(field) or "").strip() for field in fields)
+
+
 def validate() -> list[str]:
     slots = load_slots()
     rows, fieldnames = load_tracker_rows()
@@ -79,7 +87,12 @@ def validate() -> list[str]:
         errors.append(f"lead-tracker.csv missing columns: {sorted(missing_columns)}")
         return errors
 
+    slots_by_date: dict[str, set[str]] = defaultdict(set)
+    for slot_id, slot in slots.items():
+        slots_by_date[slot.get("date", "")].add(slot_id)
+
     slot_locks: dict[str, list[str]] = defaultdict(list)
+    date_locks: dict[str, set[str]] = defaultdict(set)
     allowed_states = {"", "OPEN", "HOLD_48HR", "DEPOSIT_PAID", "CONFIRMED"}
 
     for offset, row in enumerate(rows, start=2):
@@ -95,6 +108,14 @@ def validate() -> list[str]:
 
         if deposit_status not in DEPOSIT_STATUSES:
             errors.append(f"{label}: invalid deposit_status {deposit_status!r}")
+
+        if state in ACTIVE_STATES and state:
+            if not has_any_value(row, CUSTOMER_NAME_FIELDS):
+                errors.append(f"{label}: {state} requires a client or contact name")
+            if not has_any_value(row, CUSTOMER_CONTACT_FIELDS):
+                errors.append(f"{label}: {state} requires phone, email, or Instagram")
+            if not has_any_value(row, CUSTOMER_LOCATION_FIELDS):
+                errors.append(f"{label}: {state} requires area or address notes")
 
         if state in LOCKING_STATES and not slot_id:
             errors.append(f"{label}: {state} requires time_slot_id")
@@ -117,11 +138,22 @@ def validate() -> list[str]:
 
         if state in LOCKING_STATES and slot_id:
             slot_locks[slot_id].append(label)
+            slot_date = slots.get(slot_id, {}).get("date")
+            if slot_date:
+                date_locks[slot_date].add(slot_id)
 
     for slot_id, labels in sorted(slot_locks.items()):
         if len(labels) > 1:
             errors.append(
                 f"{slot_id} is locked by multiple leads: {', '.join(labels)}"
+            )
+
+    for slot_date, locked_slots in sorted(date_locks.items()):
+        capacity = len(slots_by_date.get(slot_date, set()))
+        if len(locked_slots) > capacity:
+            errors.append(
+                f"{slot_date} has {len(locked_slots)} locked slots but only "
+                f"{capacity} scheduled slots"
             )
 
     return errors

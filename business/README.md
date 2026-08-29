@@ -36,6 +36,7 @@ This folder turns the website into an operating system for the business.
 31. `brand-profile.md` - paste-ready bios and descriptions.
 32. `sales-funnel.md` - how strangers become paid bookings.
 33. `booking-sop.md` - exact process from inquiry to event.
+33a. `seasonal-ops-workflow.md` - booking StateGraph, role agents, validation gates, payment rules, and manual fallback steps.
 34. `launch-checklist.md` - what to do in the first 7 days.
 35. `30-day-client-sprint.md` - daily outreach routine and bilingual messages.
 36. `local-lead-research-playbook.md` - how to build a real local lead list.
