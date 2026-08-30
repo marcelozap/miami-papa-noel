@@ -61,6 +61,7 @@ with production use · `N/A` = does not exist
 |---|---|---|
 | Role-based workflow operated during the 2025 Christmas season, supporting real inquiries, bilingual drafting, booking coordination, outreach, payment tracking, logistics and follow-up | `docs/operator-attestation-2025-season.md` | **ATTESTED** — operator's record, dated 2026-08-29 |
 | Season window, channels, volume, model used, concrete outcome | attestation evidence table, fields 1-10 | `[TO FILL]` — artifacts sit in message history, calendar, and payment records outside this repository, which began 2026-06-10 |
+| Owner confirmation: dates, operator, functions, human review, 14 visits vs ~5 prior maximum, 2026 renewal, real operations | Written confirmation by Walter Zapata, who operates Miami Papa Noel, dated 2026-08-30. Sent copy kept in the external evidence folder, indexed as `statement` | **CORROBORATED by counterparty** - index the sent copy to complete |
 
 ## Pre-implementation safety audit
 

@@ -130,8 +130,11 @@ Either is a normal arrangement and neither weakens the submission. It just has
 to match what the receipts show, because that is the first thing a reviewer will
 cross-check.
 
-**Field to resolve:** `[ ]` separate entity, contracted · `[ ]` same business ·
-`[ ]` other — describe
+**Field resolved (2026-08-30):** family business with distinct principals —
+Walter Zapata operates Miami Papa Noel and performs the service; Marcelo
+Zapata (XIV) designed and operates the workflow. Confirmed by the owner's
+written statement of 2026-08-30. Describe exactly this arrangement on the
+form; do not present it as an arms-length external enterprise customer.
 
 ## 6. What receipts do and do not establish
 

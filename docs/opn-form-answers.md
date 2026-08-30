@@ -44,9 +44,10 @@ corroborate them are assembled per `docs/evidence-intake.md`.
 > supporting intake and communications around them.
 >
 > **Outcome:** 14 visits across a 40-day operating season, spanning hospitals,
-> county sites, retail, emergency services and private families. The
-> operational load moved off the performers entirely — Santa shows up and
-> performs, and nothing else lands on him. The client is running it again for
+> county sites, retail, emergency services and private families — up from a
+> previous seasonal maximum of approximately 5 visits, per the owner's written
+> confirmation. The operational load moved off the performers entirely —
+> Santa shows up and performs, and nothing else lands on him. The client is running it again for
 > the 2026 season, with the workflow being extended to formalised booking
 > intake and a verified business listing.
 
@@ -121,9 +122,11 @@ reviewer will ask - and the honest split reads stronger, not weaker.
 
 > 14 visits delivered across a 40-day operating season (15 November -
 > 24 December 2025), spanning hospitals, Miami-Dade County sites, Publix
-> locations, fire and police departments, and private families. The
-> operational load moved off the non-technical performers entirely. The
-> client is running the workflow again for the 2026 season.
+> locations, fire and police departments, and private families — up from a
+> previous seasonal maximum of approximately 5 visits, per the owner's written
+> confirmation of 2026-08-30. The operational load moved off the
+> non-technical performers entirely. The client is running the workflow again
+> for the 2026 season.
 
 ### Production model or models
 
@@ -221,8 +224,14 @@ Either way, close with the policy line:
 Five items. With these, the submission stands; without any one of them, it
 has a hole a reviewer will find:
 
-1. **Owner confirmation email** - dated, from the company, confirming dates,
-   owner, functions, and outcome. No phone call to OpenAI is needed.
+1. **Owner confirmation email** - IN HAND: finalized 2026-08-30 by Walter
+   Zapata, who operates Miami Papa Noel. Confirms the dates (Nov 15 - Dec 24,
+   2025), Marcelo Zapata (XIV) as designer and operator, the functions, human
+   review before sends, 14 visits versus a prior seasonal maximum of ~5, the
+   2026 renewal, and that this served real operations, not a demonstration.
+   Send it from Walter's own email account, save the sent copy as PDF, and
+   index it via `scripts\evidence_index.py` as type `statement`. No phone
+   call to OpenAI is needed.
 2. **Redacted receipts** (or calendar/booking records) - proving the business
    operated: real customers, real dates, supporting the 14 visits and the
    40-day period.

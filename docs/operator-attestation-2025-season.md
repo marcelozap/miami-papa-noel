@@ -46,8 +46,8 @@ record; none of them is a prerequisite for the 2026 deployment.
 | 6 | **Model** | If a specific model or product tier was used, its name. Leave blank rather than guess | `[TO FILL]` |
 | 7 | **Operator** | Who ran the workflow day to day | **Marcelo Zapata - built and operated**, sole technical and operational owner |
 | 8 | **Payment handling** | Confirms Zelle-only was in force in 2025 | `[TO FILL]` |
-| 9 | **Outcome** | One concrete number: bookings completed, or events performed, or zero double-bookings across the season | **14 visits across the 40-day season** - hospitals, Miami-Dade County sites, Publix locations, fire and police departments, private families; operational load moved off the performers entirely - attested 2026-08-30 |
-| 10 | **Dated artifacts** | Anything with a timestamp: message threads, calendar entries, payment records, photos with dates | `[TO FILL]` |
+| 9 | **Outcome** | One concrete number: bookings completed, or events performed, or zero double-bookings across the season | **14 visits across the 40-day season** - hospitals, Miami-Dade County sites, Publix locations, fire and police departments, private families; operational load moved off the performers entirely; **prior seasonal maximum ~5 visits** per the owner's written confirmation of 2026-08-30 |
+| 10 | **Dated artifacts** | Anything with a timestamp: message threads, calendar entries, payment records, photos with dates | First artifact: owner confirmation email, Walter Zapata, dated 2026-08-30 (kept in the external evidence folder, indexed as `statement`). Message threads, receipts, and an AI-workflow artifact still to collect |
 
 ### Where the artifacts most likely live
 
