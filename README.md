@@ -51,6 +51,21 @@ Open `business/` for the operating docs:
 - Launch checklist
 - Family roles
 
+## OpenAI Partner Readiness
+
+The local, fail-closed submission workflow lives in `docs/` and `scripts/`:
+
+- `docs/OPN-SUBMISSION.md` - current submission narrative and evidence fields
+- `docs/OPN-VALIDATION.md` - preflight, final validation, and packet commands
+- `docs/evidence-intake.md` - redaction and receipt-intake procedure
+- `scripts/validate_opn_submission.py` - local validator
+- `scripts/evidence_index.py` - hash a redacted external artifact into the index
+- `scripts/build_opn_packet.py` - build or verify the safe ZIP outside this repo
+
+Production logs and evidence stay outside Git under
+`%LOCALAPPDATA%\\MiamiPapaNoel\\`. Run preflight before editing the submission;
+run final validation only after real production and evidence records exist.
+
 ## Vercel
 
 Use the default Vercel static site settings:
