@@ -66,11 +66,13 @@ with a median response time is stronger than a large claim with no log.
 
 ## Blocker 3 — model to be recorded for an AI-backed claim
 
-**What closes it:** either decision is acceptable, and both are honest.
+**What closes it:** either decision is operationally safe, but only the
+non-fallback AI path closes the Partner Network model gate.
 
 - **Use deterministic mode.** Logs record `offline-rules-v1` and
   `fallback_used: true`. This is a real, working, human-approved operational
-  fallback, but it is not the model evidence for an AI deployment.
+  fallback, but it is not the model evidence for an AI deployment and does not
+  satisfy the final model gate.
 - **Enable AI mode.** Set `MPN_MODEL` to an exact model id and provide the key.
   The tool calls the Responses API, validates the result locally, and records
   the exact model only after a successful response.

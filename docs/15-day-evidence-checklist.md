@@ -11,9 +11,10 @@ count. **Never backdate.**
 - [ ] Tests pass: `python -m pytest tools\triage\test_triage.py -q`
 - [ ] Demo runs clean: `python tools\triage\triage.py --demo`
 - [ ] Log directory confirmed: `python tools\triage\triage.py --status`
-- [ ] Decide the model path and record it once it runs:
-  - deterministic (`offline-rules-v1`), or
-  - AI mode with `MPN_MODEL` set to an exact model id
+- [ ] Configure AI mode with `MPN_MODEL` set to an exact model id if this run
+      is intended to satisfy the Partner Network model gate. Deterministic
+      mode (`offline-rules-v1`) remains the safe fallback, but its
+      `fallback_used: true` records do **not** satisfy the model-backed gate.
 - [ ] `MPN_REVIEWER` set, or `--reviewer` passed each run
 - [ ] Confirm `.gitignore` excludes `*.jsonl`, `.env`, `*.pem`, `*.key`
 - [ ] Read the manual fallback in `tools/triage/README.md` — you will need it at some point
