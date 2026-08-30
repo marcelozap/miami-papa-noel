@@ -89,13 +89,13 @@ Color code:
 
 ### Payments
 
-Use one or two easy payment methods:
+Use the approved payment method only:
 
-- Zelle
-- Cash App
-- Venmo
-- Square
-- Stripe payment link
+- Zelle to 305-244-0360
+
+Do not set up or publish Cash App, Venmo, Square, Stripe, card processing, or
+wire instructions. Require the 50% retainer to clear before treating a date as
+booked.
 
 Require a deposit to hold the date.
 

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miami Papa Noel — Content Engine</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#151b24; --panel2:#1b222c; --line:#232c38;
+    --ink:#e8edf4; --dim:#93a1b3; --faint:#5d6b7c;
+    --gold:#c9993f; --green:#4fb286; --red:#d64a4a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+  h1{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--dim);margin:0 0 20px;font-size:14px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  button,select{font:inherit;font-size:13px;padding:9px 14px;border-radius:9px;
+    border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer}
+  button:hover{border-color:var(--faint)}
+  button.primary{background:var(--gold);color:#1a1206;border-color:var(--gold);font-weight:600}
+  button:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:22px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat b{display:block;font-size:24px;line-height:1.1;margin-bottom:2px}
+  .stat span{font-size:11.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  .month{margin-bottom:26px}
+  .month>h2{font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+    margin:0 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .month>p{color:var(--dim);font-size:13px;margin:0 0 14px}
+  .posts{display:grid;gap:12px}
+  .post{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .post.needs{border-left:3px solid var(--red)}
+  .post.have{border-left:3px solid var(--green)}
+  .phead{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+  .when{font-weight:600;font-size:14px}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;
+    border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+  .tag.ig{color:#e1a6c8;border-color:#4a2c3e}
+  .tag.fb{color:#8fb4e8;border-color:#26364f}
+  .tag.tt{color:#7fdbd4;border-color:#1f4340}
+  .asset{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--faint)}
+  .asset.missing{color:var(--red)}
+  .cap{background:var(--panel2);border-radius:9px;padding:12px 14px;margin:8px 0;
+    white-space:pre-wrap;font-size:13.5px;line-height:1.55}
+  .cap .lbl{display:block;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:6px}
+  .hash{color:var(--dim);font-size:12.5px;margin-top:8px;word-break:break-word}
+  .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .acts button{font-size:12px;padding:7px 11px}
+  .note{background:rgba(214,74,74,.1);border:1px solid rgba(214,74,74,.3);border-radius:9px;
+    padding:12px 14px;font-size:13px;margin:14px 0}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--gold);
+    color:#1a1206;padding:11px 20px;border-radius:999px;font-size:13.5px;font-weight:600;
+    opacity:0;pointer-events:none;transition:opacity .2s}
+  .toast.on{opacity:1}
+  @media(max-width:640px){.wrap{padding:20px 14px 60px}h1{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Content Engine — Miami Papa Noel</h1>
+  <p class="sub">Every post below is written, bilingual, and tied to the campaign plan. Green = you already have the photo. Red = you need to shoot it.</p>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <select id="platform"><option value="">All platforms</option><option>Instagram</option><option>Facebook</option><option>TikTok</option></select>
+    <select id="avail"><option value="">All posts</option><option value="have">Only what I can post today</option><option value="needs">Only what needs shooting</option></select>
+    <button class="primary" id="copyAll">Copy the whole calendar</button>
+    <button id="copyShots">Copy the shot list</button>
+  </div>
+
+  <div class="note" id="gap"></div>
+  <div id="board"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var BOOK = "https://miamipapanoel.com/book";
+
+  // Photos that actually exist in assets/ right now.
+  var HAVE = {
+    family:   "assets/optimized/santa-family-event-1600.jpg",
+    community:"assets/optimized/santa-community-event-1600.jpg",
+    gift:     "assets/optimized/santa-gift-delivery-1400.jpg",
+    pet:      "assets/optimized/santa-pet-visit-1600.jpg",
+    photo1:   "assets/optimized/santa-photo-1-1600.jpg",
+    photo2:   "assets/optimized/santa-photo-2-1600.jpg",
+    card:     "assets/optimized/santa-card-1400.jpg",
+    proof:    "assets/optimized/testimonial-instagram-1000.jpg",
+    extra1:   "assets/optimized/extra-20231210-171256-1200.jpg",
+    extra2:   "assets/optimized/extra-20231214-114914-1200.jpg"
+  };
+
+  var HASH = {
+    es:"#papanoelmiami #santaenmiami #doral #miamikids #navidadmiami #papanoelbilingue #hialeah #kendall #miamilakes #westonfl",
+    en:"#miamisanta #santaclausmiami #doral #miamimoms #miamikids #bilingualsanta #browardcounty #fortlauderdale #christmasminis #hoaevents"
+  };
+
+  var PLAN = [
+    { m:"September — proof and partners",
+      why:"Parishes plan posadas now and are often sponsor-funded. Photographers lock their Santa before October. Nothing here sells to families yet.",
+      posts:[
+      { d:"Tue Sep 2", p:["Instagram","Facebook"], a:"community", need:null,
+        t:"The one thing almost no Santa in Miami offers",
+        en:"Sixteen Santas advertise across Miami, Hialeah and Fort Lauderdale.\n\nOne of them speaks Spanish.\n\nIn a county where most families do.\n\nPapa Noel has worked in both languages since 2017 — so the abuela in the photo line gets a real conversation, not a wave.\n\nDecember dates are open now.",
+        es:"Dieciséis Santas se anuncian en Miami, Hialeah y Fort Lauderdale.\n\nUno habla español.\n\nEn un condado donde la mayoría de las familias lo hablan.\n\nPapa Noel trabaja en los dos idiomas desde 2017 — para que la abuela en la fila de fotos tenga una conversación de verdad, no un saludo.\n\nLas fechas de diciembre ya están abiertas." },
+      { d:"Fri Sep 5", p:["Instagram"], a:null, need:"Dad in the suit, close, talking to camera in Spanish. 20 seconds, phone, vertical. Shoot in the living room.",
+        t:"First bilingual talking clip",
+        en:"Papa Noel introduces himself — in Spanish first, then English. This is the single most valuable clip you can shoot, and it costs nothing.",
+        es:"Papa Noel se presenta — primero en español, después en inglés. Este es el clip más valioso que puedes grabar, y no cuesta nada." },
+      { d:"Tue Sep 9", p:["Facebook"], a:"proof", need:null,
+        t:"Community note",
+        en:"A note from a toy drive we were part of.\n\nNine seasons in Miami-Dade and Broward. Families, community associations, schools, parishes, toy drives.\n\nIf your parish or nonprofit is planning a December event, ask us early — sponsors usually cover it.",
+        es:"Una nota de una colecta de juguetes en la que estuvimos.\n\nNueve temporadas en Miami-Dade y Broward. Familias, asociaciones comunitarias, escuelas, parroquias, colectas de juguetes.\n\nSi su parroquia u organización está planeando un evento de diciembre, pregúntenos temprano — normalmente lo cubre un patrocinador." },
+      { d:"Fri Sep 12", p:["Instagram","TikTok"], a:null, need:"The suit on a hanger, the belt, the boots, the bell. Slow pan. 15 seconds, vertical.",
+        t:"Getting the suit ready",
+        en:"Ninety days out. The suit comes out of the closet in September, not December.\n\nReal beard. Real suit. Real Spanish.",
+        es:"Noventa días antes. El traje sale del clóset en septiembre, no en diciembre.\n\nBarba de verdad. Traje de verdad. Español de verdad." },
+      { d:"Tue Sep 23", p:["Instagram","Facebook"], a:"pet", need:null,
+        t:"Pet photos angle",
+        en:"Yes, he does pet photos.\n\nGroomers, pet boutiques and vet offices in Doral and Kendall: a Santa afternoon brings families through your door in December. We can split it or bill it flat.\n\nDM to hold a date.",
+        es:"Sí, también hace fotos con mascotas.\n\nGroomers, boutiques de mascotas y veterinarias en Doral y Kendall: una tarde con Papa Noel trae familias a su puerta en diciembre. Lo podemos dividir o cobrar fijo.\n\nEscríbanos para apartar la fecha." }
+      ]},
+    { m:"October — schools, daycares, corporate",
+      why:"They commit in October for December parties. Peak dates start being shown as scarce this month.",
+      posts:[
+      { d:"Wed Oct 1", p:["Instagram","Facebook"], a:"photo1", need:null,
+        t:"School and daycare open",
+        en:"Directors: December weekday mornings are the easiest booking of your year.\n\nOne hour, the whole class, in Spanish and English. Insurance and screening details are available after policy verification; send your ORI number so we can confirm the required process.\n\nWeekday daytime rate is $275. Those hours go first.",
+        es:"Directoras y directores: una mañana de diciembre entre semana es la reserva más fácil del año.\n\nUna hora, toda la clase, en español e inglés. Los detalles del seguro y la verificación están disponibles después de confirmar la póliza; envíen su número ORI para confirmar el proceso requerido.\n\nLa tarifa entre semana de día es $275. Esas horas se van primero." },
+      { d:"Fri Oct 10", p:["Instagram","TikTok"], a:null, need:"Dad reading a letter from a child, in character. 25 seconds, vertical. Warm lamp light.",
+        t:"Reading a letter",
+        en:"Every year the letters are the same three things: a toy, a pet, and someone they miss.\n\nHe answers all three, in whichever language the child asks in.",
+        es:"Todos los años las cartas piden las mismas tres cosas: un juguete, una mascota, y alguien que extrañan.\n\nÉl responde las tres, en el idioma en que el niño pregunte." },
+      { d:"Tue Oct 21", p:["Instagram","Facebook"], a:"community", need:null,
+        t:"HOA and community",
+        en:"Property managers: one Santa and one W-9 across every clubhouse event you run. Insurance documentation is available after policy verification.\n\nTwo hours, $550, entirely bilingual.\n\nDecember budgets are already set. If yours isn't, this is the week.",
+        es:"Property managers: un solo Papa Noel y un solo W-9 para todos los eventos de su clubhouse. La documentación del seguro está disponible después de verificar la póliza.\n\nDos horas, $550, todo bilingüe.\n\nLos presupuestos de diciembre ya están hechos. Si el suyo no, esta es la semana." },
+      { d:"Fri Oct 31", p:["Instagram","TikTok"], a:"card", need:null,
+        t:"Peak dates going",
+        en:"December 12, 13, 19, 20 and Christmas Eve are the dates that fill first.\n\nThey are held first-come, with a deposit. No exceptions and no discounts on those five.\n\nEverything else still has room.",
+        es:"El 12, 13, 19 y 20 de diciembre y la Nochebuena son las fechas que se llenan primero.\n\nSe apartan por orden de llegada, con depósito. Sin excepciones y sin descuentos en esas cinco.\n\nEn el resto todavía hay espacio." }
+      ]},
+    { m:"November — families finally shop",
+      why:"Families buy four to six weeks out, so this is the month. Three posts a week, and every one ends with December filling up.",
+      posts:[
+      { d:"Mon Nov 3", p:["Instagram","Facebook"], a:"family", need:null,
+        t:"Family visits open",
+        en:"This is what a home visit looks like.\n\nHe comes to your living room. Photos, a greeting for each child by name, and the gifts you leave by the door handed over like they came from the sleigh.\n\n$325 for the first hour. December weekends are filling.",
+        es:"Así se ve una visita a casa.\n\nÉl llega a su sala. Fotos, un saludo para cada niño por su nombre, y los regalos que dejan junto a la puerta entregados como si vinieran del trineo.\n\n$325 la primera hora. Los fines de semana de diciembre se están llenando." },
+      { d:"Thu Nov 6", p:["Instagram","TikTok"], a:"gift", need:null,
+        t:"Gift handoff",
+        en:"Leave the gifts by the door, labeled. He does the rest.\n\nThe look on the second photo is the reason families book him again the next year.\n\nDecember weekends are filling.",
+        es:"Dejen los regalos junto a la puerta, con el nombre. Él hace el resto.\n\nLa cara en la segunda foto es la razón por la que las familias lo vuelven a reservar al año siguiente.\n\nLos fines de semana de diciembre se están llenando." },
+      { d:"Mon Nov 17", p:["Instagram","Facebook","TikTok"], a:"extra1", need:null,
+        t:"Christmas Eve slots",
+        en:"Christmas Eve is sold in 45-minute visits, from 3pm.\n\nSix families, one evening, one neighborhood at a time — because he has to actually get there between them.\n\nIf you want the 6pm, this is the week to ask.",
+        es:"La Nochebuena se vende en visitas de 45 minutos, desde las 3pm.\n\nSeis familias, una noche, un vecindario a la vez — porque tiene que poder llegar de una a otra.\n\nSi quieren las 6pm, esta es la semana de pedirla." },
+      { d:"Mon Nov 24", p:["Instagram","Facebook","TikTok"], a:"extra2", need:null,
+        t:"Thanksgiving week push",
+        en:"This is the week families lock in December.\n\nHome visits, community events, Christmas Eve, and the late sneak-a-peek where he drops the gifts while your child peeks from the stairs.\n\nDeposit holds the date. Nothing else does.",
+        es:"Esta es la semana en que las familias cierran diciembre.\n\nVisitas a casa, eventos comunitarios, Nochebuena, y la miradita de la noche donde deja los regalos mientras su niño mira desde la escalera.\n\nEl depósito aparta la fecha. Nada más la aparta." }
+      ]},
+    { m:"December — deliver, then collect proof",
+      why:"Every visit is content, but only with a photo release. The review ask happens before you leave the building, not the next day.",
+      posts:[
+      { d:"Every visit", p:["Instagram","TikTok"], a:null, need:"30 seconds of vertical video at each event, plus 3 stills. Ask the host for permission on arrival, not after.",
+        t:"Same-day story from each visit",
+        en:"Post the same evening while it is still happening. Tag the neighborhood, not the family. Never post a child's face without the parent replying \"Yes, you may share this photo.\"",
+        es:"Publica la misma noche, mientras todavía está pasando. Etiqueta el vecindario, no a la familia. Nunca publiques la cara de un niño sin que el padre responda \"Sí, pueden compartir esta foto.\"" },
+      { d:"Fri Dec 26", p:["Instagram","Facebook"], a:null, need:"Best 10 stills from the season.",
+        t:"Season recap and the 2027 list",
+        en:"Thank you to every family, school, parish and community that had Papa Noel this year.\n\nIf you want the same date next December, tell us now and we will hold it.\n\nWe message this list again in August.",
+        es:"Gracias a cada familia, escuela, parroquia y comunidad que recibió a Papa Noel este año.\n\nSi quieren la misma fecha el próximo diciembre, díganos ahora y se la guardamos.\n\nA esta lista le escribimos otra vez en agosto." }
+      ]}
+  ];
+
+  var el = function(id){ return document.getElementById(id); };
+  function toast(t){ var n=el("toast"); n.textContent=t; n.classList.add("on"); setTimeout(function(){n.classList.remove("on");},1500); }
+
+  function link(post){
+    var src = post.a ? "post-" + post.d.toLowerCase().replace(/[^a-z0-9]+/g,"-") : "post";
+    return BOOK + "?source=" + src;
+  }
+
+  function textOf(post, month){
+    var L = [];
+    L.push("=== " + post.d + " — " + post.t + " ===");
+    L.push("Platforms: " + post.p.join(", "));
+    L.push(post.a ? ("Photo: " + HAVE[post.a]) : ("NEEDS FOOTAGE: " + post.need));
+    L.push("");
+    L.push("--- Espanol ---"); L.push(post.es); L.push(""); L.push(HASH.es);
+    L.push("");
+    L.push("--- English ---"); L.push(post.en); L.push(""); L.push(HASH.en);
+    L.push(""); L.push("Link: " + link(post));
+    return L.join("\n");
+  }
+
+  function render(){
+    var pf = el("platform").value, av = el("avail").value;
+    var board = el("board"); board.innerHTML = "";
+    var have=0, need=0, total=0;
+
+    PLAN.forEach(function(month){
+      var shown = month.posts.filter(function(p){
+        if (pf && p.p.indexOf(pf) === -1) return false;
+        if (av === "have" && !p.a) return false;
+        if (av === "needs" && p.a) return false;
+        return true;
+      });
+      month.posts.forEach(function(p){ total++; if(p.a) have++; else need++; });
+      if (!shown.length) return;
+
+      var sec = document.createElement("div"); sec.className = "month";
+      var h = '<h2>' + month.m + '</h2><p>' + month.why + '</p><div class="posts">';
+      shown.forEach(function(p, i){
+        h += '<article class="post ' + (p.a ? "have" : "needs") + '">';
+        h += '<div class="phead"><span class="when">' + p.d + " — " + p.t + '</span><span class="tags">' +
+             p.p.map(function(x){ return '<span class="tag ' + (x==="Instagram"?"ig":x==="Facebook"?"fb":"tt") + '">' + x + '</span>'; }).join("") +
+             '</span></div>';
+        h += p.a
+          ? '<div class="asset">' + HAVE[p.a] + '</div>'
+          : '<div class="asset missing">SHOOT THIS: ' + p.need + '</div>';
+        h += '<div class="cap"><span class="lbl">Español</span>' + p.es + '<div class="hash">' + HASH.es + '</div></div>';
+        h += '<div class="cap"><span class="lbl">English</span>' + p.en + '<div class="hash">' + HASH.en + '</div></div>';
+        h += '<div class="acts"><button data-copy="es" data-m="' + PLAN.indexOf(month) + '" data-i="' + month.posts.indexOf(p) + '">Copy Español</button>' +
+             '<button data-copy="en" data-m="' + PLAN.indexOf(month) + '" data-i="' + month.posts.indexOf(p) + '">Copy English</button>' +
+             '<button data-copy="all" data-m="' + PLAN.indexOf(month) + '" data-i="' + month.posts.indexOf(p) + '">Copy both + link</button></div>';
+        h += '</article>';
+      });
+      sec.innerHTML = h + '</div>';
+      board.appendChild(sec);
+    });
+
+    el("stats").innerHTML =
+      stat(total, "posts written") +
+      stat(have, "ready to post today") +
+      stat(need, "need footage first") +
+      stat("0", "videos you own");
+
+    el("gap").innerHTML = "<strong>The real bottleneck is footage, not captions.</strong> You have ten usable photos and <strong>no video at all</strong>. " +
+      need + " of these " + total + " posts need something shot first, and every one of them can be shot on a phone in your living room for free. " +
+      "Do the September clips this week — a bilingual Santa talking to camera is the single asset no competitor in this market has.";
+
+    board.querySelectorAll("[data-copy]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var m = PLAN[+b.getAttribute("data-m")], p = m.posts[+b.getAttribute("data-i")], k = b.getAttribute("data-copy");
+        var t = k === "es" ? p.es + "\n\n" + HASH.es : k === "en" ? p.en + "\n\n" + HASH.en : textOf(p, m);
+        copy(t, "Copied.");
+      });
+    });
+  }
+
+  function stat(n, label){ return '<div class="stat"><b>' + n + '</b><span>' + label + '</span></div>'; }
+
+  function copy(text, msg){
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function(){ toast(msg); }).catch(function(){ fallback(text); });
+      } else { fallback(text); }
+    } catch(e){ fallback(text); }
+  }
+  function fallback(text){
+    try {
+      var ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta);
+      ta.select(); document.execCommand("copy"); document.body.removeChild(ta); toast("Copied.");
+    } catch(e){ toast("Copy blocked — select the text by hand."); }
+  }
+
+  el("copyAll").addEventListener("click", function(){
+    var out = [];
+    PLAN.forEach(function(m){ out.push("########## " + m.m + " ##########", m.why, "");
+      m.posts.forEach(function(p){ out.push(textOf(p,m), ""); }); });
+    copy(out.join("\n"), "Whole calendar copied.");
+  });
+
+  el("copyShots").addEventListener("click", function(){
+    var out = ["SHOT LIST — everything below can be shot on a phone, for free.",""];
+    PLAN.forEach(function(m){ m.posts.forEach(function(p){ if(!p.a) out.push("[" + p.d + "] " + p.t + "\n  " + p.need + "\n"); }); });
+    copy(out.join("\n"), "Shot list copied.");
+  });
+
+  el("platform").addEventListener("change", render);
+  el("avail").addEventListener("change", render);
+  render();
+})();
+</script>
+</body>
+</html>

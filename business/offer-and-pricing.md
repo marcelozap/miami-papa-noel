@@ -1,98 +1,53 @@
 # Offer and Pricing Framework
 
-Do not publish exact prices until the family agrees. Use ranges privately until you learn demand.
+This is the locked 2026 operational rate card. Customer-facing quotes must use
+these figures exactly. Historical comparison pricing belongs only in
+`MASTER-PLAN.md`.
 
-## Suggested Packages
+## Packages
 
-### Family Visit
+| Package | Locked rate | Conditions |
+| --- | ---: | --- |
+| Entry "Jingle" | $195 / 45 minutes | Monday-Thursday daytime, Dec 1-18 only; capped at approximately 12 bookings |
+| Standard family visit | $325 first hour | $150 per additional half hour |
+| HOA / community event | $550 / 2 hours | Two-hour minimum |
+| School / daycare | $275 / 1 hour | Weekday daytime |
+| Corporate / office party | $450 first hour | Quote additional time only after details are reviewed |
+| Photographer mini-session block | $600 / 4 hours | $850 for a full day |
+| Peak evenings | $425 first hour | Dec 12, 13, 19, and 20 after 4pm; never discounted |
+| Christmas Eve | $500 / 45-minute slot | Until 8pm; sold in slots, not hours |
+| Christmas Eve late sneak-a-peek | $375 / 15 minutes | After 9pm; gift drop while the child peeks |
 
-Use for:
+## Travel
 
-- Homes
-- Birthdays
-- Quick surprise visits
-- Small photo moments
+- Free within 25 miles of Doral.
+- $45 for 25-50 miles.
+- Quote travel beyond 50 miles after reviewing the address.
 
-Includes:
+## Payment and booking terms
 
-- 20-30 minutes
-- Photos
-- Short greeting
-- Optional gift handoff
+- Payment intake is Zelle only to `305-244-0360`.
+- The 50% non-refundable retainer is due at booking.
+- Memo format: `[EVENT DATE] - [CLIENT NAME]`.
+- The date is not booked until the deposit clears.
+- Balance is due on arrival by cash or Zelle, except peak dates, which require the balance seven days before the event.
+- Cancellation more than 14 days out transfers the retainer once within the same season.
+- Cancellation inside 14 days forfeits the retainer.
+- Cancellation inside 48 hours or a no-show makes 100% due.
+- One free reschedule applies if a named storm or Papa Noel himself forces it.
 
-Suggested range:
+## Discount rule
 
-`Starting at $325`
+Do not discount peak dates. Do not use the $195 Jingle rate outside its stated
+weekday daytime window or beyond its seasonal cap. Any exception requires an
+operator decision and must not be presented as a new public rate.
 
-### Event Visit
+## Event requirements
 
-Use for:
+Every event needs a sturdy armless chair, air conditioning, a designated adult
+for the gift bag and photo queue, and parking within 100 feet.
 
-- Family parties
-- Restaurants
-- Churches
-- Small business events
-- Schools, daycares, HOAs, and community events
+## Insurance status
 
-Includes:
-
-- 45-60 minutes
-- Photos
-- Guest greetings
-- Gift handoff if prepared
-
-Suggested range:
-
-`Starting at $450`
-
-Large communities, schools, business activations, and long events can be quoted higher after details are reviewed.
-
-### Christmas Eve Delivery
-
-Use for:
-
-- Family gift delivery
-- Short high-impact visit
-
-Includes:
-
-- Scheduled arrival window
-- Gift delivery
-- Photos
-- Short visit
-
-Suggested range:
-
-`Starting at $500`
-
-## Add Premiums
-
-Add more for:
-
-- Christmas Eve evening
-- Long travel
-- Last-minute booking
-- Events over 1 hour
-- Large guest count
-- Parking difficulty
-- Multiple stops
-
-## Deposit
-
-Recommended:
-
-- 30%-50% deposit
-- Non-refundable unless Papa Noel cancels
-- Remaining balance due before or at arrival
-
-## Discount Strategy
-
-Do discounts only for:
-
-- Nonprofits
-- Toy drives
-- Weekday events
-- Early-bird deposits
-- Referral partners
-
-Do not discount prime December weekends too much.
+Do not publish or send insurance, COI, or additional-insured language until
+`business/insurance-and-wave1-preflight.md` records an active commercial policy.
