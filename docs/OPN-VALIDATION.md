@@ -62,7 +62,10 @@ python scripts\evidence_index.py --file receipts\redacted-receipt-01.pdf `
 ```
 
 The command refuses missing files, duplicate references, path escapes, future
-dates, and contact data in notes. Run preflight afterward.
+dates, and contact/address data in notes. The validator also rejects future or
+chronologically impossible production timestamps, duplicate inquiry IDs,
+unknown evidence metadata keys, and private-data fields. Run preflight
+afterward.
 
 To create a shareable draft packet from the allowlisted repository files:
 

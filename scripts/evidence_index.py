@@ -27,6 +27,11 @@ EVIDENCE_TYPES = {
 }
 EMAIL_RE = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 PHONE_RE = re.compile(r"\b(?:\+?1[\s.-]?)?(?:\(?\d{3}\)?[\s.-])\d{3}[\s.-]\d{4}\b")
+STREET_RE = re.compile(
+    r"\b\d{1,6}\s+\w+\s+(?:st|street|ave|avenue|rd|road|dr|drive|ln|lane|"
+    r"ct|court|blvd|boulevard|ter|terrace|pl|place|way|cir|circle)\b",
+    re.IGNORECASE,
+)
 
 
 def default_evidence_dir() -> Path:
@@ -82,8 +87,8 @@ def index_artifact(evidence_dir: Path, artifact: str, ref: str, artifact_type: s
         raise ValueError("--date cannot be in the future")
     if not notes.strip():
         raise ValueError("--notes must describe what the redacted artifact establishes")
-    if EMAIL_RE.search(notes) or PHONE_RE.search(notes):
-        raise ValueError("--notes may not contain email or phone data")
+    if EMAIL_RE.search(notes) or PHONE_RE.search(notes) or STREET_RE.search(notes):
+        raise ValueError("--notes may not contain email, phone, or street-address data")
 
     evidence_dir.mkdir(parents=True, exist_ok=True)
     path, relative = safe_artifact_path(evidence_dir, artifact)

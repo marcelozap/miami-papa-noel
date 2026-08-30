@@ -360,6 +360,14 @@ def _scan_private_values(value, path="") -> list:
     return hits
 
 
+def _parse_log_timestamp(value, field: str):
+    if value is None:
+        return None
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("must be an ISO timestamp or null")
+    return dt.datetime.fromisoformat(value)
+
+
 def check_production_log(cfg: Config):
     """Returns findings, earliest date, models, approved/sent count, model-backed flag."""
     findings = []
@@ -375,6 +383,7 @@ def check_production_log(cfg: Config):
     approved_sent = 0
     model_backed = False
     records = 0
+    inquiry_ids = set()
     for lineno, line in enumerate(read_text(path).splitlines(), 1):
         if not line.strip():
             continue
@@ -394,6 +403,17 @@ def check_production_log(cfg: Config):
                                     "line %d missing required key(s): %s"
                                     % (lineno, ", ".join(missing))))
 
+        inquiry_id = rec.get("inquiry_id")
+        if not isinstance(inquiry_id, str) or not inquiry_id.strip():
+            findings.append(Finding(FAIL, "log",
+                                    "line %d: inquiry_id must be a non-empty string"
+                                    % lineno))
+        elif inquiry_id in inquiry_ids:
+            findings.append(Finding(FAIL, "log",
+                                    "line %d: duplicate inquiry_id %r" % (lineno, inquiry_id)))
+        else:
+            inquiry_ids.add(inquiry_id)
+
         bad_keys = FORBIDDEN_LOG_KEYS & set(rec.keys())
         if bad_keys:
             findings.append(Finding(FAIL, "log-privacy",
@@ -408,14 +428,45 @@ def check_production_log(cfg: Config):
                                     "in the production log" % lineno))
 
         received = rec.get("received_at")
+        received_dt = None
         try:
-            received_date = dt.datetime.fromisoformat(received).date()
+            received_dt = _parse_log_timestamp(received, "received_at")
+            if received_dt is None:
+                raise ValueError("must be an ISO timestamp")
+            received_date = received_dt.date()
+            if received_date > cfg.today:
+                findings.append(Finding(FAIL, "log",
+                                        "line %d: received_at %s is in the future"
+                                        % (lineno, received)))
             if earliest is None or received_date < earliest:
                 earliest = received_date
         except (TypeError, ValueError):
             findings.append(Finding(FAIL, "log",
                                     "line %d: received_at %r is not an ISO timestamp"
                                     % (lineno, received)))
+
+        log_times = {}
+        for field in ("approved_at", "sent_at"):
+            try:
+                parsed = _parse_log_timestamp(rec.get(field), field)
+                log_times[field] = parsed
+                if parsed is not None and parsed.date() > cfg.today:
+                    findings.append(Finding(FAIL, "log",
+                                            "line %d: %s %s is in the future"
+                                            % (lineno, field, rec.get(field))))
+                if parsed is not None and received_dt is not None and parsed < received_dt:
+                    findings.append(Finding(FAIL, "log",
+                                            "line %d: %s precedes received_at"
+                                            % (lineno, field)))
+            except (TypeError, ValueError):
+                findings.append(Finding(FAIL, "log",
+                                        "line %d: %s %r is not an ISO timestamp or null"
+                                        % (lineno, field, rec.get(field))))
+        if (log_times.get("approved_at") is not None
+                and log_times.get("sent_at") is not None
+                and log_times["sent_at"] < log_times["approved_at"]):
+            findings.append(Finding(FAIL, "log",
+                                    "line %d: sent_at precedes approved_at" % lineno))
 
         outcome = rec.get("outcome")
         if outcome not in LOG_OUTCOMES:
@@ -495,10 +546,16 @@ def check_duration(cfg: Config, earliest: dt.date | None, approved_sent: int,
 
 
 EVIDENCE_INDEX_KEYS = ["ref", "type", "date", "artifact", "sha256", "redacted", "notes"]
+EVIDENCE_ALLOWED_KEYS = set(EVIDENCE_INDEX_KEYS)
 EVIDENCE_TYPES = {"receipt", "booking_record", "message_thread", "screenshot",
                   "statement", "calendar", "zelle_history"}
-EVIDENCE_FORBIDDEN_KEYS = {"name", "customer_name", "phone", "email", "address",
-                           "memo", "payment_memo", "message_text", "raw_text"}
+EVIDENCE_FORBIDDEN_KEYS = {
+    "name", "full_name", "customer", "customer_name", "client", "client_name",
+    "recipient", "sender", "phone", "phone_number", "email", "email_address",
+    "address", "street_address", "memo", "memo_id", "payment_memo", "zelle_memo",
+    "message_text", "raw_text", "account", "account_id", "routing_number",
+    "bank_account", "transaction_id", "payment_id",
+}
 
 
 def check_evidence_dir(cfg: Config) -> list:
@@ -537,7 +594,13 @@ def check_evidence_dir(cfg: Config) -> list:
                                     "index line %d missing key(s): %s"
                                     % (lineno, ", ".join(missing))))
             continue
-        ref = str(rec.get("ref", ""))
+        unknown_keys = set(rec) - EVIDENCE_ALLOWED_KEYS
+        if unknown_keys:
+            errors.append("line %d includes unsupported key(s): %s"
+                          % (lineno, ", ".join(sorted(unknown_keys))))
+
+        ref_value = rec.get("ref")
+        ref = str(ref_value) if isinstance(ref_value, str) else ""
         if not ref or ref in refs:
             errors.append("line %d has a duplicate or empty ref" % lineno)
         refs.add(ref)
@@ -559,18 +622,30 @@ def check_evidence_dir(cfg: Config) -> list:
                                     "index line %d (%s): sha256 is not 64 hex chars"
                                     % (lineno, rec.get("ref"))))
             continue
+        artifact_date = None
+        raw_date = rec.get("date")
         try:
-            dt.date.fromisoformat(str(rec.get("date")))
+            if (not isinstance(raw_date, str)
+                    or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw_date)):
+                raise ValueError
+            artifact_date = dt.date.fromisoformat(raw_date)
         except ValueError:
             findings.append(Finding(FAIL, "evidence",
                                     "index line %d (%s): date is not ISO YYYY-MM-DD"
                                     % (lineno, rec.get("ref"))))
+        if artifact_date is not None and artifact_date > cfg.today:
+            findings.append(Finding(FAIL, "evidence",
+                                    "index line %d (%s): date %s is in the future"
+                                    % (lineno, rec.get("ref"), raw_date)))
         raw_artifact = rec.get("artifact")
         if not isinstance(raw_artifact, str) or not raw_artifact.strip():
             errors.append("line %d (%s): artifact path is empty" % (lineno, ref))
             continue
         artifact_rel = Path(raw_artifact)
-        if artifact_rel.is_absolute() or ".." in artifact_rel.parts:
+        if (artifact_rel.is_absolute()
+                or re.match(r"^[A-Za-z]:[\\/]", raw_artifact)
+                or raw_artifact.startswith(("/", "\\"))
+                or ".." in artifact_rel.parts):
             errors.append("line %d (%s): artifact path must stay inside evidence folder" % (lineno, ref))
             continue
         artifact = (root / artifact_rel).resolve()
@@ -589,6 +664,9 @@ def check_evidence_dir(cfg: Config) -> list:
             findings.append(Finding(gate(cfg), "evidence",
                                     "index line %d (%s): artifact file not found: %s"
                                     % (lineno, rec.get("ref"), rec["artifact"])))
+        notes = rec.get("notes")
+        if not isinstance(notes, str) or not notes.strip():
+            errors.append("line %d (%s): notes must be a non-empty string" % (lineno, ref))
     if errors:
         findings.append(Finding(FAIL, "evidence", "; ".join(errors[:10])))
     if entries == 0:

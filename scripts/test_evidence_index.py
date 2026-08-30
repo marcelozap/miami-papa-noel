@@ -60,6 +60,9 @@ class EvidenceIndexTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "email"):
                 MODULE.index_artifact(root, "receipt.pdf", "E-01", "receipt",
                                       "2025-12-24", "contact someone@example.com", True)
+            with self.assertRaisesRegex(ValueError, "street-address"):
+                MODULE.index_artifact(root, "receipt.pdf", "E-01", "receipt",
+                                      "2025-12-24", "event at 123 Main St", True)
             with self.assertRaisesRegex(ValueError, "relative path"):
                 MODULE.index_artifact(root, "../receipt.pdf", "E-01", "receipt",
                                       "2025-12-24", "dated operation", True)

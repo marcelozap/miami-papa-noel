@@ -46,10 +46,12 @@ Example line with deliberately fake metadata:
 ## Enforcement
 
 `python scripts\validate_opn_submission.py --preflight` (and `--final`) verifies
-each entry: schema keys present, type in the allowed list, ISO date, unique
+each entry: the exact schema keys are present with no extras, type in the
+allowed list, zero-padded ISO date that is not in the future, unique string
 ref, 64-hex digest, path stays inside the evidence folder, and the referenced
-file's hash matches the recorded one. A final packet requires at least one
-`receipt` or `statement` entry.
+file's hash matches the recorded one. Private-data keys and contact/address-
+like values are rejected. A final packet requires at least one `receipt` or
+`statement` entry.
 
 Entries containing private-data fields (`name`, `phone`, `email`, `address`,
 `memo`, ...) or values that look like phone numbers, email addresses, or

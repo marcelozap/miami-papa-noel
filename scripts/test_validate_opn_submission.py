@@ -108,7 +108,11 @@ class ValidatorTests(unittest.TestCase):
             log = root / "production-log.jsonl"
             evidence = root / "evidence"
             old_date = (dt.date.today() - dt.timedelta(days=MODULE.QUALIFYING_DAYS + 1)).isoformat()
-            self.write_log(log, [self.base_row(received_at=f"{old_date}T10:00:00-04:00")])
+            self.write_log(log, [self.base_row(
+                received_at=f"{old_date}T10:00:00-04:00",
+                approved_at=f"{old_date}T10:02:00-04:00",
+                sent_at=f"{old_date}T10:03:00-04:00",
+            )])
             cfg = self.config(root, True, log, evidence)
             findings, earliest, models, approved, model_backed = MODULE.check_production_log(cfg)
             findings += MODULE.check_duration(cfg, earliest, approved, model_backed)
@@ -165,6 +169,54 @@ class ValidatorTests(unittest.TestCase):
             }) + "\n", encoding="utf-8")
             findings = MODULE.check_evidence_dir(self.config(root, True, root / "log", root))
             self.assertTrue(self.failures(findings))
+
+    def test_evidence_index_rejects_future_date_and_private_extra_key(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            artifact = root / "receipt.txt"
+            artifact.write_text("redacted", encoding="utf-8")
+            digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+            future = (dt.date.today() + dt.timedelta(days=1)).isoformat()
+            (root / "evidence-index.jsonl").write_text(json.dumps({
+                "ref": "E-01",
+                "type": "receipt",
+                "date": future,
+                "artifact": "receipt.txt",
+                "sha256": digest,
+                "redacted": True,
+                "notes": "dated seasonal customer operation",
+                "transaction_id": "private-id",
+            }) + "\n", encoding="utf-8")
+            details = "; ".join(
+                f.detail for f in self.failures(MODULE.check_evidence_dir(
+                    self.config(root, True, root / "log", root))))
+            self.assertIn("future", details)
+            self.assertIn("unsupported key", details)
+            self.assertIn("private-data field", details)
+
+    def test_log_rejects_future_timestamp_duplicate_id_and_bad_order(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            log = root / "production-log.jsonl"
+            evidence = root / "evidence"
+            today = dt.date.today().isoformat()
+            first = self.base_row(
+                received_at=f"{today}T10:00:00-04:00",
+                approved_at=f"{today}T09:00:00-04:00",
+                sent_at=f"{today}T08:00:00-04:00",
+            )
+            second = self.base_row(
+                received_at=f"{(dt.date.today() + dt.timedelta(days=1)).isoformat()}T10:00:00-04:00",
+            )
+            self.write_log(log, [first, second])
+            details = "; ".join(
+                f.detail for f in self.failures(MODULE.check_production_log(
+                    self.config(root, True, log, evidence))[0]))
+            self.assertIn("duplicate inquiry_id", details)
+            self.assertIn("approved_at precedes received_at", details)
+            self.assertIn("sent_at precedes received_at", details)
+            self.assertIn("sent_at precedes approved_at", details)
+            self.assertIn("future", details)
 
 
     def test_surface_scan_covers_every_root_page(self):
