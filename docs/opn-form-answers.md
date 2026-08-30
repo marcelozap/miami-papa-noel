@@ -143,9 +143,9 @@ variants - never a guess:
 
 **Variant B - the 2025 records do not name a model:**
 
-> The 2025 season ran on a commercial assistant; the account records do not
-> preserve the specific model version, and we state that plainly rather than
-> guess. The 2026 reactivation removes the ambiguity: the production model is
+> The 2025 season ran on a commercial assistant; the specific model version
+> is not retained in the 2025 records, and we state that plainly rather than
+> guess. The 2026 seasonal cycle removes the ambiguity: the production model is
 > **[EXACT MODEL ID FROM THE 2026 PRODUCTION LOG]**, recorded verbatim on
 > every logged inquiry, with a deterministic rules engine
 > (`offline-rules-v1`) as the no-model fallback - always logged as a
@@ -158,20 +158,45 @@ Either way, close with the policy line:
 
 ### How the important parts work together
 
-> An inquiry enters from a customer channel and flows through one pipeline:
-> language detection (EN/ES) and structured extraction (date, service
-> category, location, what is still missing) -> schedule and capacity risk
-> flagging against the season's first-to-fill dates -> reply drafting in
-> both languages from a locked, versioned price list -> six validation gates
-> (locked pricing, EN/ES commercial parity, missing-information handling, no
-> booking- or deposit-confirmation language, no insurance claims while the
-> policy is unverified, Zelle-only payment terms) -> mandatory human
-> approval. The tool has no send path: the operator copies the approved
-> draft into the channel, and a structured log line ties every draft to the
-> model id, prompt version, and price-list version that produced it. In 2025
-> the same pipeline was operated through the themed role workflows with the
-> operator as the integration point; the 2026 reactivation codifies it as
-> runnable, tested software.
+> The workflow is organised as themed role lanes mapped to business
+> functions - Santa, Mrs. Claus, and the elves - each owning one lane
+> (communications, content, lead summarisation, follow-up), with the operator
+> as the integration point. AI assists the communication and content lanes;
+> scheduling, logistics, and payment receipt tracking are manual operator
+> lanes by design.
+>
+> The business pipeline is a single state graph: **inquiry -> quote ->
+> schedule -> payment receipt -> confirmation -> follow-up**. Within the
+> intake step, each inquiry flows through: language detection (EN/ES) and
+> structured extraction (date, service category, location, what is still
+> missing) -> schedule and capacity risk flagging against the season's
+> first-to-fill dates -> reply drafting in both languages from a locked,
+> versioned price list -> draft-level validation -> mandatory human approval.
+> When a model is configured, the API call uses strict structured output
+> (a strict JSON schema, with no server-side storage), and every model
+> response is revalidated locally against the same gates before the operator
+> ever sees it - a response that fails any gate is discarded in favour of the
+> deterministic fallback.
+>
+> Six business gates govern state transitions, and no transition happens
+> without passing them: **(1) double-booking** - no overlap with an existing
+> booking once travel time is included; **(2) deposit-before-confirmation** -
+> a booking is never confirmed until the Zelle deposit is received and
+> matched; **(3) capacity** - the day must stay inside hard limits, because
+> capacity is one performer; **(4) price sanity** - every quoted figure must
+> exist in the locked, versioned price list; **(5) human approval** - no
+> message reaches a customer without the operator approving it; **(6) receipt
+> confirmation** - every inquiry and state change writes an audit log line,
+> so the season is reconstructable from the record. Gates 1-3 are operated by
+> the human with automated risk flagging; gates 4-6 are enforced in software.
+>
+> The tool has no send path: the operator copies the approved draft into the
+> customer channel, and a structured log line ties every draft to the model
+> id, prompt version, and price-list version that produced it. The 2025
+> season ran this pipeline through the themed role workflows with the
+> operator as integrator; the 2026 season is the **second seasonal operating
+> cycle**, in which the same workflow is codified as runnable, tested
+> software - an improvement of the 2025 workflow, not a first deployment.
 
 ### How releases are tested and approved
 
@@ -217,7 +242,10 @@ Either way, close with the policy line:
 > insurance claim, or a non-Zelle payment method cannot be approved. The
 > business earns its year in about six weeks and cannot pause mid-season, so
 > nothing is permitted to become load-bearing beyond what the operator can
-> do by hand within the hour.
+> do by hand within the hour. The system fails closed at every layer: when
+> validation fails or the API is unavailable, the only paths left open are
+> the deterministic fallback and the documented manual procedure - never an
+> unreviewed or unvalidated message.
 
 ## Minimum strong packet
 
