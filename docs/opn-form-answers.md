@@ -229,9 +229,11 @@ has a hole a reviewer will find:
    2025), Marcelo Zapata (XIV) as designer and operator, the functions, human
    review before sends, 14 visits versus a prior seasonal maximum of ~5, the
    2026 renewal, and that this served real operations, not a demonstration.
-   Send it from Walter's own email account, save the sent copy as PDF, and
-   index it via `scripts\evidence_index.py` as type `statement`. No phone
-   call to OpenAI is needed.
+   Sent from the Santa company's official email account (the strongest form
+   a counterparty statement can take). Remaining: save the sent copy as PDF
+   with its headers intact so the date and sender are provable, and index it
+   via `scripts\evidence_index.py` as type `statement`. No phone call to
+   OpenAI is needed.
 2. **Redacted receipts** (or calendar/booking records) - proving the business
    operated: real customers, real dates, supporting the 14 visits and the
    40-day period.
