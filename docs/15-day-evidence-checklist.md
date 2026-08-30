@@ -67,24 +67,23 @@ suspiciously perfect one.
 ## Redacted export
 
 ```powershell
-python - <<'PY'
-import json, pathlib, os
-src = pathlib.Path(os.environ.get("MPN_LOG_DIR") or (os.environ["LOCALAPPDATA"] + r"\MiamiPapaNoel\triage")) / "production-log.jsonl"
-drop = {"location"}
-out = []
-for line in src.read_text(encoding="utf-8").splitlines():
-    if line.strip():
-        row = json.loads(line)
-        out.append({k: v for k, v in row.items() if k not in drop})
-pathlib.Path("docs/production-log-redacted.jsonl").write_text(
-    "\n".join(json.dumps(r, ensure_ascii=False) for r in out), encoding="utf-8")
-print("wrote", len(out), "rows")
-PY
+$logDir = if ($env:MPN_LOG_DIR) { $env:MPN_LOG_DIR } else { Join-Path $env:LOCALAPPDATA 'MiamiPapaNoel\triage' }
+$src = Join-Path $logDir 'production-log.jsonl'
+$outDir = Join-Path $env:LOCALAPPDATA 'MiamiPapaNoel\packets'
+$out = Join-Path $outDir 'production-log-redacted.jsonl'
+New-Item -ItemType Directory -Force $outDir | Out-Null
+$rows = Get-Content -LiteralPath $src | Where-Object { $_.Trim() } | ForEach-Object {
+    $row = $_ | ConvertFrom-Json
+    $row.PSObject.Properties.Remove('location')
+    $row | ConvertTo-Json -Compress -Depth 10
+}
+$rows | Set-Content -LiteralPath $out -Encoding utf8
+Write-Output ("wrote {0} rows to {1}" -f @($rows).Count, $out)
 ```
 
 The log already excludes message bodies, draft bodies, names, phone numbers,
 emails, and street addresses. This step drops the coarse area field as well.
-**Read the output before sending it anywhere.**
+The output stays outside the repository. **Read it before sending it anywhere.**
 
 ## What must never happen
 
