@@ -6,6 +6,7 @@ import datetime as dt
 import hashlib
 import importlib.util
 import json
+import shutil
 import sys
 import tempfile
 import unittest
@@ -206,7 +207,6 @@ class ValidatorTests(unittest.TestCase):
             self.assertFalse(self.failures(MODULE.check_placeholders(pre_cfg)))
 
     def test_git_privacy_flags_tracked_secret_files(self):
-        import shutil
         import subprocess as sp
         if shutil.which("git") is None:
             self.skipTest("git not available")
@@ -224,6 +224,77 @@ class ValidatorTests(unittest.TestCase):
             failures = self.failures(MODULE.check_git_privacy(cfg))
             self.assertTrue(any(".env" in f.detail for f in failures))
             self.assertFalse(any("inquiry-redacted" in f.detail for f in failures))
+
+    def test_complete_final_fixture_passes_in_isolation(self):
+        """Exercise every final gate with synthetic data in a temp tree only."""
+        source_root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "repo"
+            for relative in MODULE.REQUIRED_DOCS + MODULE.REQUIRED_TRIAGE_FILES:
+                source = source_root / relative
+                target = root / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, target)
+            checkout = root / "checkout.html"
+            checkout.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source_root / "checkout.html", checkout)
+
+            submission = root / "docs/OPN-SUBMISSION.md"
+            submission_text = submission.read_text(encoding="utf-8")
+            submission_text = submission_text.replace(
+                "`[TO FILL]` — recorded automatically as the first `--real` log line.",
+                "`2026-08-01` — recorded automatically as the first `--real` log line.")
+            submission_text = submission_text.replace(
+                "`[TO FILL]` — derives from the log:",
+                "`1 inquiry handled; median first-response time 3 minutes` — derives from the log:")
+            submission_text = submission_text.replace(
+                "`[TO FILL]` — written verbatim only after a configured model",
+                "`gpt-test-model` — written verbatim only after a configured model")
+            submission_text = submission_text.replace(
+                "| `[TO FILL]` | First real customer inquiry",
+                "| `2026-08-01` | First real customer inquiry")
+            submission_text = submission_text.replace(
+                "| `[TO FILL + 15]` | 15 days continuous operation reached",
+                "| `2026-08-16` | 15 days continuous operation reached")
+            submission.write_text(submission_text, encoding="utf-8")
+
+            deployment = root / "docs/production-deployment-record.md"
+            deployment_text = deployment.read_text(encoding="utf-8")
+            deployment_text = deployment_text.replace(
+                "`[TO FILL on first real inquiry]`", "`2026-08-01`")
+            deployment_text = deployment_text.replace(
+                "`[TO FILL]`", "`gpt-test-model`", 1)
+            deployment_text = deployment_text.replace(
+                "`[TO FILL]`", "`1 inquiry handled; 3-minute median first response`", 1)
+            deployment_text = deployment_text.replace("`[NOT YET MET]`", "`MET`")
+            deployment.write_text(deployment_text, encoding="utf-8")
+
+            gap = root / "docs/gap-report.md"
+            gap.write_text(gap.read_text(encoding="utf-8").replace(
+                "**NOT MET**", "**MET**"), encoding="utf-8")
+
+            log = Path(temp) / "external-log" / "production-log.jsonl"
+            self.write_log(log, [self.base_row()])
+            evidence = Path(temp) / "external-evidence"
+            artifact = evidence / "receipts" / "redacted-receipt.txt"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text("synthetic redacted receipt", encoding="utf-8")
+            digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+            evidence.mkdir(parents=True, exist_ok=True)
+            (evidence / "evidence-index.jsonl").write_text(json.dumps({
+                "ref": "E-TEST",
+                "type": "receipt",
+                "date": "2025-12-24",
+                "artifact": "receipts/redacted-receipt.txt",
+                "sha256": digest,
+                "redacted": True,
+                "notes": "synthetic dated seasonal customer operation",
+            }) + "\n", encoding="utf-8")
+
+            cfg = self.config(root, True, log, evidence)
+            findings = MODULE.run_validation(cfg)
+            failures = self.failures(findings)
+            self.assertEqual([], failures, "\n".join(f.detail for f in failures))
 
 
 if __name__ == "__main__":

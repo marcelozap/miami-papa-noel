@@ -119,7 +119,7 @@ STREET_RE = re.compile(
 # ------------------------------------------------------- claim-drift scans --
 
 MODEL_NAME_RE = re.compile(
-    r"\b(gpt-[\w.]+|chatgpt[\w.-]*|claude-[\w.-]+|gemini[\w.-]*|llama[\w.-]*|"
+    r"\b(gpt-[\w.-]+|chatgpt[\w.-]*|claude-[\w.-]+|gemini[\w.-]*|llama[\w.-]*|"
     r"mistral[\w.-]*|deepseek[\w.-]*)\b",
     re.IGNORECASE,
 )
