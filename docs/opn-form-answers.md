@@ -53,8 +53,8 @@ corroborate them are assembled per `docs/evidence-intake.md`.
 ## Deployment entry
 
 > **Miami Papa Noel**
-> Seasonal production deployment — currently between seasons, ramping for the
-> 2026 season.
+> Seasonal production deployment. 2025 seasonal production completed; the
+> 2026 seasonal workflow is reactivated and being improved.
 > Live **15 November 2025 - 24 December 2025 (40 days)**.
 > Frequency: per-booking across the active season; 14 visits delivered.
 > Operational owner: **Marcelo Zapata — built and operated.**
@@ -67,9 +67,10 @@ Read these before typing anything into the form:
   Duration = **40 days** (Nov 15 - Dec 24, 2025, inclusive). Volume =
   **14 visits**. Writing 14 in a duration field fails a bar the deployment
   clears by nearly 3x.
-- **Status wording:** "2025 production deployment completed; 2026 seasonal
-  reactivation in progress." Do not write "currently active" — it is not
-  operating today, and between-seasons is the accurate state.
+- **Status wording:** "2025 seasonal production completed; 2026 seasonal
+  workflow reactivated and being improved." Do not write "currently active",
+  and never describe it as a year-round service - it is seasonal, and
+  between-seasons is the accurate state on any day outside the season.
 - **Production model:** enter only the exact model name the records show ran
   in 2025. If the records do not name one, leave the field blank rather than
   guess — it is the field a technical reviewer checks hardest.
@@ -126,14 +127,31 @@ reviewer will ask - and the honest split reads stronger, not weaker.
 
 ### Production model or models
 
-> The 2025 season ran on **[FILL FROM RECORDS - the exact model or product
-> tier the account history shows; leave blank if the records do not name
-> one]**. For the 2026 reactivation the model is pinned explicitly: every
-> logged inquiry records the exact model id that produced its draft, and a
+Search the old account history FIRST. Then use exactly one of these two
+variants - never a guess:
+
+**Variant A - the 2025 model is verified in the records:**
+
+> The 2025 season ran on **[EXACT MODEL/TIER FROM THE ACCOUNT HISTORY]**.
+> For the 2026 reactivation the model is pinned explicitly: every logged
+> inquiry records the exact model id that produced its draft, and a
 > deterministic rules engine (`offline-rules-v1`) is the no-model fallback -
-> always logged as a fallback, never presented as a model. Our documentation
-> policy is that no model name appears anywhere before it has appeared in the
-> production log.
+> always logged as a fallback, never presented as a model.
+
+**Variant B - the 2025 records do not name a model:**
+
+> The 2025 season ran on a commercial assistant; the account records do not
+> preserve the specific model version, and we state that plainly rather than
+> guess. The 2026 reactivation removes the ambiguity: the production model is
+> **[EXACT MODEL ID FROM THE 2026 PRODUCTION LOG]**, recorded verbatim on
+> every logged inquiry, with a deterministic rules engine
+> (`offline-rules-v1`) as the no-model fallback - always logged as a
+> fallback, never presented as a model.
+
+Either way, close with the policy line:
+
+> Our documentation policy is that no model name appears anywhere before it
+> has appeared in the production log.
 
 ### How the important parts work together
 
@@ -198,6 +216,28 @@ reviewer will ask - and the honest split reads stronger, not weaker.
 > nothing is permitted to become load-bearing beyond what the operator can
 > do by hand within the hour.
 
+## Minimum strong packet
+
+Five items. With these, the submission stands; without any one of them, it
+has a hole a reviewer will find:
+
+1. **Owner confirmation email** - dated, from the company, confirming dates,
+   owner, functions, and outcome. No phone call to OpenAI is needed.
+2. **Redacted receipts** (or calendar/booking records) - proving the business
+   operated: real customers, real dates, supporting the 14 visits and the
+   40-day period.
+3. **One dated AI-workflow artifact** - a redacted screenshot or export of
+   AI-assisted drafts, lead summaries, marketing content, or follow-up
+   messages. **Receipts prove the business operated; only this proves the AI
+   component did.** Keep the two claims on separate evidence rows.
+4. **The technical explanation** - the fields above, with the model variant
+   resolved from records.
+5. **Validator and test output from the exact commit being submitted** -
+   rerun `python -m pytest` and `--preflight` at that commit and report the
+   number the run actually prints. Never reuse a count from an earlier
+   conversation or an earlier commit (63 at one commit is not 63 at the
+   next).
+
 ## Pre-submission checklist
 
 - [ ] 14-visit count confirmed exact against records
@@ -205,3 +245,6 @@ reviewer will ask - and the honest split reads stronger, not weaker.
 - [ ] Model field filled from records, or left blank
 - [ ] `python scripts\validate_opn_submission.py --preflight` passes
 - [ ] Status wording matches this document everywhere it appears
+- [ ] One dated AI-workflow artifact selected, redacted, and indexed
+- [ ] Owner confirmation email dated and indexed
+- [ ] Tests and --preflight rerun at the submitted commit; reported counts taken from that run only

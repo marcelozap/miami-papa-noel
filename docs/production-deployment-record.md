@@ -15,7 +15,7 @@
 | **Business served** | Miami Papa Noel — bilingual Santa appearance and booking business, Miami-Doral and surrounding areas |
 | **Relationship** | Miami Papa Noel is the service the performers deliver; the performers are experienced but not technical. Marcelo Zapata (XIV) proposed, built, and operates the workflow as **sole technical and operational owner**. Describe exactly this arrangement on the form; do not present it as an arms-length external enterprise customer |
 | **Prior season history** | The role-based workflow operated in production 2025-11-15 to 2025-12-24 (40 calendar days, inclusive), delivering 14 visits across hospitals, Miami-Dade County sites, Publix locations, fire and police departments, and private families - per `docs/operator-attestation-2025-season.md`. Supporting artifacts in assembly |
-| **Production status** | **2025 production deployment completed; 2026 seasonal reactivation in progress.** Not currently active - between seasons, ramping for 2026. The 2026 triage tool is built and runnable; its own production clock starts on the first real customer inquiry processed through it |
+| **Production status** | **2025 seasonal production completed; 2026 seasonal workflow reactivated and being improved.** Not currently active, and not a year-round service - seasonal by nature. The 2026 triage tool is built and runnable; its own production clock starts on the first real customer inquiry processed through it |
 | **Launch date** | `[TO FILL on first real inquiry]` — recorded automatically as `received_at` on the first `--real` log line. **Never backdated** |
 | **15-day qualification** | `[NOT YET MET]` — earliest qualification is first real inquiry + 15 days. Run `--status` for the live figure |
 

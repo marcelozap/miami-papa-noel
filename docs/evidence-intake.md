@@ -38,6 +38,7 @@ Anything with a date on it. Two or three solid items beat a large pile.
 | 5 | Written confirmation from the company | Independent corroboration of dates, owner, functions, outcome | ☐ |
 | 6 | Calendar entries | Event dates and scheduling discipline | ☐ |
 | 7 | Zelle transaction history | Payment terms in force, deposits received | ☐ |
+| 8 | **Dated AI-workflow artifact** | Redacted export/screenshot of AI-assisted drafts, lead summaries, marketing content, or follow-ups. **The only item that proves the AI component ran** | ☐ |
 
 ## 2. Redact before anything leaves the machine
 
@@ -169,3 +170,4 @@ business history. Neither has to do the other's job.
 - [ ] `[TO FILL]` rows flipped in `docs/operator-attestation-2025-season.md`
 - [ ] Relationship field in `docs/production-deployment-record.md` resolved
 - [ ] External evidence index created and validated with `--preflight`
+- [ ] Dated AI-workflow artifact redacted and indexed (item 8 - receipts alone cannot prove the AI component)
