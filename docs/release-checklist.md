@@ -14,7 +14,8 @@ copy reaches real inquiries. Approver: Marcelo Zapata.
 - [ ] `git status --short` reviewed — no `.jsonl`, `.env`, `.pem`, or `.key` staged
 - [ ] `git diff --cached` reviewed — no customer name, phone, email, or street address
 - [ ] No production log file staged (`*.jsonl` is git-ignored except the redacted example)
-- [ ] External evidence manifest, when present, passes the validator and remains outside Git
+- [ ] External evidence index, when present, passes the validator and remains outside Git
+- [ ] `scripts\evidence_index.py` used for each redacted artifact; no manual hash entry
 
 ## Price changes
 

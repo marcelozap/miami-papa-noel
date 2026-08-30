@@ -75,8 +75,13 @@ For a machine-checkable copy, create the external JSONL index described in
 ```
 
 The index contains only redacted metadata and SHA-256 hashes. The validator
-checks that every relative `path` exists outside the repository and still
+checks that every relative `artifact` path exists inside the external folder and still
 matches its hash. Do not put the index or its referenced files in Git.
+
+Use `scripts\evidence_index.py` to append the hash safely after a redacted file
+arrives. It refuses duplicate references, path escapes, future dates, and
+contact data in the note. Run `python scripts\validate_opn_submission.py
+--preflight` after indexing.
 
 ---
 

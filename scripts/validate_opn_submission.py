@@ -52,6 +52,8 @@ REQUIRED_DOCS = [
     "docs/evidence-intake.md",
     "docs/OPN-VALIDATION.md",
     "docs/evidence-manifest-schema.md",
+    "scripts/evidence_index.py",
+    "scripts/test_evidence_index.py",
 ]
 
 REQUIRED_TRIAGE_FILES = [
@@ -623,20 +625,20 @@ def check_public_surfaces(cfg: Config) -> list:
         for lineno, line in enumerate(read_text(page).splitlines(), 1):
             m = NON_ZELLE_RE.search(line)
             if m:
-                findings.append(Finding(gate(cfg), "surfaces",
+                findings.append(Finding(FAIL, "surfaces",
                                         "%s:%d non-Zelle payment method %r"
                                         % (rel, lineno, m.group(0))))
             if RETIRED_EMAIL in line:
-                findings.append(Finding(gate(cfg), "surfaces",
+                findings.append(Finding(FAIL, "surfaces",
                                         "%s:%d references %s (not yet receiving mail)"
                                         % (rel, lineno, RETIRED_EMAIL)))
             if not policy_ok and (INSURANCE_RE.search(line) or COI_RE.search(line)):
-                findings.append(Finding(gate(cfg), "surfaces",
+                findings.append(Finding(FAIL, "surfaces",
                                         "%s:%d insurance language with no verified policy"
                                         % (rel, lineno)))
             for raw in PRICE_RE.findall(line):
                 if allowed and int(raw) not in allowed:
-                    findings.append(Finding(gate(cfg), "surfaces",
+                    findings.append(Finding(FAIL, "surfaces",
                                             "%s:%d price $%s is not in the locked list"
                                             % (rel, lineno, raw)))
     if not [f for f in findings if f.level != INFO]:
@@ -688,6 +690,22 @@ def check_external_suites(cfg: Config):
     else:
         findings.append(Finding(WARN, "suites", "scripts/test_validate_opn_submission.py not found"))
 
+    evidence_tests = cfg.repo_root / "scripts/test_evidence_index.py"
+    if evidence_tests.is_file():
+        proc = subprocess.run(
+            [sys.executable, "-m", "pytest", str(evidence_tests), "-q"],
+            capture_output=True, text=True, timeout=300, cwd=str(cfg.repo_root),
+        )
+        summary = ((proc.stdout or "").strip().splitlines() or [""])[-1]
+        if proc.returncode == 0:
+            findings.append(Finding(INFO, "suites", "evidence index suite: %s" % summary))
+        else:
+            findings.append(Finding(FAIL, "suites",
+                                    "evidence index suite failed (exit %d): %s"
+                                    % (proc.returncode, summary or "no output")))
+    else:
+        findings.append(Finding(WARN, "suites", "scripts/test_evidence_index.py not found"))
+
     slot = cfg.repo_root / "scripts/validate_slot_confirmations.py"
     if slot.is_file():
         proc = subprocess.run([sys.executable, str(slot)], capture_output=True,
@@ -703,6 +721,38 @@ def check_external_suites(cfg: Config):
     return findings, actual
 
 
+GIT_FORBIDDEN_TRACKED = re.compile(
+    r"(^|/)\.env(\.|$)|\.pem$|\.key$|\.jsonl$", re.IGNORECASE)
+GIT_ALLOWED_TRACKED = {"tools/triage/examples/inquiry-redacted.jsonl"}
+
+
+def check_git_privacy(cfg: Config) -> list:
+    """No secret, key, or log file may ever be tracked in Git."""
+    if not (cfg.repo_root / ".git").exists():
+        return [Finding(INFO, "git-privacy",
+                        "not a git checkout; tracked-file scan skipped")]
+    try:
+        proc = subprocess.run(["git", "ls-files"], capture_output=True, text=True,
+                              timeout=60, cwd=str(cfg.repo_root))
+    except (OSError, subprocess.TimeoutExpired):
+        return [Finding(WARN, "git-privacy",
+                        "git unavailable; tracked-file scan skipped")]
+    if proc.returncode != 0:
+        return [Finding(WARN, "git-privacy",
+                        "git ls-files failed; tracked-file scan skipped")]
+    offenders = [line for line in proc.stdout.splitlines()
+                 if GIT_FORBIDDEN_TRACKED.search(line)
+                 and line not in GIT_ALLOWED_TRACKED]
+    findings = [Finding(FAIL, "git-privacy",
+                        "tracked file must never be in Git: %s" % line)
+                for line in offenders]
+    if not offenders:
+        findings.append(Finding(INFO, "git-privacy",
+                                "no .env, .pem, .key, or log files tracked "
+                                "(redacted example excepted)"))
+    return findings
+
+
 # ------------------------------------------------------------ orchestration --
 
 def run_validation(cfg: Config) -> list:
@@ -710,6 +760,7 @@ def run_validation(cfg: Config) -> list:
     findings += check_required_files(cfg)
     findings += check_submission_coverage(cfg)
     findings += check_placeholders(cfg)
+    findings += check_git_privacy(cfg)
 
     log_findings, earliest, models, approved_sent, model_backed = check_production_log(cfg)
     findings += log_findings

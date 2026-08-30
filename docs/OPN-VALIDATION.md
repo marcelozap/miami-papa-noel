@@ -14,7 +14,9 @@ python scripts\validate_opn_submission.py --preflight
 
 Preflight must pass the package structure, tests, Git privacy check, public
 surface safety scan, locked pricing check, and slot validator. It reports the
-production log and evidence index as `PENDING` when they do not exist yet.
+production log and evidence index as warnings while they do not
+exist yet; public-surface defects fail preflight too, because a live page
+defect is not pending evidence.
 
 ## Final packet
 
@@ -46,6 +48,18 @@ The validator reads production data only from outside Git:
 
 Use `MPN_LOG_DIR` or `MPN_EVIDENCE_DIR` when those folders must be elsewhere.
 The validator never creates, edits, uploads, or redacts evidence.
+
+After placing a redacted artifact in the external folder, index it without
+hand-editing JSONL:
+
+```powershell
+python scripts\evidence_index.py --file receipts\redacted-receipt-01.pdf `
+  --ref E-01 --type receipt --date 2025-12-24 `
+  --notes "dated seasonal customer operation" --redacted
+```
+
+The command refuses missing files, duplicate references, path escapes, future
+dates, and contact data in notes. Run preflight afterward.
 
 ## Evidence index
 
@@ -81,6 +95,24 @@ Example line with deliberately fake metadata:
 Do not commit the index or its artifacts. Keep customer names, phone
 numbers, emails, addresses, faces, Zelle memos, and account identifiers out of
 both the index and the repository.
+
+## Claim-integrity checks
+
+Both modes also verify the repository's own claims:
+
+- no model name in `docs/OPN-SUBMISSION.md` or the deployment record that
+  never appears in the production log
+- no launch or first-inquiry date that contradicts the earliest log record
+- test-count claims in the docs match what the suites actually pass
+- no tracked `.env`, `.pem`, `.key`, or `.jsonl` file in Git (the redacted
+  example is the one exception)
+
+Scaffold the empty external evidence folders and index header (no data is
+ever created) with:
+
+```powershell
+python scriptsalidate_opn_submission.py --init-evidence
+```
 
 ## Result interpretation
 
