@@ -166,5 +166,65 @@ class ValidatorTests(unittest.TestCase):
             self.assertTrue(self.failures(findings))
 
 
+    def test_surface_scan_covers_every_root_page(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "tools/triage").mkdir(parents=True)
+            (root / "tools/triage/pricing.json").write_text(
+                json.dumps({"allowed_amounts": [325]}), encoding="utf-8")
+            (root / "thank-you.html").write_text(
+                "<p>Pay by Venmo. Only $999.</p>", encoding="utf-8")
+            cfg = self.config(root, True, root / "log.jsonl", root / "evidence")
+            details = "; ".join(
+                f.detail for f in self.failures(MODULE.check_public_surfaces(cfg)))
+            self.assertIn("thank-you.html", details)
+            self.assertIn("Venmo", details)
+            self.assertIn("$999", details)
+
+    def test_retired_booking_email_blocks_even_in_preflight(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "tools/triage").mkdir(parents=True)
+            (root / "tools/triage/pricing.json").write_text(
+                json.dumps({"allowed_amounts": [325]}), encoding="utf-8")
+            (root / "book.html").write_text(
+                "<p>Email bookings@miamipapanoel.com</p>", encoding="utf-8")
+            cfg = self.config(root, False, root / "log.jsonl", root / "evidence")
+            failures = self.failures(MODULE.check_public_surfaces(cfg))
+            self.assertTrue(any("bookings@miamipapanoel.com" in f.detail
+                                for f in failures))
+
+    def test_strict_placeholders_block_final_but_not_preflight(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "docs").mkdir(parents=True)
+            (root / "docs/OPN-SUBMISSION.md").write_text(
+                "Launch date: [TO FILL]", encoding="utf-8")
+            final_cfg = self.config(root, True, root / "log.jsonl", root / "e")
+            self.assertTrue(self.failures(MODULE.check_placeholders(final_cfg)))
+            pre_cfg = self.config(root, False, root / "log.jsonl", root / "e")
+            self.assertFalse(self.failures(MODULE.check_placeholders(pre_cfg)))
+
+    def test_git_privacy_flags_tracked_secret_files(self):
+        import shutil
+        import subprocess as sp
+        if shutil.which("git") is None:
+            self.skipTest("git not available")
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            sp.run(["git", "init", "-q"], cwd=temp, check=True)
+            (root / ".env").write_text("SECRET=x", encoding="utf-8")
+            allowed = root / "tools/triage/examples"
+            allowed.mkdir(parents=True)
+            (allowed / "inquiry-redacted.jsonl").write_text("{}", encoding="utf-8")
+            sp.run(["git", "add", "-f", ".env",
+                    "tools/triage/examples/inquiry-redacted.jsonl"],
+                   cwd=temp, check=True)
+            cfg = self.config(root, True, root / "log.jsonl", root / "e")
+            failures = self.failures(MODULE.check_git_privacy(cfg))
+            self.assertTrue(any(".env" in f.detail for f in failures))
+            self.assertFalse(any("inquiry-redacted" in f.detail for f in failures))
+
+
 if __name__ == "__main__":
     unittest.main()

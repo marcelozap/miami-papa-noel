@@ -10,6 +10,7 @@ copy reaches real inquiries. Approver: Marcelo Zapata.
 - [ ] `python -m pytest tools\triage\test_triage.py -q` — all tests pass
 - [ ] `python scripts\validate_slot_confirmations.py` — passes
 - [ ] `python scripts\validate_opn_submission.py --preflight` — package and safety checks pass
+- [ ] Before any OPN submission: `python scripts\validate_opn_submission.py --final` must PASS - never submit around a FAIL
 - [ ] `python tools\triage\triage.py --demo` — four synthetic inquiries render, all gates PASS
 - [ ] `git status --short` reviewed — no `.jsonl`, `.env`, `.pem`, or `.key` staged
 - [ ] `git diff --cached` reviewed — no customer name, phone, email, or street address
