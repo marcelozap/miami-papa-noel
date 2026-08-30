@@ -111,7 +111,7 @@ Scaffold the empty external evidence folders and index header (no data is
 ever created) with:
 
 ```powershell
-python scriptsalidate_opn_submission.py --init-evidence
+python scripts\validate_opn_submission.py --init-evidence
 ```
 
 ## Result interpretation
