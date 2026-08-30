@@ -56,6 +56,7 @@ Open `business/` for the operating docs:
 The local, fail-closed submission workflow lives in `docs/` and `scripts/`:
 
 - `docs/OPN-SUBMISSION.md` - current submission narrative and evidence fields
+- `docs/opn-resubmission-field-map.md` - exact assessment sections to update
 - `docs/OPN-VALIDATION.md` - preflight, final validation, and packet commands
 - `docs/evidence-intake.md` - redaction and receipt-intake procedure
 - `scripts/validate_opn_submission.py` - local validator

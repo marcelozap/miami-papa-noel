@@ -34,6 +34,7 @@ class PacketBuilderTests(unittest.TestCase):
                 self.assertIn("business/AGENT-ROLES.md", names)
                 self.assertIn("business/insurance-and-wave1-preflight.md", names)
                 self.assertIn("docs/OPN-SUBMISSION.md", names)
+                self.assertIn("docs/opn-resubmission-field-map.md", names)
                 self.assertIn("scripts/test_build_opn_packet.py", names)
                 self.assertNotIn("lead-tracker.csv", names)
                 self.assertNotIn("production-log.jsonl", names)

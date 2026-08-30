@@ -41,6 +41,7 @@ QUALIFYING_DAYS = 15
 
 REQUIRED_DOCS = [
     "docs/OPN-SUBMISSION.md",
+    "docs/opn-resubmission-field-map.md",
     "docs/production-deployment-record.md",
     "docs/agent-workflow-architecture.md",
     "docs/release-monitoring-and-failure-handling.md",

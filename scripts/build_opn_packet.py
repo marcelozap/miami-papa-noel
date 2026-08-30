@@ -28,6 +28,7 @@ PACKET_FILES = (
     "business/AGENT-ROLES.md",
     "business/insurance-and-wave1-preflight.md",
     "docs/OPN-SUBMISSION.md",
+    "docs/opn-resubmission-field-map.md",
     "docs/production-deployment-record.md",
     "docs/agent-workflow-architecture.md",
     "docs/release-monitoring-and-failure-handling.md",
