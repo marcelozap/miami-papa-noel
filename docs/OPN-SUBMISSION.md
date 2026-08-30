@@ -102,12 +102,12 @@ against real inquiry samples once enough have accumulated.
 |---|---|
 | **Active customer AI deployment** | Built and runnable; enters production on the first real inquiry |
 | **Launch date / status** | `[TO FILL]` — recorded automatically as the first `--real` log line. Never backdated |
-| **Operational owner** | Marcelo Zapata — sole operator, sole committer across 76 commits |
+| **Operational owner** | Marcelo Zapata — sole operator and sole committer in the repository history |
 | **Live AI functionality** | Configured Responses API path for structured extraction and bilingual drafting, with deterministic extraction and drafting as the tested fallback; six enforced gates |
 | **Concrete outcome** | `[TO FILL]` — derives from the log: inquiries handled, median first-response time, share approved unedited, rejection rate, fallback rate |
 | **Production model** | `[TO FILL]` — written verbatim only after a configured model produces a validated draft. The default remains `offline-rules-v1` with `fallback_used: true` |
 | **How components work together** | `docs/agent-workflow-architecture.md` — state graph with per-step build state |
-| **Testing and release approval** | 43 passing tests; `docs/release-checklist.md`. Single-operator approval, stated plainly |
+| **Testing and release approval** | 43 passing tests; `docs/release-checklist.md`; local submission preflight in `scripts/validate_opn_submission.py`. Single-operator approval, stated plainly |
 | **Production monitoring** | Logging layer built and tested; `tools/triage/log-schema.md` |
 | **Failure handling** | Automatic fallback to deterministic mode; full manual procedure if the tool is unavailable |
 | **≥15 days production** | **Not yet met.** The only outstanding blocker, and it is elapsed time |
@@ -122,7 +122,8 @@ cd miami-papa-noel
 python -m pytest tools\triage\test_triage.py -q      # 43 passed
 python tools\triage\triage.py --demo                 # 4 synthetic inquiries, end to end
 python scripts\validate_slot_confirmations.py        # Slot validation passed.
-python tools\triage\triage.py --status               # production clock
+    python tools\triage\triage.py --status               # production clock
+    python scripts\validate_opn_submission.py --preflight # package and safety preflight
 ```
 
 No install, no key, and no network required — those commands exercise the

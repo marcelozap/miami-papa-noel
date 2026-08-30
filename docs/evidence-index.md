@@ -45,10 +45,10 @@ with production use · `N/A` = does not exist
 | Repeat seasonal operation | `assets/extra/20231210_*.jpg`, `20231214_*.jpg` | 2023-12-10, 2023-12-14 | VERIFIED |
 | Public website | 28 tracked HTML pages incl. `index`, `book`, `checkout`, `christmas-eve`, `hoa-apartments`, `schools-daycares`, `service-areas`, `partners`, `reviews`, `after-visit` | 2026-08-28 | VERIFIED |
 | Domain | `miamipapanoel.com` (canonical tags in `checkout.html`) | 2026-08-28 | VERIFIED in source; live uptime `[TO FILL]` |
-| Published price list | `checkout.html` — $325 / $450 / $500 / $375 / $550 / $275 / $600 / $850, travel $45 | 2026-08-28 | VERIFIED |
+| Published price list | `checkout.html` — $195 / $325 / $450 / $425 / $500 / $375 / $550 / $275 / $600 / $850, travel $45 | 2026-08-28 | VERIFIED |
 | Deposit terms | `checkout.html` — 50% non-refundable, balance on arrival | 2026-08-28 | VERIFIED |
 | Zelle-only payment | `checkout.html` — "Zelle to 305-244-0360" | 2026-08-28 | VERIFIED |
-| Sustained development | 76 commits, single committer | 2026-06-10 → 2026-08-28 | VERIFIED |
+| Sustained development | 77 commits, single committer | 2026-06-10 → 2026-08-29 | VERIFIED |
 | Booking procedure formalized | `business/booking-sop.md` | 2026-06-10 | VERIFIED |
 | Bilingual reply library | `business/lead-reply-bank.md` | 2026-06-15 | VERIFIED |
 | Role architecture: Scout, Dispatcher, Concierge, Bookkeeper | `business/AGENT-ROLES.md` | 2026-08-26 | VERIFIED |
@@ -73,7 +73,7 @@ Findings from the required checks. Two are resolved in this working tree; one re
 | Production logs excluded from Git | **RESOLVED** — logs default to `%LOCALAPPDATA%`, and `*.jsonl` is git-ignored except the redacted example |
 | **Unverified insurance claims** | **RESOLVED in this working tree** — `checkout.html` and `business/content-engine.html` use policy-neutral wording. `business/insurance-and-wave1-preflight.md` remains the authority before any insurance or COI language is restored |
 | **Non-Zelle payment methods** | **RESOLVED** — `business/account-setup-checklist.md` now lists Zelle only and prohibits Cash App, Venmo, Square, Stripe, card, and wire instructions |
-| **Pricing inconsistency** | **ACTION REQUIRED** — `business/offer-and-pricing.md` documents only $325 / $450 / $500, while $275, $550, $600, and $850 are published on `checkout.html` and used in `business/lead-reply-bank.md`. The triage tool locks to the `checkout.html` figures; `offer-and-pricing.md` should be reconciled to match |
+| **Pricing inconsistency** | **RESOLVED** — `business/offer-and-pricing.md`, `checkout.html`, and `tools/triage/pricing.json` contain the same locked rate card, including $195, $425, $275, $550, $600, $850, and $45 travel |
 | Automation overclaims | **CLEAN in this package** — no phone, WhatsApp, payment, or autonomous-agent automation is claimed anywhere. `business/AGENT-ROLES.md` describes operating roles performed by a human, and is not presented as running software |
 
 ## Privacy status

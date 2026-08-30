@@ -2,7 +2,7 @@
 
 **Deployment:** Miami Papa Noel — AI-assisted bilingual inquiry triage
 **Recorded:** 2026-08-29
-**Repository:** `miami-papa-noel` (76 commits, 2026-06-10 → 2026-08-28)
+**Repository:** `miami-papa-noel` (77 commits, 2026-06-10 → 2026-08-29)
 
 ---
 
@@ -23,7 +23,7 @@
 
 | Field | Value |
 |---|---|
-| **Operational owner** | Marcelo Zapata — sole operator, sole committer on all 76 commits |
+| **Operational owner** | Marcelo Zapata — sole operator, sole committer on all 77 commits |
 | **Reviewer of record** | Marcelo Zapata (`reviewer` field on every log line) |
 | **Release approval** | Single-operator. Documented in `docs/release-checklist.md` |
 | **Human approval gate** | **Mandatory and unskippable.** The tool has no send path. The operator types `APPROVE`, then copies the draft into the customer channel by hand |

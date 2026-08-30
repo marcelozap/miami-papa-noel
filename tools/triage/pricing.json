@@ -94,7 +94,7 @@
     "_comment": "Zelle only. Do not add Cash App, Venmo, Square, Stripe, wire, or card processing to any customer surface."
   },
 
-  "allowed_amounts": [195, 325, 450, 500, 375, 550, 275, 600, 850, 150, 45],
+  "allowed_amounts": [195, 325, 450, 425, 500, 375, 550, 275, 600, 850, 150, 45],
 
   "high_risk_dates": {
     "_comment": "Dates that fill first. Any inquiry landing on one carries schedule risk by default.",

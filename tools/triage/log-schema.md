@@ -25,7 +25,7 @@ except the redacted example in `tools/triage/examples/`.
 | `channel` | enum | `instagram_dm` · `whatsapp` · `email` · `phone` · `web_form` · `referral` |
 | `language` | `en` \| `es` | Detected language of the customer's message |
 | `requested_date` | ISO date \| null | Event date. `null` when the customer did not state one — never inferred from a bare month |
-| `category` | enum \| null | `family_visit` · `event_visit` · `christmas_eve` · `christmas_eve_late` · `hoa_community` · `school_daycare` · `corporate` |
+| `category` | enum \| null | `family_visit` · `event_visit` · `christmas_eve` · `christmas_eve_late` · `jingle` · `photographer` · `hoa_community` · `school_daycare` · `corporate` |
 | `missing_fields` | array | What the customer still has to supply |
 | `model` | string | **Exact** model id that ran, or `offline-rules-v1` for deterministic mode. Never a guess |
 | `prompt_version` | string | Version of the triage prompt/logic, e.g. `triage-v1.0.0` |
@@ -34,7 +34,7 @@ except the redacted example in `tools/triage/examples/`.
 | `sent_at` | ISO 8601 \| null | When the operator actually sent it in the customer channel. **Filled in by hand — the tool cannot send** |
 | `fallback_used` | bool | `true` when the deterministic offline path produced the draft |
 | `outcome` | enum | `pending_review` · `approved_awaiting_send` · `approved_and_sent` · `rejected_by_operator` · `blocked_by_validation` |
-| `error_code` | string \| null | `VALIDATION_FAIL`, `MODEL_UNAVAILABLE`, `PARSE_ERROR`, or `null` |
+| `error_code` | string \| null | `VALIDATION_FAIL`, `MODEL_UNAVAILABLE`, `MODEL_HTTP_ERROR`, `MODEL_PARSE_ERROR`, `MODEL_SCHEMA_ERROR`, `MODEL_OUTPUT_VALIDATION_FAIL`, `TOOL_UNAVAILABLE`, or `null` |
 
 Supporting fields also written: `location`, `contact_status`, `schedule_risk`,
 `schedule_risk_reason`, `price_list_version`, `real_customer`.

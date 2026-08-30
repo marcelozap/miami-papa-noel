@@ -77,7 +77,7 @@ These are in the repository or the asset library and need no collection:
 | `business/lead-reply-bank.md` | 2026-06-15 | Bilingual reply library |
 | `business/AGENT-ROLES.md` | 2026-08-26 | Role architecture: Scout, Dispatcher, Concierge, Bookkeeper |
 | `business/seasonal-ops-workflow.md` | 2026-08-28 | End-to-end seasonal workflow |
-| Repository history | 2026-06-10 → 2026-08-28 | 76 commits, single operator |
+| Repository history | 2026-06-10 → 2026-08-29 | 77 commits, single operator |
 
 ---
 

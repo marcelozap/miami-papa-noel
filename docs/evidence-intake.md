@@ -67,6 +67,17 @@ When rows are filled, copy the finished table into `docs/evidence-index.md`
 under a new **Prior season — dated artifacts** heading, and flip the matching
 `[TO FILL]` rows in `docs/operator-attestation-2025-season.md`.
 
+For a machine-checkable copy, create the external JSONL index described in
+`docs/evidence-manifest-schema.md`:
+
+```text
+%LOCALAPPDATA%\MiamiPapaNoel\evidence\evidence-index.jsonl
+```
+
+The index contains only redacted metadata and SHA-256 hashes. The validator
+checks that every relative `path` exists outside the repository and still
+matches its hash. Do not put the index or its referenced files in Git.
+
 ---
 
 ## 4. Statement to request from the company
@@ -148,3 +159,4 @@ business history. Neither has to do the other's job.
 - [ ] Table copied into `docs/evidence-index.md`
 - [ ] `[TO FILL]` rows flipped in `docs/operator-attestation-2025-season.md`
 - [ ] Relationship field in `docs/production-deployment-record.md` resolved
+- [ ] External evidence index created and validated with `--preflight`

@@ -21,7 +21,7 @@ count toward the 15-day requirement.
 
 ## 2. Who approves releases
 
-**Marcelo Zapata — sole operator, sole committer across all 76 commits.** One
+**Marcelo Zapata — sole operator and sole committer in the repository history.** One
 person proposes, tests, and approves. That is accurate for a business this size
 and is stated rather than dressed up as a review board.
 
@@ -36,13 +36,12 @@ mirroring `checkout.html` as published. Gate G4 fails any draft containing a
 figure outside `allowed_amounts`. The version stamp on every log line means any
 draft can be traced to the exact price list that produced it.
 
-*Known inconsistency, open:* `business/offer-and-pricing.md` documents only
-$325 / $450 / $500, while $275, $550, $600, and $850 are live on `checkout.html`
-and used in `business/lead-reply-bank.md`. The tool locks to the published
-`checkout.html` figures. `offer-and-pricing.md` needs reconciling — tracked in
-`docs/gap-report.md`.
+`business/offer-and-pricing.md` is reconciled with `checkout.html` and the
+locked list, including the Jingle, peak, school, HOA, photographer, late
+Christmas Eve, and travel figures. The local submission validator checks every
+customer-surface dollar figure against `pricing.json`.
 
-**Bilingual parity.** Gate G7 extracts money and duration tokens from both
+**Bilingual parity.** The bilingual parity gate extracts money and duration tokens from both
 drafts and compares them. Differing prices are a `FAIL`; differing durations a
 `WARN`. An empty draft in either language is a `FAIL`. The rule: **the two
 languages must carry identical commercial terms.** A Spanish quote stating a
@@ -74,7 +73,7 @@ acceptance, no stored instrument. The system never moves money.
 | Balance unpaid before event | Due on arrival per published terms; Christmas Eve balances collected before Dec 24 |
 | Deposit received but slot gone | Refund immediately and in full, offer the nearest slot |
 
-The tool is structurally incapable of saying a deposit was received — gate G8
+The tool is structurally incapable of saying a deposit was received — the unsafe-confirmation gate
 blocks that phrasing in English and Spanish, accent-insensitively.
 
 ## 6. Incomplete customer information
@@ -148,8 +147,8 @@ this date, this amount" without relying on memory in mid-December.
 
 ## 11. Open safety items
 
-The pre-implementation audit found three items. Two are now resolved; pricing
-documentation remains open and is tracked in `docs/gap-report.md`:
+The pre-implementation audit found three items. All three are resolved in the
+current working tree; the validator keeps them from regressing:
 
 1. **Insurance language on customer surfaces — RESOLVED in this working tree.**
    `checkout.html` now uses policy-neutral copy, and
@@ -159,5 +158,5 @@ documentation remains open and is tracked in `docs/gap-report.md`:
 2. **Non-Zelle methods recommended internally — RESOLVED.**
    `business/account-setup-checklist.md` now lists Zelle only and explicitly
    prohibits Cash App, Venmo, Square, Stripe, card, and wire instructions.
-3. **Pricing doc out of sync.** `business/offer-and-pricing.md` omits four
-   figures that are live on the site.
+3. **Pricing documentation — RESOLVED.** `business/offer-and-pricing.md`,
+   `checkout.html`, and `tools/triage/pricing.json` share the locked rate card.

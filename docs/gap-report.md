@@ -19,12 +19,12 @@ closes each item.
 | 5 | Concrete outcome | **PENDING** — metrics derive automatically once rows exist |
 | 6 | Production model(s) | **PENDING** — recorded verbatim per log line; deterministic mode is the default |
 | 7 | How components work together | **MET** — `docs/agent-workflow-architecture.md` |
-| 8 | Testing and release approval | **MET** — 40 passing tests, `docs/release-checklist.md` |
+| 8 | Testing and release approval | **MET** — 43 passing tests, `docs/release-checklist.md`, and local OPN preflight validator |
 | 9 | Production monitoring | **BUILT** — logging layer tested; awaiting real rows |
 | 10 | Failure handling | **MET** — automatic fallback plus a full manual procedure |
 | 11 | ≥15 days production operation | **NOT MET** — clock starts on the first real inquiry |
 
-**The main evidence gap is elapsed time.** The model-backed path is built,
+**The main evidence gap is real production evidence and elapsed time.** The model-backed path is built,
 tested, and documented, but a production model is not recorded until the
 operator configures one and a real inquiry passes through it. What does not
 yet exist is 15 days of real inquiries flowing through the deployment, and
@@ -118,15 +118,14 @@ prohibits Cash App, Venmo, Square, Stripe, card, and wire instructions.
 Customer-facing surfaces remain Zelle-only, and the tool blocks every other
 method.
 
-### 3. Pricing documentation out of sync
+### 3. Pricing documentation out of sync — RESOLVED
 
-`business/offer-and-pricing.md` documents $325 / $450 / $500 only. Live on
-`checkout.html` and in use in `business/lead-reply-bank.md`: also $275, $550,
-$600, $850, and the $45 travel fee.
+`business/offer-and-pricing.md` now matches `checkout.html` and
+`tools/triage/pricing.json`, including $195, $425, $275, $550, $600, $850, and
+the $45 travel fee.
 
-The tool locks to the published `checkout.html` figures, so quotes are correct.
-**Fix:** update `offer-and-pricing.md` to match, or mark it explicitly as an
-early framework superseded by `checkout.html`.
+The tool and public price table are now aligned. The validator checks every
+customer-surface dollar figure against the locked list.
 
 ---
 
@@ -147,8 +146,8 @@ submission does not depend on it.
 ## What to submit, and when
 
 **Now:** the architecture, the running tool, the test results, the release and
-monitoring documentation, and this report — with the qualification date stated
-plainly.
+monitoring documentation, the evidence intake, and the local preflight — with
+the qualification date stated plainly.
 
 **On qualification:** the production log, launch date, model, and measured
 outcomes.
