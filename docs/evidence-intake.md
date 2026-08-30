@@ -5,8 +5,11 @@ how to redact them first.
 
 **Rule that governs everything below: no customer data enters this repository.**
 Receipts, screenshots, and message exports live in a local evidence folder
-outside Git. What comes into the repo is the *index* — dates, identifiers,
-amounts, and what each item establishes.
+outside Git. The repository carries the human evidence table; the
+machine-readable JSONL index and redacted files stay in the external folder.
+The manual table below may record a service type, amount, and a non-sensitive
+reference identifier, while the JSONL keeps only its enforced safe metadata
+and hash.
 
 ```
 Evidence folder (outside Git):
@@ -46,8 +49,9 @@ Strip, every time:
 - Zelle memo text and account identifiers
 - Faces of children, and any school or HOA name that did not consent
 
-**Keep visible:** the date, the amount, the service type, and any identifier you
-need to reference the item. The date is the whole point — a redacted receipt
+**Keep visible:** the date, the amount, the service type, and only a
+non-sensitive reference identifier you need to cite the item. Remove account
+identifiers and memo text. The date is the whole point — a redacted receipt
 with a legible date is evidence; a clean one with the date blurred is not.
 
 ## 3. Index each item here as it arrives
