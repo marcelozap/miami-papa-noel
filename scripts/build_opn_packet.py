@@ -47,6 +47,7 @@ PACKET_FILES = (
     "scripts/evidence_index.py",
     "scripts/test_validate_opn_submission.py",
     "scripts/test_evidence_index.py",
+    "scripts/test_build_opn_packet.py",
 )
 
 
