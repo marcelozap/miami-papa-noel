@@ -30,6 +30,7 @@ class PacketBuilderTests(unittest.TestCase):
             with zipfile.ZipFile(packet) as archive:
                 names = set(archive.namelist())
                 self.assertIn("PACKET-MANIFEST.json", names)
+                self.assertIn("README.md", names)
                 self.assertIn("docs/OPN-SUBMISSION.md", names)
                 self.assertIn("scripts/test_build_opn_packet.py", names)
                 self.assertNotIn("lead-tracker.csv", names)

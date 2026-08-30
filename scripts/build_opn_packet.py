@@ -24,6 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = "opn-submission-packet.zip"
 PACKET_FILES = (
+    "README.md",
     "docs/OPN-SUBMISSION.md",
     "docs/production-deployment-record.md",
     "docs/agent-workflow-architecture.md",
