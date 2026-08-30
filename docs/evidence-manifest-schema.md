@@ -61,3 +61,7 @@ identifier legible - a receipt with a blurred date is not evidence.
 Never commit the index or its artifacts. `.gitignore` excludes `*.jsonl`, and
 the validator's git-privacy check fails if any log, key, or env file is ever
 tracked.
+
+The final submission ZIP is built separately with
+`python scripts\build_opn_packet.py --final`. It includes the evidence index
+metadata when present, but never includes the referenced customer artifacts.

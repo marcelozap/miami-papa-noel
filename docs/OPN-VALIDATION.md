@@ -61,6 +61,16 @@ python scripts\evidence_index.py --file receipts\redacted-receipt-01.pdf `
 The command refuses missing files, duplicate references, path escapes, future
 dates, and contact data in notes. Run preflight afterward.
 
+To create a shareable draft packet from the allowlisted repository files:
+
+```powershell
+python scripts\build_opn_packet.py --preflight
+```
+
+The ZIP is written outside the repository and contains no customer evidence.
+Use `--final` only after the final validator passes; it refuses to create a
+final packet around any blocker.
+
 ## Evidence index
 
 The index is JSONL metadata only: one object per line. Each artifact must be

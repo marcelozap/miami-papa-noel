@@ -54,6 +54,8 @@ REQUIRED_DOCS = [
     "docs/evidence-manifest-schema.md",
     "scripts/evidence_index.py",
     "scripts/test_evidence_index.py",
+    "scripts/build_opn_packet.py",
+    "scripts/test_build_opn_packet.py",
 ]
 
 REQUIRED_TRIAGE_FILES = [
@@ -705,6 +707,22 @@ def check_external_suites(cfg: Config):
                                     % (proc.returncode, summary or "no output")))
     else:
         findings.append(Finding(WARN, "suites", "scripts/test_evidence_index.py not found"))
+
+    packet_tests = cfg.repo_root / "scripts/test_build_opn_packet.py"
+    if packet_tests.is_file():
+        proc = subprocess.run(
+            [sys.executable, "-m", "pytest", str(packet_tests), "-q"],
+            capture_output=True, text=True, timeout=300, cwd=str(cfg.repo_root),
+        )
+        summary = ((proc.stdout or "").strip().splitlines() or [""])[-1]
+        if proc.returncode == 0:
+            findings.append(Finding(INFO, "suites", "packet builder suite: %s" % summary))
+        else:
+            findings.append(Finding(FAIL, "suites",
+                                    "packet builder suite failed (exit %d): %s"
+                                    % (proc.returncode, summary or "no output")))
+    else:
+        findings.append(Finding(WARN, "suites", "scripts/test_build_opn_packet.py not found"))
 
     slot = cfg.repo_root / "scripts/validate_slot_confirmations.py"
     if slot.is_file():
