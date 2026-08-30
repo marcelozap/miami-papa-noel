@@ -229,11 +229,21 @@ has a hole a reviewer will find:
    2025), Marcelo Zapata (XIV) as designer and operator, the functions, human
    review before sends, 14 visits versus a prior seasonal maximum of ~5, the
    2026 renewal, and that this served real operations, not a demonstration.
-   Sent from the Santa company's official email account (the strongest form
-   a counterparty statement can take). Remaining: save the sent copy as PDF
-   with its headers intact so the date and sender are provable, and index it
-   via `scripts\evidence_index.py` as type `statement`. No phone call to
-   OpenAI is needed.
+   Provenance note: the business email account was set up by Marcelo and
+   displays his name, because the performers are not technical - that is
+   consistent with the whole submission, but the statement must be genuinely
+   Walter's and visibly so. Complete it one of these ways, strongest first:
+   (a) Walter signs and dates a printed copy by hand; photograph or scan it -
+   his phone number on the letter lets a reviewer verify directly;
+   (b) Walter sends it from his own personal email account, however plain;
+   (c) the business account is used with the display name corrected to
+   "Miami Papa Noel" AND one added line: "Marcelo set up and administers our
+   business email as part of the technology he manages for us."
+   Best: (a) attached to (c). Never present the account as independent of
+   the applicant when it is not. Then save the sent/signed copy as PDF with
+   headers or signature visible, and index it via
+   `scripts\evidence_index.py` as type `statement`. No phone call to OpenAI
+   is needed.
 2. **Redacted receipts** (or calendar/booking records) - proving the business
    operated: real customers, real dates, supporting the 14 visits and the
    40-day period.
