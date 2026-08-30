@@ -18,7 +18,7 @@ import subprocess
 import sys
 import tempfile
 import zipfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -140,8 +140,9 @@ def verify_packet(packet: Path) -> dict:
                 digest = entry.get("sha256")
                 if not isinstance(relative, str) or not relative or relative.startswith("/"):
                     raise ValueError("packet manifest contains an unsafe file path")
-                parts = Path(relative).parts
-                if ".." in parts or "\\" in relative:
+                parts = PurePosixPath(relative).parts
+                if (not parts or relative.startswith(("/", "\\"))
+                        or ".." in parts or ":" in parts[0] or "\\" in relative):
                     raise ValueError("packet manifest contains an unsafe file path")
                 if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
                     raise ValueError(f"packet manifest has an invalid hash for {relative}")

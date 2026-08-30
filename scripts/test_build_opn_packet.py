@@ -71,6 +71,24 @@ class PacketBuilderTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "hash mismatch"):
                 MODULE.verify_packet(tampered)
 
+    def test_packet_absolute_manifest_path_is_rejected(self):
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temp:
+            packet = MODULE.build_packet(root, Path(temp) / "packet.zip", "preflight",
+                                         evidence_dir=Path(temp) / "empty-evidence",
+                                         validate=False)
+            rewritten = Path(temp) / "absolute-path.zip"
+            with zipfile.ZipFile(packet) as source, zipfile.ZipFile(rewritten, "w") as target:
+                manifest = json.loads(source.read("PACKET-MANIFEST.json"))
+                manifest["files"][0]["path"] = "C:/outside.txt"
+                for info in source.infolist():
+                    data = (json.dumps(manifest, indent=2) + "\n").encode()
+                    if info.filename != "PACKET-MANIFEST.json":
+                        data = source.read(info.filename)
+                    target.writestr(info, data)
+            with self.assertRaisesRegex(ValueError, "unsafe file path"):
+                MODULE.verify_packet(rewritten)
+
 
 if __name__ == "__main__":
     unittest.main()
