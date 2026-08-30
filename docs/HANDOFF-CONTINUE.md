@@ -5,6 +5,24 @@ anything else on the laptop.
 
 ---
 
+## THE SIMPLE VERSION - only four things are actually left
+
+All the writing, tools, and tests are DONE. What remains is four real-world
+actions. Everything below this box is just detail supporting these four:
+
+1. **Walter signs the letter.** Print it, he signs and dates it, photograph it.
+2. **Find one receipt or booking record** from Nov-Dec 2025 (a Zelle entry,
+   a calendar screenshot - anything dated). Cover names/numbers with a finger
+   or crop; leave the date visible.
+3. **Find one screenshot of the AI drafting** from that season - any saved
+   chat where it wrote a customer message, a caption, or a lead summary.
+4. **Check your old chat account settings/history for which model/plan you
+   had.** Found it: use it. Not there: the form copy already says "not
+   retained" for you - that answer is written and it is fine.
+
+Then open `docs/opn-form-answers.md`, copy the answers into the form, done.
+That file was written so you never have to compose a sentence under pressure.
+
 ## 0. Get the work onto the laptop
 
 **On the desktop, before you leave it** (the repo is 4 commits ahead of
