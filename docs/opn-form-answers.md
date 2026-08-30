@@ -93,6 +93,111 @@ Read these before typing anything into the form:
   belong in the forward-looking line only. Last season's entry describes last
   season.
 
+## Technical explanation fields
+
+Finished copy for the form's technical questions. Each answer separates what
+operated in the 2025 season from what the 2026 reactivation adds, because a
+reviewer will ask - and the honest split reads stronger, not weaker.
+
+### Operational owner
+
+> Marcelo Zapata - built and operated. I proposed the system, implemented it,
+> and ran it day to day as sole technical and operational owner. The
+> performers deliver the service; every message, schedule, and payment record
+> passed through me.
+
+### Live AI functionality
+
+> Bilingual (EN/ES) customer communications, marketing and content
+> generation, summarisation of incoming leads into pre-visit briefs, and
+> follow-up drafting - operated through themed role workflows (Santa,
+> Mrs. Claus, the elves), each owning one lane of the operation. Every
+> customer-facing output was reviewed by me before sending. Scheduling,
+> logistics, and payment tracking were the manual operational surround, not
+> AI functions, and are not claimed as such.
+
+### Concrete outcome
+
+> 14 visits delivered across a 40-day operating season (15 November -
+> 24 December 2025), spanning hospitals, Miami-Dade County sites, Publix
+> locations, fire and police departments, and private families. The
+> operational load moved off the non-technical performers entirely. The
+> client is running the workflow again for the 2026 season.
+
+### Production model or models
+
+> The 2025 season ran on **[FILL FROM RECORDS - the exact model or product
+> tier the account history shows; leave blank if the records do not name
+> one]**. For the 2026 reactivation the model is pinned explicitly: every
+> logged inquiry records the exact model id that produced its draft, and a
+> deterministic rules engine (`offline-rules-v1`) is the no-model fallback -
+> always logged as a fallback, never presented as a model. Our documentation
+> policy is that no model name appears anywhere before it has appeared in the
+> production log.
+
+### How the important parts work together
+
+> An inquiry enters from a customer channel and flows through one pipeline:
+> language detection (EN/ES) and structured extraction (date, service
+> category, location, what is still missing) -> schedule and capacity risk
+> flagging against the season's first-to-fill dates -> reply drafting in
+> both languages from a locked, versioned price list -> six validation gates
+> (locked pricing, EN/ES commercial parity, missing-information handling, no
+> booking- or deposit-confirmation language, no insurance claims while the
+> policy is unverified, Zelle-only payment terms) -> mandatory human
+> approval. The tool has no send path: the operator copies the approved
+> draft into the channel, and a structured log line ties every draft to the
+> model id, prompt version, and price-list version that produced it. In 2025
+> the same pipeline was operated through the themed role workflows with the
+> operator as the integration point; the 2026 reactivation codifies it as
+> runnable, tested software.
+
+### How releases are tested and approved
+
+> Automated suites cover extraction, bilingual parity, and adversarial
+> negative cases that prove each safety gate blocks rather than warns. A
+> repository-wide validator additionally checks every public page against
+> the locked price list, forbidden payment methods, unverified insurance
+> language, and documentation drift (test counts, model names, and launch
+> dates that no longer match reality). Releases are approved by the
+> operational owner against a written checklist; a price change ships in the
+> same commit as the public page it mirrors. A fail-closed submission
+> validator (--preflight / --final) gates any external claim: final mode
+> exits non-zero until every requirement is backed by real, dated evidence.
+> In 2025, testing was operator review of every output; the 2026
+> reactivation formalised it into the suites above.
+
+### Production monitoring
+
+> Every inquiry appends one structured JSONL record, stored outside the
+> repository: timestamps, channel, language, extraction results, schedule
+> risk, model id, prompt and price-list versions, reviewer, approval and
+> send times, outcome, and fallback/error codes. Message bodies and customer
+> contact data are never logged - location is a coarse area, and the log
+> records whether a phone or email was supplied, never the value. Every
+> reported metric (inquiries handled, median first-response time, approval
+> rate, fallback rate, language split) derives from this log, so nothing can
+> drift from what actually happened. In 2025 monitoring was manual
+> operator tracking; the 2026 reactivation makes it structured and
+> machine-checkable from the first real inquiry.
+
+### Failure handling
+
+> Three layers. First, if the model is unavailable, times out, returns
+> unparseable output, or produces a draft that fails any validation gate,
+> the system falls back automatically to the deterministic path and records
+> the reason as an error code - the unsafe draft never reaches the operator.
+> Second, if the tool itself is unavailable, a documented manual procedure
+> carries the full price table, deposit terms, Zelle details, and the rules
+> about what may never be written to a customer; manually handled inquiries
+> are logged as fallbacks with the cause, so outages appear in the record
+> instead of hiding in it. Third, at the draft level, any gate failure
+> blocks approval entirely - a bad price, a confirmation phrase, an
+> insurance claim, or a non-Zelle payment method cannot be approved. The
+> business earns its year in about six weeks and cannot pause mid-season, so
+> nothing is permitted to become load-bearing beyond what the operator can
+> do by hand within the hour.
+
 ## Pre-submission checklist
 
 - [ ] 14-visit count confirmed exact against records
