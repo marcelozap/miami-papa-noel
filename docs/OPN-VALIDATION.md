@@ -39,6 +39,9 @@ Final mode fails closed unless all of these are true:
 - Public customer surfaces remain Zelle-only, policy-safe, and aligned with
   `tools/triage/pricing.json`.
 
+The safety scan also checks ready-to-send subjects and blockquoted message
+lines in `business/wave1-batch-01.md`, including its phone scripts.
+
 The validator reads production data only from outside Git:
 
 ```text

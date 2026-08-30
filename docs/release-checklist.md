@@ -40,6 +40,7 @@ copy reaches real inquiries. Approver: Marcelo Zapata.
 
 - [ ] No draft output can contain "confirmed", "booked", "reserved", "deposit received", or the Spanish equivalents
 - [ ] No insurance language unless `business/insurance-and-wave1-preflight.md` records a **verified active policy**
+- [ ] `business/wave1-batch-01.md` passes the outreach-surface scan before sending
 - [ ] Zelle is the only payment method mentioned anywhere customer-facing
 - [ ] English and Spanish state identical prices, deposits, and durations
 - [ ] Every quoted figure appears in `pricing.json`
