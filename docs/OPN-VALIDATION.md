@@ -71,6 +71,15 @@ The ZIP is written outside the repository and contains no customer evidence.
 Use `--final` only after the final validator passes; it refuses to create a
 final packet around any blocker.
 
+After copying or emailing a packet, verify the ZIP and its manifest with:
+
+```powershell
+python scripts\build_opn_packet.py --verify `
+  "$env:LOCALAPPDATA\MiamiPapaNoel\packets\opn-submission-packet.zip"
+```
+
+Verification checks every manifest hash and rejects extra archive members.
+
 ## Evidence index
 
 The index is JSONL metadata only: one object per line. Each artifact must be

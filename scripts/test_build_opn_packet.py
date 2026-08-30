@@ -44,6 +44,32 @@ class PacketBuilderTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "outside the repository"):
             MODULE.build_packet(root, root / "packet.zip", "preflight", validate=False)
 
+    def test_packet_manifest_and_membership_verify(self):
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temp:
+            packet = MODULE.build_packet(root, Path(temp) / "packet.zip", "preflight",
+                                         evidence_dir=Path(temp) / "empty-evidence",
+                                         validate=False)
+            manifest = MODULE.verify_packet(packet)
+            self.assertEqual(manifest["source_commit"], MODULE.git_commit(root))
+            self.assertFalse(manifest["customer_evidence_included"])
+
+    def test_packet_hash_tampering_is_rejected(self):
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temp:
+            packet = MODULE.build_packet(root, Path(temp) / "packet.zip", "preflight",
+                                         evidence_dir=Path(temp) / "empty-evidence",
+                                         validate=False)
+            tampered = Path(temp) / "tampered.zip"
+            with zipfile.ZipFile(packet) as source, zipfile.ZipFile(tampered, "w") as target:
+                for info in source.infolist():
+                    data = source.read(info.filename)
+                    if info.filename == "docs/OPN-SUBMISSION.md":
+                        data += b"\n"
+                    target.writestr(info, data)
+            with self.assertRaisesRegex(ValueError, "hash mismatch"):
+                MODULE.verify_packet(tampered)
+
 
 if __name__ == "__main__":
     unittest.main()

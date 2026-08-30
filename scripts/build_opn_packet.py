@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a safe, reproducible OpenAI Partner Network submission ZIP.
+"""Build or verify a safe, reproducible OpenAI Partner Network submission ZIP.
 
 The source allowlist is deliberately explicit. Customer evidence remains in
 the external evidence folder; only its privacy-checked index can be included.
@@ -13,6 +13,7 @@ import datetime as dt
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -112,6 +113,57 @@ def safe_external_index(evidence_dir: Path) -> Path | None:
     return index
 
 
+def verify_packet(packet: Path) -> dict:
+    """Verify the manifest, hashes, and closed archive membership of a packet."""
+    packet = packet.expanduser().resolve()
+    if not packet.is_file():
+        raise ValueError(f"packet does not exist: {packet}")
+    try:
+        with zipfile.ZipFile(packet) as archive:
+            names = archive.namelist()
+            if len(names) != len(set(names)):
+                raise ValueError("packet contains duplicate ZIP member names")
+            if "PACKET-MANIFEST.json" not in names:
+                raise ValueError("packet is missing PACKET-MANIFEST.json")
+            manifest = json.loads(archive.read("PACKET-MANIFEST.json"))
+            if not isinstance(manifest, dict) or manifest.get("packet_schema") != 1:
+                raise ValueError("packet manifest has an unsupported schema")
+            files = manifest.get("files")
+            if not isinstance(files, list) or not files:
+                raise ValueError("packet manifest has no file entries")
+            listed = []
+            for entry in files:
+                if not isinstance(entry, dict):
+                    raise ValueError("packet manifest contains a non-object file entry")
+                relative = entry.get("path")
+                digest = entry.get("sha256")
+                if not isinstance(relative, str) or not relative or relative.startswith("/"):
+                    raise ValueError("packet manifest contains an unsafe file path")
+                parts = Path(relative).parts
+                if ".." in parts or "\\" in relative:
+                    raise ValueError("packet manifest contains an unsafe file path")
+                if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+                    raise ValueError(f"packet manifest has an invalid hash for {relative}")
+                if relative in listed:
+                    raise ValueError(f"packet manifest lists {relative} more than once")
+                if relative not in names:
+                    raise ValueError(f"packet is missing manifest file: {relative}")
+                actual = hashlib.sha256(archive.read(relative)).hexdigest()
+                if actual != digest:
+                    raise ValueError(f"packet hash mismatch: {relative}")
+                listed.append(relative)
+            expected = set(listed) | {"PACKET-MANIFEST.json", "VALIDATION-OUTPUT.txt"}
+            if set(names) != expected:
+                extras = sorted(set(names) - expected)
+                missing = sorted(expected - set(names))
+                raise ValueError(f"packet membership mismatch; extras={extras}, missing={missing}")
+            if manifest.get("customer_evidence_included") is not False:
+                raise ValueError("packet must not include customer evidence")
+            return manifest
+    except zipfile.BadZipFile as exc:
+        raise ValueError("packet is not a valid ZIP archive") from exc
+
+
 def build_packet(root: Path, output: Path, mode: str, log_dir: Path | None = None,
                  evidence_dir: Path | None = None, validate: bool = True) -> Path:
     root = root.resolve()
@@ -159,11 +211,21 @@ def main(argv: list[str] | None = None) -> int:
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--preflight", action="store_true", help="build a validated draft packet")
     mode.add_argument("--final", action="store_true", help="build only after final validation passes")
+    mode.add_argument("--verify", metavar="ZIP", help="verify an existing packet ZIP")
     parser.add_argument("--repo-root", default=str(ROOT))
     parser.add_argument("--output", help="ZIP path outside the repository")
     parser.add_argument("--log-dir")
     parser.add_argument("--evidence-dir")
     args = parser.parse_args(argv)
+    if args.verify:
+        try:
+            manifest = verify_packet(Path(args.verify))
+        except (OSError, ValueError) as exc:
+            parser.error(str(exc))
+        print(f"verified packet: {Path(args.verify).expanduser().resolve()}")
+        print(f"source commit: {manifest.get('source_commit', '[missing]')}")
+        print(f"files verified: {len(manifest['files'])}")
+        return 0
     root = Path(args.repo_root).expanduser().resolve()
     output = Path(args.output).expanduser() if args.output else (
         Path(os.environ.get("LOCALAPPDATA") or os.path.expanduser("~"))
