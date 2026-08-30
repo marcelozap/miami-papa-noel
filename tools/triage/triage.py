@@ -466,6 +466,20 @@ def write_log(record: dict) -> Path:
     return path
 
 
+def apply_approval(record: dict, reviewer: str, approved_at: dt.datetime,
+                   sent_at: dt.datetime | None = None) -> dict:
+    """Record human approval and, only after an explicit send, completion."""
+    record["reviewer"] = reviewer or "operator"
+    record["approved_at"] = approved_at.isoformat(timespec="seconds")
+    if sent_at is None:
+        record["sent_at"] = None
+        record["outcome"] = "approved_awaiting_send"
+    else:
+        record["sent_at"] = sent_at.isoformat(timespec="seconds")
+        record["outcome"] = "approved_and_sent"
+    return record
+
+
 # ---------------------------------------------------------------- rendering --
 
 def render(record: dict) -> str:
@@ -597,11 +611,21 @@ def main(argv=None) -> int:
         answer = ""
 
     if answer == "APPROVE":
-        rec["reviewer"] = args.reviewer or os.environ.get("MPN_REVIEWER") or "operator"
-        rec["approved_at"] = dt.datetime.now().isoformat(timespec="seconds")
-        rec["outcome"] = "approved_awaiting_send"
-        print("\nApproved by %s. Copy the draft into the customer channel yourself." % rec["reviewer"])
-        print("Then re-run with --status to see the production clock.")
+        reviewer = args.reviewer or os.environ.get("MPN_REVIEWER") or "operator"
+        approved_at = dt.datetime.now()
+        print("\nApproved by %s. Copy the draft into the customer channel yourself." % reviewer)
+        print("After it has actually been sent, type SENT exactly; otherwise type anything else.")
+        try:
+            sent_answer = input("> ").strip()
+        except EOFError:
+            sent_answer = ""
+        sent_at = dt.datetime.now() if sent_answer == "SENT" else None
+        apply_approval(rec, reviewer, approved_at, sent_at)
+        if sent_at is None:
+            print("\nApproval recorded; the message is not marked sent yet.")
+        else:
+            print("\nSend recorded. The inquiry is approved and sent.")
+        print("Run --status to see the production clock.")
     else:
         rec["outcome"] = "rejected_by_operator"
         print("\nRejected. Nothing recorded as approved.")

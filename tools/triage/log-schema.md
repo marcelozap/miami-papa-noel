@@ -31,7 +31,7 @@ except the redacted example in `tools/triage/examples/`.
 | `prompt_version` | string | Version of the triage prompt/logic, e.g. `triage-v1.0.0` |
 | `reviewer` | string \| null | Operator who approved. `null` until approval |
 | `approved_at` | ISO 8601 \| null | When the operator typed `APPROVE`. `null` means never approved |
-| `sent_at` | ISO 8601 \| null | When the operator actually sent it in the customer channel. **Filled in by hand — the tool cannot send** |
+| `sent_at` | ISO 8601 \| null | When the operator actually sent it in the customer channel. Recorded only after the operator types `SENT` following the manual send |
 | `fallback_used` | bool | `true` when the deterministic offline path produced the draft |
 | `outcome` | enum | `pending_review` · `approved_awaiting_send` · `approved_and_sent` · `rejected_by_operator` · `blocked_by_validation` |
 | `error_code` | string \| null | `VALIDATION_FAIL`, `MODEL_UNAVAILABLE`, `MODEL_HTTP_ERROR`, `MODEL_PARSE_ERROR`, `MODEL_SCHEMA_ERROR`, `MODEL_OUTPUT_VALIDATION_FAIL`, `TOOL_UNAVAILABLE`, or `null` |

@@ -102,8 +102,11 @@ Type `APPROVE` exactly. Anything else records a rejection. Approval only marks
 the draft as approved — **you still copy it into the customer channel
 yourself.** The tool has no send path, by design.
 
-After you send, the `sent_at` field is filled in by hand. That gap is
-deliberate: the log should record what a human actually did.
+After you copy the draft into the customer channel and actually send it, type
+`SENT` exactly at the second prompt. The record then becomes
+`approved_and_sent` with the timestamp captured by the tool. Anything else
+leaves it as `approved_awaiting_send`; it never assumes that approval means a
+message was sent.
 
 ### `--real` vs synthetic
 
@@ -201,7 +204,7 @@ seeing an honest fallback record trusts the rest of the log more, not less.
 python -m pytest tools\triage\test_triage.py -q
 ```
 
-43 tests: extraction, language detection, schedule risk, pricing coverage, bilingual parity, and negative cases
+45 tests: extraction, language detection, schedule risk, pricing coverage, bilingual parity, and negative cases
 proving the validators actually block bad drafts. All inquiries in the suite are
 synthetic and write nowhere near the production log.
 
@@ -220,6 +223,6 @@ python scripts\validate_slot_confirmations.py
 | `triage.py` | The operator tool |
 | `validators.py` | The six validation gates |
 | `pricing.json` | Locked price list, versioned |
-| `test_triage.py` | 43 tests, all synthetic |
+| `test_triage.py` | 45 tests, all synthetic |
 | `log-schema.md` | Production log fields and derived metrics |
 | `examples/inquiry-redacted.jsonl` | Redacted five-line sample (synthetic) |

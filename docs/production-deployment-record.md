@@ -30,7 +30,7 @@
 
 ## Live functionality
 
-What the tool actually does, today, verified by 43 passing tests:
+What the tool actually does, today, verified by 45 passing tests:
 
 | Capability | Status |
 |---|---|
@@ -87,7 +87,7 @@ is no configuration in which the log can claim a model that did not run.
 | `tools/triage/triage.py` | The runnable tool |
 | `tools/triage/validators.py` | Six enforced safety gates |
 | `tools/triage/pricing.json` | Locked, versioned price list |
-| `tools/triage/test_triage.py` | 43 tests, all passing, all synthetic |
+| `tools/triage/test_triage.py` | 45 tests, all passing, all synthetic |
 | `tools/triage/log-schema.md` | Log fields and derived metrics |
 | `tools/triage/examples/inquiry-redacted.jsonl` | Redacted structural sample (synthetic) |
 | `docs/operator-attestation-2025-season.md` | Prior-season history |

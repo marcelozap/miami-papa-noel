@@ -30,7 +30,7 @@ count. **Never backdate.**
 
 - [ ] Every real inquiry goes through the tool with `--real`
 - [ ] Approve or reject each draft explicitly — no silent skips
-- [ ] Fill `sent_at` by hand after sending
+- [ ] After the human sends an approved draft, type `SENT` at the tool's second prompt so `sent_at` is recorded
 - [ ] Any inquiry handled manually gets a line with `fallback_used: true`, `model: "manual"`, and an `error_code`
 - [ ] `--status` checked; day count advancing
 

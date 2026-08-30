@@ -242,6 +242,23 @@ def test_new_record_is_never_pre_approved():
     assert rec["outcome"] == "pending_review"
 
 
+def test_approval_waits_for_explicit_send_marker():
+    rec = build("Dec 13 Doral HOA")
+    triage.apply_approval(rec, "operator", NOW)
+    assert rec["reviewer"] == "operator"
+    assert rec["approved_at"] == "2026-09-01T10:00:00"
+    assert rec["sent_at"] is None
+    assert rec["outcome"] == "approved_awaiting_send"
+
+
+def test_explicit_send_marker_records_completed_outcome():
+    rec = build("Dec 13 Doral HOA")
+    sent_at = NOW + dt.timedelta(minutes=3)
+    triage.apply_approval(rec, "operator", NOW, sent_at)
+    assert rec["sent_at"] == "2026-09-01T10:03:00"
+    assert rec["outcome"] == "approved_and_sent"
+
+
 def test_synthetic_record_is_marked_not_real():
     assert build("Dec 13 Doral HOA")["real_customer"] is False
 

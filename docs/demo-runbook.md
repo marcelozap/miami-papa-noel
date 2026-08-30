@@ -128,7 +128,7 @@ Redacted sample, if they want to read one without a live run:
 python -m pytest tools\triage\test_triage.py -q
 ```
 
-43 passed — including the negative tests that prove each gate blocks.
+45 passed — including the negative tests that prove each gate blocks.
 
 Then open `tools/triage/README.md` to the **Manual fallback** section and show
 the price table.
@@ -198,7 +198,7 @@ python scripts\validate_slot_confirmations.py
 
 ## Before the demo
 
-- [ ] `python -m pytest tools\triage\test_triage.py -q` → 43 passed
+- [ ] `python -m pytest tools\triage\test_triage.py -q` → 45 passed
 - [ ] `python tools\triage\triage.py --demo` renders clean
 - [ ] `python tools\triage\demo_guards.py` shows 9 blocking failures
 - [ ] Terminal font large enough to read

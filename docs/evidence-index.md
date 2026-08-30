@@ -31,7 +31,7 @@ with production use · `N/A` = does not exist
 | Records never pre-approved | `test_new_record_is_never_pre_approved` | 2026-08-29 | VERIFIED |
 | Log excludes message and draft bodies | `test_log_line_excludes_draft_bodies` | 2026-08-29 | VERIFIED |
 | Synthetic and production logs separate | `test_synthetic_and_production_logs_are_separate_files` | 2026-08-29 | VERIFIED |
-| Full test suite passes | `python -m pytest tools/triage/test_triage.py -q` → **43 passed** | 2026-08-29 | VERIFIED |
+| Full test suite passes | `python -m pytest tools/triage/test_triage.py -q` → **45 passed** | 2026-08-30 | VERIFIED |
 | Existing repo validator still passes | `python scripts/validate_slot_confirmations.py` → "Slot validation passed." | 2026-08-29 | VERIFIED |
 | Production launch date | first `--real` log line | — | `[TO FILL]` |
 | Model actually run in production | `model` field on the log | — | `[TO FILL]` |

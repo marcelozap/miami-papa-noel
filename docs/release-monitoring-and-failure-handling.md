@@ -8,7 +8,7 @@ Scope: the bilingual inquiry triage deployment and the workflow around it.
 
 | Change | Check | State |
 |---|---|---|
-| Triage logic, extraction, drafting | `python -m pytest tools\triage\test_triage.py -q` — **43 tests, all passing** | **LIVE** |
+| Triage logic, extraction, drafting | `python -m pytest tools\triage\test_triage.py -q` — **45 tests, all passing** | **LIVE** |
 | Validation gates | Negative tests assert each gate actually blocks: unlocked price, EN/ES mismatch, confirmation language (EN and accented ES), insurance claim, non-Zelle method, missing info without a question | **LIVE** |
 | Log integrity | Tests assert drafts and message bodies never reach the log, records are never pre-approved, synthetic and production logs are separate files | **LIVE** |
 | Slot confirmations | `python scripts\validate_slot_confirmations.py` — passing | **LIVE** |

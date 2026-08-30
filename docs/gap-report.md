@@ -19,7 +19,7 @@ closes each item.
 | 5 | Concrete outcome | **PENDING** — metrics derive automatically once rows exist |
 | 6 | Production model(s) | **PENDING** — recorded verbatim per log line; deterministic mode is the default |
 | 7 | How components work together | **MET** — `docs/agent-workflow-architecture.md` |
-| 8 | Testing and release approval | **MET** — 43 passing tests, `docs/release-checklist.md`, and local OPN preflight validator |
+| 8 | Testing and release approval | **MET** — 45 passing tests, `docs/release-checklist.md`, and local OPN preflight validator |
 | 9 | Production monitoring | **BUILT** — logging layer tested; awaiting real rows |
 | 10 | Failure handling | **MET** — automatic fallback plus a full manual procedure |
 | 11 | ≥15 days production operation | **NOT MET** — clock starts on the first real inquiry |

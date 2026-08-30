@@ -108,7 +108,7 @@ against real inquiry samples once enough have accumulated.
 | **Concrete outcome** | `[TO FILL]` — derives from the log: inquiries handled, median first-response time, share approved unedited, rejection rate, fallback rate |
 | **Production model** | `[TO FILL]` — written verbatim only after a configured model produces a validated draft. The default remains `offline-rules-v1` with `fallback_used: true` |
 | **How components work together** | `docs/agent-workflow-architecture.md` — state graph with per-step build state |
-| **Testing and release approval** | 43 passing tests; `docs/release-checklist.md`; local submission preflight in `scripts/validate_opn_submission.py`. Single-operator approval, stated plainly |
+| **Testing and release approval** | 45 passing tests; `docs/release-checklist.md`; local submission preflight in `scripts/validate_opn_submission.py`. Single-operator approval, stated plainly |
 | **Production monitoring** | Logging layer built and tested; `tools/triage/log-schema.md` |
 | **Failure handling** | Automatic fallback to deterministic mode; full manual procedure if the tool is unavailable |
 | **≥15 days production** | **Not yet met.** Real production records, model/outcome fields, external evidence, and elapsed time remain to be collected |
@@ -120,7 +120,7 @@ against real inquiry samples once enough have accumulated.
 ```powershell
 git clone https://github.com/marcelozap/miami-papa-noel
 cd miami-papa-noel
-python -m pytest tools\triage\test_triage.py -q      # 43 passed
+python -m pytest tools\triage\test_triage.py -q      # 45 passed
 python tools\triage\triage.py --demo                 # 4 synthetic inquiries, end to end
 python scripts\validate_slot_confirmations.py        # Slot validation passed.
 python tools\triage\triage.py --status               # production clock
