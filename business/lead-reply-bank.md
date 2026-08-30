@@ -10,7 +10,7 @@ Use text/call for quick questions:
 
 `305-244-0360`
 
-Do not publish `bookings@miamipapanoel.com` until the inbox is active.
+Public email: `santa@miamipapanoel.com`.
 
 ## Locked rate card — quote from this and nothing else
 

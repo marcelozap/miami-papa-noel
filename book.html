@@ -518,7 +518,7 @@
     <div class="top-actions">
       <nav aria-label="Booking navigation">
         <a href="/" data-i18n="nav.website">Website</a>
-        <a href="checkout.html" data-i18n="nav.options">Options</a>
+        <a href="/checkout" data-i18n="nav.options">Options</a>
         <a href="tel:+13052440360" data-i18n="nav.call">Call</a>
       </nav>
       <div class="language-toggle" aria-label="Choose language">
@@ -558,14 +558,14 @@
         <div class="card">
           <p class="eyebrow" data-i18n="form.eyebrow">Visit Details</p>
           <h2 data-i18n="form.title">A few details are enough to start.</h2>
-          <!-- Temporary FormSubmit destination until the primary booking inbox is ready. -->
-          <form id="booking-form" action="https://formsubmit.co/rubiosally@hotmail.com" method="POST">
+          <!-- FormSubmit sends booking requests to the verified business inbox. -->
+          <form id="booking-form" action="https://formsubmit.co/santa@miamipapanoel.com" method="POST">
             <input type="hidden" name="_subject" value="New Miami Papa Noel booking request">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_next" value="https://miamipapanoel.com/thank-you">
             <input type="text" name="_honey" autocomplete="off" tabindex="-1" style="display:none">
-            <input name="routing_note" type="hidden" value="Temporary route to family backup inbox. Review the form destination before the next season.">
+            <input name="routing_note" type="hidden" value="Primary route to Miami Papa Noel business inbox.">
             <input id="source" name="source" type="hidden" value="Website booking form">
             <input id="messageSummary" name="message_summary" type="hidden" value="">
             <div class="two">
@@ -628,7 +628,7 @@
               <button type="button" class="outline" id="build" data-i18n="form.build">Preview Text</button>
               <a class="button secondary" id="whatsappLink" href="https://wa.me/13052440360" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
               <a class="button secondary" id="smsLink" href="sms:+13052440360" data-i18n="form.text">Text Request</a>
-              <a class="button outline" id="emailLink" href="mailto:rubiosally@hotmail.com" data-i18n="form.email">Email Request</a>
+              <a class="button outline" id="emailLink" href="mailto:santa@miamipapanoel.com" data-i18n="form.email">Email Request</a>
             </div>
           </form>
           <p class="note" data-i18n="form.note">Send the request and we will reply with availability. Text or WhatsApp are still available if you prefer.</p>
@@ -643,7 +643,7 @@
           <h2 data-i18n="message.title">One simple message.</h2>
           <p data-i18n="message.copy">This gives us what we need to reply with availability, pricing, and next steps.</p>
           <div class="actions">
-            <a class="button" href="checkout.html" data-i18n="message.back">Back to Options</a>
+            <a class="button" href="/checkout" data-i18n="message.back">Back to Options</a>
           </div>
         </div>
         <div>
@@ -1004,7 +1004,7 @@
       messageSummary.value = text;
       smsLink.href = "sms:+13052440360?&body=" + encodeURIComponent(text);
       whatsappLink.href = "https://wa.me/13052440360?text=" + encodeURIComponent(text);
-      emailLink.href = "mailto:rubiosally@hotmail.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
+      emailLink.href = "mailto:santa@miamipapanoel.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
     }
 
     async function writeClipboard(text) {

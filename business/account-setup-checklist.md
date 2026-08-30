@@ -6,10 +6,9 @@ Create these accounts so the business can receive leads, prove trust, collect pa
 
 ### Gmail
 
-Suggested email:
+Official email:
 
-- `bookings@miamipapanoel.com` if domain email is available
-- `miamipapanoel@gmail.com` if starting free
+- `santa@miamipapanoel.com`
 
 Use it for all bookings, Vercel, Google Business Profile, Instagram, Facebook, payment apps, and calendar invites.
 

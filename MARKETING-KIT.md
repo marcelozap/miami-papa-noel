@@ -7,7 +7,7 @@ This folder is a starter kit to help book Santa clients in Miami-Doral and nearb
 Use this same information everywhere so families see one clear way to contact Papa Noel:
 
 - Phone/Text: `305-244-0360`
-- Email: do not publish until `bookings@miamipapanoel.com` receives test email.
+- Email: `santa@miamipapanoel.com` (verified Google Workspace mailbox).
 - Instagram: `@miamipapanoel`
 - Website: `https://miamipapanoel.com`
 - Social bio links: `https://miamipapanoel.com/links`
@@ -84,11 +84,11 @@ Use this same information everywhere so families see one clear way to contact Pa
 ## Fastest path to clients
 
 1. Open `business/fathers-day-launch.html` for the finished family handoff and printable QR booking card.
-2. Activate the temporary FormSubmit email in `rubiosally@hotmail.com`, then submit one booking test.
+2. Activate the FormSubmit email in `santa@miamipapanoel.com`, then submit one booking test.
 3. Use `business/santa-lead-generation-kit.md` for ready captions, DMs, WhatsApp replies, and the Copilot prompt.
 4. Use `business/overnight-client-assignments.md` to split work between you, sister, Mom, and Dad.
 5. Use `business/lead-reply-bank.md` when anyone asks about pricing, availability, photos, schools, HOAs, Christmas Eve, or referrals.
-6. Finish `business/email-form-finish.md` so `bookings@miamipapanoel.com` can receive form submissions later.
+6. Use `business/email-form-finish.md` to verify the live FormSubmit route to `santa@miamipapanoel.com`.
 7. Work `business/passive-marketing-engine.md` so Google, directories, scheduled posts, and the booking form can bring inbound leads without daily work.
 8. Use `business/directory-profile-kit.md` to paste the same premium profile copy into Google Business Profile, GigSalad, The Bash, Instagram, Facebook, and local directories.
 9. For June and July, use `business/summer-client-engine.md`, `business/summer-prospect-starter.csv`, `business/miami-prospect-expansion.csv`, and `business/first-30-outreach-batch.md` if you want faster summer outreach.

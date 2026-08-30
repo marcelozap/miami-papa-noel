@@ -10,7 +10,7 @@
 - Create Google Calendar.
 - Decide payment methods.
 - Confirm the website uses `305-244-0360`, the booking form, WhatsApp/text, and `@miamipapanoel`.
-- Finish `microsoft-365-email-runbook.md` before publicly using `bookings@miamipapanoel.com`.
+- Verify `santa@miamipapanoel.com` and the website FormSubmit route before publishing the email.
 
 ## Day 2 - Website and Domain
 

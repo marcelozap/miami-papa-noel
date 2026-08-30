@@ -9,13 +9,13 @@ The goal is not "post every day." The goal is that Mom and Dad receive warm inqu
 1. A parent, school, HOA, daycare, or business searches for a Santa in Miami.
 2. They find Miami Papa Noel on Google, Instagram, Facebook, GigSalad, The Bash, or a referral link.
 3. Every profile points to `https://miamipapanoel.com/book` with a source tag.
-4. The booking form currently sends the request to the temporary backup inbox, `rubiosally@hotmail.com`.
+4. The booking form is configured to send the request to the verified business inbox, `santa@miamipapanoel.com`, after FormSubmit activation.
 5. The customer lands on `https://miamipapanoel.com/thank-you` with text and WhatsApp as urgent backups.
 6. After a completed visit, they get the review/referral page: `https://miamipapanoel.com/after-visit`.
 
-Final email target after Microsoft 365 is finished:
+Final email target:
 
-`bookings@miamipapanoel.com`
+`santa@miamipapanoel.com`
 
 ## What Is Already Done
 

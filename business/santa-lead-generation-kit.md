@@ -275,7 +275,7 @@ Phone/Text: 305-244-0360
 Instagram: @miamipapanoel
 
 Current email status:
-The booking form temporarily routes to rubiosally@hotmail.com through FormSubmit until bookings@miamipapanoel.com is finished. Do not suggest DNS, Microsoft 365, Vercel, or technical setup.
+The verified business inbox is `santa@miamipapanoel.com`. The booking form is configured to route through FormSubmit to that inbox; activate and test it before relying on form delivery. Do not suggest DNS, Google Workspace, Vercel, or technical setup to customers.
 
 Story:
 The Santa work started around 2017 with Christmas photos for children at a Metro by T-Mobile office. It grew into novenas, Christmas Eve gift deliveries, family parties, business events, residential community events, nonprofit visits, and community activities. The community side matters most.
