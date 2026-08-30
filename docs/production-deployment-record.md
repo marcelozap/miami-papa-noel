@@ -13,9 +13,9 @@
 | **Deployment name** | Bilingual Inquiry Triage with Human Approval |
 | **Operator organization** | XIV (Marcelo Zapata) |
 | **Business served** | Miami Papa Noel — bilingual Santa appearance and booking business, Miami-Doral and surrounding areas |
-| **Relationship** | Miami Papa Noel is the operator's own seasonal business, run under XIV. **It is not an external third-party customer**, and is not presented as one |
-| **Prior season history** | The role-based operations workflow operated during the 2025 Christmas season per `docs/operator-attestation-2025-season.md`. Supporting artifacts in assembly |
-| **Production status** | **Built and runnable. Production clock not yet started** — starts on the first real customer inquiry processed through the tool |
+| **Relationship** | Miami Papa Noel is the service the performers deliver; the performers are experienced but not technical. Marcelo Zapata (XIV) proposed, built, and operates the workflow as **sole technical and operational owner**. Describe exactly this arrangement on the form; do not present it as an arms-length external enterprise customer |
+| **Prior season history** | The role-based workflow operated in production 2025-11-15 to 2025-12-24 (40 calendar days, inclusive), delivering 14 visits across hospitals, Miami-Dade County sites, Publix locations, fire and police departments, and private families - per `docs/operator-attestation-2025-season.md`. Supporting artifacts in assembly |
+| **Production status** | **2025 production deployment completed; 2026 seasonal reactivation in progress.** Not currently active - between seasons, ramping for 2026. The 2026 triage tool is built and runnable; its own production clock starts on the first real customer inquiry processed through it |
 | **Launch date** | `[TO FILL on first real inquiry]` — recorded automatically as `received_at` on the first `--real` log line. **Never backdated** |
 | **15-day qualification** | `[NOT YET MET]` — earliest qualification is first real inquiry + 15 days. Run `--status` for the live figure |
 
@@ -23,7 +23,7 @@
 
 | Field | Value |
 |---|---|
-| **Operational owner** | Marcelo Zapata — sole operator, sole committer on all 77 commits |
+| **Operational owner** | **Marcelo Zapata — built and operated.** Sole operator; sole committer across the repository history |
 | **Reviewer of record** | Marcelo Zapata (`reviewer` field on every log line) |
 | **Release approval** | Single-operator. Documented in `docs/release-checklist.md` |
 | **Human approval gate** | **Mandatory and unskippable.** The tool has no send path. The operator types `APPROVE`, then copies the draft into the customer channel by hand |

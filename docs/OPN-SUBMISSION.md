@@ -103,7 +103,7 @@ against real inquiry samples once enough have accumulated.
 |---|---|
 | **Active customer AI deployment** | Built and ready; the production clock starts on the first real inquiry |
 | **Launch date / status** | `[TO FILL]` — recorded automatically as the first `--real` log line. Never backdated |
-| **Operational owner** | Marcelo Zapata — sole operator and sole committer in the repository history |
+| **Operational owner** | **Marcelo Zapata — built and operated.** Sole operator and sole committer in the repository history |
 | **Live AI functionality** | Configured Responses API path for structured extraction and bilingual drafting, with deterministic extraction and drafting as the tested fallback; six enforced gates |
 | **Concrete outcome** | `[TO FILL]` — derives from the log: inquiries handled, median first-response time, share approved unedited, rejection rate, fallback rate |
 | **Production model** | `[TO FILL]` — written verbatim only after a configured model produces a validated draft. The default remains `offline-rules-v1` with `fallback_used: true` |

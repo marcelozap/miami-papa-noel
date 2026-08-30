@@ -38,15 +38,15 @@ record; none of them is a prerequisite for the 2026 deployment.
 
 | # | Field | What satisfies it | Status |
 |---|---|---|---|
-| 1 | **Season window** | First and last customer contact dates in the 2025 season | `[TO FILL]` |
+| 1 | **Season window** | First and last customer contact dates in the 2025 season | **2025-11-15 to 2025-12-24** (40 calendar days, inclusive) - attested 2026-08-30; dated artifacts pending |
 | 2 | **Channels used** | Which inboxes carried inquiries (Instagram DM, WhatsApp, email, phone) | `[TO FILL]` |
-| 3 | **Volume** | Approximate inquiries handled and events performed | `[TO FILL]` |
+| 3 | **Volume** | Approximate inquiries handled and events performed | **14 visits delivered**, per-booking across the season - attested 2026-08-30; confirm exact count against records before submission |
 | 4 | **Bilingual handling** | Roughly what share of customers were served in Spanish | `[TO FILL]` |
-| 5 | **Assistant involvement** | Which assistant tools were used, for which steps (drafting, extraction, scheduling) | `[TO FILL]` |
+| 5 | **Assistant involvement** | Which assistant tools were used, for which steps (drafting, extraction, scheduling) | AI-assisted: client communications, marketing content, lead summarisation into pre-visit briefs, follow-up drafting (EN/ES), themed role workflows (Santa, Mrs. Claus, elves). Manual surround: scheduling, logistics, payment tracking. Every customer-facing message human-reviewed - attested 2026-08-30 |
 | 6 | **Model** | If a specific model or product tier was used, its name. Leave blank rather than guess | `[TO FILL]` |
-| 7 | **Operator** | Who ran the workflow day to day | Marcelo Zapata |
+| 7 | **Operator** | Who ran the workflow day to day | **Marcelo Zapata - built and operated**, sole technical and operational owner |
 | 8 | **Payment handling** | Confirms Zelle-only was in force in 2025 | `[TO FILL]` |
-| 9 | **Outcome** | One concrete number: bookings completed, or events performed, or zero double-bookings across the season | `[TO FILL]` |
+| 9 | **Outcome** | One concrete number: bookings completed, or events performed, or zero double-bookings across the season | **14 visits across the 40-day season** - hospitals, Miami-Dade County sites, Publix locations, fire and police departments, private families; operational load moved off the performers entirely - attested 2026-08-30 |
 | 10 | **Dated artifacts** | Anything with a timestamp: message threads, calendar entries, payment records, photos with dates | `[TO FILL]` |
 
 ### Where the artifacts most likely live
