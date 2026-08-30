@@ -25,6 +25,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = "opn-submission-packet.zip"
 PACKET_FILES = (
     "README.md",
+    "business/AGENT-ROLES.md",
+    "business/insurance-and-wave1-preflight.md",
     "docs/OPN-SUBMISSION.md",
     "docs/production-deployment-record.md",
     "docs/agent-workflow-architecture.md",

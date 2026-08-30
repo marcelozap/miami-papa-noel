@@ -31,6 +31,8 @@ class PacketBuilderTests(unittest.TestCase):
                 names = set(archive.namelist())
                 self.assertIn("PACKET-MANIFEST.json", names)
                 self.assertIn("README.md", names)
+                self.assertIn("business/AGENT-ROLES.md", names)
+                self.assertIn("business/insurance-and-wave1-preflight.md", names)
                 self.assertIn("docs/OPN-SUBMISSION.md", names)
                 self.assertIn("scripts/test_build_opn_packet.py", names)
                 self.assertNotIn("lead-tracker.csv", names)
