@@ -20,10 +20,11 @@ logistics, and follow-up — per the operator attestation at
 `docs/operator-attestation-2025-season.md`. Supporting artifacts for that season
 are being assembled and are labeled as such throughout.
 
-**What is submitted for review is the 2026 deployment:** a real, running,
+**What is submitted for review is the 2026 deployment:** a real, runnable,
 instrumented tool that performs bilingual inquiry triage with mandatory human
-approval. It is built, tested, and documented. It enters production on its first
-real customer inquiry and reaches 15 days of continuous operation 15 days later.
+approval. It is built, tested, and documented, and is ready to enter production
+on its first real customer inquiry. It reaches 15 days of continuous operation
+15 days after that first real record.
 
 ---
 
@@ -100,7 +101,7 @@ against real inquiry samples once enough have accumulated.
 
 | Requirement | Response |
 |---|---|
-| **Active customer AI deployment** | Built and runnable; enters production on the first real inquiry |
+| **Active customer AI deployment** | Built and ready; the production clock starts on the first real inquiry |
 | **Launch date / status** | `[TO FILL]` — recorded automatically as the first `--real` log line. Never backdated |
 | **Operational owner** | Marcelo Zapata — sole operator and sole committer in the repository history |
 | **Live AI functionality** | Configured Responses API path for structured extraction and bilingual drafting, with deterministic extraction and drafting as the tested fallback; six enforced gates |
@@ -110,7 +111,7 @@ against real inquiry samples once enough have accumulated.
 | **Testing and release approval** | 43 passing tests; `docs/release-checklist.md`; local submission preflight in `scripts/validate_opn_submission.py`. Single-operator approval, stated plainly |
 | **Production monitoring** | Logging layer built and tested; `tools/triage/log-schema.md` |
 | **Failure handling** | Automatic fallback to deterministic mode; full manual procedure if the tool is unavailable |
-| **≥15 days production** | **Not yet met.** The only outstanding blocker, and it is elapsed time |
+| **≥15 days production** | **Not yet met.** Real production records, model/outcome fields, external evidence, and elapsed time remain to be collected |
 
 ---
 
@@ -122,8 +123,8 @@ cd miami-papa-noel
 python -m pytest tools\triage\test_triage.py -q      # 43 passed
 python tools\triage\triage.py --demo                 # 4 synthetic inquiries, end to end
 python scripts\validate_slot_confirmations.py        # Slot validation passed.
-    python tools\triage\triage.py --status               # production clock
-    python scripts\validate_opn_submission.py --preflight # package and safety preflight
+python tools\triage\triage.py --status               # production clock
+python scripts\validate_opn_submission.py --preflight # package and safety preflight
 ```
 
 No install, no key, and no network required — those commands exercise the
