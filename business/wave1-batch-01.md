@@ -3,15 +3,10 @@
 Built 26 Aug 2026 from `claude/wave1-leadtracker.csv`. Every contact below is a verified row.
 Combined reach: **roughly 1,000+ associations** across Miami-Dade and Broward from five emails.
 
-> ## ⛔ Send-gate: buy the insurance first
-> Local policy status: **NOT ACTIVE / NOT VERIFIED**. Every email below says **"fully insured."**
-> That is not sendable yet. Buy the Insurance Canopy
-> Entertainers Annual policy — **$199, about 15 minutes,
-> `app.insurancecanopy.com/policy/buy/entertainersannual`** — before this batch goes out. It is $1M
-> each occurrence / $2M aggregate with unlimited free additional-insured certificates, which is exactly
-> what a property manager will ask you for the moment one of them says yes.
-> If you send before buying, cut every "insured", "fully insured", "COI", and certificate claim from
-> every message.
+> ## Send-gate: commercial coverage proof required
+> Local commercial coverage status: **NOT ACTIVE / NOT VERIFIED**. This batch is locked until the
+> required proof is in hand and the preflight document is updated. Until then, use only the neutral
+> copy below and do not promise coverage documents.
 
 **The ask in all five: $550 for a two-hour community event.** It is the highest-value thing a property
 manager can approve without a board vote, and at an effective $275/hour it reads as a discount against
@@ -35,7 +30,7 @@ Backup contact: Martha Reidy, VP Miami-Dade, 305-259-1415
 **Why first:** 370+ associations and 70,000+ units, Hispanic-led executive team, and they already run an
 annual Toys for Tots drive — a December programme with an existing internal owner and budget line.
 
-**Subject (EN):** Bilingual Santa for your December resident events — one vendor, one COI
+**Subject (EN):** Bilingual Santa for your December resident events — one vendor, one W-9
 **Subject (ES):** Papá Noel bilingüe para los eventos de diciembre de sus asociaciones
 
 **Email — English**
@@ -50,7 +45,7 @@ annual Toys for Tots drive — a December programme with an existing internal ow
 > and I run the entire visit in Spanish and English — so the grandparents in the photo line get a real
 > conversation, not a wave.
 >
-> Fully insured, $1M/$2M general liability, certificate naming the association provided free on request.
+> I can provide the event details and W-9 so your team can review one consistent vendor option.
 >
 > Can I send you a one-page sheet your division managers can forward? And is there someone on your side
 > who coordinates the Toys for Tots drive — I'd like to talk to them separately.
@@ -68,7 +63,7 @@ annual Toys for Tots drive — a December programme with an existing internal ow
 > ser el nombre que sus administradores les puedan pasar. Dos horas en el clubhouse son $550, y hago toda
 > la visita en español e inglés — para que los abuelos en la fila de fotos tengan una conversación de verdad.
 >
-> Con seguro de responsabilidad comercial de $1M/$2M, y el certificado a nombre de la asociación sin costo.
+> Puedo enviar los detalles del evento y el W-9 para que su equipo revise una opción de proveedor uniforme.
 >
 > ¿Le puedo enviar una hoja de una página para que sus administradores la reenvíen? ¿Y quién coordina la
 > colecta de juguetes? Me gustaría hablar con esa persona por separado.
@@ -77,7 +72,7 @@ annual Toys for Tots drive — a December programme with an existing internal ow
 
 > "Good morning — I'm looking for Patrizia Quattropani on the Miami-Dade division. … Ms. Quattropani, this
 > is Miami Papa Noel, a bilingual Santa based in Doral. With 370 associations you must have boards asking
-> about December already. Two-hour community event, $550, insured, and I do the whole thing in Spanish and
+> about December already. Two-hour community event, $550, and I do the whole thing in Spanish and
 > English. Can I send you a one-pager your managers can forward?"
 
 **Expect:** "Send it to customers@ and we'll route it." → *"I'll do that today — can I put your name in the
@@ -96,7 +91,7 @@ Weston 2026 HOA registry, Castle is manager of record for roughly **fifteen West
 Weston Hills Country Club, Emerald Estates, The Meadows, Savanna, Palms at Weston, Fairways at
 Bonaventure, Isles at Weston, plus The Fairways at Heron Bay in Coral Springs. Spanish confirmed.
 
-**Subject (EN):** One bilingual Santa, one COI, one W-9 — for all your Weston December events
+**Subject (EN):** One bilingual Santa, one W-9 — for all your Weston December events
 **Subject (ES):** Un Papá Noel bilingüe para todos los eventos de diciembre en Weston
 
 **Email — English**
@@ -106,8 +101,8 @@ Bonaventure, Isles at Weston, plus The Fairways at Heron Bay in Coral Springs. S
 > I'm Miami Papa Noel — bilingual Santa Claus, Doral-based, performing since 2017.
 >
 > You manage the Weston Hills, Emerald Estates and Savanna boards, among others. Rather than each of them
-> sourcing a Santa separately in December, I'd like to be the one they all book: **one vendor, one
-> certificate of insurance, one W-9, across every clubhouse event.** $550 for a two-hour visit, and I run
+> sourcing a Santa separately in December, I'd like to be the one they all book: **one vendor, one W-9,
+> across every clubhouse event.** $550 for a two-hour visit, and I run
 > the whole thing in Spanish and English — which in Weston is not a nice-to-have.
 >
 > Could you forward one flyer to those boards at once? And who is on your Lifestyle Services team for
@@ -122,8 +117,8 @@ Bonaventure, Isles at Weston, plus The Fairways at Heron Bay in Coral Springs. S
 > Soy Miami Papa Noel — Papá Noel bilingüe, con base en Doral, desde 2017.
 >
 > Usted maneja Weston Hills, Emerald Estates y Savanna, entre otras. En vez de que cada junta busque su
-> propio Santa en diciembre, quisiera ser el que todas reserven: **un solo proveedor, un solo certificado
-> de seguro, un solo W-9, para todos los eventos del clubhouse.** $550 por dos horas, y hago toda la visita
+> propio Santa en diciembre, quisiera ser el que todas reserven: **un solo proveedor, un solo W-9, para
+> todos los eventos del clubhouse.** $550 por dos horas, y hago toda la visita
 > en español e inglés — que en Weston no es un detalle menor.
 >
 > ¿Podría reenviar un volante a esas juntas de una vez? ¿Y quién está en el equipo de Lifestyle Services
@@ -132,7 +127,7 @@ Bonaventure, Isles at Weston, plus The Fairways at Heron Bay in Coral Springs. S
 **Phone script**
 
 > "Hi Rey — Miami Papa Noel, bilingual Santa out of Doral. You've got fifteen Weston boards. I'd rather
-> they book one insured Santa than fifteen different ones. $550, two hours, Spanish and English. Can you
+> they book one bilingual Santa than fifteen different ones. $550, two hours, Spanish and English. Can you
 > put one flyer in front of them, and can you point me to your Lifestyle Services person for Broward?"
 
 **Expect:** "Everything goes through Lifestyle." → **That is the win, not a deflection.** Get the name and
@@ -163,8 +158,8 @@ both languages.
 > the room in both languages is a different experience from one who poses for photographs. That is what I do.
 >
 > I'm booking December 2026 now and I'm happy to hold a Saturday for one of your Biscayne or Brickell
-> properties. Two hours in an amenity space is $550 flat. Fully insured, $1M/$2M, certificate naming the
-> association at no charge.
+> properties. Two hours in an amenity space is $550 flat. I can provide the event details and W-9 for
+> your team to review.
 >
 > Which of your boards budget for a holiday resident event? I'll work around their calendar.
 >
@@ -181,15 +176,15 @@ both languages.
 > las fotos.
 >
 > Estoy reservando diciembre 2026 y con gusto guardo un sábado para una de sus propiedades en Biscayne o
-> Brickell. Dos horas en el área social son $550. Con seguro de $1M/$2M y certificado a nombre de la
-> asociación sin costo.
+> Brickell. Dos horas en el área social son $550. Puedo enviar los detalles del evento y el W-9 para que
+> su equipo los revise.
 >
 > ¿Cuáles de sus juntas tienen presupuesto para un evento navideño de residentes?
 
 **Phone script** — call **786-655-5129** directly, not the main line.
 
 > "Oded — Miami Papa Noel, bilingual Santa out of Doral, booking December 2026. Your Biscayne and Brickell
-> buildings are exactly who I serve. I can hold a Saturday for you. $550 for two hours, insured, and I work
+> buildings are exactly who I serve. I can hold a Saturday for you. $550 for two hours, and I work
 > the room in both languages. Which of your boards budget for a resident holiday event?"
 
 ---
@@ -219,8 +214,8 @@ Miami-founded firm, thoroughly bilingual internally.
 > homes, majority Spanish-speaking, and I run the entire visit bilingual — that community is the single
 > best fit for what I do in all of Broward.
 >
-> $550 for two hours at a clubhouse. Fully insured, $1M/$2M, certificate naming the association free on
-> request. I'd also like to be added to your approved-vendor list, which puts me in front of every manager
+> $550 for two hours at a clubhouse. I can provide the event details and W-9 for your approved-vendor
+> review. I'd also like to be added to your approved-vendor list, which puts me in front of every manager
 > in the portfolio at once.
 >
 > And could you point me to Carolina Serrano? I'd like her Regional VP book to know I'm here.
@@ -238,14 +233,14 @@ Miami-founded firm, thoroughly bilingual internally.
 > seiscientas casas, mayoría hispanohablante, y yo hago toda la visita bilingüe — esa comunidad es la que
 > mejor encaja con lo que hago en todo Broward.
 >
-> $550 por dos horas en el clubhouse, con seguro de $1M/$2M y certificado sin costo. También me gustaría
-> estar en su lista de proveedores aprobados. ¿Y me puede referir a Carolina Serrano?
+> $550 por dos horas en el clubhouse. Puedo enviar los detalles del evento y el W-9 para su revisión como
+> proveedor aprobado. También me gustaría estar en su lista. ¿Y me puede referir a Carolina Serrano?
 
 **Phone script** — lead with the neighbour angle, it is disarming and true.
 
 > "Hi — I'm a Doral-based bilingual Santa and I see you're right here on NW 33rd. Which of your Regional
 > VPs handles the communities that run holiday resident events? I'd like to ask for Carolina Serrano.
-> … Carolina, $550 for a two-hour community event, insured, Spanish and English throughout. Can I get on
+> … Carolina, $550 for a two-hour community event, Spanish and English throughout. Can I get on
 > your approved-vendor list?"
 
 ---
@@ -276,8 +271,7 @@ covers the whole book** — no vendor portal, no procurement committee.
 > a repeat-client rate, and you hand them one name instead of fielding fifteen separate searches.
 >
 > $550 for a two-hour clubhouse event, Spanish and English throughout — which in the Bonaventure and San
-> communities is what the families actually want. Fully insured, $1M/$2M, certificate naming each
-> association free on request.
+> communities is what the families actually want. I can provide the event details and W-9 for review.
 >
 > Which boards already have a December event on the calendar? I'll start there.
 >
@@ -294,7 +288,7 @@ covers the whole book** — no vendor portal, no procurement committee.
 > TPMG** a tarifa de cliente recurrente, y usted les da un solo nombre.
 >
 > $550 por dos horas en el clubhouse, en español e inglés — que en Bonaventure y las comunidades San es lo
-> que las familias realmente quieren. Con seguro de $1M/$2M y certificado sin costo para cada asociación.
+> que las familias realmente quieren. Puedo enviar los detalles del evento y el W-9 para cada asociación.
 >
 > ¿Cuáles juntas ya tienen un evento de diciembre en el calendario?
 
@@ -302,7 +296,7 @@ covers the whole book** — no vendor portal, no procurement committee.
 
 > "Troy — Miami Papa Noel, bilingual Santa out of Doral. You've got about fifteen Weston communities. I'll
 > hold four December Saturdays for your boards at a repeat rate so none of them has to go looking. $550 for
-> two hours, insured, Spanish and English. Which of your boards already have a December date set?"
+> two hours, Spanish and English. Which of your boards already have a December date set?"
 
 ---
 
@@ -314,7 +308,7 @@ from the fourth message, not the first.
 
 **Two answers to have ready before you dial:**
 
-- *"Send us your certificate of insurance."* — you need the policy in hand. See the send-gate above.
+- *"Can you send the venue documentation?"* — do not promise anything until the required policy proof is in hand. See the send-gate above.
 - *"Another Santa quoted us less."* — the honest answer is that of roughly sixteen Santas listed across
   Miami, Hialeah and Fort Lauderdale, one advertises Spanish fluency, in a majority-Hispanic county.
   The Bash puts average cost-to-hire at $273 in Miami and $350 in Fort Lauderdale, so $550 for two hours

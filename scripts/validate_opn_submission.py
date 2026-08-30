@@ -162,6 +162,7 @@ PUBLIC_SURFACE_PATHS = [
     "service-areas.html", "partners.html", "links.html", "reviews.html",
     "after-visit.html", "summer-santa.html", "business/content-engine.html",
 ]
+OUTREACH_SURFACE_PATHS = ["business/wave1-batch-01.md"]
 
 
 class Finding:
@@ -622,27 +623,40 @@ def check_public_surfaces(cfg: Config) -> list:
     pages = sorted(cfg.repo_root.rglob("*.html"))
     if not pages:
         findings.append(Finding(WARN, "surfaces", "no root-level HTML pages found to scan"))
+
+    def scan_line(rel, lineno, line):
+        m = NON_ZELLE_RE.search(line)
+        if m:
+            findings.append(Finding(FAIL, "surfaces",
+                                    "%s:%d non-Zelle payment method %r"
+                                    % (rel, lineno, m.group(0))))
+        if RETIRED_EMAIL in line:
+            findings.append(Finding(FAIL, "surfaces",
+                                    "%s:%d references %s (not yet receiving mail)"
+                                    % (rel, lineno, RETIRED_EMAIL)))
+        if not policy_ok and (INSURANCE_RE.search(line) or COI_RE.search(line)):
+            findings.append(Finding(FAIL, "surfaces",
+                                    "%s:%d insurance language with no verified policy"
+                                    % (rel, lineno)))
+        for raw in PRICE_RE.findall(line):
+            if allowed and int(raw) not in allowed:
+                findings.append(Finding(FAIL, "surfaces",
+                                        "%s:%d price $%s is not in the locked list"
+                                        % (rel, lineno, raw)))
+
     for page in pages:
         rel = str(page.relative_to(cfg.repo_root)).replace("\\", "/")
         for lineno, line in enumerate(read_text(page).splitlines(), 1):
-            m = NON_ZELLE_RE.search(line)
-            if m:
-                findings.append(Finding(FAIL, "surfaces",
-                                        "%s:%d non-Zelle payment method %r"
-                                        % (rel, lineno, m.group(0))))
-            if RETIRED_EMAIL in line:
-                findings.append(Finding(FAIL, "surfaces",
-                                        "%s:%d references %s (not yet receiving mail)"
-                                        % (rel, lineno, RETIRED_EMAIL)))
-            if not policy_ok and (INSURANCE_RE.search(line) or COI_RE.search(line)):
-                findings.append(Finding(FAIL, "surfaces",
-                                        "%s:%d insurance language with no verified policy"
-                                        % (rel, lineno)))
-            for raw in PRICE_RE.findall(line):
-                if allowed and int(raw) not in allowed:
-                    findings.append(Finding(FAIL, "surfaces",
-                                            "%s:%d price $%s is not in the locked list"
-                                            % (rel, lineno, raw)))
+            scan_line(rel, lineno, line)
+
+    for relative in OUTREACH_SURFACE_PATHS:
+        page = cfg.repo_root / relative
+        if not page.is_file():
+            continue
+        for lineno, line in enumerate(read_text(page).splitlines(), 1):
+            stripped = line.lstrip()
+            if stripped.startswith(">") or re.match(r"\*\*Subject", stripped):
+                scan_line(relative, lineno, line)
     if not [f for f in findings if f.level != INFO]:
         findings.append(Finding(INFO, "surfaces",
                                 "%d public page(s) clean: Zelle-only, no retired email, "

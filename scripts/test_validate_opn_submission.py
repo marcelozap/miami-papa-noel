@@ -195,6 +195,22 @@ class ValidatorTests(unittest.TestCase):
             self.assertTrue(any("bookings@miamipapanoel.com" in f.detail
                                 for f in failures))
 
+    def test_outreach_copy_blocks_unverified_insurance(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "tools/triage").mkdir(parents=True)
+            (root / "tools/triage/pricing.json").write_text(
+                json.dumps({"allowed_amounts": [550]}), encoding="utf-8")
+            batch = root / "business/wave1-batch-01.md"
+            batch.parent.mkdir(parents=True)
+            batch.write_text(
+                "> **Subject (EN):** One vendor, one W-9\n"
+                "> Fully insured, $1M/$2M liability.\n", encoding="utf-8")
+            failures = self.failures(MODULE.check_public_surfaces(
+                self.config(root, False, root / "log.jsonl", root / "evidence")))
+            self.assertTrue(any("wave1-batch-01.md" in f.detail and
+                                "insurance language" in f.detail for f in failures))
+
     def test_strict_placeholders_block_final_but_not_preflight(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
