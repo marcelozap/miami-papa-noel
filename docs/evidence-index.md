@@ -1,7 +1,7 @@
 # Evidence Index
 
 Every claim in this package traced to a source. Audited 2026-08-29 by direct
-inspection of the repository, its git history, and the running tool.
+inspection of the repository, its git history, and the runnable tool.
 
 **Status legend:** `VERIFIED` = confirmed in a file or a passing test ·
 `ATTESTED` = operator's record, evidence in assembly · `[TO FILL]` = resolves

@@ -147,7 +147,7 @@ submission does not depend on it.
 
 ## What to submit, and when
 
-**Now:** the architecture, the running tool, the test results, the release and
+**Now:** the architecture, the runnable tool, the test results, the release and
 monitoring documentation, the evidence intake, and the local preflight — with
 the qualification date stated plainly.
 

@@ -84,7 +84,7 @@ is no configuration in which the log can claim a model that did not run.
 
 | Reference | What it shows |
 |---|---|
-| `tools/triage/triage.py` | The running tool |
+| `tools/triage/triage.py` | The runnable tool |
 | `tools/triage/validators.py` | Six enforced safety gates |
 | `tools/triage/pricing.json` | Locked, versioned price list |
 | `tools/triage/test_triage.py` | 43 tests, all passing, all synthetic |
