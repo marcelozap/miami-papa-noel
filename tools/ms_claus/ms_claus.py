@@ -18,7 +18,7 @@ from pathlib import Path
 PUBLIC_PHONE = "786-975-9557"
 OLD_PUBLIC_PHONE = "305-244-0360"
 ZELLE_PHONE = "305-244-0360"
-FORBIDDEN_PAYMENT_TERMS = ("cash app", "venmo", "paypal", "stripe", "square", "wire")
+FORBIDDEN_PAYMENT_TERMS = ("cash app", "venmo", "paypal", "square", "wire")  # stripe = official rail since 2026-08-30
 INSURANCE_TERMS = ("insured", "general liability", "certificate of insurance", "additional insured")
 REQUIRED_CHECKLIST = {
     "chair": ("chair", "silla"),

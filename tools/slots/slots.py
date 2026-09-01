@@ -238,22 +238,39 @@ def deposit_sent(state: dict, slot_id: str, operator: str) -> dict:
                       {"deposit_marked_at": now_iso()})
 
 
-def verify_zelle(state: dict, slot_id: str, operator: str, amount: str,
-                 memo_ref: str) -> dict:
-    """The one and only path to BOOKED: a human checked the Zelle account."""
+DEPOSIT_METHODS = ("zelle", "stripe")
+
+
+def verify_deposit(state: dict, slot_id: str, operator: str, amount: str,
+                   memo_ref: str, method: str = "zelle") -> dict:
+    """The one and only path to BOOKED: a human checked the money with their
+    own eyes - the Zelle account, or the Stripe dashboard for a payment made
+    through the business's official Payment Link. The system itself never
+    decides that money arrived."""
+    if method not in DEPOSIT_METHODS:
+        raise TransitionError("verify-deposit --method must be one of %s"
+                              % ", ".join(DEPOSIT_METHODS))
     if not operator.strip():
-        raise TransitionError("verify-zelle requires --operator (a human name)")
+        raise TransitionError("verify-deposit requires --operator (a human name)")
     amt = amount.strip().lstrip("$")
     if not re.fullmatch(r"\d{1,4}(\.\d{2})?", amt) or float(amt) <= 0:
-        raise TransitionError("verify-zelle requires --amount as a positive "
+        raise TransitionError("verify-deposit requires --amount as a positive "
                               "dollar figure - a zero-dollar deposit cannot "
                               "book a slot")
-    memo_ref = require_opaque_ref(memo_ref, "verify-zelle --memo-ref")
+    memo_ref = require_opaque_ref(
+        memo_ref, "verify-deposit --memo-ref (Zelle memo id or Stripe "
+        "payment id suffix)")
     return transition(
         state, slot_id, BOOKED, operator,
-        "operator verified Zelle deposit %s memo-ref %s" % (amount, memo_ref),
-        {"verified": {"by": operator, "at": now_iso(),
+        "operator verified %s deposit %s ref %s" % (method, amount, memo_ref),
+        {"verified": {"by": operator, "at": now_iso(), "method": method,
                       "amount": amount, "memo_ref": memo_ref}})
+
+
+def verify_zelle(state: dict, slot_id: str, operator: str, amount: str,
+                 memo_ref: str) -> dict:
+    """Back-compat shorthand for verify_deposit(method='zelle')."""
+    return verify_deposit(state, slot_id, operator, amount, memo_ref, "zelle")
 
 
 def release(state: dict, slot_id: str, operator: str, reason: str) -> dict:
@@ -354,18 +371,23 @@ def confirmation_draft(catalog: dict, state: dict, slot_id: str) -> str:
     slot = catalog.get(slot_id, {})
     req_en = "; ".join(en for en, _ in REQUIREMENTS)
     req_es = "; ".join(es for _, es in REQUIREMENTS)
+    method = verified.get("method", "zelle")
+    dep_en = ("Zelle deposit" if method == "zelle"
+              else "card deposit (via our secure payment link)")
+    dep_es = ("deposito por Zelle" if method == "zelle"
+              else "deposito con tarjeta (por nuestro enlace de pago seguro)")
     return (
         "== DRAFT - operator sends manually ==\n"
-        "[EN] Your date is confirmed. Your Zelle deposit was verified by our "
+        "[EN] Your date is confirmed. Your %s was verified by our "
         "team on %s. Date: %s, window: %s. The balance is due on arrival "
         "(Zelle %s). Please have ready: %s. Questions: %s / %s.\n"
-        "[ES] Su fecha esta confirmada. Su deposito por Zelle fue verificado "
+        "[ES] Su fecha esta confirmada. Su %s fue verificado "
         "por nuestro equipo el %s. Fecha: %s, horario: %s. El saldo se paga "
         "al llegar (Zelle %s). Por favor tenga listo: %s. Preguntas: %s / %s."
-        % (verified.get("at", ""), slot.get("date", ""),
+        % (dep_en, verified.get("at", ""), slot.get("date", ""),
            slot_window(slot), ZELLE_DESTINATION,
            req_en, PUBLIC_PHONE, OFFICIAL_EMAIL,
-           verified.get("at", ""), slot.get("date", ""),
+           dep_es, verified.get("at", ""), slot.get("date", ""),
            slot_window(slot), ZELLE_DESTINATION,
            req_es, PUBLIC_PHONE, OFFICIAL_EMAIL))
 
@@ -438,6 +460,17 @@ def main(argv=None) -> int:
     p.add_argument("--amount", required=True)
     p.add_argument("--memo-ref", required=True)
 
+    p = sub.add_parser("verify-deposit",
+                       help="DEPOSIT_SENT -> BOOKED after a HUMAN checked the "
+                            "money (Zelle account or Stripe dashboard)")
+    p.add_argument("--slot", required=True)
+    p.add_argument("--operator", required=True)
+    p.add_argument("--amount", required=True)
+    p.add_argument("--memo-ref", required=True,
+                   help="Zelle memo id or Stripe payment id suffix - opaque, "
+                        "never customer data")
+    p.add_argument("--method", required=True, choices=list(DEPOSIT_METHODS))
+
     p = sub.add_parser("release", help="HELD/DEPOSIT_SENT -> OPEN")
     p.add_argument("--slot", required=True)
     p.add_argument("--operator", required=True)
@@ -478,15 +511,17 @@ def main(argv=None) -> int:
         elif args.cmd == "deposit-sent":
             deposit_sent(state, args.slot, args.operator)
             save_state(state)
-            print("DEPOSIT_SENT %s - awaiting operator Zelle verification. "
-                  "The slot is NOT sold." % args.slot)
-        elif args.cmd == "verify-zelle":
-            verify_zelle(state, args.slot, args.operator, args.amount,
-                         args.memo_ref)
+            print("DEPOSIT_SENT %s - awaiting operator deposit verification "
+                  "(Zelle account or Stripe dashboard). The slot is NOT sold."
+                  % args.slot)
+        elif args.cmd in ("verify-zelle", "verify-deposit"):
+            method = getattr(args, "method", "zelle")
+            verify_deposit(state, args.slot, args.operator, args.amount,
+                           args.memo_ref, method)
             save_state(state)
-            print("BOOKED %s - Zelle deposit verified by %s. Generate the "
+            print("BOOKED %s - %s deposit verified by %s. Generate the "
                   "confirmation with: slots.py confirmation --slot %s"
-                  % (args.slot, args.operator, args.slot))
+                  % (args.slot, method, args.operator, args.slot))
         elif args.cmd == "release":
             release(state, args.slot, args.operator, args.reason)
             save_state(state)

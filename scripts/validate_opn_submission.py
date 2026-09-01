@@ -139,8 +139,10 @@ PLACEHOLDER_RE = re.compile(r"\[TO FILL[^\]]*\]|\[VERIFY[^\]]*\]|\[NOT YET MET\]
 
 # ---------------------------------------------------------- surface scans ---
 
+# "stripe" is deliberately absent: the business's own Stripe Payment Link is
+# an official deposit rail alongside Zelle (operator decision, 2026-08-30).
 NON_ZELLE_RE = re.compile(
-    r"\b(venmo|cash\s?app|paypal|stripe|square|apple\s?pay|google\s?pay|"
+    r"\b(venmo|cash\s?app|paypal|square|apple\s?pay|google\s?pay|"
     r"wire\s+transfer|credit\s+card|debit\s+card|zinli)\b",
     re.IGNORECASE,
 )

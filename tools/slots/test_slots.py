@@ -226,6 +226,34 @@ class SlotMachineTests(unittest.TestCase):
             MOD.verify_zelle(self.state, "S-DEC13-1800", "op", "250",
                              "memo said Maria Gonzalez dec 24")
 
+    def test_stripe_deposit_books_and_confirmation_names_the_card_rail(self):
+        MOD.hold(self.state, "S-DEC13-1800", "L-001", "op")
+        MOD.deposit_sent(self.state, "S-DEC13-1800", "op")
+        MOD.verify_deposit(self.state, "S-DEC13-1800", "op", "225",
+                           "pi-7Q2K", "stripe")
+        self.assertEqual(MOD.current_state(self.state, "S-DEC13-1800"),
+                         MOD.BOOKED)
+        text = MOD.confirmation_draft(CATALOG, self.state, "S-DEC13-1800")
+        self.assertIn("card deposit (via our secure payment link)", text)
+        self.assertIn("deposito con tarjeta", text)
+        self.assertNotIn("Zelle deposit was", text)
+        # Balance terms stay exactly as documented.
+        self.assertIn(MOD.ZELLE_DESTINATION, text)
+
+    def test_unknown_deposit_method_refused(self):
+        MOD.hold(self.state, "S-DEC13-1800", "L-001", "op")
+        MOD.deposit_sent(self.state, "S-DEC13-1800", "op")
+        with self.assertRaises(MOD.TransitionError):
+            MOD.verify_deposit(self.state, "S-DEC13-1800", "op", "225",
+                               "X-1", "venmo")
+
+    def test_zelle_shorthand_still_books_with_method_recorded(self):
+        self.book()
+        entry = self.state["S-DEC13-1800"]
+        self.assertEqual(entry["verified"]["method"], "zelle")
+        text = MOD.confirmation_draft(CATALOG, self.state, "S-DEC13-1800")
+        self.assertIn("Zelle deposit", text)
+
     def test_real_catalog_start_end_times_render_in_window(self):
         catalog = {"X": {"slot_id": "X", "date": "2026-12-12",
                          "start_time": "16:00", "end_time": "17:00"}}

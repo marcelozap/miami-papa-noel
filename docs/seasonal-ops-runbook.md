@@ -6,8 +6,11 @@ customer-adjacent state OUTSIDE the repository under
 `%LOCALAPPDATA%\MiamiPapaNoel\`.
 
 Public contact: **786-975-9557** (call/text/WhatsApp) and
-**santa@miamipapanoel.com**. Zelle deposits go ONLY to **305-244-0360**.
-The 50% Zelle deposit is a non-refundable retainer; balance due on arrival.
+**santa@miamipapanoel.com**. Deposits arrive on exactly two official rails:
+**Zelle to 305-244-0360**, or the business's own **Stripe Payment Link**
+(operator decision, 2026-08-30). The 50% deposit is a non-refundable
+retainer; balance due on arrival. Every other method (Cash App, Venmo,
+PayPal, Square, wire) stays forbidden on every customer surface.
 
 ---
 
@@ -35,8 +38,11 @@ python tools\slots\slots.py hold --slot EVE-2026-12-24-1700 --ref L-014 --operat
 # 2. Customer says the Zelle was sent - record it; the slot is still NOT sold
 python tools\slots\slots.py deposit-sent --slot EVE-2026-12-24-1700 --operator Marcelo
 
-# 3. YOU check the Zelle account with your own eyes, THEN:
-python tools\slots\slots.py verify-zelle --slot EVE-2026-12-24-1700 --operator Marcelo --amount 250 --memo-ref MEMO-014
+# 3. YOU check the money with your own eyes - the Zelle account, or the
+#    Stripe dashboard for a Payment Link deposit - THEN:
+python tools\slots\slots.py verify-deposit --slot EVE-2026-12-24-1700 --operator Marcelo --amount 250 --memo-ref MEMO-014 --method zelle
+#    (verify-zelle remains as a shorthand for --method zelle; for a card
+#     deposit use --method stripe with the Stripe payment id suffix as ref)
 
 # 4. Only now does a confirmation draft exist - send it manually:
 python tools\slots\slots.py confirmation --slot EVE-2026-12-24-1700
@@ -65,6 +71,31 @@ manual deploy; until deployed, the site shows the previous snapshot and the
 operator is the source of truth. Cancellation keeps the retainer (FORFEIT), or
 moves it to a new date (TRANSFERRED) - exactly the documented policy, never a
 refund promise.
+
+### Stripe Payment Link setup (one-time, operator does this personally)
+
+The tools never touch Stripe keys or bank data. What exists in this repo is
+the second rail's plumbing; the link itself is created by the operator:
+
+1. Sign in at dashboard.stripe.com. Under **Settings -> Bank accounts and
+   currencies**, enter the payout bank details YOURSELF. They are never
+   pasted into any chat, file, or tool.
+2. Complete business verification (name, EIN or SSN as applicable, address).
+3. **Product catalog -> Payment Links -> New**: create one link, type
+   "Customers choose what to pay" - the operator quotes the exact 50%
+   deposit figure from the locked price list in the reply, and the customer
+   enters that amount. (Per-package fixed links can come later.)
+4. Copy the public link URL (https://buy.stripe.com/...). The URL is public
+   by design - it is safe to share and to put in the repo. The SECRET keys
+   (sk_live_...) are needed by nothing in this system; leave them untouched.
+5. Paste the URL into `tools/triage/pricing.json` -> payment ->
+   `stripe_payment_link`, and hand it to the website lane for the checkout
+   button.
+
+A card deposit is verified exactly like a Zelle one: the operator sees the
+payment in the Stripe dashboard with their own eyes, then runs
+`verify-deposit --method stripe`. The system still never decides that money
+arrived, and nothing auto-confirms.
 
 **Manual fallback (no Python):** the paper rule is the same machine - a date
 is written in the calendar in pencil at HELD, in pen only after you saw the

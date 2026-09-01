@@ -125,9 +125,11 @@ def test_draft_never_mentions_insurance():
     assert "insur" not in rec["draft_en"].lower()
 
 
-def test_draft_is_zelle_only():
+def test_draft_uses_only_official_payment_rails():
     rec = build("Can I pay with Venmo or Cash App for a Doral party Dec 13?")
     assert "Zelle" in rec["draft_en"]
+    # Official rails: Zelle and the business's own payment link. The drafts
+    # never name the processor; everything else stays forbidden.
     for banned in ("venmo", "cash app", "stripe", "paypal", "square"):
         assert banned not in rec["draft_en"].lower()
         assert banned not in rec["draft_es"].lower()
