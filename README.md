@@ -19,6 +19,27 @@ Website and business kit for Papa Noel Santa visits in Miami-Doral and nearby ar
 - `after-visit.html` - thank-you page for reviews, approved photo permission, and referrals
 - `thank-you.html` - confirmation page after a booking form submission
 
+## Operations Tools (local, drafts-only)
+
+The seasonal operation runs on local standard-library tools - nothing sends,
+posts, or charges by itself, and customer data never enters this repository
+(state lives under `%LOCALAPPDATA%\MiamiPapaNoel\`). Full operator manual:
+`docs/seasonal-ops-runbook.md`.
+
+- `tools/slots/` - canonical booking state machine (OPEN -> HELD ->
+  DEPOSIT_SENT -> BOOKED). A slot is sold only at BOOKED, and only a human
+  recording a verified Zelle deposit gets it there.
+- `tools/mrs_claus_office/` - bilingual intake for website/text/call
+  inquiries; escalates payment, discounts, complaints, and final availability
+  to the operator.
+- `tools/ms_claus/` - public-page review (preserved).
+- `tools/triage/` - inquiry triage with locked pricing and validation gates.
+- `tools/comms/` - call/text provider adapter, dry-run only until a provider
+  is connected.
+- `tools/content/` - Santa content queue; human approval required, publishing
+  blocked without credentials.
+- `tools/elves/` - public-prospect outreach drafts; human sends everything.
+
 ## Public Contact Details
 
 Use these details consistently across the website, profiles, and outreach:

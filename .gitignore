@@ -15,3 +15,10 @@ tools/triage/logs/
 *.key
 __pycache__/
 *.pyc
+
+# Seasonal-ops state files (belong OUTSIDE the repo; guarded here in
+# case an MPN_*_DIR override ever points inside it)
+slot-state.json
+availability-snapshot.json
+prospects.json
+tools/content/queue.json
