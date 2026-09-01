@@ -601,6 +601,7 @@
         html += summaryCard("Christmas Eve / Nochebuena", eve, "eve");
 
         DATES.forEach(function (date) {
+          if (date.id === "dec24") return;
           html += summaryCard(date.shortLabel, totalsFor(date.id), "");
         });
 
