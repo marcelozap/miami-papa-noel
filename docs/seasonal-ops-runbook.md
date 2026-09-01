@@ -149,7 +149,7 @@ python scripts\validate_slot_confirmations.py
 ## The whole test battery
 
 ```powershell
-python -m pytest tools\triage\test_triage.py scripts\test_validate_opn_submission.py scripts\test_evidence_index.py scripts\test_build_opn_packet.py tools\ms_claus\test_ms_claus.py tools\slots\test_slots.py tools\mrs_claus_office\test_intake.py tools\comms\test_comms.py tools\content\test_content.py tools\elves\test_elves.py -q
+python -m pytest tools\triage\test_triage.py scripts\test_validate_opn_submission.py scripts\test_evidence_index.py scripts\test_build_opn_packet.py tools\ms_claus\test_ms_claus.py tools\slots\test_slots.py tools\mrs_claus_office\test_intake.py tools\comms\test_comms.py tools\content\test_content.py tools\elves\test_elves.py tools\test_integration_season.py -q
 ```
 
 ## What is real vs. simulated
