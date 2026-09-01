@@ -6,7 +6,7 @@ Current operating rule:
 
 - Parents receive leads and reply.
 - You and your sister handle setup, posting, DMs, and profiles.
-- Every path sends people to `https://miamipapanoel.com/book` or text/call `305-244-0360`.
+- Every path sends people to `https://miamipapanoel.com/book` or text/call `786-975-9557`.
 - Do not publicly list `bookings@miamipapanoel.com` until Microsoft 365 is finished.
 
 ## Purpose
@@ -57,7 +57,7 @@ Stop when the form catches leads.
 ### Day 2 - Google Business Profile
 
 - Create or update Google Business Profile.
-- Phone: `305-244-0360`
+- Phone: `786-975-9557`
 - Website: `https://miamipapanoel.com`
 - Appointment link: `https://miamipapanoel.com/book?source=google%20business`
 - Upload 10 strong photos.
@@ -219,7 +219,7 @@ Spanish:
 
 ## Google Business Profile Description
 
-Miami Papa Noel provides warm bilingual Santa Claus visits for families, schools, daycares, businesses, residential communities, nonprofits, toy drives, Christmas novenas, photo sessions, Christmas in July events, and Christmas Eve gift delivery in Miami-Doral and nearby areas. Since 2017, Papa Noel has helped create calm, joyful Christmas moments for children, families, and community events. Request availability online or text 305-244-0360.
+Miami Papa Noel provides warm bilingual Santa Claus visits for families, schools, daycares, businesses, residential communities, nonprofits, toy drives, Christmas novenas, photo sessions, Christmas in July events, and Christmas Eve gift delivery in Miami-Doral and nearby areas. Since 2017, Papa Noel has helped create calm, joyful Christmas moments for children, families, and community events. Request availability online or text 786-975-9557.
 
 Short version:
 
@@ -271,7 +271,7 @@ Help my dad get clients for private bilingual Papa Noel/Santa visits without mak
 
 Website: https://miamipapanoel.com
 Booking page: https://miamipapanoel.com/book
-Phone/Text: 305-244-0360
+Phone/Text: 786-975-9557
 Instagram: @miamipapanoel
 
 Current email status:
@@ -284,7 +284,7 @@ Services:
 Private family visits, photos with Santa, Christmas Eve gift delivery, schools, daycares, HOAs, apartments, businesses, toy drives, nonprofits, novenas, Christmas in July, Summer Santa, pet-friendly photo moments, and partner/referral visits with photographers and party vendors.
 
 Goal:
-Create warm, simple, low-effort marketing that sends people to https://miamipapanoel.com/book or tells them to text 305-244-0360. Parents should only receive leads and reply.
+Create warm, simple, low-effort marketing that sends people to https://miamipapanoel.com/book or tells them to text 786-975-9557. Parents should only receive leads and reply.
 
 Create:
 1. A 7-day client plan

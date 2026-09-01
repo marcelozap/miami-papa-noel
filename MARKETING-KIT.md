@@ -6,7 +6,7 @@ This folder is a starter kit to help book Santa clients in Miami-Doral and nearb
 
 Use this same information everywhere so families see one clear way to contact Papa Noel:
 
-- Phone/Text: `305-244-0360`
+- Phone/Text: `786-975-9557`
 - Email: `santa@miamipapanoel.com` (verified Google Workspace mailbox).
 - Instagram: `@miamipapanoel`
 - Website: `https://miamipapanoel.com`

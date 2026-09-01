@@ -157,6 +157,19 @@
       margin-top: 22px;
     }
 
+
+    .route { margin: 14px 0 6px; padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.03); }
+    .route strong { display: block; font-size: 14px; letter-spacing: .02em; margin-bottom: 8px; }
+    .route ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+    .route .leg { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 5px 8px; border-radius: 7px; flex-wrap: wrap; }
+    .route .leg.ok { background: rgba(80,200,140,.10); }
+    .route .leg.tight { background: rgba(232,170,60,.14); }
+    .route .leg.impossible { background: rgba(214,74,74,.20); font-weight: 600; }
+    .route .leg.unknown { background: rgba(255,255,255,.05); opacity: .75; }
+    .route.impossible { border-color: rgba(214,74,74,.55); }
+    .route.tight { border-color: rgba(232,170,60,.45); }
+    .route-note { margin: 9px 0 0; font-size: 11.5px; opacity: .6; }
+
     .date-head {
       display: flex;
       align-items: end;
@@ -408,6 +421,82 @@
         }
       ];
 
+
+      // --- Route feasibility (added at Dad's request) -------------------------------
+      // Christmas Eve slots run 60 minutes apart with a 45-minute visit, so there are
+      // only ~15 minutes of driving between them. Peak evenings are 90 apart with a
+      // 60-minute visit, so ~30 minutes. These drive times are December-evening
+      // ESTIMATES for planning, not live traffic. Always leave yourself margin.
+      var ZONES = [
+        ["", "— pick a zone / escoge una zona —"],
+        ["DOR", "Doral"],
+        ["HIA", "Hialeah / Miami Lakes"],
+        ["KEN", "Kendall / West Dade"],
+        ["GAB", "Coral Gables / Westchester"],
+        ["DTW", "Downtown / Brickell"],
+        ["MIB", "Miami Beach"],
+        ["AVE", "Aventura / Sunny Isles"],
+        ["HOM", "Cutler Bay / Homestead"],
+        ["WES", "Weston / Pembroke Pines"],
+        ["FTL", "Fort Lauderdale / North Broward"]
+      ];
+
+      var DRIVE = {
+        DOR: {DOR:10, HIA:15, KEN:25, GAB:20, DTW:25, MIB:35, AVE:35, HOM:45, WES:30, FTL:45},
+        HIA: {HIA:10, KEN:30, GAB:25, DTW:25, MIB:35, AVE:30, HOM:50, WES:30, FTL:40},
+        KEN: {KEN:12, GAB:20, DTW:30, MIB:40, AVE:45, HOM:25, WES:40, FTL:55},
+        GAB: {GAB:10, DTW:15, MIB:25, AVE:35, HOM:35, WES:40, FTL:50},
+        DTW: {DTW:10, MIB:20, AVE:30, HOM:45, WES:40, FTL:45},
+        MIB: {MIB:10, AVE:25, HOM:55, WES:50, FTL:45},
+        AVE: {AVE:10, HOM:60, WES:35, FTL:25},
+        HOM: {HOM:12, WES:55, FTL:70},
+        WES: {WES:10, FTL:25},
+        FTL: {FTL:12}
+      };
+
+      function driveMinutes(a, b) {
+        if (!a || !b) return null;
+        if (DRIVE[a] && typeof DRIVE[a][b] === "number") return DRIVE[a][b];
+        if (DRIVE[b] && typeof DRIVE[b][a] === "number") return DRIVE[b][a];
+        return null;
+      }
+
+      // minutes the visit itself takes, by slot rate
+      function visitMinutes(rate) {
+        if (rate === 375) return 15;   // sneak-a-peek
+        if (rate === 500) return 45;   // Christmas Eve
+        return 60;                     // peak evening
+      }
+
+      function startMinutes(t) {
+        var m = /^(\d{1,2}):(\d{2})(am|pm)$/.exec(t);
+        if (!m) return null;
+        var h = parseInt(m[1], 10) % 12;
+        if (m[3] === "pm") h += 12;
+        return h * 60 + parseInt(m[2], 10);
+      }
+
+      // For one date: check each consecutive pair that is actually taken.
+      function routeCheck(date) {
+        var taken = date.slots.filter(function (sl) {
+          var d = state[sl[0]];
+          return d && d.status !== "Open";
+        });
+        var legs = [];
+        for (var i = 0; i < taken.length - 1; i++) {
+          var a = taken[i], b = taken[i + 1];
+          var da = state[a[0]], db = state[b[0]];
+          var gap = startMinutes(b[1]) - startMinutes(a[1]) - visitMinutes(a[2]);
+          var need = driveMinutes(da.zone, db.zone);
+          legs.push({
+            fromId: a[0], toId: b[0], fromTime: a[1], toTime: b[1],
+            gap: gap, need: need,
+            verdict: need === null ? "unknown" : (need > gap ? "impossible" : (need > gap - 5 ? "tight" : "ok"))
+          });
+        }
+        return legs;
+      }
+
       var state = loadState();
 
       function emptySlot() {
@@ -416,6 +505,7 @@
           name: "",
           phone: "",
           address: "",
+          zone: "",
           note: ""
         };
       }
@@ -453,6 +543,7 @@
           saved[slot.id].name = saved[slot.id].name || "";
           saved[slot.id].phone = saved[slot.id].phone || "";
           saved[slot.id].address = saved[slot.id].address || "";
+          saved[slot.id].zone = saved[slot.id].zone || "";
           saved[slot.id].note = saved[slot.id].note || "";
         });
 
@@ -535,11 +626,12 @@
 
         DATES.forEach(function (date) {
           var totals = totalsFor(date.id);
-          html += '<section class="date-section">';
+          html += '<section class="date-section" data-date-id="' + escapeHtml(date.id) + '">';
           html += '<div class="date-head">';
           html += '<div><h2>' + escapeHtml(date.label) + '</h2><div class="date-meta">' + escapeHtml(date.group) + '</div></div>';
           html += '<div class="date-meta">Booked / Reservado: ' + totals.booked + " / " + totals.total + '<br>Confirmed / Confirmado: ' + money(totals.confirmed) + '</div>';
           html += '</div>';
+          html += routePanel(date);
           html += '<div class="slots">';
 
           date.slots.forEach(function (slot) {
@@ -552,6 +644,35 @@
         board.innerHTML = html;
         bindSlotEvents();
         renderSummary();
+      }
+
+      function routePanel(date) {
+        var legs = routeCheck(date);
+        if (!legs.length) return "";
+        var worst = "ok";
+        legs.forEach(function (l) {
+          if (l.verdict === "impossible") worst = "impossible";
+          else if (l.verdict === "tight" && worst !== "impossible") worst = "tight";
+          else if (l.verdict === "unknown" && worst === "ok") worst = "unknown";
+        });
+        var head = {
+          ok: "Route works / La ruta funciona",
+          tight: "Route is tight / La ruta esta apretada",
+          impossible: "Route does not work / La ruta no funciona",
+          unknown: "Pick a driving zone on each booking / Escoge una zona en cada reserva"
+        }[worst];
+        var rows = legs.map(function (l) {
+          var txt;
+          if (l.need === null) {
+            txt = "zone missing / falta la zona";
+          } else {
+            txt = l.need + " min drive, " + l.gap + " min available";
+            if (l.verdict === "impossible") txt += " \u2014 short by " + (l.need - l.gap) + " min";
+          }
+          return '<li class="leg ' + l.verdict + '"><span>' + escapeHtml(l.fromTime) + " \u2192 " + escapeHtml(l.toTime) + '</span><span>' + escapeHtml(txt) + '</span></li>';
+        }).join("");
+        return '<div class="route ' + worst + '"><strong>' + escapeHtml(head) + '</strong><ul>' + rows + '</ul>' +
+               '<p class="route-note">Drive times are December-evening estimates, not live traffic. Tiempos estimados, no trafico en vivo.</p></div>';
       }
 
       function renderSlot(slot) {
@@ -580,12 +701,21 @@
           '<label>Address or neighborhood / Dirección o zona',
           '<input data-field="address" value="' + escapeHtml(data.address) + '" autocomplete="off">',
           '</label>',
+          '<label>Driving zone / Zona para manejar',
+          '<select data-field="zone">' + zoneOptions(data.zone) + '</select>',
+          '</label>',
           '<label>Note / Nota',
           '<textarea data-field="note">' + escapeHtml(data.note) + '</textarea>',
           '</label>',
           '</div>',
           '</article>'
         ].join("");
+      }
+
+      function zoneOptions(selected) {
+        return ZONES.map(function (z) {
+          return '<option value="' + escapeHtml(z[0]) + '"' + (z[0] === selected ? " selected" : "") + '>' + escapeHtml(z[1]) + '</option>';
+        }).join("");
       }
 
       function statusOptions(selected) {
@@ -620,6 +750,21 @@
 
         saveState();
         renderSummary();
+        if (key === "status" || key === "zone") refreshRoutePanels();
+      }
+
+      function refreshRoutePanels() {
+        DATES.forEach(function (date) {
+          var section = document.querySelector('[data-date-id="' + cssEscape(date.id) + '"]');
+          if (!section) return;
+          var existing = section.querySelector(".route");
+          var markup = routePanel(date);
+          if (existing) existing.remove();
+          if (markup) {
+            var head = section.querySelector(".date-head");
+            if (head) head.insertAdjacentHTML("afterend", markup);
+          }
+        });
       }
 
       function nonOpenSlots() {

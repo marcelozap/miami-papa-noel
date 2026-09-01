@@ -128,7 +128,7 @@ Travel free within 25 miles of Doral; $45 for 25–50 miles; quoted beyond.
 
 ## Standing facts every role needs
 
-- Phone / text / WhatsApp **305-244-0360** · Instagram **@miamipapanoel** · **miamipapanoel.com**
+- Phone / text / WhatsApp **786-975-9557** · Instagram **@miamipapanoel** · **miamipapanoel.com**
 - Bilingual Spanish/English, performing since 2017, based in Doral, serving Miami-Dade + Broward
 - Season target **25 bookings**: 8 HOA/community · 6 schools/daycares · 6 family visits ·
   3 photographer blocks · 2 Christmas Eve routes

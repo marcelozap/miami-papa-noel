@@ -52,7 +52,7 @@ Would you like photos and visit options?
 Website: https://miamipapanoel.com
 Photos/proof: https://miamipapanoel.com/reviews
 Partners: https://miamipapanoel.com/partners
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 
 ## DM Template: Spanish
 
@@ -65,7 +65,7 @@ Le puedo enviar fotos y opciones?
 Página: https://miamipapanoel.com
 Fotos/prueba: https://miamipapanoel.com/reviews
 Aliados: https://miamipapanoel.com/partners
-Llamar/Texto: 305-244-0360
+Llamar/Texto: 786-975-9557
 
 ## Follow-Up Template
 

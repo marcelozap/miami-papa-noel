@@ -674,7 +674,7 @@
         <a href="/" data-i18n="nav.home">Home</a>
         <a href="#ideas" data-i18n="nav.ideas">Ideas</a>
         <a href="#how" data-i18n="nav.how">How It Works</a>
-        <a href="book.html?package=Event%20Visit&type=Summer%20Santa&source=summer-santa" class="nav-cta" data-i18n="nav.request">Request Summer Santa</a>
+        <a href="/book?package=Event%20Visit&type=Summer%20Santa&source=summer-santa" class="nav-cta" data-i18n="nav.request">Request Summer Santa</a>
       </nav>
       <div class="language-toggle" aria-label="Choose language">
         <button type="button" class="is-active" data-lang="en">EN</button>
@@ -691,8 +691,8 @@
           <h1 data-i18n="hero.title">Christmas magic for summer parties, camps, and toy drives.</h1>
           <p class="hero-copy" data-i18n="hero.copy">A warm bilingual Papa Noel appearance for Christmas in July, daycare story time, pet photos, birthdays, business family days, and community events.</p>
           <div class="actions">
-            <a class="button" href="book.html?package=Event%20Visit&type=Summer%20Santa&source=summer-santa" data-i18n="hero.primary">Request Summer Santa</a>
-            <a class="button secondary" href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20Summer%20Santa%20or%20Christmas%20in%20July%20visit." target="_blank" rel="noopener" data-whatsapp-link data-i18n="hero.secondary">Ask on WhatsApp</a>
+            <a class="button" href="/book?package=Event%20Visit&type=Summer%20Santa&source=summer-santa" data-i18n="hero.primary">Request Summer Santa</a>
+            <a class="button secondary" href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20Summer%20Santa%20or%20Christmas%20in%20July%20visit." target="_blank" rel="noopener" data-whatsapp-link data-i18n="hero.secondary">Ask on WhatsApp</a>
           </div>
         </div>
         <aside class="hero-card" aria-label="Summer Santa visit summary">
@@ -828,9 +828,9 @@
         <h2 data-i18n="cta.title">Want Christmas magic before December?</h2>
         <p data-i18n="cta.copy">Send the date, city, type of event, guest count, and the kind of moment you want to create. We will reply with availability and next steps.</p>
         <div class="actions">
-          <a class="button" href="book.html?package=Event%20Visit&type=Summer%20Santa&source=summer-santa" data-i18n="cta.primary">Request Availability</a>
-          <a class="button secondary" href="tel:+13052440360" data-i18n="cta.call">Call or Text</a>
-          <a class="button secondary" href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20Summer%20Santa%20or%20Christmas%20in%20July%20visit." target="_blank" rel="noopener" data-whatsapp-link data-i18n="cta.whatsapp">WhatsApp</a>
+          <a class="button" href="/book?package=Event%20Visit&type=Summer%20Santa&source=summer-santa" data-i18n="cta.primary">Request Availability</a>
+          <a class="button secondary" href="tel:+17869759557" data-i18n="cta.call">Call or Text</a>
+          <a class="button secondary" href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20Summer%20Santa%20or%20Christmas%20in%20July%20visit." target="_blank" rel="noopener" data-whatsapp-link data-i18n="cta.whatsapp">WhatsApp</a>
         </div>
       </div>
     </section>
@@ -846,8 +846,8 @@
   </footer>
 
   <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="tel:+13052440360" data-i18n="sticky.call">Call / Text</a>
-    <a href="book.html?package=Event%20Visit&type=Summer%20Santa&source=summer-santa" data-i18n="sticky.request">Request Visit</a>
+    <a href="tel:+17869759557" data-i18n="sticky.call">Call / Text</a>
+    <a href="/book?package=Event%20Visit&type=Summer%20Santa&source=summer-santa" data-i18n="sticky.request">Request Visit</a>
   </div>
 
   <script>
@@ -1016,7 +1016,7 @@
         button.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
       document.querySelectorAll("[data-whatsapp-link]").forEach((link) => {
-        link.href = "https://wa.me/13052440360?text=" + encodeURIComponent(whatsappMessages[currentLanguage]);
+        link.href = "https://wa.me/17869759557?text=" + encodeURIComponent(whatsappMessages[currentLanguage]);
       });
       localStorage.setItem("miamiPapaNoelLanguage", currentLanguage);
     }

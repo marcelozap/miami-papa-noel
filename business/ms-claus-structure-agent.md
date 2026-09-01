@@ -4,6 +4,11 @@ Ms. Claus keeps Santa's factory organized.
 
 Walter finds leads. Ms. Claus protects the business from clutter.
 
+The local review command is `python tools\\ms_claus\\ms_claus.py`. It is an
+offline, read-only release check: it scans the deployed root HTML pages and
+prints the report below. It does not send messages, edit files, call customers,
+touch email/DNS/Vercel, or connect to a bank.
+
 ## Job
 
 Ms. Claus reviews the website, business files, lead system, and internal tools with one goal:
@@ -58,3 +63,11 @@ If Walter is the lead engine, Ms. Claus is the editor.
 Walter expands.
 
 Ms. Claus reduces.
+
+## Operational handoff
+
+The agent can flag a stale public phone number, unapproved payment wording,
+unverified insurance wording, or missing booking requirements. The operator
+reviews the report, makes the approved change, and runs the command again.
+The old `305-244-0360` number remains the Zelle destination; public calls,
+texts, and WhatsApp use `786-975-9557`.

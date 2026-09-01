@@ -8,7 +8,7 @@ Available for family parties, businesses, schools, daycares, residential communi
 
 Booking now for the 2026 holiday season.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 Instagram: @miamipapanoel
 Book: https://miamipapanoel.com/links
 Events: https://miamipapanoel.com/events
@@ -28,7 +28,7 @@ Disponible para fiestas familiares, negocios, escuelas, daycares, comunidades re
 
 Reservas abiertas para la temporada navideña 2026.
 
-Llama/Texto: 305-244-0360
+Llama/Texto: 786-975-9557
 Instagram: @miamipapanoel
 Reservas: https://miamipapanoel.com/links
 Eventos: https://miamipapanoel.com/events
@@ -48,7 +48,7 @@ Santa is available this summer for photo pop-ups, daycare visits, toy drive kick
 
 Book a magical summer moment now and reserve your December date early.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 Summer Santa info: https://miamipapanoel.com/summer-santa
 
 ## Post 3 - Nonprofit Angle
@@ -59,7 +59,7 @@ Papa Noel is available for nonprofit events, sponsor-supported toy drives, and c
 
 If your organization is planning something for children this year, we would love to help.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 Event info: https://miamipapanoel.com/events
 
 ## Post 3B - Schools and Daycares
@@ -68,7 +68,7 @@ Planning a Santa visit for a school, daycare, preschool, or camp?
 
 Miami Papa Noel offers warm bilingual visits with photos, classroom greetings, story time, toy drive support, and calm interaction for shy children.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 School visit info: https://miamipapanoel.com/schools-daycares
 
 ## Post 3C - HOAs and Apartment Communities
@@ -77,7 +77,7 @@ Planning a resident holiday party, clubhouse event, lobby photo day, or communit
 
 Miami Papa Noel brings a warm bilingual Santa visit for HOAs, apartments, condos, clubhouses, and residential communities across Miami-Doral and nearby areas.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 Community visit info: https://miamipapanoel.com/hoa-apartments
 
 ## Post 3D - Local Partner Ideas
@@ -86,7 +86,7 @@ Photographers, balloon decorators, planners, restaurants, cafes, pet groomers, a
 
 Miami Papa Noel is available for Santa mini-sessions, Christmas in July pop-ups, pet photos, customer appreciation days, toy drives, and referral partnerships.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 Partner info: https://miamipapanoel.com/partners
 
 ## Post 3D - Ideas para Aliados Locales
@@ -95,7 +95,7 @@ Fotógrafos, decoradores, planners, restaurantes, cafes, groomers y negocios fam
 
 Miami Papa Noel está disponible para mini sesiones con Santa, pop-ups de Christmas in July, fotos con mascotas, eventos para clientes, toy drives y alianzas de referidos.
 
-Llama/Texto: 305-244-0360
+Llama/Texto: 786-975-9557
 Info para aliados: https://miamipapanoel.com/partners
 
 ## Post 3E - Service Areas
@@ -106,7 +106,7 @@ Miami Papa Noel brings warm bilingual Santa visits to homes, schools, daycares, 
 
 Send your date, city, and visit type. We will confirm availability and the best option.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 Areas served: https://miamipapanoel.com/service-areas
 
 ## Post 3E - Areas de Servicio
@@ -117,7 +117,7 @@ Miami Papa Noel ofrece visitas calidas y bilingues para casas, escuelas, daycare
 
 Envia fecha, ciudad y tipo de visita. Confirmamos disponibilidad y la mejor opcion.
 
-Llama/Texto: 305-244-0360
+Llama/Texto: 786-975-9557
 Areas servidas: https://miamipapanoel.com/service-areas
 
 ## Post 3F - Proof and Real Moments
@@ -128,7 +128,7 @@ We gathered real visit photos, community moments, and trust notes so families, s
 
 Warm bilingual Santa visits for Miami-Doral and nearby areas.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 Photos and proof: https://miamipapanoel.com/reviews
 
 ## Post 3F - Prueba y Momentos Reales
@@ -139,7 +139,7 @@ Reunimos fotos reales, momentos comunitarios y notas de confianza para que famil
 
 Visitas cálidas y bilingües de Santa para Miami-Doral y áreas cercanas.
 
-Llama/Texto: 305-244-0360
+Llama/Texto: 786-975-9557
 Fotos y prueba: https://miamipapanoel.com/reviews
 
 ## Post 4 - Christmas Eve
@@ -150,7 +150,7 @@ Christmas Eve gift delivery bookings are limited and scheduled by time window. F
 
 Reserve early.
 
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 Christmas Eve info: https://miamipapanoel.com/christmas-eve
 
 ## Story Ideas

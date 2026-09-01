@@ -9,7 +9,7 @@
 - Create Google Business Profile using `google-business-profile-launch.md`.
 - Create Google Calendar.
 - Decide payment methods.
-- Confirm the website uses `305-244-0360`, the booking form, WhatsApp/text, and `@miamipapanoel`.
+- Confirm the website uses `786-975-9557`, the booking form, WhatsApp/text, and `@miamipapanoel`.
 - Verify `santa@miamipapanoel.com` and the website FormSubmit route before publishing the email.
 
 ## Day 2 - Website and Domain

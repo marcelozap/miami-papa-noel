@@ -8,7 +8,7 @@ Use the booking form first:
 
 Use text/call for quick questions:
 
-`305-244-0360`
+`786-975-9557`
 
 Public email: `santa@miamipapanoel.com`.
 
@@ -243,7 +243,7 @@ Would you be able to point me to the person who coordinates resident holiday eve
 
 Thank you,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -262,7 +262,7 @@ Me podrian indicar quien coordina eventos navidenos para residentes o recomendac
 
 Gracias,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -295,7 +295,7 @@ Could you direct me to the Lifestyle Services contact or booking agent who revie
 
 Thank you,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -314,7 +314,7 @@ Me podrian conectar con la persona de Lifestyle Services o booking que revisa pr
 
 Gracias,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -347,7 +347,7 @@ Would your business development or lifestyle team be open to receiving photos an
 
 Thank you,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -366,7 +366,7 @@ Su equipo de business development o lifestyle estaria abierto a recibir fotos y 
 
 Gracias,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -399,7 +399,7 @@ Could you let me know who coordinates lifestyle programming or holiday event ven
 
 Thank you,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -418,7 +418,7 @@ Me podrian indicar quien coordina lifestyle programming o proveedores para event
 
 Gracias,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -451,7 +451,7 @@ Would you be open to receiving photos and package details, or sharing them with 
 
 Thank you,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -470,7 +470,7 @@ Estarian abiertos a recibir fotos y detalles de paquetes, o compartirlos con la 
 
 Gracias,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 https://miamipapanoel.com/book
 ```
 
@@ -496,7 +496,7 @@ Hi [CLIENT NAME], thank you for thinking of Miami Papa Noel. Unfortunately, [REQ
 
 If your plans are flexible, we still have [OPTION 1] or [OPTION 2] available. You can also join the waitlist in case a slot opens up.
 
-To check availability or request another date, visit miamipapanoel.com/book or text/WhatsApp 305-244-0360.
+To check availability or request another date, visit miamipapanoel.com/book or text/WhatsApp 786-975-9557.
 ```
 
 Spanish:
@@ -506,7 +506,7 @@ Hola [CLIENT NAME], gracias por pensar en Miami Papa Noel. Lamentablemente, el [
 
 Si tienen flexibilidad, todavia tenemos disponible [OPTION 1] o [OPTION 2]. Tambien los puedo poner en lista de espera por si se abre un espacio.
 
-Para ver disponibilidad o pedir otra fecha, entren a miamipapanoel.com/book o escriban por texto/WhatsApp al 305-244-0360.
+Para ver disponibilidad o pedir otra fecha, entren a miamipapanoel.com/book o escriban por texto/WhatsApp al 786-975-9557.
 ```
 
 ## Price Objection
@@ -524,7 +524,7 @@ The standard family visit is $325 for the first hour, $150 per extra half hour. 
 
 If a weekday daytime between Dec 1 and Dec 18 works, I do have a limited entry visit at $195 for 45 minutes, in exchange for a review and permission to use one photo. Those are capped and they go early.
 
-miamipapanoel.com/book or text/WhatsApp 305-244-0360.
+miamipapanoel.com/book or text/WhatsApp 786-975-9557.
 ```
 
 Spanish:
@@ -538,7 +538,7 @@ La visita familiar estandar es $325 la primera hora y $150 cada media hora adici
 
 Si les sirve un dia entre semana durante el dia, del 1 al 18 de diciembre, tengo una visita de entrada limitada a $195 por 45 minutos, a cambio de una resena y permiso para usar una foto. Son pocas y se van temprano.
 
-miamipapanoel.com/book o por texto/WhatsApp al 305-244-0360.
+miamipapanoel.com/book o por texto/WhatsApp al 786-975-9557.
 ```
 
 ## Deposit And Cancellation Policy
@@ -578,7 +578,7 @@ Insurance: [VERIFY POLICY ACTIVE] $1M/$2M general liability. We provide a certif
 
 Background check: please send the exact form or vendor process your school uses, the deadline, and any ID requirements. If you need Florida Level 2 screening, send me your ORI number and I will go to a livescan site this week.
 
-You can send the event details at miamipapanoel.com/book or text/WhatsApp 305-244-0360.
+You can send the event details at miamipapanoel.com/book or text/WhatsApp 786-975-9557.
 ```
 
 Spanish:
@@ -590,7 +590,7 @@ Seguro: [VERIFY POLICY ACTIVE] responsabilidad civil de $1M por incidente y $2M 
 
 Verificacion de antecedentes: por favor envie el formulario o el proceso exacto que usa su escuela, la fecha limite y los requisitos de identificacion. Si necesita el Nivel 2 de Florida, envieme su numero ORI y voy a un centro de livescan esta semana.
 
-Puede enviar los detalles en miamipapanoel.com/book o por texto/WhatsApp al 305-244-0360.
+Puede enviar los detalles en miamipapanoel.com/book o por texto/WhatsApp al 786-975-9557.
 ```
 
 ## Corporate — Invoice, W-9, Net-15
@@ -604,7 +604,7 @@ The corporate rate is $450 for the first hour. Please send the event date, time,
 
 We provide an invoice and a W-9. Net-15 terms are available for approved corporate bookings. The date is held once the 50% retainer clears, unless other terms are approved in writing in advance.
 
-To start, visit miamipapanoel.com/book or text/WhatsApp 305-244-0360.
+To start, visit miamipapanoel.com/book or text/WhatsApp 786-975-9557.
 ```
 
 Spanish:
@@ -616,7 +616,7 @@ La tarifa corporativa es $450 la primera hora. Por favor envie fecha, hora, dire
 
 Entregamos factura y W-9. Ofrecemos terminos net-15 para reservas corporativas aprobadas. La fecha queda separada cuando se acredita el deposito del 50%, salvo que se aprueben otros terminos por escrito con anticipacion.
 
-Para empezar, entre a miamipapanoel.com/book o escriba por texto/WhatsApp al 305-244-0360.
+Para empezar, entre a miamipapanoel.com/book o escriba por texto/WhatsApp al 786-975-9557.
 ```
 
 ## Photographer Block Rate
@@ -630,7 +630,7 @@ The block rate is $600 for 4 hours or $850 for a full day, flat. You manage the 
 
 Papa Noel arrives ready for the block, takes direction from you, and keeps each family warm, quick and camera-ready. He works in Spanish and English, so no family in your queue gets a silent Santa.
 
-To hold a date, send [DATE], [LOCATION] and [TIME BLOCK] to 305-244-0360 or miamipapanoel.com/book.
+To hold a date, send [DATE], [LOCATION] and [TIME BLOCK] to 786-975-9557 or miamipapanoel.com/book.
 ```
 
 Spanish:
@@ -642,7 +642,7 @@ La tarifa por bloque es $600 por 4 horas o $850 por dia completo, precio fijo. U
 
 Papa Noel llega listo para el bloque, sigue su direccion, y mantiene a cada familia comoda, rapida y lista para la camara. Trabaja en espanol e ingles, asi que ninguna familia en su fila se queda con un Santa mudo.
 
-Para separar una fecha, envie [DATE], [LOCATION] y [TIME BLOCK] al 305-244-0360 o a miamipapanoel.com/book.
+Para separar una fecha, envie [DATE], [LOCATION] y [TIME BLOCK] al 786-975-9557 o a miamipapanoel.com/book.
 ```
 
 ## Travel Fee
@@ -656,7 +656,7 @@ Travel is free within 25 miles of Doral. Between 25 and 50 miles it is $45. Beyo
 
 For [EVENT ADDRESS], the travel fee is [TRAVEL FEE]. The visit rate stays [RATE], and travel is added to the final total.
 
-To move forward, send the request at miamipapanoel.com/book or text/WhatsApp 305-244-0360.
+To move forward, send the request at miamipapanoel.com/book or text/WhatsApp 786-975-9557.
 ```
 
 Spanish:
@@ -668,7 +668,7 @@ El viaje esta incluido dentro de 25 millas de Doral. Entre 25 y 50 millas son $4
 
 Para [EVENT ADDRESS], el cargo de viaje es [TRAVEL FEE]. La tarifa de la visita sigue siendo [RATE], y el viaje se suma al total.
 
-Para continuar, envie la solicitud en miamipapanoel.com/book o por texto/WhatsApp al 305-244-0360.
+Para continuar, envie la solicitud en miamipapanoel.com/book o por texto/WhatsApp al 786-975-9557.
 ```
 
 ## Add-On Upsell
@@ -682,7 +682,7 @@ Mrs. Claus, an elf, a balloon backdrop and throne, gift pre-staging so the bag i
 
 Tell me which one, the address and the timing, and I will confirm availability and price before anything is added.
 
-Text/WhatsApp 305-244-0360 or update the request at miamipapanoel.com/book.
+Text/WhatsApp 786-975-9557 or update the request at miamipapanoel.com/book.
 ```
 
 Spanish:
@@ -694,7 +694,7 @@ Mama Noel, un duende, un fondo de globos con trono, la preparacion previa de los
 
 Digame cual, la direccion y el horario, y confirmo disponibilidad y precio antes de agregar nada.
 
-Texto/WhatsApp al 305-244-0360 o actualice la solicitud en miamipapanoel.com/book.
+Texto/WhatsApp al 786-975-9557 o actualice la solicitud en miamipapanoel.com/book.
 ```
 
 ## Event Requirements — send after booking
@@ -708,7 +708,7 @@ Please have four things ready before he arrives: a sturdy armless chair, air con
 
 If gifts will be handed out, label them clearly with each child's name and have that adult keep them in order before Papa Noel walks in. It is what keeps the line moving and the children calm.
 
-If anything changes with timing, gate access or parking, text/WhatsApp 305-244-0360 as soon as you can.
+If anything changes with timing, gate access or parking, text/WhatsApp 786-975-9557 as soon as you can.
 ```
 
 Spanish:
@@ -720,7 +720,7 @@ Por favor tengan cuatro cosas listas antes de que llegue: una silla firme sin br
 
 Si va a entregar regalos, por favor marquenlos claramente con el nombre de cada nino y que ese adulto los tenga en orden antes de que Papa Noel entre. Eso es lo que mantiene la fila moviendose y a los ninos tranquilos.
 
-Si cambia algo del horario, la entrada o el estacionamiento, escriban por texto/WhatsApp al 305-244-0360 lo antes posible.
+Si cambia algo del horario, la entrada o el estacionamiento, escriban por texto/WhatsApp al 786-975-9557 lo antes posible.
 ```
 
 ## Running Late
@@ -734,7 +734,7 @@ We are on the way. The visit will still be the full time you booked, and the chi
 
 Please keep the chair, the gift bag and the photo area ready so we can begin the moment we arrive. I will message again if the timing changes.
 
-Text/WhatsApp 305-244-0360 if there are gate or parking instructions I should know.
+Text/WhatsApp 786-975-9557 if there are gate or parking instructions I should know.
 ```
 
 Spanish:
@@ -746,7 +746,7 @@ Ya vamos en camino. La visita sera el tiempo completo que reservaron, y los nino
 
 Por favor tengan lista la silla, la bolsa de regalos y el area de fotos para empezar apenas lleguemos. Les aviso de nuevo si cambia el tiempo.
 
-Texto/WhatsApp al 305-244-0360 si hay instrucciones de entrada o estacionamiento que deba saber.
+Texto/WhatsApp al 786-975-9557 si hay instrucciones de entrada o estacionamiento que deba saber.
 ```
 
 ## Declining A Free Or No-Budget Ask
@@ -760,7 +760,7 @@ We are not able to take unpaid appearances this season. December dates are limit
 
 If a sponsor or a budget comes together, I would be glad to quote the rate for your event type, and I am happy to be the name you bring to a sponsor.
 
-miamipapanoel.com/book or text/WhatsApp 305-244-0360. Wishing you a good event either way.
+miamipapanoel.com/book or text/WhatsApp 786-975-9557. Wishing you a good event either way.
 ```
 
 Spanish:
@@ -772,5 +772,5 @@ Esta temporada no podemos aceptar presentaciones sin pago. Las fechas de diciemb
 
 Si consiguen un patrocinador o un presupuesto, con gusto cotizo la tarifa segun el tipo de evento, y con gusto soy el nombre que le llevan al patrocinador.
 
-miamipapanoel.com/book o por texto/WhatsApp al 305-244-0360. De cualquier manera, les deseo un buen evento.
+miamipapanoel.com/book o por texto/WhatsApp al 786-975-9557. De cualquier manera, les deseo un buen evento.
 ```

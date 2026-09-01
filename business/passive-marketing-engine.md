@@ -51,7 +51,7 @@ Recommended profile fields:
 - Service area: `Doral, Miami, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby Miami-Dade areas`
 - Website: `https://miamipapanoel.com`
 - Appointment link: `https://miamipapanoel.com/book?source=google%20business`
-- Phone: `305-244-0360`
+- Phone: `786-975-9557`
 - Description: use the copy in `directory-profile-kit.md`
 - Photos: upload 10 to 15 real photos first, with the strongest children/family/community photos at the top.
 

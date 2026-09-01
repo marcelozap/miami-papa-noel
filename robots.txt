@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Internal operating tools and prospect data. Never index, never crawl.
+Disallow: /business/
+Disallow: /lead-tracker.csv
+Disallow: /thank-you
+
 Sitemap: https://miamipapanoel.com/sitemap.xml

@@ -30,7 +30,7 @@ Photos/proof:
 https://miamipapanoel.com/reviews
 
 Phone/Text:
-305-244-0360
+786-975-9557
 
 Email:
 Do not list a public email yet. Use the booking form and phone until `bookings@miamipapanoel.com` is active.

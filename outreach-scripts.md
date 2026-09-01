@@ -9,7 +9,7 @@ He is available for family parties, businesses, schools, residential communities
 Would you like me to send photos, visit options, and availability for the 2026 holiday season?
 
 Website: https://miamipapanoel.com
-Call/Text: 305-244-0360
+Call/Text: 786-975-9557
 
 ## Instagram DM - Spanish
 
@@ -20,7 +20,7 @@ Está disponible para fiestas familiares, negocios, escuelas, comunidades reside
 Le puedo enviar fotos, opciones y disponibilidad para la temporada navideña 2026?
 
 Página: https://miamipapanoel.com
-Llamar/Texto: 305-244-0360
+Llamar/Texto: 786-975-9557
 
 ## Follow-Up
 
@@ -52,7 +52,7 @@ I would be happy to send photos, package options, and availability.
 
 Thank you,
 Miami Papa Noel
-305-244-0360
+786-975-9557
 @miamipapanoel
 https://miamipapanoel.com
 

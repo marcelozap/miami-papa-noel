@@ -319,6 +319,23 @@
       color: rgba(255, 255, 255, .76);
     }
 
+
+    .trust-strip { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--charcoal); color: white; }
+    .trust-item { display: flex; align-items: center; gap: 14px; min-height: 94px; padding: 20px 24px; border-right: 1px solid rgba(255,255,255,.12); }
+    .trust-item:last-child { border-right: none; }
+    .trust-item strong { color: var(--gold); font-family: "Cormorant Garamond", Georgia, serif; font-size: 42px; line-height: .9; }
+    .trust-item span { font-size: 14px; line-height: 1.35; }
+    @media (max-width: 860px) { .trust-strip { grid-template-columns: repeat(2, 1fr); } }
+
+
+    .rate-table { width: 100%; border-collapse: collapse; margin-top: 26px; font-size: 15px; }
+    .rate-table th { text-align: left; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #7b6f6a; padding: 0 12px 10px; font-weight: 600; }
+    .rate-table td { padding: 13px 12px; border-top: 1px solid rgba(35,27,25,.12); vertical-align: top; }
+    .rate-table td.amount { font-family: "Cormorant Garamond", Georgia, serif; font-size: 26px; color: var(--charcoal); white-space: nowrap; }
+    .rate-table tr.is-peak td { background: rgba(201,153,63,.09); }
+    .rate-table tr.is-peak td.amount { color: var(--gold); }
+    .rate-wrap { overflow-x: auto; }
+
     .deposit-list {
       display: grid;
       gap: 12px;
@@ -458,8 +475,8 @@
     <div class="top-actions">
       <nav aria-label="Checkout navigation">
         <a href="/" data-i18n="nav.website">Website</a>
-        <a href="book.html?source=checkout" data-i18n="nav.book">Book</a>
-        <a href="tel:+13052440360" data-i18n="nav.call">Call</a>
+        <a href="/book?source=checkout" data-i18n="nav.book">Book</a>
+        <a href="tel:+17869759557" data-i18n="nav.call">Call</a>
       </nav>
       <div class="language-toggle" aria-label="Choose language">
         <button type="button" class="is-active" data-lang="en">EN</button>
@@ -476,6 +493,13 @@
         <p data-i18n="hero.copy">Start with the closest option. We will confirm availability, final price, and next steps after you send the details.</p>
       </div>
     </section>
+
+    <div class="trust-strip" aria-label="Trust highlights">
+      <div class="trust-item"><strong>2017</strong><span data-i18n="trust.one">Every season since</span></div>
+      <div class="trust-item"><strong>2</strong><span data-i18n="trust.two">Every visit in English and Spanish</span></div>
+      <div class="trust-item"><strong>2</strong><span data-i18n="trust.three">Miami-Dade and Broward</span></div>
+      <div class="trust-item"><strong>24</strong><span data-i18n="trust.four">Christmas Eve slots go first</span></div>
+    </div>
 
     <section>
       <div class="shell">
@@ -497,7 +521,7 @@
               <li data-i18n="family.three">Optional gift handoff</li>
               <li data-i18n="family.four">Best for intimate family moments</li>
             </ul>
-            <a class="button dark" href="book.html?package=Family%20Visit&source=checkout" data-i18n="cta.family">Ask About Family Visit</a>
+            <a class="button dark" href="/book?package=Family%20Visit&source=checkout" data-i18n="cta.family">Ask About Family Visit</a>
           </article>
           <article class="price-card featured">
             <div class="badge" data-i18n="badge.popular">Most Popular</div>
@@ -509,7 +533,7 @@
               <li data-i18n="event.three">Gift table support</li>
               <li data-i18n="event.four">Extended appearances available</li>
             </ul>
-            <a class="button" href="book.html?package=Event%20Visit&source=checkout" data-i18n="cta.event">Ask About Event Visit</a>
+            <a class="button" href="/book?package=Event%20Visit&source=checkout" data-i18n="cta.event">Ask About Event Visit</a>
           </article>
           <article class="price-card">
             <div class="badge" data-i18n="badge.limited">Limited</div>
@@ -521,9 +545,31 @@
               <li data-i18n="eve.three">Photos and surprise moment</li>
               <li data-i18n="eve.four">Limited evening slots</li>
             </ul>
-            <a class="button dark" href="book.html?package=Christmas%20Eve&source=checkout" data-i18n="cta.eve">Ask About Christmas Eve</a>
+            <a class="button dark" href="/book?package=Christmas%20Eve&source=checkout" data-i18n="cta.eve">Ask About Christmas Eve</a>
           </article>
         </div>
+
+        <div class="rate-wrap">
+          <table class="rate-table">
+            <thead><tr>
+              <th data-i18n="rate.colTier">Visit</th>
+              <th data-i18n="rate.colRate">Rate</th>
+              <th data-i18n="rate.colWhen">When it applies</th>
+            </tr></thead>
+            <tbody>
+          <tr><td data-i18n="rate.jingle">Entry — “Jingle”</td><td class="amount">$195</td><td data-i18n="rate.jingleWhen">Mon–Thu daytime, Dec 1–18 only. Limited number.</td></tr>
+          <tr><td data-i18n="rate.standard">Family visit</td><td class="amount">$325</td><td data-i18n="rate.standardWhen">First hour, then $150 per extra half hour.</td></tr>
+          <tr><td data-i18n="rate.hoa">HOA / community event</td><td class="amount">$550</td><td data-i18n="rate.hoaWhen">Two hours, two-hour minimum.</td></tr>
+          <tr><td data-i18n="rate.school">School or daycare</td><td class="amount">$275</td><td data-i18n="rate.schoolWhen">One hour, weekday daytime.</td></tr>
+          <tr><td data-i18n="rate.corporate">Corporate or office party</td><td class="amount">$450</td><td data-i18n="rate.corporateWhen">First hour.</td></tr>
+          <tr><td data-i18n="rate.photo">Photographer block</td><td class="amount">$600</td><td data-i18n="rate.photoWhen">Four hours. $850 for a full day.</td></tr>
+          <tr class="is-peak"><td data-i18n="rate.peak">Peak evenings</td><td class="amount">$425</td><td data-i18n="rate.peakWhen">Dec 12, 13, 19 and 20 after 4pm. Never discounted.</td></tr>
+          <tr class="is-peak"><td data-i18n="rate.eve">Christmas Eve</td><td class="amount">$500</td><td data-i18n="rate.eveWhen">Per 45-minute visit until 8pm. Sold in slots, not hours.</td></tr>
+          <tr class="is-peak"><td data-i18n="rate.late">Christmas Eve, after 9pm</td><td class="amount">$375</td><td data-i18n="rate.lateWhen">Fifteen minutes. A gift drop while the child peeks.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine-print" data-i18n="rate.scarcity">Dec 12, 13, 19, 20 and Christmas Eve are the dates that fill first, and they are held first-come with a deposit. Travel is free within 25 miles of Doral, $45 between 25 and 50 miles.</p>
         <p class="fine-print" data-i18n="prices.note">Nonprofit, toy drive, sponsor-supported, and Christmas in July events can be quoted separately.</p>
       </div>
     </section>
@@ -557,9 +603,13 @@
             <div data-i18n="prepare.two">City or neighborhood</div>
             <div data-i18n="prepare.three">Number of children or guests</div>
             <div data-i18n="prepare.four">Gift handoff details, if any</div>
+            <div data-i18n="prepare.five">A sturdy armless chair for Santa</div>
+            <div data-i18n="prepare.six">Air conditioning during the visit</div>
+            <div data-i18n="prepare.seven">A designated adult for gifts and the photo queue</div>
+            <div data-i18n="prepare.eight">Parking within 100 feet</div>
           </div>
           <div class="actions" style="margin-top: 18px;">
-            <a class="button" href="book.html?source=checkout" data-i18n="prepare.cta">Request a Visit</a>
+            <a class="button" href="/book?source=checkout" data-i18n="prepare.cta">Request a Visit</a>
           </div>
           <p class="fine-print" data-i18n="prepare.note">Booking is confirmed only after availability, deposit, address, parking details, and calendar confirmation.</p>
         </div>
@@ -576,8 +626,8 @@
     <span class="footer-subline" data-i18n="footer.subline">Visit options, reservations, and bilingual Santa appearances</span>
   </footer>
   <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="tel:+13052440360" data-i18n="sticky.call">Call / Text</a>
-    <a href="book.html?source=checkout" data-i18n="sticky.request">Request Visit</a>
+    <a href="tel:+17869759557" data-i18n="sticky.call">Call / Text</a>
+    <a href="/book?source=checkout" data-i18n="sticky.request">Request Visit</a>
   </div>
   <script>
     const translations = {
@@ -615,6 +665,32 @@
         "cta.family": "Ask About Family Visit",
         "cta.event": "Ask About Event Visit",
         "cta.eve": "Ask About Christmas Eve",
+        "rate.colTier": "Visit",
+        "rate.colRate": "Rate",
+        "rate.colWhen": "When it applies",
+        "rate.jingle": "Entry — “Jingle”",
+        "rate.jingleWhen": "Mon–Thu daytime, Dec 1–18 only. Limited number.",
+        "rate.standard": "Family visit",
+        "rate.standardWhen": "First hour, then $150 per extra half hour.",
+        "rate.hoa": "HOA / community event",
+        "rate.hoaWhen": "Two hours, two-hour minimum.",
+        "rate.school": "School or daycare",
+        "rate.schoolWhen": "One hour, weekday daytime.",
+        "rate.corporate": "Corporate or office party",
+        "rate.corporateWhen": "First hour.",
+        "rate.photo": "Photographer block",
+        "rate.photoWhen": "Four hours. $850 for a full day.",
+        "rate.peak": "Peak evenings",
+        "rate.peakWhen": "Dec 12, 13, 19 and 20 after 4pm. Never discounted.",
+        "rate.eve": "Christmas Eve",
+        "rate.eveWhen": "Per 45-minute visit until 8pm. Sold in slots, not hours.",
+        "rate.late": "Christmas Eve, after 9pm",
+        "rate.lateWhen": "Fifteen minutes. A gift drop while the child peeks.",
+        "rate.scarcity": "Dec 12, 13, 19, 20 and Christmas Eve are the dates that fill first, and they are held first-come with a deposit. Travel is free within 25 miles of Doral, $45 between 25 and 50 miles.",
+        "trust.one": "Every season since",
+        "trust.two": "Every visit in English and Spanish",
+        "trust.three": "Miami-Dade and Broward",
+        "trust.four": "Christmas Eve slots go first",
         "prices.note": "Nonprofit, toy drive, sponsor-supported, and Christmas in July events can be quoted separately.",
         "works.eyebrow": "How It Works",
         "works.title": "No payment until we confirm the visit.",
@@ -636,6 +712,10 @@
         "prepare.two": "City or neighborhood",
         "prepare.three": "Number of children or guests",
         "prepare.four": "Gift handoff details, if any",
+        "prepare.five": "A sturdy armless chair for Santa",
+        "prepare.six": "Air conditioning during the visit",
+        "prepare.seven": "A designated adult for gifts and the photo queue",
+        "prepare.eight": "Parking within 100 feet",
         "prepare.cta": "Request a Visit",
         "prepare.note": "Booking is confirmed only after availability, deposit, address, parking details, and calendar confirmation.",
         "footer.subline": "Visit options, reservations, and bilingual Santa appearances",
@@ -676,6 +756,32 @@
         "cta.family": "Preguntar por Visita Familiar",
         "cta.event": "Preguntar por Evento",
         "cta.eve": "Preguntar por Nochebuena",
+        "rate.colTier": "Visita",
+        "rate.colRate": "Tarifa",
+        "rate.colWhen": "Cuando aplica",
+        "rate.jingle": "Entrada — “Jingle”",
+        "rate.jingleWhen": "Lunes a jueves de dia, solo del 1 al 18 de diciembre. Cupo limitado.",
+        "rate.standard": "Visita familiar",
+        "rate.standardWhen": "Primera hora, luego $150 por cada media hora adicional.",
+        "rate.hoa": "Evento de HOA o comunidad",
+        "rate.hoaWhen": "Dos horas, minimo dos horas.",
+        "rate.school": "Escuela o guarderia",
+        "rate.schoolWhen": "Una hora, entre semana de dia.",
+        "rate.corporate": "Fiesta corporativa o de oficina",
+        "rate.corporateWhen": "Primera hora.",
+        "rate.photo": "Bloque para fotografo",
+        "rate.photoWhen": "Cuatro horas. $850 por dia completo.",
+        "rate.peak": "Noches pico",
+        "rate.peakWhen": "12, 13, 19 y 20 de diciembre despues de las 4pm. Sin descuentos.",
+        "rate.eve": "Nochebuena",
+        "rate.eveWhen": "Por visita de 45 minutos hasta las 8pm. Se vende por bloques, no por horas.",
+        "rate.late": "Nochebuena, despues de las 9pm",
+        "rate.lateWhen": "Quince minutos. Entrega de regalo mientras el nino mira.",
+        "rate.scarcity": "El 12, 13, 19 y 20 de diciembre y la Nochebuena son las fechas que se llenan primero, y se apartan por orden de llegada con deposito. El viaje es gratis dentro de 25 millas de Doral, $45 entre 25 y 50 millas.",
+        "trust.one": "Cada temporada desde",
+        "trust.two": "Cada visita en ingles y espanol",
+        "trust.three": "Miami-Dade y Broward",
+        "trust.four": "Los bloques de Nochebuena se van primero",
         "prices.note": "Eventos sin fines de lucro, donaciones de juguetes, patrocinadores y Christmas in July se pueden cotizar aparte.",
         "works.eyebrow": "Cómo Funciona",
         "works.title": "No pagas hasta que confirmemos la visita.",
@@ -697,6 +803,10 @@
         "prepare.two": "Ciudad o vecindario",
         "prepare.three": "Número de niños o invitados",
         "prepare.four": "Detalles de regalos, si aplica",
+        "prepare.five": "Una silla firme y sin brazos para Papá Noel",
+        "prepare.six": "Aire acondicionado durante la visita",
+        "prepare.seven": "Un adulto encargado de los regalos y la fila de fotos",
+        "prepare.eight": "Estacionamiento a menos de 100 pies",
         "prepare.cta": "Solicitar Visita",
         "prepare.note": "La visita se confirma después de disponibilidad, depósito, dirección, estacionamiento y confirmación en calendario.",
         "footer.subline": "Opciones de visita, reservas y apariciones bilingües de Santa",

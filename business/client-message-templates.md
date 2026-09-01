@@ -156,7 +156,7 @@ Please confirm:
 - Gift details — how many, labeled, and who is holding the bag
 - Balance due: [$___]
 
-If anything has changed, text 305-244-0360 and we will work it out.
+If anything has changed, text 786-975-9557 and we will work it out.
 ```
 
 Spanish:
@@ -172,7 +172,7 @@ Por favor confirme:
 - Detalles de los regalos: cuantos, si estan marcados, y quien tiene la bolsa
 - Balance: [$___]
 
-Si algo cambio, escriba al 305-244-0360 y lo resolvemos.
+Si algo cambio, escriba al 786-975-9557 y lo resolvemos.
 ```
 
 ## Review Request

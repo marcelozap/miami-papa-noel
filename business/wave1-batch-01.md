@@ -50,7 +50,7 @@ annual Toys for Tots drive — a December programme with an existing internal ow
 > Can I send you a one-page sheet your division managers can forward? And is there someone on your side
 > who coordinates the Toys for Tots drive — I'd like to talk to them separately.
 >
-> Miami Papa Noel · 305-244-0360 · miamipapanoel.com
+> Miami Papa Noel · 786-975-9557 · miamipapanoel.com
 
 **Email — Español**
 
@@ -108,7 +108,7 @@ Bonaventure, Isles at Weston, plus The Fairways at Heron Bay in Coral Springs. S
 > Could you forward one flyer to those boards at once? And who is on your Lifestyle Services team for
 > Broward — I'd like them to have my December availability before the good Saturdays go.
 >
-> Miami Papa Noel · 305-244-0360 · miamipapanoel.com
+> Miami Papa Noel · 786-975-9557 · miamipapanoel.com
 
 **Email — Español**
 
@@ -163,7 +163,7 @@ both languages.
 >
 > Which of your boards budget for a holiday resident event? I'll work around their calendar.
 >
-> Miami Papa Noel · 305-244-0360 · miamipapanoel.com
+> Miami Papa Noel · 786-975-9557 · miamipapanoel.com
 
 **Email — Español**
 
@@ -220,7 +220,7 @@ Miami-founded firm, thoroughly bilingual internally.
 >
 > And could you point me to Carolina Serrano? I'd like her Regional VP book to know I'm here.
 >
-> Miami Papa Noel · 305-244-0360 · miamipapanoel.com
+> Miami Papa Noel · 786-975-9557 · miamipapanoel.com
 
 **Email — Español**
 
@@ -275,7 +275,7 @@ covers the whole book** — no vendor portal, no procurement committee.
 >
 > Which boards already have a December event on the calendar? I'll start there.
 >
-> Miami Papa Noel · 305-244-0360 · miamipapanoel.com
+> Miami Papa Noel · 786-975-9557 · miamipapanoel.com
 
 **Email — Español**
 

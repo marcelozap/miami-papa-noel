@@ -332,6 +332,37 @@
       gap: 12px;
     }
 
+    .requirements {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0;
+      padding: 16px;
+      border: 1px solid #d6c4aa;
+      border-radius: 6px;
+      background: #fffaf0;
+    }
+
+    .requirements h3 {
+      margin: 0 0 2px;
+      font-size: 16px;
+    }
+
+    .requirements label {
+      display: flex;
+      grid-template-columns: none;
+      align-items: flex-start;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .requirements input[type="checkbox"] {
+      width: 20px;
+      min-height: 20px;
+      flex: 0 0 20px;
+      margin-top: 1px;
+      accent-color: var(--pine);
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -519,7 +550,7 @@
       <nav aria-label="Booking navigation">
         <a href="/" data-i18n="nav.website">Website</a>
         <a href="/checkout" data-i18n="nav.options">Options</a>
-        <a href="tel:+13052440360" data-i18n="nav.call">Call</a>
+        <a href="tel:+17869759557" data-i18n="nav.call">Call</a>
       </nav>
       <div class="language-toggle" aria-label="Choose language">
         <button type="button" class="is-active" data-lang="en">EN</button>
@@ -549,7 +580,7 @@
           </div>
           <div class="simple-note" data-i18n="options.note">Not sure which one fits? Choose "Not sure yet" and we will help you decide.</div>
           <div class="summary">
-            <div><span data-i18n="summary.phone">Call/Text</span>: 305-244-0360</div>
+            <div><span data-i18n="summary.phone">Call/Text</span>: 786-975-9557</div>
             <div data-i18n="summary.requests">Requests: form, text, or WhatsApp</div>
             <div>Instagram: @miamipapanoel</div>
           </div>
@@ -623,11 +654,18 @@
             <label><span data-i18n="field.gifts">Gift Details</span>
               <textarea id="gifts" name="gifts" placeholder="If Santa will hand out gifts, please tell us how many and if they will be labeled." data-i18n-placeholder="placeholder.gifts"></textarea>
             </label>
+            <div class="requirements">
+              <h3 data-i18n="field.requirements">Before we confirm / Antes de confirmar</h3>
+              <label><input type="checkbox" name="chair_ready" value="yes" required><span data-i18n="requirement.chair">A sturdy armless chair will be ready for Santa.</span></label>
+              <label><input type="checkbox" name="air_conditioning" value="yes" required><span data-i18n="requirement.air">Air conditioning will be on during the visit.</span></label>
+              <label><input type="checkbox" name="gift_photo_adult" value="yes" required><span data-i18n="requirement.adult">A designated adult will manage gifts and the photo queue.</span></label>
+              <label><input type="checkbox" name="parking_ready" value="yes" required><span data-i18n="requirement.parking">Parking will be available within 100 feet.</span></label>
+            </div>
             <div class="actions">
               <button type="submit" data-i18n="form.submit">Send Request</button>
               <button type="button" class="outline" id="build" data-i18n="form.build">Preview Text</button>
-              <a class="button secondary" id="whatsappLink" href="https://wa.me/13052440360" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
-              <a class="button secondary" id="smsLink" href="sms:+13052440360" data-i18n="form.text">Text Request</a>
+              <a class="button secondary" id="whatsappLink" href="https://wa.me/17869759557" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
+              <a class="button secondary" id="smsLink" href="sms:+17869759557" data-i18n="form.text">Text Request</a>
               <a class="button outline" id="emailLink" href="mailto:santa@miamipapanoel.com" data-i18n="form.email">Email Request</a>
             </div>
           </form>
@@ -666,7 +704,7 @@
     <span class="footer-subline">Private bilingual Santa visits for Miami-Doral and nearby areas</span>
   </footer>
   <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="tel:+13052440360" data-i18n="sticky.call">Call / Text</a>
+    <a href="tel:+17869759557" data-i18n="sticky.call">Call / Text</a>
     <a href="#booking-form" data-i18n="sticky.details">Visit Details</a>
   </div>
 
@@ -713,6 +751,11 @@
         "field.eventType": "Celebration Type",
         "field.details": "Tell us about the event",
         "field.gifts": "Gift Details",
+        "field.requirements": "Before we confirm / Antes de confirmar",
+        "requirement.chair": "A sturdy armless chair will be ready for Santa.",
+        "requirement.air": "Air conditioning will be on during the visit.",
+        "requirement.adult": "A designated adult will manage gifts and the photo queue.",
+        "requirement.parking": "Parking will be available within 100 feet.",
         "select.family": "Family Visit",
         "select.event": "Event Visit",
         "select.eve": "Christmas Eve",
@@ -777,6 +820,11 @@
         "field.eventType": "Tipo de Celebración",
         "field.details": "Cuéntanos sobre el evento",
         "field.gifts": "Detalles de Regalos",
+        "field.requirements": "Antes de confirmar / Before we confirm",
+        "requirement.chair": "Habrá una silla firme y sin brazos para Papá Noel.",
+        "requirement.air": "El aire acondicionado estará encendido durante la visita.",
+        "requirement.adult": "Un adulto encargado manejará los regalos y la fila de fotos.",
+        "requirement.parking": "Habrá estacionamiento a menos de 100 pies.",
         "select.family": "Visita Familiar",
         "select.event": "Visita para Evento",
         "select.eve": "Nochebuena",
@@ -1002,8 +1050,8 @@
       const text = lines.join("\n");
       message.textContent = text;
       messageSummary.value = text;
-      smsLink.href = "sms:+13052440360?&body=" + encodeURIComponent(text);
-      whatsappLink.href = "https://wa.me/13052440360?text=" + encodeURIComponent(text);
+      smsLink.href = "sms:+17869759557?&body=" + encodeURIComponent(text);
+      whatsappLink.href = "https://wa.me/17869759557?text=" + encodeURIComponent(text);
       emailLink.href = "mailto:santa@miamipapanoel.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
     }
 

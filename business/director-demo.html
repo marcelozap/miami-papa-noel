@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow, noarchive">
-  <title>Miami Papa Noel — Director Demo</title>
+  <title data-en="Miami Papa Noel — Director Demo" data-es="Miami Papa Noel — Demostración para el director">Miami Papa Noel — Director Demo</title>
   <style>
     :root {
       --bg: #0e1117;
@@ -90,6 +90,13 @@
       backdrop-filter: blur(8px);
     }
 
+
+    .langbar { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 18px; }
+    .langbtn { font: inherit; font-size: 13px; letter-spacing: .04em; padding: 8px 16px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.28); background: transparent; color: inherit; cursor: pointer; opacity: .55; }
+    .langbtn.is-active { opacity: 1; border-color: currentColor; font-weight: 600; }
+    .langbtn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
     .eyebrow {
       margin: 0 0 10px;
       color: var(--gold);
@@ -108,8 +115,11 @@
     }
 
     h1 {
-      max-width: 840px;
-      font-size: clamp(42px, 8vw, 86px);
+      max-width: 18ch;
+      font-size: clamp(32px, 4.2vw, 54px);
+      line-height: 1.04;
+      letter-spacing: -.015em;
+      text-wrap: balance;
     }
 
     h2 {
@@ -311,154 +321,182 @@
 </head>
 <body>
   <main class="wrap">
+    <div class="langbar">
+      <button type="button" class="langbtn" data-lang="es">Español</button>
+      <button type="button" class="langbtn" data-lang="en">English</button>
+    </div>
     <section class="hero">
       <div class="hero-copy">
         <div>
-          <p class="eyebrow">Director view / Vista de director</p>
-          <h1>The business behind Miami Papa Noel is becoming a system.</h1>
-          <p class="hero-lead">Dad is the performer. The website brings in leads. The AI office helps answer, quote, track, follow up, and protect the busiest December dates from double-booking.</p>
+          <p class="eyebrow" data-en="Director view / Vista de director" data-es="Vista de director">Director view / Vista de director</p>
+          <h1 data-en="The business behind Miami Papa Noel is becoming a system." data-es="El negocio detrás de Miami Papa Noel se está volviendo un sistema.">The business behind Miami Papa Noel is becoming a system.</h1>
+          <p class="hero-lead" data-en="Dad is the performer. The website brings in leads. The AI office helps answer, quote, track, follow up, and protect the busiest December dates from double-booking." data-es="Papá es quien actúa. La página web trae los clientes. La oficina con IA ayuda a responder, cotizar, dar seguimiento y proteger las fechas más ocupadas de diciembre para que no se reserven dos veces.">Dad is the performer. The website brings in leads. The AI office helps answer, quote, track, follow up, and protect the busiest December dates from double-booking.</p>
         </div>
         <div class="actions">
-          <a class="button primary" href="../book.html">Open booking page</a>
-          <a class="button" href="december-slot-board.html">Open slot board</a>
-          <a class="button" href="quote-builder.html">Open quote builder</a>
+          <a class="button primary" href="../book.html" data-en="Open booking page" data-es="Abrir página de reservas">Open booking page</a>
+          <a class="button" href="december-slot-board.html" data-en="Open slot board" data-es="Abrir tablero de horarios">Open slot board</a>
+          <a class="button" href="quote-builder.html" data-en="Open quote builder" data-es="Abrir generador de cotizaciones">Open quote builder</a>
         </div>
       </div>
       <div class="hero-photo" aria-label="Miami Papa Noel visit photo">
         <div class="photo-label">
-          <p class="eyebrow">What stays human</p>
-          <p>He is still the face, the voice, and the visit. The system is for the business work around him.</p>
+          <p class="eyebrow" data-en="What stays human" data-es="Lo que sigue siendo humano">What stays human</p>
+          <p data-en="He is still the face, the voice, and the visit. The system is for the business work around him." data-es="Él sigue siendo la cara, la voz y la visita. El sistema es para el trabajo de oficina que lo rodea.">He is still the face, the voice, and the visit. The system is for the business work around him.</p>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>What is working now</h2>
+      <h2 data-en="What is working now" data-es="Lo que ya está funcionando">What is working now</h2>
       <div class="grid">
         <article class="panel ready">
-          <strong>Public website</strong>
-          <p>Families, schools, HOAs, photographers, and businesses can see services, pricing direction, reviews, Christmas Eve details, and request a visit.</p>
+          <strong data-en="Public website" data-es="Página web pública">Public website</strong>
+          <p data-en="Families, schools, HOAs, photographers, and businesses can see services, pricing direction, reviews, Christmas Eve details, and request a visit." data-es="Familias, escuelas, asociaciones de vecinos, fotógrafos y empresas pueden ver los servicios, los precios, las reseñas, los detalles de Nochebuena y pedir una visita.">Families, schools, HOAs, photographers, and businesses can see services, pricing direction, reviews, Christmas Eve details, and request a visit.</p>
         </article>
         <article class="panel ready">
-          <strong>Bilingual message bank</strong>
-          <p>English and Spanish replies are prepared for inquiries, pricing, deposits, confirmations, reminders, reviews, and referrals.</p>
+          <strong data-en="Bilingual message bank" data-es="Banco de mensajes bilingüe">Bilingual message bank</strong>
+          <p data-en="English and Spanish replies are prepared for inquiries, pricing, deposits, confirmations, reminders, reviews, and referrals." data-es="Hay respuestas listas en inglés y español para consultas, precios, depósitos, confirmaciones, recordatorios, reseñas y referidos.">English and Spanish replies are prepared for inquiries, pricing, deposits, confirmations, reminders, reviews, and referrals.</p>
         </article>
         <article class="panel ready">
-          <strong>Internal tools</strong>
-          <p>The quote builder, follow-up builder, lead dashboard, and December slot board are private tools for running the office side faster.</p>
+          <strong data-en="Internal tools" data-es="Herramientas internas">Internal tools</strong>
+          <p data-en="The quote builder, follow-up builder, lead dashboard, and December slot board are private tools for running the office side faster." data-es="El generador de cotizaciones, el de seguimiento, el tablero de clientes y el tablero de horarios de diciembre son herramientas privadas para llevar la oficina más rápido.">The quote builder, follow-up builder, lead dashboard, and December slot board are private tools for running the office side faster.</p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Money and booking truth</h2>
+      <h2 data-en="Money and booking truth" data-es="La verdad sobre el dinero y las reservas">Money and booking truth</h2>
       <div class="money">
         <article class="money-card">
-          <span>Season goal</span>
+          <span data-en="Season goal" data-es="Meta de la temporada">Season goal</span>
           <b>25</b>
-          <p>paid bookings</p>
+          <p data-en="paid bookings" data-es="reservas pagadas">paid bookings</p>
         </article>
         <article class="money-card">
-          <span>Christmas Eve</span>
+          <span data-en="Christmas Eve" data-es="Nochebuena">Christmas Eve</span>
           <b>$500</b>
-          <p>per 45-minute slot</p>
+          <p data-en="per 45-minute slot" data-es="por bloque de 45 minutos">per 45-minute slot</p>
         </article>
         <article class="money-card">
-          <span>Peak dates</span>
+          <span data-en="Peak dates" data-es="Fechas pico">Peak dates</span>
           <b>$425</b>
-          <p>first hour, no discounts</p>
+          <p data-en="first hour, no discounts" data-es="primera hora, sin descuentos">first hour, no discounts</p>
         </article>
         <article class="money-card truth">
-          <span>Online payment</span>
+          <span data-en="Online payment" data-es="Pago en línea">Online payment</span>
           <b>No</b>
-          <p>The site requests the visit. Deposit is still Zelle after we confirm.</p>
+          <p data-en="The site requests the visit. Deposit is still Zelle after we confirm." data-es="La página pide la visita. El depósito sigue siendo por Zelle después de confirmar.">The site requests the visit. Deposit is still Zelle after we confirm.</p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>How the AI office works</h2>
+      <h2 data-en="How the AI office works" data-es="Cómo funciona la oficina con IA">How the AI office works</h2>
       <div class="actions">
-        <button class="primary" id="runDemo" type="button">Run workflow demo</button>
-        <button id="copyDadScript" type="button">Copy dad script</button>
+        <button class="primary" id="runDemo" type="button" data-en="Run workflow demo" data-es="Ver la demostración">Run workflow demo</button>
+        <button id="copyDadScript" type="button" data-en="Copy dad script" data-es="Copiar el guion">Copy dad script</button>
       </div>
       <div class="workflow" id="workflow">
         <article class="step active">
           <small>1</small>
-          <h3>Lead arrives</h3>
-          <p>Website form, text, WhatsApp, Instagram, or referral.</p>
+          <h3 data-en="Lead arrives" data-es="Llega el cliente">Lead arrives</h3>
+          <p data-en="Website form, text, WhatsApp, Instagram, or referral." data-es="Formulario de la web, mensaje de texto, WhatsApp, Instagram o un referido.">Website form, text, WhatsApp, Instagram, or referral.</p>
         </article>
         <article class="step">
           <small>2</small>
-          <h3>AI sorts it</h3>
-          <p>Family, school, HOA, photographer, corporate, or charity ask.</p>
+          <h3 data-en="AI sorts it" data-es="La IA lo clasifica">AI sorts it</h3>
+          <p data-en="Family, school, HOA, photographer, corporate, or charity ask." data-es="Familia, escuela, asociación de vecinos, fotógrafo, empresa o petición benéfica.">Family, school, HOA, photographer, corporate, or charity ask.</p>
         </article>
         <article class="step">
           <small>3</small>
-          <h3>Quote goes out</h3>
-          <p>The price stays locked. No invented discounts or messy numbers.</p>
+          <h3 data-en="Quote goes out" data-es="Sale la cotización">Quote goes out</h3>
+          <p data-en="The price stays locked. No invented discounts or messy numbers." data-es="El precio no se mueve. Sin descuentos inventados ni números desordenados.">The price stays locked. No invented discounts or messy numbers.</p>
         </article>
         <article class="step">
           <small>4</small>
-          <h3>Deposit requested</h3>
-          <p>50% by Zelle, event date and client name in the memo.</p>
+          <h3 data-en="Deposit requested" data-es="Se pide el depósito">Deposit requested</h3>
+          <p data-en="50% by Zelle, event date and client name in the memo." data-es="50% por Zelle, con la fecha del evento y el nombre del cliente en la nota.">50% by Zelle, event date and client name in the memo.</p>
         </article>
         <article class="step">
           <small>5</small>
-          <h3>Slot protected</h3>
-          <p>Held is risky. Booked only means the deposit cleared.</p>
+          <h3 data-en="Slot protected" data-es="El horario queda protegido">Slot protected</h3>
+          <p data-en="Held is risky. Booked only means the deposit cleared." data-es="Apartado es riesgo. Reservado solo significa que el depósito ya entró.">Held is risky. Booked only means the deposit cleared.</p>
         </article>
         <article class="step">
           <small>6</small>
-          <h3>Visit happens</h3>
-          <p>Dad performs. The system handles follow-up, reviews, and referrals.</p>
+          <h3 data-en="Visit happens" data-es="Se hace la visita">Visit happens</h3>
+          <p data-en="Dad performs. The system handles follow-up, reviews, and referrals." data-es="Papá actúa. El sistema se encarga del seguimiento, las reseñas y los referidos.">Dad performs. The system handles follow-up, reviews, and referrals.</p>
         </article>
       </div>
-      <div class="notice" id="notice">Step 1: lead arrives.</div>
+      <div class="notice" id="notice" data-en="Step 1: lead arrives." data-es="Paso 1: llega el cliente.">Step 1: lead arrives.</div>
     </section>
 
     <section class="section">
-      <h2>Agent workflow, in plain English</h2>
+      <h2 data-en="Agent workflow, in plain English" data-es="El flujo de trabajo, en palabras sencillas">Agent workflow, in plain English</h2>
       <div class="tools">
         <article class="tool">
-          <h3>Reception agent</h3>
-          <p>Turns a messy message into the exact questions we need: date, time, city, event type, guest count, gifts, and language.</p>
+          <h3 data-en="Reception agent" data-es="Agente de recepción">Reception agent</h3>
+          <p data-en="Turns a messy message into the exact questions we need: date, time, city, event type, guest count, gifts, and language." data-es="Convierte un mensaje desordenado en las preguntas exactas que necesitamos: fecha, hora, ciudad, tipo de evento, cuántos invitados, regalos e idioma.">Turns a messy message into the exact questions we need: date, time, city, event type, guest count, gifts, and language.</p>
         </article>
         <article class="tool">
-          <h3>Pricing guard</h3>
-          <p>Keeps the rate card stable: $325 family visits, $425 peak, $500 Christmas Eve, $550 HOA, and no fake discounts.</p>
+          <h3 data-en="Pricing guard" data-es="Guardián de precios">Pricing guard</h3>
+          <p data-en="Keeps the rate card stable: $325 family visits, $425 peak, $500 Christmas Eve, $550 HOA, and no fake discounts." data-es="Mantiene la lista de precios firme: $325 visita familiar, $425 fecha pico, $500 Nochebuena, $550 asociación de vecinos, y sin descuentos falsos.">Keeps the rate card stable: $325 family visits, $425 peak, $500 Christmas Eve, $550 HOA, and no fake discounts.</p>
         </article>
         <article class="tool">
-          <h3>Calendar guard</h3>
-          <p>Uses the slot board so Christmas Eve and peak evenings do not get promised to two people at once.</p>
-          <a class="button" href="december-slot-board.html">Show slot board</a>
+          <h3 data-en="Calendar guard" data-es="Guardián del calendario">Calendar guard</h3>
+          <p data-en="Uses the slot board so Christmas Eve and peak evenings do not get promised to two people at once." data-es="Usa el tablero de horarios para que Nochebuena y las noches pico no se le prometan a dos personas a la vez.">Uses the slot board so Christmas Eve and peak evenings do not get promised to two people at once.</p>
+          <a class="button" href="december-slot-board.html" data-en="Show slot board" data-es="Ver el tablero de horarios">Show slot board</a>
         </article>
         <article class="tool">
-          <h3>Follow-up agent</h3>
-          <p>Prepares reminders for quiet leads, deposit reminders, 48-hour confirmations, review asks, and referral asks.</p>
+          <h3 data-en="Follow-up agent" data-es="Agente de seguimiento">Follow-up agent</h3>
+          <p data-en="Prepares reminders for quiet leads, deposit reminders, 48-hour confirmations, review asks, and referral asks." data-es="Prepara recordatorios para clientes que no contestan, recordatorios de depósito, confirmaciones de 48 horas, y las peticiones de reseñas y referidos.">Prepares reminders for quiet leads, deposit reminders, 48-hour confirmations, review asks, and referral asks.</p>
           <a class="button" href="follow-up-builder.html">Show follow-up builder</a>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Short presentation script</h2>
-      <div class="script" id="dadScript">Dad, this is not replacing you. This is the business office around Miami Papa Noel. The website helps people find us and request visits. The AI helps me answer faster in English and Spanish, keep prices consistent, track leads, request deposits, and protect the busiest dates from double-booking. You stay focused on being Papa Noel. I use this system to manage the calendar, money, messages, and follow-ups so the business feels professional and we can reach 25 bookings.</div>
+      <h2 data-en="Short presentation script" data-es="Guion corto para presentar">Short presentation script</h2>
+      <div class="script" id="dadScript" data-en="Dad, this is not replacing you. This is the business office around Miami Papa Noel. The website helps people find us and request visits. The AI helps me answer faster in English and Spanish, keep prices consistent, track leads, request deposits, and protect the busiest dates from double-booking. You stay focused on being Papa Noel. I use this system to manage the calendar, money, messages, and follow-ups so the business feels professional and we can reach 25 bookings." data-es="Papá, esto no te reemplaza. Esto es la oficina del negocio alrededor de Miami Papa Noel. La página web ayuda a que la gente nos encuentre y pida visitas. La IA me ayuda a responder más rápido en inglés y español, a mantener los precios parejos, a llevar el control de los clientes, a pedir los depósitos y a proteger las fechas más ocupadas para que no se reserven dos veces. Tú te concentras en ser Papa Noel. Yo uso este sistema para manejar el calendario, el dinero, los mensajes y el seguimiento, para que el negocio se sienta profesional y podamos llegar a 25 reservas.">Dad, this is not replacing you. This is the business office around Miami Papa Noel. The website helps people find us and request visits. The AI helps me answer faster in English and Spanish, keep prices consistent, track leads, request deposits, and protect the busiest dates from double-booking. You stay focused on being Papa Noel. I use this system to manage the calendar, money, messages, and follow-ups so the business feels professional and we can reach 25 bookings.</div>
     </section>
   </main>
 
   <script>
     (function () {
+      var KEY = "mpnDirectorLang";
+      function apply(lang) {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-en][data-es]").forEach(function (el) {
+          var v = el.getAttribute(lang === "es" ? "data-es" : "data-en");
+          if (v !== null) el.textContent = v;
+        });
+        document.querySelectorAll(".langbtn").forEach(function (b) {
+          b.classList.toggle("is-active", b.getAttribute("data-lang") === lang);
+        });
+        try { localStorage.setItem(KEY, lang); } catch (e) {}
+        window.MPN_LANG = lang;
+      }
+      document.querySelectorAll(".langbtn").forEach(function (b) {
+        b.addEventListener("click", function () { apply(b.getAttribute("data-lang")); });
+      });
+      var saved = "es";
+      try { saved = localStorage.getItem(KEY) || "es"; } catch (e) {}
+      apply(saved);
+    })();
+  </script>
+  <script>
+    (function () {
       var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
       var notice = document.getElementById("notice");
-      var messages = [
-        "Step 1: lead arrives.",
-        "Step 2: AI sorts the request.",
-        "Step 3: correct quote is prepared.",
-        "Step 4: Zelle deposit is requested.",
-        "Step 5: slot status protects the calendar.",
-        "Step 6: visit happens, then follow-up begins."
-      ];
+      var MSG = {
+        en: ["Step 1: lead arrives.", "Step 2: AI sorts the request.", "Step 3: correct quote is prepared.",
+             "Step 4: Zelle deposit is requested.", "Step 5: slot status protects the calendar.",
+             "Step 6: visit happens, then follow-up begins."],
+        es: ["Paso 1: llega el cliente.", "Paso 2: la IA clasifica la solicitud.", "Paso 3: se prepara la cotizaci\u00f3n correcta.",
+             "Paso 4: se pide el dep\u00f3sito por Zelle.", "Paso 5: el estado del horario protege el calendario.",
+             "Paso 6: se hace la visita y empieza el seguimiento."]
+      };
+      function messagesNow() { return MSG[window.MPN_LANG === "es" ? "es" : "en"]; }
       var active = 0;
       var timer = null;
 
@@ -467,7 +505,7 @@
         steps.forEach(function (step, stepIndex) {
           step.classList.toggle("active", stepIndex === active);
         });
-        notice.textContent = messages[active];
+        notice.textContent = messagesNow()[active];
       }
 
       document.getElementById("runDemo").addEventListener("click", function () {
@@ -487,12 +525,12 @@
         var text = document.getElementById("dadScript").textContent;
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(function () {
-            notice.textContent = "Presentation script copied.";
+            notice.textContent = window.MPN_LANG === "es" ? "Guion copiado." : "Presentation script copied.";
           }).catch(function () {
-            notice.textContent = "Copy failed. Select the script manually.";
+            notice.textContent = window.MPN_LANG === "es" ? "No se pudo copiar. Selecciona el texto a mano." : "Copy failed. Select the script manually.";
           });
         } else {
-          notice.textContent = "Copy is not available here. Select the script manually.";
+          notice.textContent = window.MPN_LANG === "es" ? "Copiar no est\u00e1 disponible aqu\u00ed. Selecciona el texto a mano." : "Copy is not available here. Select the script manually.";
         }
       });
     })();

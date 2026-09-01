@@ -686,7 +686,7 @@
         <a href="/" data-i18n="nav.home">Home</a>
         <a href="#prepare" data-i18n="nav.prepare">What to Prepare</a>
         <a href="#how" data-i18n="nav.how">How It Works</a>
-        <a href="book.html?package=Christmas%20Eve&source=christmas-eve" class="nav-cta" data-i18n="nav.request">Request Christmas Eve</a>
+        <a href="/book?package=Christmas%20Eve&source=christmas-eve" class="nav-cta" data-i18n="nav.request">Request Christmas Eve</a>
       </nav>
       <div class="language-toggle" aria-label="Choose language">
         <button type="button" class="is-active" data-lang="en">EN</button>
@@ -703,8 +703,8 @@
           <h1 data-i18n="hero.title">Santa arrives with the gifts for a Christmas Eve surprise.</h1>
           <p class="hero-copy" data-i18n="hero.copy">A private Papa Noel visit where Santa brings family-provided labeled gifts, greets the children, and creates a photo-ready moment at home.</p>
           <div class="actions">
-            <a class="button" href="book.html?package=Christmas%20Eve&source=christmas-eve" data-i18n="hero.primary">Request Christmas Eve Availability</a>
-            <a class="button secondary" href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20Christmas%20Eve%20gift%20delivery." target="_blank" rel="noopener" data-whatsapp-link data-i18n="hero.secondary">Ask on WhatsApp</a>
+            <a class="button" href="/book?package=Christmas%20Eve&source=christmas-eve" data-i18n="hero.primary">Request Christmas Eve Availability</a>
+            <a class="button secondary" href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20Christmas%20Eve%20gift%20delivery." target="_blank" rel="noopener" data-whatsapp-link data-i18n="hero.secondary">Ask on WhatsApp</a>
           </div>
         </div>
         <aside class="hero-card" aria-label="Christmas Eve visit summary">
@@ -724,7 +724,7 @@
       <div class="trust-item"><strong>2017</strong><span data-i18n="trust.one">Creating Christmas memories</span></div>
       <div class="trust-item"><strong>24</strong><span data-i18n="trust.two">December 24 books early</span></div>
       <div class="trust-item"><strong>2</strong><span data-i18n="trust.three">English and Spanish</span></div>
-      <div class="trust-item"><strong>1</strong><span data-i18n="trust.four">Simple family plan</span></div>
+      <div class="trust-item"><strong>2</strong><span data-i18n="trust.four">Miami-Dade and Broward</span></div>
     </div>
 
     <section class="moment">
@@ -841,9 +841,9 @@
         <h2 data-i18n="cta.title">Want Santa to arrive with the gifts?</h2>
         <p data-i18n="cta.copy">Send the city, preferred time, number of children, and gift details. We will reply with availability and next steps.</p>
         <div class="actions">
-          <a class="button" href="book.html?package=Christmas%20Eve&source=christmas-eve" data-i18n="cta.primary">Request Availability</a>
-          <a class="button secondary" href="tel:+13052440360" data-i18n="cta.call">Call or Text</a>
-          <a class="button secondary" href="https://wa.me/13052440360?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20Christmas%20Eve%20gift%20delivery." target="_blank" rel="noopener" data-whatsapp-link data-i18n="cta.whatsapp">WhatsApp</a>
+          <a class="button" href="/book?package=Christmas%20Eve&source=christmas-eve" data-i18n="cta.primary">Request Availability</a>
+          <a class="button secondary" href="tel:+17869759557" data-i18n="cta.call">Call or Text</a>
+          <a class="button secondary" href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20Christmas%20Eve%20gift%20delivery." target="_blank" rel="noopener" data-whatsapp-link data-i18n="cta.whatsapp">WhatsApp</a>
         </div>
       </div>
     </section>
@@ -859,8 +859,8 @@
   </footer>
 
   <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="tel:+13052440360" data-i18n="sticky.call">Call / Text</a>
-    <a href="book.html?package=Christmas%20Eve&source=christmas-eve" data-i18n="sticky.request">Request Visit</a>
+    <a href="tel:+17869759557" data-i18n="sticky.call">Call / Text</a>
+    <a href="/book?package=Christmas%20Eve&source=christmas-eve" data-i18n="sticky.request">Request Visit</a>
   </div>
 
   <script>
@@ -885,7 +885,7 @@
         "trust.one": "Creating Christmas memories",
         "trust.two": "December 24 books early",
         "trust.three": "English and Spanish",
-        "trust.four": "Simple family plan",
+        "trust.four": "Miami-Dade and Broward",
         "moment.eyebrow": "The Moment",
         "moment.title": "A short visit children remember for years.",
         "moment.copy": "The goal is not a long performance. It is the surprise of Santa arriving, calling children by name, and handing them gifts the family prepared.",
@@ -953,7 +953,7 @@
         "trust.one": "Creando recuerdos navideños",
         "trust.two": "Diciembre 24 se reserva temprano",
         "trust.three": "Inglés y español",
-        "trust.four": "Plan familiar sencillo",
+        "trust.four": "Miami-Dade y Broward",
         "moment.eyebrow": "El Momento",
         "moment.title": "Una visita corta que los niños recuerdan por años.",
         "moment.copy": "La meta no es una presentación larga. Es la sorpresa de ver llegar a Santa, llamar a los niños por nombre y entregar los regalos que la familia preparó.",
@@ -1022,7 +1022,7 @@
         button.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
       document.querySelectorAll("[data-whatsapp-link]").forEach((link) => {
-        link.href = "https://wa.me/13052440360?text=" + encodeURIComponent(whatsappMessages[activeLang]);
+        link.href = "https://wa.me/17869759557?text=" + encodeURIComponent(whatsappMessages[activeLang]);
       });
       localStorage.setItem("miamiPapaNoelLanguage", activeLang);
     }
