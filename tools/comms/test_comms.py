@@ -244,5 +244,29 @@ class CommsAdapterTests(unittest.TestCase):
                          Path(self._tmp.name) / "events.jsonl")
 
 
+    def test_transcript_is_always_not_transcribed(self):
+        a = MOD.NullAdapter()
+        ev = a.simulate_inbound_call("L-014", "asks about dec 24", 60,
+                                     "obtained")
+        self.assertEqual(ev["transcript"], MOD.NOT_TRANSCRIBED)
+
+    def test_transcript_request_refused_without_consent(self):
+        a = MOD.NullAdapter()
+        with self.assertRaises(MOD.RecordingRefused):
+            a.simulate_inbound_call("L-014", "x", 60, "none",
+                                    transcript_requested=True)
+
+    def test_transcript_request_refused_even_with_consent(self):
+        a = MOD.NullAdapter()
+        with self.assertRaises(MOD.RecordingRefused):
+            a.simulate_inbound_call("L-014", "x", 60, "obtained",
+                                    transcript_requested=True)
+
+    def test_append_event_rejects_foreign_transcript_value(self):
+        with self.assertRaises(MOD.RecordingRefused):
+            MOD.append_event({"kind": "call_in",
+                              "recording": MOD.NOT_RECORDED,
+                              "transcript": "full text here"})
+
 if __name__ == "__main__":
     unittest.main()

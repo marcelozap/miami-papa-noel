@@ -146,6 +146,13 @@ python tools\ms_claus\ms_claus.py            # weekly: public-page review
 python scripts\validate_slot_confirmations.py
 ```
 
+## One command for everything
+
+```powershell
+python scripts\ops_check.py        # battery + validators + privacy + preflight
+python scripts\ops_check.py --fast # same, minus the OPN preflight
+```
+
 ## The whole test battery
 
 ```powershell

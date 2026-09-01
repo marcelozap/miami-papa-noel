@@ -64,6 +64,7 @@ ZELLE_DESTINATION = "305-244-0360"     # Zelle ONLY - no other method exists
 OFFICIAL_EMAIL = "santa@miamipapanoel.com"
 
 NOT_RECORDED = "NOT RECORDED"
+NOT_TRANSCRIBED = "NOT TRANSCRIBED"
 
 KIND_SMS_IN = "sms_in"
 KIND_CALL_IN = "call_in"
@@ -195,6 +196,23 @@ def recording_metadata(consent: str, recording_requested: bool,
 
 # ------------------------------------------------------------------- events --
 
+def transcript_metadata(consent: str, transcript_requested: bool) -> str:
+    """The ONLY producer of the `transcript` field. Mirrors the recording
+    invariant: a transcript could only ever exist with obtained consent AND a
+    live, tested provider - this version never has one, so the field is
+    ALWAYS NOT TRANSCRIBED and an explicit request is refused loudly."""
+    if transcript_requested:
+        if consent != "obtained":
+            raise RecordingRefused(
+                "transcript refused: consent is %r, not 'obtained'. No call "
+                "audio is processed without consent." % consent)
+        raise RecordingRefused(
+            "transcript refused: consent alone is not enough - transcription "
+            "requires a live, tested provider connection, which this version "
+            "never has. The transcript field stays %r." % NOT_TRANSCRIBED)
+    return NOT_TRANSCRIBED
+
+
 def append_event(event: dict) -> Path:
     """Append one event line. Enforces the recording invariant at the door:
     nothing with recording != NOT RECORDED ever reaches disk."""
@@ -202,6 +220,10 @@ def append_event(event: dict) -> Path:
         raise RecordingRefused(
             "event refused: recording metadata may only ever be %r in this "
             "version, got %r" % (NOT_RECORDED, event.get("recording")))
+    if event.get("kind") == "call_in" and             event.get("transcript") != NOT_TRANSCRIBED:
+        raise RecordingRefused(
+            "event refused: transcript metadata may only ever be %r in this "
+            "version, got %r" % (NOT_TRANSCRIBED, event.get("transcript")))
     path = events_path()
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "a", encoding="utf-8") as fh:
@@ -272,7 +294,8 @@ class NullAdapter:
 
     def simulate_inbound_call(self, from_ref: str, summary: str,
                               duration_seconds: int, consent: str,
-                              recording_requested: bool = False) -> dict:
+                              recording_requested: bool = False,
+                              transcript_requested: bool = False) -> dict:
         consent = validate_consent(consent)
         if duration_seconds < 0:
             raise CommsError("duration-seconds must be >= 0, got %d"
@@ -285,6 +308,7 @@ class NullAdapter:
             "duration_seconds": int(duration_seconds),
             "consent": consent,
             "recording": recording_metadata(consent, recording_requested),
+            "transcript": transcript_metadata(consent, transcript_requested),
         }
         append_event(event)
         return event
@@ -338,6 +362,9 @@ def main(argv=None) -> int:
     p.add_argument("--consent", required=True, choices=list(CONSENT_VALUES),
                    help="whether the caller gave recording consent (informational; "
                         "nothing is recorded in this version either way)")
+    p.add_argument("--transcript-requested", action="store_true",
+                   help="always refused: transcription needs consent AND a "
+                        "live tested provider, which this version never has")
     p.add_argument("--recording-requested", action="store_true",
                    help="request recording metadata - ALWAYS refused in this "
                         "version; the flag exists so the refusal is exercised, "
@@ -357,7 +384,8 @@ def main(argv=None) -> int:
         elif args.cmd == "simulate-inbound-call":
             event = NullAdapter().simulate_inbound_call(
                 args.from_ref, args.summary, args.duration_seconds,
-                args.consent, recording_requested=args.recording_requested)
+                args.consent, recording_requested=args.recording_requested,
+                transcript_requested=args.transcript_requested)
             print("LOGGED %s from %s (%ds, consent %s, recording %s) -> %s"
                   % (event["kind"], event["from_ref"], event["duration_seconds"],
                      event["consent"], event["recording"], events_path()))
