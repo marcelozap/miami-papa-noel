@@ -42,7 +42,7 @@ What the tool actually does, today, verified by 45 passing tests:
 | Flag schedule / capacity risk against first-to-fill dates | **LIVE** |
 | Draft a short reply in both English and Spanish | **LIVE** |
 | Enforce locked pricing | **LIVE** — 6 validation gates |
-| Enforce Zelle-only payment terms | **LIVE** |
+| Enforce official-rails payment terms (Zelle; Stripe Payment Link adopted 2026-08-30, NOT_CONFIGURED until the operator creates the link) | **LIVE** |
 | Block booking-confirmation language | **LIVE** |
 | Block insurance claims while policy unverified | **LIVE** |
 | Append a structured production log line | **LIVE** |

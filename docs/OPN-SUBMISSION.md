@@ -49,7 +49,8 @@ For each inquiry it:
 - flags schedule and capacity risk against the season's first-to-fill dates
 - drafts a short reply in **both** English and Spanish
 - quotes only from a locked, versioned price list
-- states Zelle-only payment terms
+- states the official deposit terms (Zelle; a Stripe Payment Link rail
+  was adopted 2026-08-30 and activates once the operator creates the link)
 - writes a structured log line
 
 **It cannot send anything.** There is no network egress to a customer channel.
@@ -138,7 +139,7 @@ AI mode is opt-in and is the only path that makes a network call.
 Listed because a reviewer should not have to discover them:
 
 - No telephony or messaging integration. Phone and WhatsApp are human.
-- No payment processing, card handling, or online payment acceptance. **Zelle only**, human-initiated and human-verified.
+- No payment processing or card handling runs in this system. Deposits are **Zelle, human-initiated and human-verified**; a Stripe Payment Link rail was adopted 2026-08-30 but is **not yet live** (no link exists until the operator creates one in the Stripe dashboard). Either way, the tools never move money - a named human verifies every deposit before a booking exists.
 - No calendar integration. The slot board is read by a person.
 - The deployment is one narrow function, not the full role architecture.
 - The business served is the operator's own, not an external customer.

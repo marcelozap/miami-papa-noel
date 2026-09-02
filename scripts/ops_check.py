@@ -31,6 +31,8 @@ SUITES = [
     "tools/comms/test_comms.py",
     "tools/content/test_content.py",
     "tools/elves/test_elves.py",
+    "tools/routes/test_routes.py",
+    "tools/malosound_adapter/test_adapter.py",
     "tools/test_integration_season.py",
 ]
 

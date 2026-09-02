@@ -166,6 +166,38 @@ it via the public path. Affiliation claims are refused at draft time.
 
 ---
 
+## 6. Route and logistics validation (`tools/routes/route_check.py`)
+
+Before any day sheet is final:
+
+```powershell
+python toolsoutesoute_check.py template > day.json   # fill it in, OUTSIDE the repo
+python toolsoutesoute_check.py check --file day.json
+```
+
+Verdicts: `OK` (all facts supplied and consistent), `NEEDS_ROUTE_REVIEW`
+(travel minutes missing - a human checks the route; never auto-approved),
+`BLOCKED` (overlap, insufficient travel+setup buffer, missing address, or
+bad facts). The tool never invents map distances or traffic data; travel
+minutes are the operator's own numbers.
+
+## 7. MaloSound.ai adapter (`tools/malosound_adapter/`)
+
+STATUS: **NOT_CONFIGURED** - a designed boundary, not an integration. It can
+distill a BOOKED reservation into privacy-safe content facts (date, window,
+venue KIND, package label - never a name, address, amount, or ref), and any
+outbound handoff raises AdapterNotConfigured because no endpoint, credential,
+or tested connection exists. Content remains local and human-approved via
+`tools/content/queue.py`.
+
+## 8. Payment confirmation page (`deposit-received.html`)
+
+The bilingual page a Stripe Payment Link should use as its success redirect
+once the operator creates the link. It says a deposit PAYMENT was submitted
+and is being personally verified - it never says the booking is confirmed;
+`thank-you.html` stays reserved for inquiry submissions. Until the link
+exists, the page is inert and the Stripe rail is NOT_CONFIGURED.
+
 ## Daily loop, in season
 
 ```powershell

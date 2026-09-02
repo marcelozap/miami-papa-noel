@@ -75,6 +75,14 @@ class SlotMachineTests(unittest.TestCase):
         with self.assertRaises(MOD.TransitionError):
             MOD.hold(self.state, "S-DEC13-1800", "L-002", "op")
 
+    def test_cannot_hold_a_deposit_sent_slot(self):
+        """Phase 2 closure: a public hold request on a DEPOSIT_SENT slot is
+        refused - the pending deposit is protected until verified/released."""
+        MOD.hold(self.state, "S-DEC13-1800", "L-001", "op")
+        MOD.deposit_sent(self.state, "S-DEC13-1800", "op")
+        with self.assertRaises(MOD.TransitionError):
+            MOD.hold(self.state, "S-DEC13-1800", "L-002", "op")
+
     def test_cannot_hold_a_booked_slot(self):
         self.book()
         with self.assertRaises(MOD.TransitionError):
