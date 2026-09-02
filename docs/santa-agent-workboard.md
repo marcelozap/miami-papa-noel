@@ -46,8 +46,7 @@ Result: green-machine-exec | status: READY_FOR_REVIEW | files: tools/slots/test_
 Result: green-machine-exec | status: READY_FOR_REVIEW | files: tools/malosound_adapter/adapter.py, test_adapter.py | tests: 8 passed | blockers: NOT_CONFIGURED by design - no endpoint/credentials exist
 Result: green-machine-exec | status: READY_FOR_REVIEW | files: docs/OPN-SUBMISSION.md, docs/production-deployment-record.md, docs/seasonal-ops-runbook.md, scripts/ops_check.py | tests: full gauntlet PASS, 194 total | blockers: NONE
 
-Coordinator checkpoint (green-machine-exec, 2026-09-01): ops_check PASS on all
-6 steps; pytest battery 194 passed; commit pending this cycle. Remaining
+Coordinator checkpoint (green-machine-exec, 2026-09-01): ops_check PASS on all 6 steps; pytest battery 195 passed (email-optional intake added); commits e903623 + this cycle's follow-up; all locally achievable lane acceptance items green. Remaining
 external actions: (1) operator creates Stripe Payment Link + pastes URL,
 (2) push commits to origin, (3) OPN evidence collection per
 docs/opn-form-answers.md minimum strong packet.

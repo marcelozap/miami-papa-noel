@@ -182,6 +182,13 @@ class IntakeTests(unittest.TestCase):
 
     # ------------------------------------------- audit regressions ---------
 
+    def test_email_recorded_when_provided_never_required(self):
+        rec = build(email="fam@example.com")
+        self.assertEqual(rec["email"], "fam@example.com")
+        rec2 = build()
+        self.assertEqual(rec2["email"], "")
+        self.assertNotIn("email", rec2["missing_fields"])
+
     def test_cash_and_other_payment_methods_escalate(self):
         for note in ("Can I pay in cash when you arrive?",
                      "Do you take venmo instead of zelle?",

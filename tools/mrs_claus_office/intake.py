@@ -222,6 +222,7 @@ def build_record(args_dict: dict, now: dt.datetime | None = None) -> dict:
         "language": lang,
         "name": args_dict.get("name") or "",
         "phone": args_dict.get("phone") or "",
+        "email": args_dict.get("email") or "",
         "date": date_iso,
         "time": args_dict.get("time") or "",
         "city": args_dict.get("city") or "",
@@ -309,7 +310,7 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--channel", choices=CHANNELS, default="website")
     ap.add_argument("--lang", choices=("auto", "en", "es"), default="auto")
-    for field in ("name", "phone", "date", "time", "city",
+    for field in ("name", "phone", "email", "date", "time", "city",
                   "address-or-neighborhood", "event-type", "guest-details",
                   "notes"):
         ap.add_argument("--" + field, default="")
