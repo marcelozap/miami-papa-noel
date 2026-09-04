@@ -78,7 +78,14 @@ def main(argv=None):
 
     sub.add_parser("health")
 
+    p = sub.add_parser("serve")
+    p.add_argument("--port", type=int, default=8225)
+
     args = ap.parse_args(argv)
+    if args.cmd == "serve":
+        import web_ui
+        web_ui.serve(args.port)
+        return 0
     records = store.load()
 
     def fields_of(a):

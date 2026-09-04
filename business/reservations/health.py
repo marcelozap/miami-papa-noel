@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 
 import store
 import logistics_agent
-from content_agent import QUEUE_DIR
+import content_agent
 
 LOG_PATH = os.path.join(store.DATA_DIR, "health.log")
 STALE_HOLD_HOURS = 48
@@ -50,9 +50,9 @@ def run(records):
                 {"id": r["id"], "date": r["date"], "result": r["logistics"]["result"]}
             )
 
-    if os.path.isdir(QUEUE_DIR):
-        for rid in sorted(os.listdir(QUEUE_DIR)):
-            p = os.path.join(QUEUE_DIR, rid, "draft.json")
+    if os.path.isdir(content_agent.QUEUE_DIR):
+        for rid in sorted(os.listdir(content_agent.QUEUE_DIR)):
+            p = os.path.join(content_agent.QUEUE_DIR, rid, "draft.json")
             if os.path.exists(p):
                 with open(p, "r", encoding="utf-8") as f:
                     if json.load(f).get("status") == "draft":
@@ -67,6 +67,6 @@ def run(records):
         or report["drafts_pending_approval"] or report["invalid_records"]
     )
     os.makedirs(store.DATA_DIR, exist_ok=True)
-    with open(LOG_PATH, "a", encoding="utf-8") as f:
+    with open(os.path.join(store.DATA_DIR, "health.log"), "a", encoding="utf-8") as f:
         f.write(json.dumps(report, ensure_ascii=False) + "\n")
     return report
