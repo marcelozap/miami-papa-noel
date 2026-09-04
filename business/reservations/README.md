@@ -45,5 +45,12 @@ to `data/zones.json`; until then built-in estimates are used and labelled) ·
 
 Run tests before any change ships: `python -m pytest business\reservations\tests -q`
 
+**OpenAI drafting:** set `OPENAI_API_KEY` in your environment (never in the
+repo) and the `content` command generates captions/briefs with an OpenAI
+model (`OPENAI_MODEL` to override, default gpt-4o-mini); each draft's
+manifest records which model ran. Without the key it falls back to the
+deterministic bilingual templates. When you first set the key, record the
+date in PRODUCTION.md's Models section.
+
 Production evidence: `PRODUCTION.md` (stamp the launch date on first real
 run) and `OPS-LOG.md` (one line per day).

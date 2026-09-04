@@ -18,11 +18,10 @@ Four lanes over one shared source of truth (`data/reservations.json` + append-on
 
 ## Models used
 
-- The agent lanes' generative work (drafting bilingual captions and video briefs, and any conversational intake assistance) is performed with Claude (Anthropic) via Claude Code sessions operated by XIV; drafts are then gated by the deterministic pipeline below.
-- The reservation state machine, logistics feasibility math, rate card, deposit gates, and health monitoring are **deterministic Python — no model in the loop by design**. Booking state can only change through validated code paths.
+- **Content lane (generative):** when `OPENAI_API_KEY` is configured on the production machine, caption and video-brief drafting runs on an OpenAI model via the API (default `gpt-4o-mini`, overridable with `OPENAI_MODEL`); the model used is recorded in each draft's manifest. Generated text is checked against the copy rules in code (no "insured" claims, no client names or addresses, correct brand) and rejected on violation. Without the key, deterministic bilingual templates run instead — the manifest says which path produced each draft. *(Record the date the key was first configured here: ____________ — model use in production counts from that date, not before.)*
+- **Build & operations tooling:** Claude (Anthropic), via Claude Code sessions operated by XIV, was used to build the system and assists in operating it.
+- The reservation state machine, logistics feasibility math, rate card, deposit gates, and health monitoring are **deterministic Python — no model in the loop by design**. Booking state can only change through validated code paths; no model output can alter a reservation's status.
 - No customer data is used to train or fine-tune any model.
-
-*(If any OpenAI model is added to a lane later, name it here with its exact role. Do not claim model use that is not real.)*
 
 ## Release process
 

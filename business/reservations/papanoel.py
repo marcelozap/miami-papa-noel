@@ -121,8 +121,13 @@ def main(argv=None):
             rec = operator_lane.complete(records, args.id)
             _p({"id": rec["id"], "status": rec["status"]})
         elif args.cmd == "content":
-            made = content_agent.draft_for_all(records)
-            _p({"drafts": made})
+            adapter = None
+            if os.environ.get("OPENAI_API_KEY"):
+                from openai_adapter import OpenAIContentAdapter
+                adapter = OpenAIContentAdapter()
+            made = content_agent.draft_for_all(records, adapter)
+            _p({"drafts": made,
+                "adapter": adapter.name if adapter else "local-dry-run"})
         elif args.cmd == "approve-post":
             _p(content_agent.approve_draft(args.id, store.OPERATOR))
         elif args.cmd == "health":
