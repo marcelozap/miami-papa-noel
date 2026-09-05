@@ -58,7 +58,7 @@ Files in that directory: `queue.json` (current items) and
 ## Daily use
 
 ```powershell
-cd "C:\Users\Green Machine\miami-papa-noel"
+cd "C:\XIV\santa"
 
 python tools\content\queue.py draft --video "D:\santa-videos\take-03.mp4" --topic "how a Santa visit works"
 python tools\content\queue.py submit --item C-001

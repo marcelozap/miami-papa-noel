@@ -40,8 +40,8 @@ def test_requires_key(monkeypatch):
 
 def test_good_generation_written(tmp_path):
     reply = {
-        "caption_en": "Santa is coming to Doral! English y español. 305-244-0360",
-        "caption_es": "¡Papá Noel llega a Doral! Español e inglés. 305-244-0360",
+        "caption_en": "Santa is coming to Doral! English y español. 786-975-9557",
+        "caption_es": "¡Papá Noel llega a Doral! Español e inglés. 786-975-9557",
         "video_brief": "20s vertical clip, suit, Spanish greeting first.",
     }
     t = fake_transport_for(reply)
@@ -61,6 +61,10 @@ def test_good_generation_written(tmp_path):
     ({"caption_en": "Miami Papá Noel is here", "caption_es": "x", "video_brief": "x"}, "wrong brand accent"),
     ({"caption_en": "Visiting the Gomez Family tonight", "caption_es": "x", "video_brief": "x"}, "leaks client_name"),
     ({"caption_en": "", "caption_es": "x", "video_brief": "x"}, "missing caption_en"),
+    ({"caption_en": "Call 305-244-0360 to book!", "caption_es": "x", "video_brief": "x"}, "carries the Zelle account number"),
+    ({"caption_en": "Call (305) 244-0360 to book!", "caption_es": "x", "video_brief": "x"}, "carries the Zelle account number"),
+    ({"caption_en": "Text 3052440360 today", "caption_es": "x", "video_brief": "x"}, "carries the Zelle account number"),
+    ({"caption_en": "Llame al +1 305 244 0360", "caption_es": "x", "video_brief": "x"}, "carries the Zelle account number"),
 ])
 def test_copy_rule_violations_rejected(tmp_path, bad_reply, flag):
     t = fake_transport_for(bad_reply)

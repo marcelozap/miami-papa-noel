@@ -8,11 +8,14 @@ only the operator marks them approved, and nothing here ever publishes.
 
 Copy rules baked in: brand is "Miami Papa Noel" (unaccented — only the
 character is "Papá Noel"); never claim "insured" (policy not purchased);
-never include the client's address or family name in public copy.
+never include the client's address or family name in public copy; public
+contact is 786-975-9557 — the Zelle account 305-244-0360 is a payment
+rail, never a public contact line.
 """
 
 import json
 import os
+import re
 
 import store
 from malosound_adapter import LocalDryRunAdapter
@@ -24,11 +27,30 @@ QUEUE_DIR = os.path.join(BASE, "content_queue")
 
 ACTOR = "content_agent"
 
-BANNED_PHRASES = ("insured", "asegurado", "Papá Noel llega con Miami Papá")
+BANNED_PHRASES = ("insured", "asegurado", "Papá Noel llega con Miami Papá",
+                  "305-244-0360")  # the Zelle account is not a contact line
+
+ZELLE_DIGITS = "3052440360"
 
 
 class ContentGateError(Exception):
     """A non-confirmed reservation reached the content lane."""
+
+
+def _banned_phrase_in(text):
+    """Return the banned phrase found in the text, or None.
+
+    Phone numbers are compared with separators stripped, so formatted
+    variants of the Zelle account — "(305) 244-0360", "3052440360",
+    "+1 305 244 0360" — are caught the same as the literal.
+    """
+    low = text.lower()
+    for banned in BANNED_PHRASES:
+        if banned.lower() in low:
+            return banned
+    if ZELLE_DIGITS in re.sub(r"[\s().+\-]", "", text):
+        return "305-244-0360 (formatted variant)"
+    return None
 
 
 def _caption(rec):
@@ -37,12 +59,12 @@ def _caption(rec):
     en = (
         "Confirmed! Miami Papa Noel is coming to {zone} on {date}. "
         "{label}. Bilingual visit — English y español. "
-        "December dates are filling: 305-244-0360 / miamipapanoel.com"
+        "December dates are filling: 786-975-9557 / miamipapanoel.com"
     ).format(zone=zone, date=rec["date"], label=pkg["label_en"])
     es = (
         "¡Confirmado! Papá Noel llega a {zone} el {date}. "
         "{label}. Visita bilingüe — español e inglés. "
-        "Diciembre se está llenando: 305-244-0360 / miamipapanoel.com"
+        "Diciembre se está llenando: 786-975-9557 / miamipapanoel.com"
     ).format(zone=zone, date=rec["date"], label=pkg["label_es"])
     return en, es
 
@@ -66,10 +88,9 @@ def draft_posts(records, adapter=None):
             continue
         en, es = _caption(rec)
         for text in (en, es):
-            low = text.lower()
-            for banned in BANNED_PHRASES:
-                if banned.lower() in low:
-                    raise ContentGateError("banned phrase in draft: %s" % banned)
+            hit = _banned_phrase_in(text)
+            if hit:
+                raise ContentGateError("banned phrase in draft: %s" % hit)
         os.makedirs(out_dir, exist_ok=True)
         draft = {
             "reservation": rec["id"],
@@ -107,6 +128,11 @@ def approve_draft(res_id, actor):
     draft_path = os.path.join(QUEUE_DIR, res_id, "draft.json")
     with open(draft_path, "r", encoding="utf-8") as f:
         draft = json.load(f)
+    # Re-check at approval: a hand-edited draft obeys the same copy rules.
+    for caption in (draft.get("caption_en", ""), draft.get("caption_es", "")):
+        hit = _banned_phrase_in(caption)
+        if hit:
+            raise ContentGateError("banned phrase in draft: %s" % hit)
     draft["status"] = "approved"
     draft["approved_at"] = store.now_iso()
     with open(draft_path, "w", encoding="utf-8") as f:

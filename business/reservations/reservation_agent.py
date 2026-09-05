@@ -22,6 +22,11 @@ FIELDS = (
     "kids_names_and_gifts", "parking_notes", "setup_min", "lead_id", "notes",
 )
 
+BOOKING_FIELDS = (
+    "package", "date", "start_time", "duration_min", "address", "zone",
+    "guest_count", "setup_min",
+)
+
 
 def create(records, **fields):
     rec = store.new_reservation(**fields)
@@ -37,6 +42,15 @@ def update(records, res_id, **fields):
     if unknown:
         escalate(rec, "out-of-scope fields %s — stopping, operator decides" % unknown)
         raise store.TransitionError("out-of-scope input escalated: %s" % unknown)
+    changed_booking = [
+        k for k in BOOKING_FIELDS
+        if k in fields and fields[k] is not None and fields[k] != rec.get(k)
+    ]
+    if rec["status"] in ("confirmed", "completed", "cancelled") and changed_booking:
+        raise store.TransitionError(
+            "booking details are locked; the operator must review cancellation "
+            "and rebooking before changing %s" % ", ".join(changed_booking)
+        )
     rec.update({k: v for k, v in fields.items() if v is not None})
     if "package" in fields and fields["package"]:
         from rates import validate_package

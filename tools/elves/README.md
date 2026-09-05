@@ -50,7 +50,7 @@ RESEARCHED -> DRAFTED -> APPROVED_FOR_MANUAL_SEND -> SENT_BY_HUMAN
 ## Daily use
 
 ```powershell
-cd "C:\Users\Green Machine\miami-papa-noel"
+cd "C:\XIV\santa"
 
 # 1. Record a researched prospect (public contact path required)
 python tools\elves\outreach.py add --org "Example Elementary School" --category school --city Doral --contact "frontdesk@example-school.org" --notes "PTA runs a winter fair"

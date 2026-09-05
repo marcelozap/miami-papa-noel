@@ -23,6 +23,7 @@ import json
 import os
 import uuid
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE, "data")
@@ -164,8 +165,43 @@ def _gate_pending_review(rec):
     _require(
         rec["deposit"]["status"] == "verified",
         "pending_review requires a VERIFIED deposit (operator runs verify-deposit "
-        "after checking the Zelle payment; current: %s)" % rec["deposit"]["status"],
+        "after checking the Zelle or Stripe payment; current: %s)" % rec["deposit"]["status"],
     )
+    _gate_deposit(rec, rec["deposit"].get("amount"), rec["deposit"].get("memo"))
+
+
+def _money(value, label):
+    _require(
+        not isinstance(value, bool) and isinstance(value, (int, float, str, Decimal)),
+        "%s requires a numeric dollar amount" % label,
+    )
+    try:
+        amount = Decimal(str(value))
+        _require(amount.is_finite() and amount > 0,
+                 "%s must be a positive finite amount" % label)
+        _require(amount == amount.quantize(Decimal("0.01")),
+                 "%s must use whole cents" % label)
+    except InvalidOperation:
+        raise TransitionError("%s requires a valid dollar amount" % label)
+    return amount
+
+
+def _gate_deposit(rec, amount, memo):
+    from rates import UnknownPackage, validate_package
+
+    try:
+        price_floor = Decimal(str(validate_package(rec.get("package"))["price"]))
+    except UnknownPackage as exc:
+        raise TransitionError("deposit verification requires a valid package") from exc
+    quoted = _money(rec.get("price_quoted"), "quoted price")
+    _require(quoted >= price_floor, "quoted price cannot be below the locked package rate")
+    received = _money(amount, "deposit")
+    _require(received >= quoted / 2,
+             f"deposit must meet the 50% requirement (${quoted / 2:.2f})")
+    _require(isinstance(memo, str) and memo.strip(),
+             "deposit verification requires a payment memo or receipt reference")
+    _require(rec["deposit"].get("method") in ("zelle", "stripe"),
+             "deposit method must be Zelle or Stripe")
 
 
 def _gate_confirmed(rec, actor):
@@ -184,12 +220,14 @@ def _gate_confirmed(rec, actor):
 
 def verify_deposit(records, res_id, actor, amount=None, memo=None):
     """Only the operator records deposit verification, after checking the
-    actual Zelle payment (50%, memo = event date + client name)."""
+    actual Zelle or Stripe payment (50%, with a payment reference)."""
     if actor != OPERATOR:
         raise TransitionError(
             "only the operator may verify a deposit — agent '%s' refused" % actor
         )
     rec = find(records, res_id)
+    # Validate before mutation; later transitions recheck if the quote changes.
+    _gate_deposit(rec, amount, memo)
     rec["deposit"]["status"] = "verified"
     if amount is not None:
         rec["deposit"]["amount"] = amount

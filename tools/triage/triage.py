@@ -137,12 +137,31 @@ def extract_date(text: str, default_year: int) -> str | None:
     return None
 
 
-def extract_category(text: str) -> str | None:
+def _rule_hits(text: str) -> list:
     f = fold(text)
-    for name, words in CATEGORY_RULES:
-        if any(fold(w) in f for w in words):
-            return name
-    return None
+    return [name for name, words in CATEGORY_RULES
+            if any(fold(w) in f for w in words)]
+
+
+def category_is_ambiguous(text: str) -> bool:
+    """True when event and family words both match - the $450/$325 conflict.
+
+    A price must never be guessed for such a message, no matter which
+    extractor produced the category."""
+    hits = _rule_hits(text)
+    return bool(hits) and hits[0] == "event_visit" and "family_visit" in hits
+
+
+def extract_category(text: str) -> str | None:
+    hits = _rule_hits(text)
+    if not hits:
+        return None
+    # "fiesta familiar" matches both the $450 event visit and the $325
+    # family visit. Guessing either way puts a wrong price in front of a
+    # customer - return unclear so the draft asks instead of quoting.
+    if hits[0] == "event_visit" and "family_visit" in hits:
+        return None
+    return hits[0]
 
 
 def extract_location(text: str) -> str | None:
@@ -323,6 +342,40 @@ def _model_instructions(pricing: dict) -> str:
     )
 
 
+def _http_error_diagnostic(error: urllib.error.HTTPError) -> str:
+    """Report only a status and allowlisted code, never raw API error text."""
+    status = error.code if type(error.code) is int and 100 <= error.code <= 599 else "unknown"
+    hints = {
+        "invalid_api_key": "Check the API key privately; do not paste it into chat.",
+        "insufficient_quota": "Check API billing and available quota.",
+        "rate_limit_exceeded": "Wait before retrying and check API rate limits.",
+        "model_not_found": "Check the selected model and project access.",
+        "insufficient_permissions": "Check the key and project's Responses API permissions.",
+        "invalid_json_schema": "The structured-output schema needs a code review.",
+        "unsupported_parameter": "The request contains an unsupported parameter.",
+        "invalid_value": "The request contains an invalid parameter value.",
+    }
+    category = "unclassified"
+    try:
+        # Error messages can echo credentials or customer input. Ignore them.
+        body = json.loads(error.read(4096))
+        details = body.get("error") if isinstance(body, dict) else None
+        code = details.get("code") if isinstance(details, dict) else None
+        if isinstance(code, str) and code in hints:
+            category = code
+    except (OSError, ValueError, TypeError, RecursionError):
+        pass
+    status_hints = {
+        400: "Check the request parameters and structured-output schema.",
+        401: "Check authentication and key permissions privately.",
+        403: "Check project permissions and API access.",
+        404: "Check the selected model and API endpoint.",
+        429: "Check API billing, quota, and rate limits; this status alone does not distinguish them.",
+    }
+    hint = hints.get(category, status_hints.get(status, "Check API service status and configuration."))
+    return "OpenAI API request failed: HTTP %s; category=%s. %s" % (status, category, hint)
+
+
 def call_openai_triage(text: str, pricing: dict) -> tuple:
     """Return (validated model result or None, model id or None, error code)."""
     model = os.environ.get("MPN_MODEL")
@@ -359,7 +412,8 @@ def call_openai_triage(text: str, pricing: dict) -> tuple:
         with urllib.request.urlopen(request, timeout=MODEL_TIMEOUT_SECONDS) as response:
             body = json.loads(response.read().decode("utf-8"))
         result = json.loads(_response_text(body))
-    except urllib.error.HTTPError:
+    except urllib.error.HTTPError as exc:
+        print(_http_error_diagnostic(exc), file=sys.stderr)
         return None, None, "MODEL_HTTP_ERROR"
     except (urllib.error.URLError, TimeoutError, OSError):
         return None, None, "MODEL_UNAVAILABLE"
@@ -401,6 +455,11 @@ def call_openai_triage(text: str, pricing: dict) -> tuple:
 def model_triage(text: str, default_year: int, pricing: dict) -> tuple:
     """Return extraction, drafts, model, fallback, and fallback reason."""
     result, model, error = call_openai_triage(text, pricing)
+    if result is not None and result.get("category") in ("event_visit", "family_visit") \
+            and category_is_ambiguous(text):
+        # The model may not resolve what the deterministic rules call
+        # ambiguous - fall back so the draft asks instead of quoting.
+        result, error = None, "MODEL_CATEGORY_AMBIGUOUS"
     if result is not None:
         result["location"] = extract_location(text)
         missing = missing_fields(result)

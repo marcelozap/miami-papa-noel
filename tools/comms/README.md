@@ -22,7 +22,7 @@ DRAFT a human sends manually.
 Nothing to install. Python 3.10+ and the standard library.
 
 ```powershell
-cd "C:\Users\Green Machine\miami-papa-noel"
+cd "C:\XIV\santa"
 python tools\comms\adapter.py status
 ```
 

@@ -9,7 +9,7 @@ confirmed bookings only.
 ## Daily use (operator)
 
 ```powershell
-cd C:\Users\Green Machine\miami-papa-noel
+cd C:\XIV\santa
 
 # take an inquiry
 python business\reservations\papanoel.py new --client-name "Gomez Family" --phone 3055551234 --package christmas_eve --date 2026-12-24 --start-time 17:00 --zone doral

@@ -189,6 +189,34 @@ def test_confirmed_produces_bilingual_draft_and_dry_run():
         assert json.load(f)["adapter"] == "local-dry-run"
 
 
+def test_captions_use_public_phone_never_zelle_account():
+    records = []
+    rec = to_pending(records, make_booking(records))
+    operator_lane.approve(records, rec["id"])
+    made = content_agent.draft_for_all(records, LocalDryRunAdapter())
+    import json
+    with open(made[0], encoding="utf-8") as f:
+        draft = json.load(f)
+    for caption in (draft["caption_en"], draft["caption_es"]):
+        assert "786-975-9557" in caption  # the public booking line
+        assert "305-244-0360" not in caption  # the Zelle account is not public copy
+
+
+def test_hand_edited_draft_with_zelle_variant_refused_at_approval():
+    records = []
+    rec = to_pending(records, make_booking(records))
+    operator_lane.approve(records, rec["id"])
+    made = content_agent.draft_for_all(records, LocalDryRunAdapter())
+    import json
+    with open(made[0], encoding="utf-8") as f:
+        draft = json.load(f)
+    draft["caption_en"] += " Call (305) 244-0360!"  # formatted Zelle variant
+    with open(made[0], "w", encoding="utf-8") as f:
+        json.dump(draft, f, ensure_ascii=False)
+    with pytest.raises(content_agent.ContentGateError):
+        content_agent.approve_draft(rec["id"], store.OPERATOR)
+
+
 def test_only_operator_approves_posts():
     records = []
     rec = to_pending(records, make_booking(records))
