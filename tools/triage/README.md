@@ -17,7 +17,7 @@ received, promise insurance, or quote a price that is not in `pricing.json`.
 Nothing to install. Python 3.10+ and the standard library.
 
 ```powershell
-cd "C:\Users\Green Machine\miami-papa-noel"
+cd "C:\XIV\santa"
 python tools\triage\triage.py --demo
 ```
 

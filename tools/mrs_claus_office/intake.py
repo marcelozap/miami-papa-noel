@@ -206,9 +206,11 @@ def build_record(args_dict: dict, now: dt.datetime | None = None) -> dict:
 
     category = triage.extract_category(args_dict.get("event_type") or "")
     # A family event AT A HOME is a Family Visit even when the word "party"
-    # appears - the triage keyword order would otherwise price it as an
-    # Event Visit. Refined here so the shared triage rules stay untouched.
-    if category == "event_visit":
+    # appears. The shared triage rules return None for that ambiguity (on a
+    # raw customer message the tool must ask, never guess a price); here the
+    # operator typed the event_type deliberately, so home/family wording
+    # resolves it to the family rate.
+    if category in ("event_visit", None):
         et = fold(args_dict.get("event_type") or "")
         if any(w in et for w in ("home", "house", "casa", "family", "familia",
                                  "birthday", "cumplean")):

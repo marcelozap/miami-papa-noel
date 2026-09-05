@@ -8,6 +8,7 @@ production log and must never count toward the 15-day production requirement.
 from __future__ import annotations
 
 import datetime as dt
+import io
 import json
 import sys
 import urllib.error
@@ -128,9 +129,11 @@ def test_draft_never_mentions_insurance():
 def test_draft_uses_only_official_payment_rails():
     rec = build("Can I pay with Venmo or Cash App for a Doral party Dec 13?")
     assert "Zelle" in rec["draft_en"]
-    # Official rails: Zelle and the business's own payment link. The drafts
-    # never name the processor; everything else stays forbidden.
-    for banned in ("venmo", "cash app", "stripe", "paypal", "square"):
+    # Until the operator creates a real Stripe Payment Link, Zelle is the
+    # only rail a draft may mention - never a promise of a link that does
+    # not exist, and never a processor name.
+    for banned in ("venmo", "cash app", "stripe", "paypal", "square",
+                   "payment link", "enlace de pago"):
         assert banned not in rec["draft_en"].lower()
         assert banned not in rec["draft_es"].lower()
 
@@ -343,16 +346,155 @@ def test_successful_openai_response_is_used_and_recorded(monkeypatch):
     assert rec["draft_en"] == model_result["draft_en"]
 
 
-def test_model_failure_falls_back_to_rules(monkeypatch):
+def test_model_failure_falls_back_to_rules(monkeypatch, capsys):
     def fake_urlopen(*args, **kwargs):
-        raise urllib.error.URLError("offline")
+        raise failure
 
     monkeypatch.setenv("MPN_MODEL", "test-model")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     monkeypatch.setattr(triage.urllib.request, "urlopen", fake_urlopen)
 
-    rec = build("Our HOA event is Dec 13 in Doral. Call me at 305-555-0142.")
+    private = "DO-NOT-PRINT-test-key-or-customer-305-555-0142"
 
-    assert rec["model"] == triage.OFFLINE_MODEL
+    class ErrorBody(io.BytesIO):
+        def read(self, size=-1):
+            assert size == 4096
+            return super().read(size)
+
+    class UnreadableBody(ErrorBody):
+        def read(self, size=-1):
+            assert size == 4096
+            raise OSError(private)
+
+    cases = [(urllib.error.URLError("offline"), "MODEL_UNAVAILABLE", None, None)]
+    for status, code in [
+        (401, "invalid_api_key"), (429, "insufficient_quota"),
+        (429, "rate_limit_exceeded"), (404, "model_not_found"),
+        (403, "insufficient_permissions"), (400, "invalid_json_schema"),
+        (400, "unsupported_parameter"), (400, "invalid_value"),
+        (401, private), (403, [private]), (500, None),
+    ]:
+        body = json.dumps({"error": {"code": code, "message": private}}).encode()
+        error = urllib.error.HTTPError(private, status, private, {"X-Private": private}, ErrorBody(body))
+        category = code if isinstance(code, str) and code != private else "unclassified"
+        cases.append((error, "MODEL_HTTP_ERROR", status, category))
+
+    for body in [
+        ErrorBody(b"not json"), ErrorBody(b"[]"), ErrorBody(b'{"error": []}'),
+        ErrorBody(b'"' + b"x" * 5000 + b'"'), ErrorBody(b"\xff"),
+        UnreadableBody(),
+    ]:
+        error = urllib.error.HTTPError(private, 429, private, {}, body)
+        cases.append((error, "MODEL_HTTP_ERROR", 429, "unclassified"))
+
+    for failure, error_code, status, category in cases:
+        rec = build("Our HOA event is Dec 13 in Doral. Call me at 305-555-0142.")
+        assert rec["model"] == triage.OFFLINE_MODEL
+        assert rec["fallback_used"] is True
+        assert rec["error_code"] == error_code
+        assert rec["approved_at"] is None
+        assert rec["sent_at"] is None
+        captured = capsys.readouterr()
+        assert captured.out == ""
+        assert private not in captured.err
+        assert "test-key" not in captured.err
+        assert "305-555-0142" not in captured.err
+        if status is None:
+            assert captured.err == ""
+        else:
+            assert "HTTP %s; category=%s." % (status, category) in captured.err
+            if status == 429 and category == "unclassified":
+                assert "does not distinguish" in captured.err
+
+
+# ------------------------------------------- category ambiguity (pricing) ---
+
+def test_family_party_is_ambiguous_and_asks_instead_of_quoting():
+    # "fiesta familiar" matches event_visit ($450) AND family_visit ($325).
+    # Guessing either price is a customer-facing error - the category must
+    # come back unclear and the draft must ask, not quote.
+    rec = build("Hola, quisiera una fiesta familiar en casa el 20 de diciembre en Doral.")
+    assert rec["category"] is None
+    assert "service category" in rec["missing_fields"]
+    assert "$450" not in rec["draft_en"] and "$325" not in rec["draft_en"]
+    assert "$450" not in rec["draft_es"] and "$325" not in rec["draft_es"]
+
+
+def test_family_only_words_still_price_family_visit():
+    rec = build("Santa visit at our home for my daughter's birthday, Dec 20, Doral.")
+    assert rec["category"] == "family_visit"
+
+
+def test_event_only_words_still_price_event_visit():
+    rec = build("We want Santa at our restaurant event on Dec 13 in Doral.")
+    assert rec["category"] == "event_visit"
+
+
+# --------------------------- model output must obey the same protections ---
+
+def _fake_model(monkeypatch, model_result):
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self):
+            return json.dumps({"output_text": json.dumps(model_result)}).encode("utf-8")
+
+    monkeypatch.setenv("MPN_MODEL", "test-model")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setattr(triage.urllib.request, "urlopen",
+                        lambda request, timeout: FakeResponse())
+
+
+def test_model_may_not_resolve_ambiguous_family_party(monkeypatch):
+    # Codex probe 2026-09-05: the model prices the ambiguous "fiesta familiar"
+    # as a $450 event. The deterministic ambiguity rule must override it and
+    # fall back to a draft that asks instead of quoting.
+    _fake_model(monkeypatch, {
+        "language": "es", "requested_date": "2026-12-20",
+        "category": "event_visit", "location": "Doral",
+        "contact_status": "phone_only",
+        "draft_en": "Event visit is $450. Deposits are by Zelle.",
+        "draft_es": "Evento: $450. Los depositos son por Zelle.",
+    })
+    rec = build("Hola, quisiera una fiesta familiar en casa el 20 de diciembre en Doral. 305-555-0142")
     assert rec["fallback_used"] is True
-    assert rec["error_code"] == "MODEL_UNAVAILABLE"
+    assert rec["error_code"] == "MODEL_CATEGORY_AMBIGUOUS"
+    assert rec["category"] is None
+    assert "$450" not in rec["draft_en"] and "$450" not in rec["draft_es"]
+
+
+def test_model_draft_promising_unconfigured_payment_link_is_rejected(monkeypatch):
+    # Codex probe 2026-09-05: a model draft promising "our secure online
+    # payment link" while pricing.json has no Stripe URL must FAIL the
+    # payment gate and fall back to the deterministic Zelle-only draft.
+    _fake_model(monkeypatch, {
+        "language": "en", "requested_date": "2026-12-13",
+        "category": "hoa_community", "location": "Doral",
+        "contact_status": "phone_only",
+        "draft_en": ("HOA / community event is $550, two hours, two-hour minimum. "
+                     "Deposits are by Zelle or our secure online payment link."),
+        "draft_es": ("Evento comunitario / HOA: $550, dos horas, minimo de dos horas. "
+                     "Los depositos son por Zelle o por nuestro enlace de pago seguro."),
+    })
+    rec = build("Our HOA event is Dec 13 in Doral. Call me at 305-555-0142.")
+    assert rec["fallback_used"] is True
+    assert rec["error_code"] == "MODEL_OUTPUT_VALIDATION_FAIL"
+    assert "payment link" not in rec["draft_en"].lower()
+    assert "enlace de pago" not in rec["draft_es"].lower()
+
+
+def test_payment_gate_flags_link_only_when_unconfigured():
+    en = "Deposits are by Zelle or our secure online payment link."
+    es = "Los depositos son por Zelle o por nuestro enlace de pago seguro."
+    unconfigured = validators.validate_payment_method(en, es, PRICING)
+    assert any(f.level == validators.FAIL for f in unconfigured)
+    # Synthetic URL for the test only - the real link is pasted by the
+    # operator into pricing.json from the Stripe dashboard.
+    configured = dict(PRICING, payment=dict(PRICING["payment"],
+                                            stripe_payment_link="https://buy.stripe.com/test_SYNTHETIC"))
+    findings = validators.validate_payment_method(en, es, configured)
+    assert all(f.level == validators.PASS for f in findings)
