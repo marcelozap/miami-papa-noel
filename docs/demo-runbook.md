@@ -7,7 +7,7 @@ deterministic path throughout.
 **Open in the repository root:**
 
 ```powershell
-cd "C:\Users\Green Machine\miami-papa-noel"
+cd "C:\XIV\santa"
 ```
 
 ---
@@ -157,7 +157,7 @@ Be precise here, because it is the easiest thing to overstate:
 ## The whole demo, as a script
 
 ```powershell
-cd "C:\Users\Green Machine\miami-papa-noel"
+cd "C:\XIV\santa"
 python tools\triage\triage.py --demo
 python tools\triage\demo_guards.py
 python tools\triage\triage.py --message "Hi, do you have Dec 13 open for our HOA clubhouse in Doral?" --channel instagram_dm

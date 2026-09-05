@@ -1,5 +1,11 @@
 # 15-Day Evidence Checklist
 
+For the current launch, start with `docs/production-launch.md`. The selected
+workflow is the existing human-reviewed bilingual inquiry assistant. Record
+the first evidenced model-backed operational use separately from the CLI's
+elapsed-date counter, which can also include deterministic fallback records.
+The CLI's QUALIFIED label is not an OPN acceptance decision.
+
 The production clock starts when the tool processes the **first real customer
 inquiry** and not one moment earlier. Synthetic runs, demos, and tests never
 count. **Never backdate.**
@@ -47,7 +53,9 @@ suspiciously perfect one.
 
 ## On qualification day
 
-- [ ] `--status` reports **QUALIFIED**
+- [ ] At least 15 days have elapsed since the evidenced operational AI start,
+      with records supporting continuing operation and real business use;
+      `--status` is only a date counter, not sufficient proof by itself
 - [ ] Compute and record:
   - [ ] Inquiries handled (total, and by language)
   - [ ] Days in production
