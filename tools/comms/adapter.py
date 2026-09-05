@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Miami Papa Noel - calls/texts provider adapter layer (Phase 3 skeleton).
+"""Mrs. Claus Office, North Pole workshop - calls/texts adapter skeleton.
 
 What this tool does: it is the ONLY place the operator records that a call or
 text came in on the public number. The default adapter is a dry-run
@@ -322,6 +322,7 @@ def cmd_status() -> int:
     if path.is_file():
         with open(path, encoding="utf-8") as fh:
             count = sum(1 for line in fh if line.strip())
+    print("workshop role  : Mrs. Claus Office / Oficina de la Sra. Claus - North Pole")
     print("provider       : NOT CONFIGURED (dry-run NullAdapter; no network code)")
     print("public number  : %s is answered by a human" % PUBLIC_PHONE)
     print("automation     : no automated calling, no automated texting - "

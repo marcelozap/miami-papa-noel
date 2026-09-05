@@ -2,7 +2,837 @@
 
 Shared coordination file for every Claude Code loop and worker. This file contains no customer data.
 
-Last coordinator check: 2026-09-04 post-9485bb8
+Last coordinator check: 2026-09-05T04:13:21Z, verified local commit checkpoint
+
+## Coordinator Wrap-Up (2026-09-05)
+
+Status: VERIFIED. Owner: Codex. The user authorizes local commits and
+wrap-up, not push or deployment. Claude's READY_FOR_REVIEW handoff is now
+present; independently reproduced 44 passed, 1 Windows symlink skip.
+R1 and the public proxy mismatch are fixed. The remaining R2 demo cases
+still accept a set proxy (direct browser requests lack its required header)
+and ignore MPN_PUBLIC_ORIGIN. Codex claims the narrow final correction in
+tools/launch_preflight/preflight.py, its tests/README/handoff, suite
+registration in scripts/ops_check.py, and this board/checklist handoff.
+Claude should leave the delivered folder frozen while this review closes.
+After focused regressions: full release checks, explicit scoped staging,
+and a local checkpoint commit. Exclude Claude outputs/ and _to_delete/.
+Hosting, API access and genuine production evidence remain separate; do not
+translate this commit or test run into a launch date.
+
+Final review result: R1/R2 closed, including direct-demo proxy/origin
+settings. The delivered checker is integrated into the 20-suite routine;
+no further Claude implementation is pending for this task. Focused result:
+65 passed, 1 Windows symlink skip. Full `python scripts/ops_check.py` exits
+0: 564 passed, 5 skipped, 41 subtests passed; suite coverage, slot validator,
+Ms. Claus review, tracker privacy, diff check and OPN preflight all PASS.
+Source-hash comparison found no changes across 98 files during the run.
+The scoped 50-file credential-pattern scan returned no findings; private
+queue/log/receipt files and unrelated scratch folders are not included.
+
+Checkpoint scope: bilingual private inquiry/review queue and maintenance,
+uninstalled hosting templates, launch preflight, overnight booking/route
+and quote protections, North Pole personas, regression tests and honest
+launch documentation. Source-level/client-session checks pass; the latest
+branding still needs a fresh visual browser pass, and Linux/TLS/restart/
+alert delivery/hosted restore have not been verified on a selected host.
+No preview process was restarted, account changed, message sent, model
+success asserted or production log created. No push/deployment authorized.
+Next: retain this checkpoint; resume only on an actual unclaimed task or
+changed hosting/API/provider inputs. Do not rebuild delivered work or rerun
+the full battery merely because the scheduled check wakes.
+
+## Scheduled verification (2026-09-05T03:58:37Z)
+
+{"at":"2026-09-05T03:58:37Z","owner":"Codex heartbeat","status":"BLOCKED","files":["docs/santa-agent-workboard.md"],"tests":{"python scripts/ops_check.py":"exit 1: only the previously reported unregistered launch-preflight suite; listed battery 499 passed, 4 skipped, 41 subtests; other six steps PASS","python -m pytest tools/launch_preflight/test_launch_preflight.py -q --tb=short":"23 passed, 1 skipped; does not cover R1/R2","slot_validator":"PASS via ops_check","OPN_preflight":"PASS via ops_check, not qualification","git_diff_check":"exit 0"},"blockers":["Claude R1/R2 unchanged; no handoff","hosting/API access and deployment approval still needed"],"next":"Preserve worker ownership; integrate only after corrected handoff. Existing 30-minute automation/end date/notification preference preserved; prompt updated to check changed state and avoid repeating the full battery or owner requests while unchanged. No new notification, purchase, deployment, customer send or production evidence."}
+
+## Dependency audit (2026-09-05T03:52:26Z)
+
+Third consecutive NO PROGRESS audit, 2026-09-05T03:53:44Z. Re-read routing
+and coordination instructions, current HEAD/status, preflight files and
+handoff presence, current-process configuration and browser tabs. The same
+dependencies remain: no corrected Claude handoff, no accessible signed-in
+hosting account, no configured API/model/operator/public-origin/proxy here,
+and no deployment authorization. No live process/job handle is confirmed.
+No source edits or repeated tests can establish those missing external
+facts. Goal is BLOCKED, not complete; all work and reservations preserved.
+
+Resume with owner hosting access/deployment decision or Claude's corrected
+handoff. Recheck the current files first; verify R1/R2 before registering
+the new suite and running the whole release check. A successful configured
+synthetic model test and genuine customer use still must occur separately.
+Do not backdate a launch or count these audits/tests as production use.
+
+Second consecutive NO PROGRESS dependency audit, 2026-09-05T03:53:04Z:
+HEAD/status and preflight files unchanged; no handoff or live worker handle.
+Current-process key/model/token/public-origin/proxy remain unconfigured.
+The Vercel tab handle is no longer in the browser session; a fresh tab list
+has no Vercel page. No inference of a successful sign-in, no automatic
+reopening or browser switch. Owner hosting access and API setup, plus
+Claude's corrections/handoff, still require an external state change.
+Only this audit note changed; goal remains active at this second check.
+
+Previous goal turn: PROGRESS (reproduced preflight R1/R2 and verified the
+integration gate). Current turn: NO PROGRESS toward implementation/launch,
+first consecutive dependency audit after that progress. Preflight files
+are unchanged and no handoff is present; preserve Claude ownership. No
+confirmed live job handle is available and no duplicate worker was started.
+
+Checked existing-host access without account changes: the in-app Vercel
+dashboard redirects to its login page. Browser discovery confirms only the
+in-app browser is connected, no external browser session. Left the login
+page open for the owner. Account/project/plan remain unverified; signing
+in to the existing account is the next hosting input, not creating or
+upgrading an account. API connection verification remains outstanding.
+No source edits, new test runs, purchase, deployment or production activity.
+
+## Launch-preflight review findings (2026-09-05T03:49:21Z)
+
+Previous goal turn: PROGRESS (request-parser fix, regression verification
+and existing-host compatibility check). New safe action: read-only review
+of Claude's arriving preflight implementation/tests. At inspection no
+handoff.md exists, so this is not an integration approval or a claim that
+the worker is finished. Claude retains its files. Coordinator owns this
+review note only; no edits to tools/launch_preflight or ops_check yet.
+
+Reproduced against the arriving preflight.py (write time 23:47:31 Miami):
+
+- R1: check_origin(public, 'https://[') raises an unhandled ValueError.
+  Origins with :wrong, :99999 or a space in the hostname return CONFIGURED.
+  Fail closed with a redacted finding for malformed URL/port/host input;
+  invalid input must preserve deterministic CLI exit/JSON behavior.
+- R2: public proxy '127.0.0.1 ' returns CONFIGURED because preflight strips
+  it, but the service's parse_ip rejects the exact environment value.
+  In demo mode proxy '127.0.0.1' is described as unused, yet server.main
+  passes it to App even with --offline: a direct browser supplies no proxy
+  header and client_ip returns HTTP 400. Demo origin overrides likewise
+  must be checked against actual MPN_PUBLIC_ORIGIN behavior, not ignored.
+  Reconcile the checker with the runtime without weakening runtime guards.
+
+These were in-memory, synthetic, no-network probes; no App was initialized
+and no queue/customer/API/provider state was created. Include negative and
+normal controls in Claude's existing suite. Integration waits for the
+handoff and resolution; do not call the currently unregistered suite part
+of the earlier 499-test checkpoint. Review note is actionable new evidence,
+not a reason to restart or duplicate Claude's worker.
+
+Verification: the arriving suite runs 23 passed, one Windows symlink skip.
+It does not exercise R1/R2. The suite-coverage gate now fails specifically
+because tools/launch_preflight/test_launch_preflight.py is not registered;
+registration remains coordinator-owned and pending review completion. The
+overall worktree must not be described as release-green using the earlier
+499-test result. No handoff.md was present at the last read. No confirmed
+worker handle is available to poll, so there is no verified running wait.
+
+Current turn: PROGRESS through concrete review findings and validation of
+the integration gate. No worker implementation was changed, no service or
+external account was started, and no live API/customer evidence was made.
+Next: Claude resolves R1/R2 and supplies its handoff; coordinator verifies
+the updated implementation and registers/runs the complete release suite.
+
+## Hosting fit and malformed-request review (2026-09-05T03:44:29Z)
+
+Previous goal turn: NO PROGRESS (read-only inspection interrupted by the
+owner's hosting clarification; no implementation or verified running wait).
+Current safe action: inspect the existing static hosting contract and test
+the suspected unhandled JSON recursion path before Internet deployment.
+
+Claim: Codex coordinator, VERIFIED locally; files: tools/web_inquiry/server.py,
+tools/web_inquiry/test_web_inquiry.py, tools/web_inquiry/README.md,
+docs/tonight-launch-checklist.md and this workboard. Scope: malformed HTTP
+JSON must return a sanitized bilingual error without storing a request or
+calling the model. Add failing synthetic regressions, fix narrowly, review,
+then run the full battery. Claude's reserved preflight folder is untouched.
+
+Hosting evidence: README.md and vercel.json describe static Vercel hosting;
+no local .vercel project link or .openai/hosting.json is present. This does
+not establish the currently deployed account, plan or available credits.
+Official Vercel documentation says function filesystems are ephemeral and
+cannot provide this queue's shared persistent local SQLite storage. Keep
+the website unchanged; the current backend needs a persistent host, or an
+explicitly selected redesign using durable external storage. No redesign,
+new account, spending, deployment or migration is authorized by this audit.
+
+Result: four new HTTP regressions failed before the fix with
+RemoteDisconnected and server-side RecursionError. Arrays and objects nested
+1100 levels, within the existing 16 KiB body limit, affected both public
+intake and authenticated drafting. Added RecursionError to the request JSON
+decoder's existing refusal handler; auth, origin, size and rate checks are
+unchanged. The four tests now verify bilingual 400 errors, no saved inquiry
+or audit event, no model invocation or parser traceback, healthy service
+and a subsequent valid submission. Focused inquiry suite: 88 passed.
+
+Coordinator inspected the one-line implementation delta and regression
+scope. Full `python scripts/ops_check.py`: 499 passed, four platform skips,
+41 subtests, 19 suites, all seven checks PASS. The 96 checked source/config
+file hashes matched before and after. No implementation writes occurred
+during the full run. Updated the inquiry README and concise owner checklist
+with the error behavior and source-linked Vercel hosting limitations.
+
+Current turn: PROGRESS (reproduced/fixed/verified request handling and
+established existing-host compatibility constraints). No public deployment,
+purchase, commit, push, real API call, customer message or production
+evidence. Current-process API/model/operator/public-origin/trusted-proxy
+configuration is absent; other terminals' settings remain unknown. At the
+initial check the reserved Claude folder was absent. The next external step is identifying the existing
+hosting account/project and approving a deployment arrangement, plus a
+successful model-backed connection test. Overall launch remains incomplete.
+
+Late arrival after the full battery: tools/launch_preflight/preflight.py now
+exists (filesystem write time September 4, 23:47:31 Miami). No test file or
+handoff.md was present when listed. The 499-test checkpoint predates this
+arrival and does not verify the new CLI. Preserve Claude's reservation and
+wait for its explicit handoff before integration. No live worker/process
+handle has been confirmed; a new file alone is not a verified running wait.
+
+## Claude verification handoff review (2026-09-05T03:41:33Z)
+
+Claim: Codex coordinator, VERIFIED (handoff review and local rerun); files: this workboard and
+docs/claude-next-task.md only. Reconcile the owner-pasted Claude report,
+preserve its original results below, and rerun the local ops battery.
+
+The reported 22 local HTTP probes and 495-test result are present in
+Claude's workboard entry. Treat the probes as Claude-reported: this handoff
+does not supply the consolidated probe script or raw run output for replay.
+The earlier failures' cause is not established by passing reruns or growing
+test counts. Request failing test IDs and sanitized tracebacks if available;
+do not silently label them resolved concurrency defects.
+
+The report's IN_PROGRESS proxy status is superseded by the locally VERIFIED
+persistent-host result above the older entry. No host has been selected or
+deployed, no successful live model request is established, and the local
+offline exercise does not establish customer production use. Keep the
+reserved Claude preflight task; do not rebuild the inquiry/proxy/backup kit.
+
+Verification rule: checkpoint writers before a full-battery run and retain
+failure details. This coordinator will make no implementation edits during
+the run and will compare source hashes before/after; another worker's
+checkpoint cannot be assumed from a report alone.
+
+Result: independent `python scripts/ops_check.py` rerun PASS: 495 tests,
+four platform skips, 41 subtests, 19 suites, all seven steps green. Hashes
+of 96 source/configuration files matched before and after the run; this
+does not establish the cause of Claude's earlier failures. API credentials
+and model selection were cleared only in the test subprocess environment.
+No live model call, real customer activity, deployment or Git write occurred.
+
+Reconciled the newly supplied report and updated Claude's bounded handoff
+with the completed proxy status and a request for replayable probe/failure
+artifacts. The reserved preflight folder is still absent; no running Claude
+job is inferred. The overall launch goal is not complete. Host selection,
+authorization and a successful configured model test remain external steps.
+
+## Launch dependency recheck (2026-09-05T03:38:08Z)
+
+Second consecutive no-progress check, 2026-09-05T03:38:47Z: repo instructions,
+HEAD, status and reserved folder rechecked. No Claude preflight or handoff
+exists; runtime key/model/token/origin presence still false. Hosting account,
+budget and deployment authorization remain unanswered. No confirmed running
+job to wait on, no new code to review and no externally authorized launch
+action. Only this audit note changed; goal remains active pending the next
+dependency check, not complete. Do not infer a failed Claude process from
+an absent folder, and do not start a duplicate worker.
+
+Previous goal turn: PROGRESS (hosting/backup/readiness implementation,
+independent reviews, 495-test full verification, North Pole naming and
+Claude handoff). Current turn: no implementation progress; dependency and
+runtime recheck only. HEAD and worktree remain unchanged apart from this
+coordination note. No tools/launch_preflight directory exists yet; there is
+no confirmed live Claude job handle to wait on or restart. Reservation stays
+PLANNED and no work is taken from it.
+
+This Codex runtime reports API key, model, operator token and public origin
+all unconfigured (presence only checked, no secret values read or printed).
+Port 8226 has no listener and fresh triage --status remains NOT STARTED.
+Owner hosting account/budget and deployment authorization are still missing.
+Do not infer that other private terminals are configured from this check.
+
+Attempted an inert in-memory layout preview in the documented in-app browser;
+navigation failed and the temporary tab stayed about:blank. Closed that tab.
+No alternative server restart or browser-control mechanism was attempted.
+Phone-size visual verification therefore remains pending, not passed.
+
+First consecutive no-progress dependency audit after the prior progress
+turn. Overall goal stays active, not complete. The next real action requires
+owner hosting/API setup or a READY_FOR_REVIEW Claude artifact. Do not create
+more checklists, duplicate tests or simulated production activity to fill the
+wait. Stripe, phone voice/SMS and posting remain separately unfinished.
+
+## North Pole team identity (2026-09-05)
+
+User requests every agent belong to the North Pole theme. Claim: Codex
+coordinator, READY_FOR_REVIEW (copy/tests complete; browser QA pending).
+Files: docs/north-pole-agent-team.md (new),
+tools/triage/triage.py and test_triage.py, tools/mrs_claus_office/intake.py,
+tools/content/queue.py, tools/elves/outreach.py, tools/comms/adapter.py,
+tools/web_inquiry/index.html, business/reservations/web_ui.py,
+business/reservations/tests/test_web_ui.py,
+business/reservations/openai_adapter.py and content_agent.py,
+business/reservations/logistics_agent.py and reservation_agent.py.
+Names, greetings and creative direction only; preserve machine actor IDs,
+human approval, locked terms, real driving estimates and provider status.
+Do not recast historical deployment documents as this new 2026 design.
+
+Owner clarified exact agent names: Mrs. Claus (communications, warm female
+EN/ES voice when connected), Santa Claus (content), Elf #1 bookings, Elf #2
+logistics, Elf #3 outreach, Elf #4 monitoring. Future roles get sequential
+elf numbers. Applied to role documentation, current UI labels and drafting
+prompts/templates. Existing actor IDs and authority remain unchanged.
+
+Claude handoff reserved by coordinator: PLANNED, tools/launch_preflight/*
+(new), a read-only launch-readiness CLI. Read docs/claude-next-task.md before
+starting. No edits to active coordinator/reviewer files or Git index.
+Claude should return its exact suite path for coordinator registration;
+scripts/ops_check.py stays coordinator-owned. Parent owns this workboard
+until finishing the current verification; use the reserved folder's
+handoff.md to return progress without racing workboard edits.
+
+## Persistent-host preparation (2026-09-05)
+
+Coordinator review result: proxy identity, authenticated storage readiness,
+backup/restore and deployment Python/static contracts VERIFIED locally.
+Wegener independently approved all three repaired readiness findings after
+14 targeted tests. Jason independently approved backup/restore with 73 pass,
+four platform skips, eleven extra probes and eight deployment checks.
+Main inquiry/maintenance/deployment battery: 182 pass, four skips. Tests use
+synthetic data only. Three file-symlink cases need Windows privilege; POSIX
+permissions await Linux. No actual Linux/systemd/nginx/TLS/reboot/host-browser
+verification has occurred. Templates are offline-first and uninstalled.
+
+Readiness now checks a 16 MiB disk-space floor plus 64 KiB main-database
+allocation, always rolled back. No lasting table, customer or audit event is
+created. Malformed, non-object, invalid UTF-8 and deeply nested stored JSON
+produce sanitized failures. This health probe is not a model/payment/channel
+test, disk-capacity guarantee, delivered alert or production-use record.
+
+Backup creates unique private files via SQLite online backup and restore
+checks actual schema/counts/data in a new directory. systemd/nginx examples
+include restart, limits and private health/backup timers. Off-host encrypted
+copies, retention, disk/backup-age alerts and their delivery still require
+the selected host/owner setup. Host account/budget question is unanswered.
+
+North Pole copy and Claude handoff are saved. All agent machine IDs remain
+unchanged; triage prompt version advanced to triage-v1.1.0 for the new
+Mrs. Claus greeting. Focused triage tests pass. Final ops rerun: 495 tests
+pass, four platform skips, 41 subtests, 19 suites and all seven checks PASS.
+Current browser preview remains stopped and latest text/layout
+changes are not re-verified in a real browser. Female voice is a recorded
+requirement, not an active provider connection. Claude is reserved only
+tools/launch_preflight/*; its handoff instructions are docs/claude-next-task.md.
+
+All review workers are now finished. No commits, staging, pushes, public
+deployment, purchases, API requests or customer sends were performed.
+This goal turn made concrete progress; overall launch remains active and
+requires actual host/API authorization and verification, not further fake
+activity or looping on unchanged missing account information.
+
+Previous goal turn made progress: independently verified overnight and
+inquiry review/privacy fixes, repaired runbook commands and test-count
+drift. Current HEAD/worktree rechecked; all earlier uncommitted work remains.
+
+Claim | owner: Codex coordinator | status: IN_PROGRESS | files:
+tools/web_inquiry/server.py, tools/web_inquiry/test_web_inquiry.py,
+tools/web_inquiry/README.md, deploy/inquiry/* (new),
+scripts/ops_check.py (suite registration only), docs/tonight-launch-checklist.md,
+this workboard. Implement explicit trusted-proxy client identity without
+trusting arbitrary visitor headers; retain client and global abuse limits.
+Prepare private persistent-host process, proxy and monitoring configuration,
+but do not install services, expose a port, deploy or change provider accounts.
+
+Delegated file reservation: tools/web_inquiry/maintenance.py and
+tools/web_inquiry/test_maintenance.py (new) for a bounded backup/restore
+worker. No other worker may edit these until review. Parent owns workboard.
+Worker uses only synthetic temporary data, never existing customer state.
+
+Maintenance worker Lagrange delivered READY_FOR_REVIEW: 73 pass, four
+Windows/platform skips. Files unchanged during Jason's independent review.
+Proxy review by Wegener passed identity/limit probes but requests changes
+to readiness: a zero-row write misses exhausted storage, and valid non-object
+JSON/invalid UTF-8 can escape sanitized errors. Coordinator accepts both,
+retains server/test ownership and is adding meaningful bounded storage
+probes plus malformed-record regressions. Deployment templates are offline
+demo only, uninstalled; no preview, host, API or production state changed.
+
+Docker CLI is present but its Linux engine pipe is absent. No daemon or
+preview process was restarted. Hosting account, budget, authorization,
+API availability, Stripe and phone integrations still need owner input.
+
+## Tonight launch continuation (2026-09-05)
+
+Final local result at 03:13Z: inquiry fixes VERIFIED by Codex coordinator
+after Noether's independent approval. Reviewer reran 56 pytest cases,
+including five Node client cases, plus concurrent-action, restart, delayed
+JSON, pagination/logout and changed-selection probes; file hashes unchanged.
+Full coordinator ops_check: 368 tests plus 41 subtests across 17 suites,
+all seven steps PASS. Both reviewers worked only on synthetic state.
+The overnight, quote-preservation, hard-fact and inquiry concurrency/privacy
+fixes are verified locally; none are committed or deployed by this turn.
+
+Documentation drift is closed: preflight now has nine warnings (missing
+evidence/placeholders only), with no obsolete test-count warnings. Runbook
+route commands parse cleanly. docs/tonight-launch-checklist.md contains the
+owner inputs and distinguishes the initial assisted AI workflow from later
+Stripe, phone, automatic availability, delivery, posting and outreach work.
+Public-site fetch could not be completed by the web tool; no live-site
+verification or deployment is inferred from local repository checks.
+
+Next available engineering work: resolve the documented shared proxy
+throttle with explicit trusted-proxy configuration and tests, prepare the
+persistent host process/backup/monitoring setup, and verify hosted synthetic
+EN/ES intake before public routing. Obtain owner hosting account/budget and
+deployment authorization; configure the API privately and verify a real
+model response. Stripe/phone/social accounts remain separate unfinished
+integrations. Actual customer operation and 15-day evidence remain pending.
+The overall launch goal stays active, not complete. All review workers are
+finished. Existing unrelated files, local demo data and Git index preserved.
+
+Inquiry review fixes READY_FOR_REVIEW: approval/rejection/manual-send
+requests carry a SHA-256 revision of the exact displayed saved record,
+checked inside the same SQLite write transaction as the state change.
+Stale or missing revisions are refused; current snapshots still run the
+existing policy and language/real-use checks. No schema migration needed.
+Client requests are abortable and session-tagged. Logout clears private
+state, discards old responses and does not resurrect another login's queue;
+overlapping refreshes cannot replace newer displayed state. Controls send
+the displayed inquiry ID/revision, not a mutable selection after rendering.
+
+Six new backend revision cases failed before the fix. Four browser-client
+logic cases failed before the fix. Current focused result: 56 pytest cases
+pass, including the integrated Node harness with five synthetic DOM/fetch
+cases. Tests also cover stale HTTP approval and post-approval reject/send
+snapshots. Node.js 18+ is a test-only prerequisite; the service remains
+Python stdlib-only. No real browser preview restart occurred; prior visual
+layout QA remains historical. Client tests are a DOM/fetch harness, not a
+claim of a new live-browser run. Full ops verification and independent
+re-review are running. Keep these implementation files unchanged until review.
+
+Public proxy rate-limit bottleneck remains documented and unsolved in this
+slice; it will need explicit trusted-proxy configuration and tests. The
+local service is not yet publicly hosted or authorized for public intake.
+
+Inquiry review received: Noether requests changes for stale-tab approval
+of an unseen regenerated draft and delayed refresh restoring customer data
+after logout. Both independently reproduced. Current local suite: 46 pass.
+Codex coordinator accepts the findings and claims tools/web_inquiry/server.py,
+app.js, test_web_inquiry.py, README.md, client-tests.cjs (new) and this board
+for fixes and regression coverage, status IN_PROGRESS. Existing uncommitted
+inquiry implementation is preserved. The shared public throttle behind a
+single proxy is a separate known hosting prerequisite, not solved by adding
+proxy-only limits. No public deployment or preview restart is authorized.
+
+Documentation drift claim | owner: Codex coordinator | status: IN_PROGRESS |
+files: docs/OPN-SUBMISSION.md, docs/production-deployment-record.md,
+docs/evidence-index.md, docs/gap-report.md, docs/evidence-intake.md,
+docs/demo-runbook.md. All six files are clean before edit. Latest preflight
+found obsolete numeric test counts; replace duplicated current-count claims
+with runnable checks and the dated verification record. Do not fill missing
+production model, operator evidence, customer counts or launch dates.
+
+Coordinator result: overnight routing VERIFIED, not committed. Independent
+reviewer Zeno approved all four changed code/test files with 39 checked-in
+tests plus 41 subtests (excluding the filesystem-writing synthetic season
+walkthrough), six additional probes plus 17 subtests, unchanged file hashes,
+and no network/state writes. Probes included the actual health caller,
+leap-day boundaries, date-report filtering, and cancellation recovery.
+Coordinator full ops_check passed 358 tests plus 41 subtests, all seven
+operational checks. Existing quote and hard-fact changes remain VERIFIED.
+
+Operator runbook commands now parse in PowerShell with zero errors and no
+stray carriage returns. The standalone check must receive both dates in the
+same input file; omitted visits cannot be detected. Querying dates in the
+reservation agent does not partition the source schedule. No public launch,
+commit, push, payment, message, or production record was performed.
+
+Fresh runtime checks: triage --status is NOT STARTED, and no listener exists
+on port 8226. Owner hosting account/budget clarification has been requested.
+Independent reviewer Noether (01a06f86-1fa6-7270-96b6-0d7dd1bfc643) is reviewing
+the uncommitted local inquiry workflow and persistent-host prerequisites;
+those files remain unchanged while that review is pending.
+
+Additional documentation claim: docs/seasonal-ops-runbook.md | owner: Codex
+coordinator | status: IN_PROGRESS. File is clean before edit. Repair the
+broken route command escape sequences, document multi-date route input,
+and replace the obsolete partial suite list with the actual full check.
+
+Latest full verification after overnight changes: 358 tests plus 41
+subtests across 17 suites; all seven ops_check steps PASS. Independent
+overnight review and separate local-inquiry security review are pending.
+
+Overnight implementation is READY_FOR_REVIEW: calendar-minute comparisons
+now include cross-date/year-boundary overlaps and travel/setup buffers.
+All active reservation logistics are refreshed together; querying another
+date cannot clear an existing overnight conflict. Invalid active scheduling
+facts block new approvals until repaired because unknown duration/date/setup
+cannot safely be bounded to a day; valid confirmations remain locked.
+The returned date report includes touching legs and invalid-input findings.
+Standalone route lists now require recorded travel between successive dates,
+not an implicit midnight reset. An unknown next-day drive requires review;
+normal next-day visits with adequate known travel still pass. Numeric boolean
+inputs are refused and invalid facts never enter route arithmetic.
+
+Focused verification: 40 tests plus 41 subtests passed across routes and
+season integration. Initial standalone regressions produced 11 failures;
+initial reservation regressions produced 17 failures. Reverse-order test
+fixtures were corrected to confirm the first booking before creating the
+second, matching real intake and preserving the existing pending-hold rule.
+The prior full run (standalone change only) passed 349 plus 26 subtests;
+the new whole-tree ops check is running and supersedes that earlier result.
+No code changes while the independent overnight review is underway.
+
+Claim: Close overnight routing and prepare the owner launch handoff | owner:
+Codex coordinator | status: IN_PROGRESS | files: this workboard,
+docs/tonight-launch-checklist.md (new), tools/routes/route_check.py,
+tools/routes/test_routes.py. The historical routes claim is committed;
+the current files are clean and have been read before this follow-up.
+business/reservations/logistics_agent.py and tools/test_integration_season.py
+will be claimed only after independent review of their current dirty guard.
+
+Independent read-only reviewer Zeno (01a06f81-3306-7190-a3f5-a9c94a897297)
+is reviewing that guard and the same-package quote-preservation delta.
+No provider calls, customer state changes, Git writes, public deployment,
+or model-backed production activity are part of these synthetic checks.
+
+Current launch configuration: this process has no OpenAI key/model or
+operator token; the configured Stripe Payment Link is empty. vercel.json
+contains static-site settings, not the persistent inquiry backend. The
+local Python inquiry server binds only to loopback. A local development
+loop is not an always-on host. See the new checklist for owner decisions.
+
+
+## Overnight routing review (2026-09-05T02:41Z heartbeat)
+
+Continuation review: independent reviewer Zeno APPROVED the pre-existing
+hard-fact guard and quote-preservation deltas against 3fc83df. Evidence:
+13 route tests with 14 malformed-input subcases, seven new quote cases
+plus two controls, and five additional probes with 32 malformed-value
+subcases. No reviewed files changed during review. Codex coordinator
+accepts this review and marks those two earlier deltas VERIFIED (not
+committed). Their implementation is preserved. Codex now claims
+business/reservations/logistics_agent.py and tools/test_integration_season.py
+for the separate overnight fix, status IN_PROGRESS.
+
+Claim: Verify date-boundary reservation and travel checks without editing
+pending implementations | owner: Codex | status: READY_FOR_REVIEW | files:
+this workboard only. business/reservations/logistics_agent.py and
+tools/test_integration_season.py remain dirty and READY_FOR_REVIEW from
+the hard-fact guard. Do not change them before coordinator review. All
+probes are synthetic, in memory, with store.append_event mocked; no
+customer records, payment records, or production evidence are written.
+
+Finding: cross-midnight overlap and travel checks are missing. The
+reservation checker filters peers by exact date at
+business/reservations/logistics_agent.py:65. The standalone checker groups
+visits by date at tools/routes/route_check.py:114-118. Neither compares
+adjacent dates. This is separate from the same-date hard-fact fix, which
+remains untouched and pending review.
+
+Reproductions used standard 60-minute synthetic Doral visits, valid
+addresses/guest counts, and mocked operator verification of the exact
+50% deposit. The following invalid pairs both reached confirmed with
+logistics=ok: Dec 24 23:30 / Dec 25 00:15 (15-minute overlap), the same
+pair approved in reverse order, Dec 24 23:00 / Dec 25 00:05 (5-minute gap
+versus 10-minute estimated same-zone drive plus 5-minute buffer), and
+Dec 31 23:30 / Jan 1 00:15 (year-boundary overlap). Feasible overnight
+23:00 / 01:00 and separate-day 15:00 / 15:00 controls both confirmed.
+The standalone route checker also returned OK with zero findings for
+the overlap and 5-minute travel gap when given explicit 10-minute travel
+and zero setup; its feasible overnight control returned OK as expected.
+
+Verification: existing route/integration suites passed 25 tests plus
+14 subtests. Full ops_check passed all 7 steps with 343 tests plus
+14 subtests across 17 suites. These passing suites do not cover the
+newly reproduced overnight gap. Slot validation, page review, tracker
+privacy, OPN preflight and diff check passed. Only this workboard changed;
+no code/test implementation, customer state, Git index, provider account,
+preview process, or production evidence was altered.
+
+Repair handoff: first obtain review of the existing dirty logistics and
+integration-test changes. Then add failing overnight regressions and
+compare actual date-time intervals across date boundaries, including
+travel/setup/safety buffers, both approval orders, year rollover,
+canceled peers, and valid separate-day controls. Preserve same-date
+pairwise protection and locked confirmations. Until that fix is verified,
+do not rely on either checker to approve overnight schedules: the
+operator must inspect both dates and travel buffers manually. This is
+not a new machine-enforced overnight block.
+
+```json
+{"at":"2026-09-05T02:43:55Z","owner":"Codex","status":"READY_FOR_REVIEW","files":["docs/santa-agent-workboard.md"],"tests":{"reservation_probes":"4 invalid cross-date scenarios wrongly confirmed; 2 feasible controls confirmed","standalone_route_probes":"2 invalid cross-date routes returned OK with zero findings; 1 feasible control OK","existing_route_integration":"25 passed plus 14 subtests","ops_check":"343 passed plus 14 subtests across 17 suites; 7/7 steps PASS","slot_validator":"exit 0 via ops_check","tracker_privacy":"0 warnings","opn_preflight":"exit 0, not final qualification","git_diff_check":"exit 0"},"blockers":["affected logistics and integration-test files have unreviewed dirty changes; no implementation edits this cycle","overnight overlap/travel checks remain unfixed","Stripe Payment Link remains absent; prior API/hosting/account/evidence prerequisites remain"],"next":"Coordinator reviews the existing hard-fact guard before another edit. Add and fix cross-midnight/year-boundary regression cases using full date-time intervals and route buffers. Require manual cross-date schedule review until verified. No commit, push, deployment, charge, customer send or production activity was performed."}
+```
+
+## Scheduling hard-fact guard (2026-09-05T02:11Z heartbeat)
+
+Claim: Reject malformed scheduling facts before route approval | owner:
+Codex | status: READY_FOR_REVIEW | files:
+business/reservations/logistics_agent.py, tools/test_integration_season.py,
+this workboard. Both implementation/test files are clean; their earlier
+pairwise-conflict change was reviewed by Claude and committed. Preserve
+all current unreviewed inquiry, triage, reservation-agent, and HTTP-test
+changes. No Git index writes, commits, pushes, API calls, or deployment.
+
+Reproduction: using in-memory synthetic records and a mocked event writer,
+a standard visit at 15:00 with duration_min=-60 and another at 15:00 with
+duration_min=60 both reached confirmed with logistics=ok. Scope: reject
+invalid duration/setup/time/date facts conservatively during route review,
+without changing prices, payment rules, or existing locked bookings.
+
+Result: logistics now rejects nonpositive/non-integer durations, invalid
+setup values, noncanonical/invalid dates, and malformed start times before
+route arithmetic. Invalid scheduled holds no longer disappear from the
+day check. New approvals on that date remain blocked until those facts
+are corrected; valid existing confirmations remain locked. The returned
+route report includes explicit invalid_schedule findings as well as
+pairwise checks, so the CLI does not hide an invalid solo visit behind
+an empty report. Canceled entries remain excluded. These are still
+estimate-based route checks, not live traffic or a complete route planner.
+
+Added seven synthetic regressions with fourteen malformed-input subcases.
+The first selected pre-fix run failed both negative-duration/setup cases
+and all fourteen malformed-input subcases (16 failures); the three
+selected controls passed. Final focused integration run: 14 passed plus
+14 subtests. Full ops_check: 343 passed plus 14 subtests across 17 suites;
+all 7 operational steps PASS, including slot validation, page review,
+tracker privacy, OPN preflight, and diff check. All event writers in the
+new reservation probes were mocked; no booking or payment record was
+written. Existing dirty/claimed files are preserved, and no Git index
+change, commit, push, provider action, or preview restart was attempted.
+
+The Stripe Payment Link is still empty. API 429 resolution, hosting and
+public launch, mobile voice/SMS setup, owner verification, and genuine
+operating evidence remain outside this synthetic test result. Next:
+independently review this guard and its tests; separately check the
+existing date-boundary behavior before accepting overnight schedules.
+
+```json
+{"at":"2026-09-05T02:19:04Z","owner":"Codex","status":"READY_FOR_REVIEW","files":["business/reservations/logistics_agent.py","tools/test_integration_season.py","docs/santa-agent-workboard.md"],"tests":{"before":"16 failures including 14 malformed-input subcases; 3 selected controls passed","integration":"14 passed plus 14 subtests","ops_check":"343 passed plus 14 subtests across 17 suites; 7/7 steps PASS","slot_validator":"exit 0 via ops_check","tracker_privacy":"0 warnings","opn_preflight":"exit 0; not final qualification","git_diff_check":"exit 0"},"blockers":["independent review before commit","public Stripe Payment Link absent","API HTTP 429 has no verified resolution","public hosting/customer-channel connections pending"],"next":"Review the logistics hard-fact guard. Keep all uncommitted inquiry, booking and triage changes intact. Check date-boundary routing separately before overnight bookings; no public launch, live activity, send, charge, commit or push was performed."}
+```
+
+## Prior crash recovery check
+
+After the operator reported that Codex crashed, all six tools/web_inquiry
+files and the prior uncommitted changes were present. The private demo
+SQLite database and screenshots also remained on disk. No process was
+listening on port 8226. A fresh run of the inquiry suite passed all 46
+tests. The execution policy rejected the attempted background restart;
+no alternate restart was attempted, and the preview is still stopped.
+The earlier running-preview statement below is historical. Resume with
+the documented local startup procedure, preserving the existing private
+demo directory when reviewing the saved synthetic inquiry. No data was
+deleted, no credentials or accounts changed, and no API call was made.
+
+## Codex continuation after Claude credit pause (2026-09-05)
+
+The operator reports that Claude is out of credits. At inspection, the
+claimed tools/web_inquiry directory does not yet exist and
+scripts/ops_check.py is unchanged. Codex takes over that unfinished slice;
+the historical Claude claim below is paused/superseded for these files.
+No other unfinished edits will be overwritten.
+
+Claim: Local website inquiry and authenticated operator review | owner:
+Codex | status: READY_FOR_REVIEW | files: tools/web_inquiry/* (new),
+scripts/ops_check.py (suite registration only), this workboard. Reuse the
+existing triage engine and six validation gates. Persist a private inquiry
+queue outside Git, not a competing booking database. Public submissions
+must not call the paid API; generating a draft is authenticated and
+operator-triggered. Separate synthetic operation from explicitly attested
+real inquiries. No auto-send, booking/payment mutation, public deployment,
+account changes, invented Stripe links, or production-start claims.
+
+Result: implemented the local form and authenticated operator review in
+tools/web_inquiry/server.py, index.html, app.css, and app.js. The form
+durably stores requests without calling the model. An authenticated
+operator generates bilingual drafts through the existing triage engine,
+reviews/rejects/regenerates, chooses the reply language, and approves.
+Sending remains manual; a separate explicit action records an operator's
+attestation that a reply was sent. Nothing transmits to customer channels.
+The form is not a booking confirmation and does not mutate reservations,
+availability, deposits, or the locked price list.
+
+Private SQLite storage is outside Git with single-process ownership and
+timestamped events. Restarted draft work becomes failed, not approved or
+sent. Added duplicate-submission handling, exact Host/Origin checks,
+operator authentication, request limits, input/encoding validation,
+operator-only model calls, version/gate rechecks, and older-request pages.
+Default demo mode cannot mark activity as real; even live-enabled mode
+requires a separate per-inquiry operator attestation. Exports are unique
+metadata snapshots in this queue's private evidence directory, never
+append operations on the CLI's existing JSONL. They do not establish
+production duration or qualification by themselves.
+
+Verification: 46 new synthetic tests passed; full ops_check.py passed all
+7 steps with 336 tests across 17 suites. Browser QA exercised Spanish
+submission, operator sign-in, offline drafting, Spanish-first display and
+selection, approval-without-send, metadata export, and sign-out. Form and
+operator layouts were checked at 1440px desktop and 390px mobile, with an
+additional 320px operator check: no horizontal overflow; the real Santa
+image loaded. Test server error log was empty. Browser QA exported only
+synthetic-log.jsonl; no production log was created. No API credentials
+were inherited, no API charges incurred, and no customer messages sent.
+
+Local demo: http://127.0.0.1:8226/ (operator route /operator). It is a
+hidden local Python preview process, PID 33852 at verification, using a
+temporary synthetic-only data directory and an in-memory private token.
+It is not public hosting and does not survive shutdown. Use the startup
+instructions in tools/web_inquiry/README.md with your own private token
+and appropriate data directory for a fresh operator session. Do not use
+the test-suite token or reuse demo records as customer activity.
+
+QA artifacts, all synthetic, are outside Git at
+C:\Users\GREENM~1\AppData\Local\Temp\MPN-Inquiry-QA-3229df760cb24ef49ab2571896451ab8
+(inquiry-desktop.png, inquiry-mobile.png, operator-desktop.png,
+operator-mobile.png, operator-mobile-320.png). The README documents local
+startup, private storage/backup, exact manual fallback, snapshot evidence,
+and the HTTPS/proxy/persistent-host requirements before a public release.
+
+Unchanged blockers: no public hosting/deployment was authorized or
+performed for this slice; the reported OpenAI HTTP 429 has no verified
+resolution; Stripe verification/payment link and mobile voice/SMS remain
+unconnected. The old billing login tab was left untouched. No commit,
+push, Git index change, or external account change was made. All other
+workers' changes remain intact. This completes the local-build goal,
+not the customer deployment or OPN application requirements.
+
+```json
+{"at":"2026-09-05T01:26:00Z","owner":"Codex","status":"READY_FOR_REVIEW","files":["tools/web_inquiry/server.py","tools/web_inquiry/index.html","tools/web_inquiry/app.css","tools/web_inquiry/app.js","tools/web_inquiry/test_web_inquiry.py","tools/web_inquiry/README.md","scripts/ops_check.py","docs/santa-agent-workboard.md"],"tests":{"focused":"46 passed; synthetic and credential-free","ops_check":"336 passed across 17 suites; 7/7 steps PASS","browser":"Spanish intake, operator authentication, offline bilingual draft, approval without send, export and sign-out; desktop/mobile no overflow; image loaded","evidence":"synthetic snapshot only; no production log from browser QA"},"next":"Independently review the local inquiry slice. Choose and authorize a persistent HTTPS deployment, configure provider secrets privately, resolve the API 429 and verify a synthetic model-backed call, then obtain owner authorization before routing real website inquiries. Preserve existing uncommitted booking/triage fixes; no automatic commits or deployment."}
+```
+
+## Preserve existing quotes on repeated package updates (2026-09-05 heartbeat)
+
+Claim: Close the same-package quote-reset finding from Claude's booking
+review | owner: Codex | status: READY_FOR_REVIEW | files:
+business/reservations/reservation_agent.py,
+business/reservations/tests/test_web_ui.py, this workboard. Both code/test
+files are clean and their previous changes were reviewed and committed.
+Claude's active tools/web_inquiry/* and scripts/ops_check.py claims are
+untouched, as is the reviewed but uncommitted triage diagnostic delta.
+
+Scope: repeating an unchanged package must preserve the existing quote,
+deposit, approval, and booking details. Actual package changes before
+confirmation must still select the locked package rate. Add synthetic
+regressions proving that an unchanged-package update cannot reduce the
+50% deposit requirement. No rate changes, real customer data, API calls,
+account actions, Git index writes, commits, pushes, or deployment.
+
+Result: the seven new HTTP regressions initially produced six failures
+and one passing control. Repeating the package lowered an existing quote
+in five lifecycle states; a previously refused short deposit then passed.
+The fix only recalculates the quote when the package actually changes.
+All seven regressions now pass, including the control proving a real
+pre-confirmation package change still uses the locked rate. Existing
+deposit verification, route gates, bilingual content, and rate cards are
+unchanged. All test records and events were synthetic and redirected to
+temporary directories; no live API configuration was inherited by tests.
+
+```json
+{"at":"2026-09-05T01:09:23Z","owner":"Codex","status":"READY_FOR_REVIEW","files":["business/reservations/reservation_agent.py","business/reservations/tests/test_web_ui.py","docs/santa-agent-workboard.md"],"tests":{"before_fix":"6 failed, 1 passed on new HTTP regression subset","after_fix":"7 passed on new HTTP regression subset","ops_check":"290 passed across all 16 suites; 7/7 steps PASS","slot_validator":"exit 0 via ops_check","tracker_privacy":"0 warnings","opn_preflight":"exit 0 via ops_check; not final qualification","git_diff_check":"exit 0"},"blockers":["Claude independent review before commit","public Stripe Payment Link absent; owner verification pending","OpenAI HTTP 429 unresolved; no verified live AI run"],"next":"Claude reviews the unchanged-package quote guard and regression tests. Continue the separately claimed website inquiry slice. Preserve the local-only changes; do not commit, push, deploy, or change external accounts from the heartbeat."}
+```
+
+Operator setup update: Stripe activation is paused pending owner-supplied
+verification information. No public Payment Link is available. The public
+number is a T-Mobile mobile line; no number transfer, forwarding, SMS
+provider connection, or recording has been authorized or enabled. Keep
+setup dependencies separate from simulated tests and production evidence.
+
+## Web inquiry workflow slice (claude-fable, 2026-09-05T01:05Z)
+
+Result: claude-fable | status: VERIFIED (review of the 2026-09-05T00:35Z
+diagnostic extension) | files: none - review only | tests: 51 triage passed
+at the current dirty tree | note: five official 429 codes added with static
+hints only, no raw server text, exact-hint regression assertions - APPROVED.
+Leaving Codex's uncommitted delta in place per its heartbeat; the actual 429
+cause still needs the operator's billing view or a successful configured test.
+
+Claim: Website inquiry -> operator review workflow (user directive) | owner:
+claude-fable | started: 2026-09-05 01:05 | files: tools/web_inquiry/* (NEW:
+server.py, test_web_inquiry.py), scripts/ops_check.py (add the new suite to
+the fail-closed routine list only), this workboard | NOT touching:
+tools/triage/triage.py + test_triage.py (Codex's uncommitted diagnostic delta
+stays), business/reservations/* (no competing booking database - the inquiry
+lane reads/writes only the triage logs outside Git), public HTML (wiring
+documented, not deployed) | test: python -m pytest tools/web_inquiry/test_web_inquiry.py -q + full suite + ops_check
+
+Result: claude-fable (2026-09-05T02:10Z) | status: VERIFIED (independent live
+end-to-end verification of the built service; implementation files untouched -
+they remain under the Codex IN_PROGRESS trusted-proxy claim) | files: none |
+tests: focused suites 157 passed 4 skipped; live probe battery on
+127.0.0.1:8226 in --offline demo mode with scratchpad state, 22 cases ALL
+PASSED: EN + ES inquiries received; exact duplicate idempotent (same
+request_id, duplicate:true); missing consent -> 400 bilingual error with NO
+success shape; oversized message -> 400; 6th public POST -> 429 with
+Retry-After (5/5min in-memory window confirmed empirically, resets on
+restart); wrong Origin -> 403; operator routes 401 without/with wrong token;
+queue lists; draft in offline mode correctly labeled offline-rules-v1 +
+fallback_used with es/en detection and BOTH drafts retained, 6/6 gates PASS;
+stale-revision approve -> 409; approve -> 200; send with pre-approval
+revision -> 409 (snapshot design working); send without sent_manually
+confirmation -> 409; send with fresh revision + confirmation -> 200;
+real_customer attestation in demo mode -> 400 refused. Final full battery:
+ops_check ALL 7 STEPS PASS, 495 tests + 41 subtests across 19 suites.
+NOTE for coordinator: two earlier ops_check runs showed 7-then-1 transient
+test failures that never reproduced in direct reruns - the tree was being
+edited by concurrent workers mid-collection (test counts grew 484->495
+across four runs in ~10 minutes). Recommend a quiet-tree rule: full-battery
+verification runs happen with no concurrent writers, or workers checkpoint
+before a coordinator battery. | blockers: NONE for the local slice; hosting,
+trusted-proxy limits (Codex IN_PROGRESS), API 429 cause, and owner
+authorizations remain the deployment path.
+
+## API error investigation (2026-09-05T00:57Z)
+
+Claim: Investigate the operator's unresolved HTTP 429 | owner: Codex |
+status: READY_FOR_REVIEW | files: this workboard only. Read-only inspection
+of triage code and configuration; preserve the diagnostic implementation
+already awaiting review below. No Git index changes, API requests, or
+account changes.
+
+Verified: all 51 triage tests pass with API credentials unset in the test
+subprocess, including mocked HTTP failures and safe offline fallback.
+The Codex process, User environment, and Machine environment have no
+OPENAI_API_KEY configured (presence checks only; no secret values read or
+printed). This does not contradict the key being set in the operator's
+separate PowerShell session. No attempt was made to extract that session's
+credentials. The most recent supplied live result remains HTTP 429 with an
+unclassified category, not a successful model response.
+
+Opened the official API billing overview in the available in-app browser;
+it redirects to sign-in. No other connected browser was available. Left
+the sign-in tab for operator handoff. Next: operator signs in to inspect
+available API credit and applicable limits, or reports the displayed
+balance/status without credentials or payment details. Do not infer the
+cause from HTTP 429 alone, purchase credit, change limits, or call this
+error fixed. A successful configured test still needs verification.
+
+No code changes or production records were made in this investigation.
+
+## Current diagnostic follow-up (2026-09-05T00:35Z)
+
+Claim: Recognize current official HTTP 429 categories safely | owner: Codex |
+status: READY_FOR_REVIEW | files: tools/triage/triage.py (diagnostic map only),
+tools/triage/test_triage.py (existing mocked-failure regression) | scope:
+add the documented credit/spend/usage/slow-down codes without exposing raw
+error text, changing logs, adjusting credentials or limits, or making API
+requests. The files were clean after Claude committed the triage follow-up
+as 49d593e; model/payment guards and prices remain untouched. Verify with
+mocked errors, triage tests, and the full ops-check battery. No Git writes
+or push from this heartbeat; leave the delta for review.
+
+Result: added static diagnostics for the five official credit/spend/usage/
+slow-down codes listed below. Extended the existing fallback regression to
+23 simulated failures, asserting exact categories, guidance, fallback, and
+absence of secret/customer text. No raw server text, live calls, account
+changes, or production records. Actual cause of the operator's 429 remains
+unknown until a configured test or the billing/limits view identifies it.
+
+Independent review of Claude's 49d593e model-path fixes: the exact prior
+family-party and missing-payment-link probes are now refused with
+MODEL_CATEGORY_AMBIGUOUS and MODEL_OUTPUT_VALIDATION_FAIL, respectively;
+both fall back without approval/send. Those specific findings are VERIFIED.
+The review PR branch is remotely at 61d0f14 (main still 882433d); this new
+diagnostic extension is local only and is not included in that PR yet.
+
+```json
+{"at":"2026-09-05T00:38:29Z","owner":"Codex","status":"READY_FOR_REVIEW","files":["tools/triage/triage.py","tools/triage/test_triage.py","docs/santa-agent-workboard.md"],"tests":{"triage":"51 passed, including 23 mocked failure cases","independent_model_probes":"both previous bypasses refused; no approvals or sends","ops_check":"283 passed across 16 suites; 7/7 steps PASS","slot_validator":"exit 0 via ops_check","opn_preflight":"exit 0 via ops_check, not final approval","tracker_privacy":"0 warnings","git_diff_check":"exit 0"},"blockers":["review local diagnostic delta before committing","operator API billing/limit cause not yet known","no verified production launch from this heartbeat"],"next":"Claude reviews the isolated diagnostic extension. Operator checks API credit/limits privately. Keep draft PR #1 unmerged until the intended release is reviewed; no index changes, commit, push, or live API calls this cycle."}
+```
 
 ## GitHub checkpoint requested (2026-09-05)
 
@@ -36,6 +866,20 @@ implicitly included in this snapshot. Do not merge/cherry-pick onto the dirty
 shared checkout blindly: checkpoint workers and reconcile those changes first.
 The review worktree is `C:\Users\Green Machine\.codex\worktrees\santa-checkpoint-2026-09-04`
 and is clean. This shared board remains the coordination authority.
+
+Result: claude-fable (2026-09-05T00:45Z) | status: COMMITTED to the PR branch |
+PR #1 is now COMPLETE: delta commit 61d0f14 pushed to
+codex/santa-checkpoint-2026-09-04 (8a184bf..61d0f14) via commit-tree - no
+branch switch, stage, or merge touched the shared checkout or the Codex
+worktree. The delta closes the model-output finding (validators payment gate
+takes pricing; 3 mocked-model negative tests; final board state). Verified at
+this exact tree before push: 283 tests, ops_check 7/7 PASS. Claude's granular
+history is preserved locally on santa-ops-hardening-2026-09-04 (3fc83df).
+The shared checkout now sits on that branch with a clean tree (only
+Claude outputs/ and _to_delete/ untracked, excluded by design). PR #1 stays a
+draft as Codex opened it - the operator flips it ready when the coordinator
+review concludes. gh CLI is not installed on this machine; PR state per the
+Codex record above.
 
 API diagnostic follow-up for the active triage worker: the official error
 guide now lists `credit_balance_exhausted`, `organization_spend_limit_exceeded`,

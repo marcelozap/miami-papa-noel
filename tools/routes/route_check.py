@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local route and logistics validator for a day of Santa visits.
+"""Local route and logistics validator for a schedule of Santa visits.
 
 Checks each visit's date, start time, duration, setup buffer, travel minutes,
 and address/neighborhood, and blocks overlapping or physically impossible
@@ -80,7 +80,7 @@ def validate_visit(visit: dict) -> list:
                                 "start time %r is not a recognizable time"
                                 % visit.get("start")))
     duration = visit.get("duration_min")
-    if not isinstance(duration, int) or not 0 < duration <= MAX_VISIT_MIN:
+    if type(duration) is not int or not 0 < duration <= MAX_VISIT_MIN:
         findings.append(Finding(BLOCKED, ref,
                                 "duration_min must be 1-%d minutes, got %r"
                                 % (MAX_VISIT_MIN, duration)))
@@ -89,78 +89,67 @@ def validate_visit(visit: dict) -> list:
                                 "address_or_neighborhood is missing - a visit "
                                 "cannot be routed to nowhere"))
     setup = visit.get("setup_min", SETUP_MIN_DEFAULT)
-    if not isinstance(setup, int) or setup < 0:
+    if type(setup) is not int or setup < 0:
         findings.append(Finding(BLOCKED, ref,
                                 "setup_min must be a non-negative integer, "
                                 "got %r" % setup))
     return findings
 
 
+def _start_minute(visit):
+    time = _parse_time(visit["start"])
+    return dt.date.fromisoformat(visit["date"]).toordinal() * 1440 + time.hour * 60 + time.minute
+
+
 def validate_day(visits: list) -> tuple:
     """Returns (verdict, findings). Worst finding wins the day.
 
-    Rule between consecutive visits on the same date, in start order:
+    Rule between consecutive visits, including different dates, in start order:
         end(prev) + travel(next) + setup(next) <= start(next)
     Travel minutes are the operator's own number. None/absent means the route
     is unverified: the day becomes NEEDS_ROUTE_REVIEW, never OK.
     """
     findings = []
+    parseable = []
     for visit in visits:
-        findings.extend(validate_visit(visit))
+        errors = validate_visit(visit)
+        findings.extend(errors)
+        if not errors:
+            parseable.append(visit)
 
-    parseable = [v for v in visits
-                 if _parse_time(v.get("start", "")) is not None
-                 and isinstance(v.get("duration_min"), int)]
-    by_date = {}
-    for v in parseable:
-        by_date.setdefault(str(v.get("date")), []).append(v)
+    # Calendar-minute arithmetic retains overnight gaps without overflowing
+    # datetime when an operator enters an excessively large numeric buffer.
+    parseable.sort(key=_start_minute)
+    for prev, cur in zip(parseable, parseable[1:]):
+        ref = str(cur.get("ref") or "?")
+        gap = _start_minute(cur) - _start_minute(prev) - prev["duration_min"]
+        if gap < 0:
+            findings.append(Finding(
+                BLOCKED, ref,
+                "%s %s: overlaps previous visit %s by %d minutes - physically impossible"
+                % (cur["date"], cur["start"], prev.get("ref"), -gap)))
+            continue
 
-    for date, day in by_date.items():
-        day.sort(key=lambda v: _parse_time(v["start"]))
-        for prev, cur in zip(day, day[1:]):
-            ref = str(cur.get("ref") or "?")
-            start_prev = _parse_time(prev["start"])
-            start_cur = _parse_time(cur["start"])
-            end_prev = (dt.datetime.combine(dt.date.min, start_prev)
-                        + dt.timedelta(minutes=prev["duration_min"]))
-            start_cur_dt = dt.datetime.combine(dt.date.min, start_cur)
-
-            if start_cur_dt < end_prev:
-                findings.append(Finding(
-                    BLOCKED, ref,
-                    "%s: overlaps previous visit %s (previous ends %s, this "
-                    "starts %s) - physically impossible"
-                    % (date, prev.get("ref"), end_prev.time().strftime("%H:%M"),
-                       start_cur.strftime("%H:%M"))))
-                continue
-
-            travel = cur.get("travel_min_from_prev")
-            setup = cur.get("setup_min", SETUP_MIN_DEFAULT)
-            if travel is None:
-                findings.append(Finding(
-                    NEEDS_ROUTE_REVIEW, ref,
-                    "%s: travel time from %s is not recorded - the operator "
-                    "must check the route themselves; this is never "
-                    "auto-approved" % (date, prev.get("ref"))))
-                continue
-            if not isinstance(travel, int) or travel < 0:
-                findings.append(Finding(
-                    BLOCKED, ref,
-                    "travel_min_from_prev must be a non-negative integer, "
-                    "got %r" % travel))
-                continue
-
-            earliest = end_prev + dt.timedelta(minutes=travel + setup)
-            if start_cur_dt < earliest:
-                findings.append(Finding(
-                    BLOCKED, ref,
-                    "%s: insufficient buffer after %s - previous ends %s, "
-                    "%d min travel + %d min setup means earliest start is "
-                    "%s, but this starts %s"
-                    % (date, prev.get("ref"),
-                       end_prev.time().strftime("%H:%M"), travel, setup,
-                       earliest.time().strftime("%H:%M"),
-                       start_cur.strftime("%H:%M"))))
+        travel = cur.get("travel_min_from_prev")
+        setup = cur.get("setup_min", SETUP_MIN_DEFAULT)
+        if travel is None:
+            findings.append(Finding(
+                NEEDS_ROUTE_REVIEW, ref,
+                "%s: travel time from %s is not recorded - the operator "
+                "must check the route themselves; this is never auto-approved"
+                % (cur["date"], prev.get("ref"))))
+            continue
+        if type(travel) is not int or travel < 0:
+            findings.append(Finding(
+                BLOCKED, ref,
+                "travel_min_from_prev must be a non-negative integer, got %r" % travel))
+            continue
+        if gap < travel + setup:
+            findings.append(Finding(
+                BLOCKED, ref,
+                "%s %s: insufficient buffer after %s - %d min gap, "
+                "%d min travel + %d min setup required"
+                % (cur["date"], cur["start"], prev.get("ref"), gap, travel, setup)))
 
     if any(f.level == BLOCKED for f in findings):
         return BLOCKED, findings

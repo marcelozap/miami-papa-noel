@@ -152,9 +152,10 @@ receipts labeled as proof of AI operation stops trusting the rest of the
 package; a reviewer who sees receipts labeled "real customer operations, dated"
 and message threads labeled "bilingual drafting in use" trusts both.
 
-The 2026 deployment carries the AI claim on its own — a runnable tool, 45 passing
-tests, and a log that starts on the first real inquiry. The receipts carry the
-business history. Neither has to do the other's job.
+The runnable 2026 tool and passing synthetic tests demonstrate the build;
+dated results are in `docs/santa-agent-workboard.md`. Its actual model-backed
+customer operation must be supported by the operating record. The receipts
+carry the business history. Neither has to do the other's job.
 
 ---
 

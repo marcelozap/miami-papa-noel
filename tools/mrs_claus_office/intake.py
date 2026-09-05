@@ -171,13 +171,13 @@ def build_drafts(record: dict, pricing: dict, missing: list) -> tuple:
     ask_es = (" Nos puede compartir: %s?" % "; ".join(ask_es_parts)) if ask_es_parts else ""
 
     draft_en = (
-        "Thank you for writing to Miami Papa Noel! " + price_en + " "
+        "Welcome to Mrs. Claus Office at Miami Papa Noel's North Pole workshop! " + price_en + " "
         + dep["text_en"] + " " + pay["text_en"]
         + " I will check the calendar and come back to you with what is "
         "possible - I cannot promise a date until our coordinator confirms it."
         + ask_en)
     draft_es = (
-        "Gracias por escribir a Miami Papa Noel! " + price_es + " "
+        "Bienvenido a la Oficina de la Sra. Claus, el taller del Polo Norte de Miami Papa Noel! " + price_es + " "
         + dep["text_es"] + " " + pay["text_es"]
         + " Reviso el calendario y le respondo con lo que es posible - no "
         "puedo prometer una fecha hasta que nuestra coordinadora la confirme."

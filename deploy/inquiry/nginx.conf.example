@@ -1,0 +1,56 @@
+# Include once from nginx's http context. Replace every example.invalid value.
+# Direct Internet -> this nginx -> loopback only. No CDN/XFF trust is configured.
+limit_req_zone $binary_remote_addr zone=mpn_requests:10m rate=2r/s;
+limit_conn_zone $binary_remote_addr zone=mpn_clients:10m;
+limit_conn_zone $server_name zone=mpn_total:1m;
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name inquiry.example.invalid;
+    access_log off;
+    error_log /var/log/nginx/mpn-inquiry-error.log crit;
+    if ($host != inquiry.example.invalid) { return 444; }
+    return 308 https://inquiry.example.invalid$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name inquiry.example.invalid;
+    if ($host != inquiry.example.invalid) { return 444; }
+    ssl_certificate /etc/letsencrypt/live/inquiry.example.invalid/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/inquiry.example.invalid/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    access_log off;
+    error_log /var/log/nginx/mpn-inquiry-error.log crit;
+    client_max_body_size 16k;
+    client_body_buffer_size 16k;
+    client_body_timeout 15s;
+    client_header_timeout 15s;
+    keepalive_timeout 15s;
+    send_timeout 30s;
+    limit_req_status 429;
+    limit_conn_status 429;
+
+    location / {
+        limit_req zone=mpn_requests burst=20 nodelay;
+        limit_conn mpn_clients 12;
+        limit_conn mpn_total 64;
+        proxy_pass http://127.0.0.1:8226;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        # OVERWRITE incoming client-supplied identity. Never append XFF here.
+        proxy_set_header X-MPN-Client-IP $remote_addr;
+        proxy_set_header X-Forwarded-For "";
+        proxy_set_header Forwarded "";
+        proxy_request_buffering on;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_connect_timeout 3s;
+        proxy_send_timeout 45s;
+        proxy_read_timeout 45s;
+    }
+}

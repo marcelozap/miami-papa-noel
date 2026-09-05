@@ -129,15 +129,76 @@ class RouteValidatorTests(unittest.TestCase):
         verdict, findings = MOD.validate_day(day)
         self.assertEqual(verdict, MOD.BLOCKED)
 
-    def test_different_dates_do_not_conflict(self):
+    def test_different_dates_with_known_travel_do_not_conflict(self):
         day = [
             visit(ref="L-001", date="2026-12-13", start="17:00"),
             visit(ref="L-002", date="2026-12-14", start="17:10",
-                  travel_min_from_prev=None),
+                  travel_min_from_prev=30),
         ]
-        # Different dates: no consecutive pair, so no travel needed at all.
+        # A full overnight gap accommodates the operator's known travel time.
         verdict, _ = MOD.validate_day(day)
         self.assertEqual(verdict, MOD.OK)
+
+    def test_overnight_overlap_is_blocked_in_either_input_order(self):
+        for first_date, second_date in (("2026-12-24", "2026-12-25"),
+                                        ("2026-12-31", "2027-01-01")):
+            for reverse in (False, True):
+                with self.subTest(date=first_date, reverse=reverse):
+                    visits = [visit(ref="EARLY", date=first_date, start="23:30",
+                                    duration_min=60),
+                              visit(ref="LATE", date=second_date, start="00:15",
+                                    setup_min=0, travel_min_from_prev=10)]
+                    verdict, findings = MOD.validate_day(visits[::-1] if reverse else visits)
+                    self.assertEqual(verdict, MOD.BLOCKED)
+                    self.assertTrue(any("overlaps" in f.detail for f in findings))
+
+    def test_overnight_travel_and_setup_are_required(self):
+        for start, setup in (("00:05", 0), ("00:15", 10)):
+            with self.subTest(start=start, setup=setup):
+                verdict, findings = MOD.validate_day([
+                    visit(ref="EARLY", start="23:00", duration_min=60),
+                    visit(ref="LATE", date="2026-12-25", start=start,
+                          travel_min_from_prev=10, setup_min=setup),
+                ])
+                self.assertEqual(verdict, MOD.BLOCKED)
+                self.assertTrue(any("insufficient buffer" in f.detail for f in findings))
+
+    def test_overnight_exact_travel_and_setup_boundary_is_ok(self):
+        verdict, _ = MOD.validate_day([
+            visit(ref="EARLY", start="23:00", duration_min=60),
+            visit(ref="LATE", date="2026-12-25", start="00:20",
+                  travel_min_from_prev=10, setup_min=10),
+        ])
+        self.assertEqual(verdict, MOD.OK)
+
+    def test_unknown_cross_date_travel_requires_review(self):
+        verdict, findings = MOD.validate_day([
+            visit(ref="EARLY", start="23:00", duration_min=60),
+            visit(ref="LATE", date="2026-12-25", start="01:00",
+                  travel_min_from_prev=None),
+        ])
+        self.assertEqual(verdict, MOD.NEEDS_ROUTE_REVIEW)
+        self.assertTrue(any("not recorded" in f.detail for f in findings))
+
+    def test_invalid_facts_block_without_route_arithmetic_errors(self):
+        for field, value in (("date", "invalid"), ("setup_min", "15"),
+                             ("setup_min", None), ("setup_min", True),
+                             ("duration_min", True), ("travel_min_from_prev", True)):
+            with self.subTest(field=field, value=value):
+                late = visit(ref="LATE", date="2026-12-25", start="01:00")
+                late[field] = value
+                verdict, _ = MOD.validate_day([
+                    visit(ref="EARLY", start="23:00", duration_min=60),
+                    late,
+                ])
+                self.assertEqual(verdict, MOD.BLOCKED)
+
+    def test_large_valid_numeric_buffer_blocks_without_overflow(self):
+        verdict, _ = MOD.validate_day([
+            visit(ref="EARLY", start="23:00", duration_min=60),
+            visit(ref="LATE", date="2026-12-25", start="01:00", setup_min=10**20),
+        ])
+        self.assertEqual(verdict, MOD.BLOCKED)
 
 
 if __name__ == "__main__":

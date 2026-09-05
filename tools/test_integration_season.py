@@ -256,6 +256,163 @@ class ReservationRouteIntegrationTest(unittest.TestCase):
         self.operator.approve(self.records, incoming["id"])
         self.assertEqual(incoming["status"], "confirmed")
 
+    def test_negative_duration_cannot_confirm_before_same_time_booking(self):
+        first = self.booking("15:00", duration=-60)
+        self.assert_route_blocks(first)
+        self.assert_route_blocks(self.booking("15:00"))
+
+    def test_negative_setup_cannot_erase_required_drive(self):
+        first = self.booking("15:00")
+        self.operator.approve(self.records, first["id"])
+        incoming = self.booking("16:05", zone="fort_lauderdale")
+        self.agent.update(self.records, incoming["id"], setup_min=-100)
+        self.assert_route_blocks(incoming)
+        self.assertEqual(first["status"], "confirmed")
+        self.assertEqual(first["logistics"]["result"], "ok")
+
+    def test_malformed_schedule_facts_are_refused_without_confirmation(self):
+        for field, value in (
+            ("duration_min", 0), ("duration_min", True),
+            ("duration_min", "60"), ("duration_min", 0.5),
+            ("setup_min", -1), ("setup_min", True),
+            ("setup_min", "15"), ("setup_min", None),
+            ("start_time", "24:00"), ("start_time", "15:99"),
+            ("start_time", "sometime"), ("start_time", 1500),
+            ("date", "2026-02-30"), ("date", "20261210"),
+        ):
+            with self.subTest(field=field, value=value):
+                self.records = []
+                rec = self.booking("15:00")
+                rec[field] = value
+                self.assert_route_blocks(rec)
+
+    def test_invalid_existing_hold_cannot_hide_route_uncertainty(self):
+        hold = self.booking("14:00", paid=False)
+        hold["duration_min"] = "unknown"
+        self.assert_route_blocks(self.booking("17:00"))
+        self.assertEqual(hold["logistics"]["result"], "impossible")
+
+    def test_cancelled_malformed_record_does_not_block_valid_route(self):
+        cancelled = self.booking("15:00", paid=False)
+        self.operator.cancel(self.records, cancelled["id"], "synthetic only")
+        cancelled.update(duration_min=-60, setup_min=-100, start_time="invalid")
+        incoming = self.booking("15:00")
+        self.operator.approve(self.records, incoming["id"])
+        self.assertEqual(incoming["status"], "confirmed")
+
+    def test_full_day_duration_and_valid_setup_still_work(self):
+        first = self.booking("09:00", package="photographer_day", duration=480)
+        self.operator.approve(self.records, first["id"])
+        next_visit = self.booking("18:00")
+        self.agent.update(self.records, next_visit["id"], setup_min=15)
+        self.operator.approve(self.records, next_visit["id"])
+        self.assertEqual(next_visit["status"], "confirmed")
+
+    def test_missing_time_is_visible_in_route_output_and_repairable(self):
+        import logistics_agent
+        hold = self.booking("14:00", paid=False)
+        hold["start_time"] = ""
+        self.events.reset_mock()
+        findings = logistics_agent.check_date(self.records, hold["date"])
+        self.assertTrue(any(f.get("kind") == "invalid_schedule"
+                            and f["reservation"] == hold["id"] for f in findings))
+        self.assertEqual(hold["logistics"]["result"], "impossible")
+        hold["start_time"] = "14:00"
+        self.assertEqual(logistics_agent.check_date(self.records, hold["date"]), [])
+        self.assertEqual(hold["logistics"]["result"], "ok")
+        self.events.assert_not_called()
+
+    def test_overnight_overlap_blocks_either_approval_order_and_year_rollover(self):
+        for first_date, next_date in (("2026-12-24", "2026-12-25"),
+                                      ("2026-12-31", "2027-01-01")):
+            for reverse in (False, True):
+                with self.subTest(date=first_date, reverse=reverse):
+                    self.records = []
+                    order = [("23:30", first_date), ("00:15", next_date)]
+                    if reverse:
+                        order.reverse()
+                    locked = self.booking(order[0][0], date=order[0][1])
+                    self.operator.approve(self.records, locked["id"])
+                    incoming = self.booking(order[1][0], date=order[1][1])
+                    self.assert_route_blocks(incoming)
+                    self.assertEqual(locked["status"], "confirmed")
+                    self.assertEqual(locked["logistics"]["result"], "ok")
+
+    def test_overnight_drive_setup_and_safety_buffer_block(self):
+        for start, setup in (("00:05", 0), ("00:14", 0), ("00:20", 10)):
+            for reverse in (False, True):
+                with self.subTest(start=start, setup=setup, reverse=reverse):
+                    self.records = []
+                    order = [("23:00", "2026-12-24", 0), (start, "2026-12-25", setup)]
+                    if reverse:
+                        order.reverse()
+                    locked = self.booking(order[0][0], date=order[0][1])
+                    self.agent.update(self.records, locked["id"], setup_min=order[0][2])
+                    self.operator.approve(self.records, locked["id"])
+                    incoming = self.booking(order[1][0], date=order[1][1])
+                    self.agent.update(self.records, incoming["id"], setup_min=order[1][2])
+                    self.assert_route_blocks(incoming)
+
+    def test_overnight_exact_buffer_boundary_still_confirms(self):
+        early = self.booking("23:00", date="2026-12-24")
+        self.operator.approve(self.records, early["id"])
+        late = self.booking("00:25", date="2026-12-25")
+        self.agent.update(self.records, late["id"], setup_min=10)
+        self.operator.approve(self.records, late["id"])
+        self.assertEqual(late["status"], "confirmed")
+        self.assertEqual(late["logistics"]["result"], "tight")
+
+    def test_checking_another_date_cannot_clear_overnight_conflict(self):
+        import logistics_agent
+        early = self.booking("23:30", date="2026-12-24")
+        late = self.booking("00:15", date="2026-12-25")
+        # Simulate legacy bad state in memory only, without writing an approval.
+        early["status"] = late["status"] = "confirmed"
+        for date in (late["date"], early["date"], "2026-12-26"):
+            with self.subTest(date=date):
+                logistics_agent.check_date(self.records, date)
+                self.assertEqual(late["logistics"]["result"], "impossible")
+                self.assertEqual(early["status"], "confirmed")
+                self.assertEqual(late["status"], "confirmed")
+
+    def test_intermediate_hold_cannot_hide_cross_date_conflict(self):
+        early = self.booking("23:00", date="2026-12-24", duration=120, package="hoa")
+        self.operator.approve(self.records, early["id"])
+        self.booking("00:00", date="2026-12-25", duration=15, paid=False)
+        self.assert_route_blocks(self.booking("00:30", date="2026-12-25"))
+
+    def test_cancelled_overnight_visit_does_not_block(self):
+        early = self.booking("23:30", date="2026-12-24", paid=False)
+        self.operator.cancel(self.records, early["id"], "synthetic cancellation")
+        late = self.booking("00:15", date="2026-12-25")
+        self.operator.approve(self.records, late["id"])
+        self.assertEqual(late["status"], "confirmed")
+
+    def test_feasible_overnight_and_separate_days_still_confirm(self):
+        for early_time, late_time in (("23:00", "01:00"), ("15:00", "15:00")):
+            with self.subTest(early=early_time, late=late_time):
+                self.records = []
+                early = self.booking(early_time, date="2026-12-24")
+                late = self.booking(late_time, date="2026-12-25")
+                self.operator.approve(self.records, early["id"])
+                self.operator.approve(self.records, late["id"])
+                self.assertEqual(late["status"], "confirmed")
+                self.assertEqual(late["logistics"]["result"], "ok")
+
+    def test_unknown_prior_day_duration_requires_repair_before_approval(self):
+        early = self.booking("23:30", date="2026-12-24", paid=False)
+        early["duration_min"] = "unknown"
+        late = self.booking("00:15", date="2026-12-25")
+        self.assert_route_blocks(late)
+        early["duration_min"] = 15
+        self.operator.approve(self.records, late["id"])
+        self.assertEqual(late["status"], "confirmed")
+
+    def test_long_cross_date_duration_cannot_overflow_or_disappear(self):
+        early = self.booking("23:30", date="2026-12-24", duration=10**20)
+        self.operator.approve(self.records, early["id"])
+        self.assert_route_blocks(self.booking("15:00", date="2026-12-26"))
+
 
 if __name__ == "__main__":
     unittest.main()

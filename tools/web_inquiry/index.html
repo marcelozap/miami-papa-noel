@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" data-view="inquiry">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Miami Papa Noel | North Pole Workshop</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <img src="/santa.jpg" alt="Santa" width="72" height="88">
+    <div><p class="eyebrow">MIAMI · DORAL</p><h1>Miami Papa Noel</h1>
+      <p>North Pole Workshop / Taller del Polo Norte</p></div>
+    <nav><a href="/">Inquiry / Consulta</a><a href="/operator">Operator / Operador</a></nav>
+  </header>
+  <div class="mode" id="mode" role="status">Checking service / Comprobando servicio</div>
+  <main>
+    <section id="intake">
+      <h2>Mrs. Claus Office / Oficina de la Sra. Claus</h2>
+      <p class="muted">A request is not a confirmed booking. / Una solicitud no es una reserva confirmada.</p>
+      <form id="inquiry-form" action="/api/inquiry" method="post">
+        <div class="fields">
+          <label>Name / Nombre<input name="name" maxlength="100" autocomplete="name" required></label>
+          <label>Phone or email / Teléfono o correo<input name="contact" maxlength="160" autocomplete="email" required></label>
+        </div>
+        <label>Visit details / Detalles de la visita
+          <textarea name="message" rows="6" maxlength="3000" required></textarea>
+        </label>
+        <p class="muted privacy">Contact details and your inquiry are stored privately. When AI drafting is used, the inquiry and contact are sent to OpenAI for operator review. / Sus datos de contacto y consulta se guardan de forma privada. Al usar borradores con IA, la consulta y el contacto se envían a OpenAI para revisión del operador.</p>
+        <label class="check"><input name="consent" type="checkbox" required>I agree to this processing and contact about my inquiry. / Acepto este tratamiento y el contacto sobre mi consulta.</label>
+        <button type="submit">Send request / Enviar solicitud</button>
+      </form>
+      <p id="intake-result" role="status" aria-live="polite"></p>
+      <p class="contact">Call / Llamar: <a href="tel:+17869759557">786-975-9557</a> · <a href="mailto:santa@miamipapanoel.com">santa@miamipapanoel.com</a></p>
+    </section>
+    <section id="operator">
+      <h2>North Pole Desk / Mesa del Polo Norte</h2>
+      <form id="login" action="/operator" method="post">
+        <div class="fields">
+          <label>Operator name / Nombre del operador<input id="reviewer" maxlength="100" autocomplete="name" required></label>
+          <label>Access token / Código de acceso<input id="token" type="password" autocomplete="off" minlength="32" required></label>
+        </div>
+        <button type="submit">Sign in / Entrar</button>
+      </form>
+      <p id="operator-result" role="status" aria-live="polite"></p>
+      <div id="desk" hidden>
+        <div class="toolbar"><span id="count"></span><button id="refresh" type="button" class="secondary">Refresh / Actualizar</button><button id="export" type="button" class="secondary">Export evidence / Exportar evidencia</button><button id="logout" type="button" class="secondary">Sign out / Salir</button></div>
+        <div class="workspace">
+          <aside><h3>Requests / Solicitudes</h3><div id="queue"></div><button id="older" type="button" class="secondary" hidden>Older requests / Solicitudes anteriores</button></aside>
+          <section id="detail" aria-live="polite"><p class="muted">No selection / Sin selección</p></section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Miami Papa Noel · <a href="https://miamipapanoel.com/">Website / Sitio web</a></footer>
+</body>
+</html>

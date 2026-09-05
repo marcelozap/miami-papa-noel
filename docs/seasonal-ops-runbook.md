@@ -171,8 +171,14 @@ it via the public path. Affiliation claims are refused at draft time.
 Before any day sheet is final:
 
 ```powershell
-python toolsoutesoute_check.py template > day.json   # fill it in, OUTSIDE the repo
-python toolsoutesoute_check.py check --file day.json
+$dayFile = Join-Path $env:LOCALAPPDATA 'MiamiPapaNoel\route-day.json'
+# Only create the template when this private file does not already exist.
+if (-not (Test-Path -LiteralPath $dayFile)) {
+    New-Item -ItemType Directory -Force (Split-Path $dayFile) | Out-Null
+    python tools/routes/route_check.py template | Out-File -FilePath $dayFile -Encoding ascii
+}
+# Enter actual route facts in that private file before checking it.
+python tools/routes/route_check.py check --file $dayFile
 ```
 
 Verdicts: `OK` (all facts supplied and consistent), `NEEDS_ROUTE_REVIEW`
@@ -180,6 +186,20 @@ Verdicts: `OK` (all facts supplied and consistent), `NEEDS_ROUTE_REVIEW`
 `BLOCKED` (overlap, insufficient travel+setup buffer, missing address, or
 bad facts). The tool never invents map distances or traffic data; travel
 minutes are the operator's own numbers.
+
+Include visits on both sides of midnight in the same route file. The
+checker sorts by full date and time, including year rollover. Every
+successive visit in that file needs recorded travel, even when its date
+differs; midnight is not an automatic reset. Separate daytime dates with
+adequate known travel remain valid. This read-only checker cannot detect
+a booking omitted from the supplied file and never confirms a reservation.
+
+The reservation agent checks the full active schedule, including
+cross-midnight drive, setup, and its existing five-minute safety buffer.
+Rechecking another date cannot clear an overnight conflict. Malformed
+active dates, times, durations, or setup values must be repaired before
+new approvals; existing valid confirmations remain locked. These are
+estimated zone travel checks, not live traffic.
 
 ## 7. MaloSound.ai adapter (`tools/malosound_adapter/`)
 
@@ -219,7 +239,7 @@ python scripts\ops_check.py --fast # same, minus the OPN preflight
 ## The whole test battery
 
 ```powershell
-python -m pytest tools\triage\test_triage.py scripts\test_validate_opn_submission.py scripts\test_evidence_index.py scripts\test_build_opn_packet.py tools\ms_claus\test_ms_claus.py tools\slots\test_slots.py tools\mrs_claus_office\test_intake.py tools\comms\test_comms.py tools\content\test_content.py tools\elves\test_elves.py tools\test_integration_season.py -q
+python scripts/ops_check.py
 ```
 
 ## What is real vs. simulated

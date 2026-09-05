@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Elf outreach - public-prospect research log and bilingual message DRAFTS.
+"""Elf #3, North Pole outreach - public research and bilingual invitation DRAFTS.
 
     RESEARCHED -> DRAFTED -> APPROVED_FOR_MANUAL_SEND -> SENT_BY_HUMAN
                      DO_NOT_CONTACT (terminal, reachable from any state)
@@ -291,7 +291,7 @@ def build_draft(prospect: dict, custom_line: str = "") -> str:
     org = prospect["org_name"]
     city = prospect.get("city") or "Miami"
     lines = [
-        "== DRAFT - a human sends this manually via the public contact "
+        "== Elf #3 / Duende #3 - North Pole outreach DRAFT - a human sends this manually via the public contact "
         "path: %s ==" % prospect["public_contact_path"],
         "[EN] Hello %s! %s We are an independent local service and would "
         "love to bring a warm, bilingual Santa visit to %s this season. "

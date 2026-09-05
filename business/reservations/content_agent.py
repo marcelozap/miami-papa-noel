@@ -1,4 +1,4 @@
-"""Lane 4 — Content agent (MaloSound creative lane).
+"""Lane 4: Santa Claus, the North Pole MaloSound content role.
 
 Drafts bilingual (EN+ES) captions and a video brief for Facebook /
 Instagram / TikTok — from CONFIRMED reservations ONLY. The gate is code,
@@ -57,12 +57,12 @@ def _caption(rec):
     pkg = RATE_CARD[rec["package"]]
     zone = zone_map()[rec["zone"]]
     en = (
-        "Confirmed! Miami Papa Noel is coming to {zone} on {date}. "
+        "From Santa Claus's workshop: confirmed! Miami Papa Noel is coming to {zone} on {date}. "
         "{label}. Bilingual visit — English y español. "
         "December dates are filling: 786-975-9557 / miamipapanoel.com"
     ).format(zone=zone, date=rec["date"], label=pkg["label_en"])
     es = (
-        "¡Confirmado! Papá Noel llega a {zone} el {date}. "
+        "Desde el Taller Creativo de Santa: ¡confirmado! Papá Noel llega a {zone} el {date}. "
         "{label}. Visita bilingüe — español e inglés. "
         "Diciembre se está llenando: 786-975-9557 / miamipapanoel.com"
     ).format(zone=zone, date=rec["date"], label=pkg["label_es"])

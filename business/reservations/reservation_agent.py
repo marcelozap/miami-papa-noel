@@ -1,4 +1,4 @@
-"""Lane 1 — Reservation agent.
+"""Lane 1: Elf #1, North Pole bookings.
 
 Collects the booking data (date, time, address, package, guest details,
 deposit status) and moves a record as far as the data allows:
@@ -52,7 +52,8 @@ def update(records, res_id, **fields):
             "and rebooking before changing %s" % ", ".join(changed_booking)
         )
     rec.update({k: v for k, v in fields.items() if v is not None})
-    if "package" in fields and fields["package"]:
+    # Repeated form submissions must not replace an existing operator quote.
+    if "package" in changed_booking and fields["package"]:
         from rates import validate_package
         rec["price_quoted"] = validate_package(fields["package"])["price"]
     store.append_event(ACTOR, res_id, rec["status"], rec["status"],

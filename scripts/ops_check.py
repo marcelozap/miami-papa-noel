@@ -39,6 +39,10 @@ SUITES = [
     "business/reservations/tests/test_reservation_system.py",
     "business/reservations/tests/test_openai_adapter.py",
     "business/reservations/tests/test_web_ui.py",
+    "tools/web_inquiry/test_web_inquiry.py",
+    "tools/web_inquiry/test_maintenance.py",
+    "deploy/inquiry/test_deployment.py",
+    "tools/launch_preflight/test_launch_preflight.py",
 ]
 
 

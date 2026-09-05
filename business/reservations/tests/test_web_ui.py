@@ -44,7 +44,10 @@ def call(base, path, body=None):
 
 def test_board_serves_page_and_state(server):
     with urllib.request.urlopen(server + "/") as r:
-        assert b"Operator Board" in r.read()
+        page = r.read()
+        for name in (b"North Pole Operator Board", b"Elf #1", b"Elf #2",
+                     b"Santa Claus", b"Elf #4", b"Taller del Polo Norte"):
+            assert name in page
     code, state = call(server, "/api/state")
     assert code == 200 and state["reservations"] == []
     assert "christmas_eve" in state["rates"]
@@ -210,3 +213,68 @@ def test_board_can_update_schedule_before_confirmation(server):
     code, _ = call(server, "/api/update", {"id": rid, "start_time": "16:00"})
     assert code == 200
     assert store.find(store.load(), rid)["start_time"] == "16:00"
+
+
+@pytest.mark.parametrize("status", [
+    "hold", "pending_review", "confirmed", "completed", "cancelled",
+])
+def test_same_package_update_preserves_existing_quote_and_booking(server, status):
+    rid = create_deposit_booking(server)
+    records = store.load()
+    rec = store.find(records, rid)
+    rec["price_quoted"] *= 2  # Synthetic quote above the package minimum.
+    deposit_amount = rec["price_quoted"] / 2
+    store.save(records)
+    if status != "hold":
+        assert call(server, "/api/verify-deposit", {
+            "id": rid, "amount": deposit_amount,
+            "memo": "synthetic-quoted-deposit"})[0] == 200
+    if status in ("confirmed", "completed", "cancelled"):
+        assert call(server, "/api/approve", {"id": rid})[0] == 200
+    if status in ("completed", "cancelled"):
+        records = store.load()
+        store.transition(records, rid, status, store.OPERATOR, "synthetic terminal state")
+        store.save(records)
+    before = store.load()
+    assert store.find(before, rid)["status"] == status
+
+    code, _ = call(server, "/api/update", {"id": rid, "package": "christmas_eve"})
+
+    assert code == 200
+    assert store.load() == before
+
+
+def test_same_package_update_cannot_lower_required_deposit(server):
+    rid = create_deposit_booking(server)
+    records = store.load()
+    rec = store.find(records, rid)
+    original_price = rec["price_quoted"]
+    rec["price_quoted"] = original_price * 2
+    store.save(records)
+    short_deposit = {"id": rid, "amount": original_price / 2,
+                     "memo": "synthetic-short-deposit"}
+    assert call(server, "/api/verify-deposit", short_deposit)[0] == 409
+    assert call(server, "/api/update", {
+        "id": rid, "package": "christmas_eve"})[0] == 200
+
+    code, out = call(server, "/api/verify-deposit", short_deposit)
+
+    assert code == 409 and "50%" in out["refused"]
+    assert store.find(store.load(), rid)["deposit"]["status"] == "unpaid"
+    assert call(server, "/api/approve", {"id": rid})[0] == 409
+
+
+def test_different_package_before_confirmation_uses_locked_rate(server):
+    from rates import RATE_CARD
+
+    rid = create_deposit_booking(server, "standard")
+    records = store.load()
+    store.find(records, rid)["price_quoted"] *= 2
+    store.save(records)
+
+    code, _ = call(server, "/api/update", {"id": rid, "package": "christmas_eve"})
+
+    assert code == 200
+    rec = store.find(store.load(), rid)
+    assert rec["package"] == "christmas_eve"
+    assert rec["price_quoted"] == RATE_CARD["christmas_eve"]["price"]

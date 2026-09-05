@@ -137,7 +137,7 @@ def serve(port=PORT_DEFAULT):
 
 PAGE = r"""<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Papa Noel Operator Board</title>
+<title>North Pole Operator Board | Miami Papa Noel</title>
 <style>
 :root{--bg:#141816;--card:#1B211E;--ink:#E8EAE6;--mut:#98A29C;--line:#3A423E;
 --pine:#4CAF82;--red:#E06055;--gold:#D8A93F;--chip:#232A26}
@@ -169,13 +169,14 @@ border:1px solid var(--line);border-radius:8px;padding:10px 16px;max-width:80%;d
 .cap{font-size:12.5px;margin:4px 0;color:var(--ink)}
 </style></head><body>
 <div class="top">
-  <div><h1>🎅 Papa Noel Operator Board</h1><div class="mut">every action runs through the gates — refused means the gate spoke</div></div>
+  <div><h1>North Pole Operator Board</h1><div class="mut">Miami Papa Noel | Taller del Polo Norte</div></div>
   <div style="display:flex;gap:8px;align-items:center">
     <span id="oai" class="badge">OpenAI: off</span>
     <button onclick="runContent()">Draft content</button>
-    <button onclick="health()">Health check</button>
+    <button onclick="health()">Elf #4: Health check</button>
   </div>
 </div>
+<h2 style="font-size:15px">Elf #1: Bookings / Duende #1: Reservas</h2>
 <form id="new" onsubmit="return newRes(event)">
   <input name="client_name" placeholder="Client name" required>
   <input name="phone" placeholder="Phone" required>
@@ -189,7 +190,7 @@ border:1px solid var(--line);border-radius:8px;padding:10px 16px;max-width:80%;d
   <button class="primary">Add booking</button>
 </form>
 <div class="grid" id="cols"></div>
-<h2 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)">Content queue</h2>
+<h2 style="font-size:15px;color:var(--mut)">Santa Claus: Content / Papa Noel: Contenido</h2>
 <div id="drafts" class="grid"></div>
 <div id="toast"></div>
 <script>
@@ -206,7 +207,7 @@ const pk=document.getElementById('pkg');pk.innerHTML=Object.entries(S.rates).map
 const zn=document.getElementById('zone');zn.innerHTML=Object.entries(S.zones).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
 render()}
 function card(r){
-const lg=r.logistics?`<div class="row lg-${r.logistics.result}">route: ${r.logistics.result}${r.logistics.estimates?' (est.)':''}</div>`:'';
+const lg=r.logistics?`<div class="row lg-${r.logistics.result}">Elf #2: route ${r.logistics.result}${r.logistics.estimates?' (est.)':''}</div>`:'';
 const dep=`<span class="dep-${r.deposit.status}">deposit ${r.deposit.status}</span>`;
 let acts='';
 if(['inquiry','hold'].includes(r.status)){

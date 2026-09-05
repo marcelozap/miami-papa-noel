@@ -30,7 +30,8 @@
 
 ## Live functionality
 
-What the tool actually does, today, verified by 45 passing tests:
+What the tool implements, verified by the synthetic regression suite
+(dated results in `docs/santa-agent-workboard.md`):
 
 | Capability | Status |
 |---|---|
@@ -87,7 +88,7 @@ is no configuration in which the log can claim a model that did not run.
 | `tools/triage/triage.py` | The runnable tool |
 | `tools/triage/validators.py` | Six enforced safety gates |
 | `tools/triage/pricing.json` | Locked, versioned price list |
-| `tools/triage/test_triage.py` | 45 tests, all passing, all synthetic |
+| `tools/triage/test_triage.py` | Passing synthetic triage regression suite; current results in the dated workboard |
 | `tools/triage/log-schema.md` | Log fields and derived metrics |
 | `tools/triage/examples/inquiry-redacted.jsonl` | Redacted structural sample (synthetic) |
 | `docs/operator-attestation-2025-season.md` | Prior-season history |

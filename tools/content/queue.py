@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Santa content queue for Miami Papa Noel - drafts only, nothing ever posts.
+"""Santa Claus - North Pole content drafts, nothing ever posts.
 
     DRAFT -> PENDING_APPROVAL -> APPROVED -> SCHEDULED_DRY_RUN
 
@@ -203,20 +203,20 @@ def draft_texts(topic: str) -> dict:
     EN/ES service, the public phone, and booking via text."""
     return {
         "script_en": (
-            "Ho ho ho, Miami! Today Santa is talking about %s. "
+            "Ho ho ho, Miami! A little North Pole workshop magic: today Santa is talking about %s. "
             "We bring Santa visits all across Miami, fully bilingual in "
             "English and Spanish. To book your visit, send a text to %s."
             % (topic, PUBLIC_PHONE)),
         "script_es": (
-            "Jo jo jo, Miami! Hoy Santa les habla de %s. "
+            "Jo jo jo, Miami! Un toque de magia del taller del Polo Norte: hoy Santa les habla de %s. "
             "Llevamos visitas de Santa por todo Miami, con servicio bilingue "
             "en ingles y espanol. Para reservar su visita, envie un texto al "
             "%s." % (topic, PUBLIC_PHONE)),
         "caption_en": (
-            "Santa visits in Miami - bilingual EN/ES. %s. "
+            "North Pole magic, Miami Santa visits - bilingual EN/ES. %s. "
             "Book by text: %s" % (topic, PUBLIC_PHONE)),
         "caption_es": (
-            "Visitas de Santa en Miami - servicio bilingue EN/ES. %s. "
+            "Magia del Polo Norte, visitas de Santa en Miami - servicio bilingue EN/ES. %s. "
             "Reserve por texto: %s" % (topic, PUBLIC_PHONE)),
     }
 

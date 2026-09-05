@@ -128,7 +128,8 @@ Redacted sample, if they want to read one without a live run:
 python -m pytest tools\triage\test_triage.py -q
 ```
 
-45 passed — including the negative tests that prove each gate blocks.
+Show the current test result, including the negative tests that prove each
+gate blocks. Record the dated result in `docs/santa-agent-workboard.md`.
 
 Then open `tools/triage/README.md` to the **Manual fallback** section and show
 the price table.
@@ -198,7 +199,7 @@ python scripts\validate_slot_confirmations.py
 
 ## Before the demo
 
-- [ ] `python -m pytest tools\triage\test_triage.py -q` → 45 passed
+- [ ] `python -m pytest tools\triage\test_triage.py -q` passes; dated result recorded in the workboard
 - [ ] `python tools\triage\triage.py --demo` renders clean
 - [ ] `python tools\triage\demo_guards.py` shows 9 blocking failures
 - [ ] Terminal font large enough to read

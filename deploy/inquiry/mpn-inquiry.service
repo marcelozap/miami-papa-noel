@@ -1,0 +1,33 @@
+[Unit]
+Description=Miami Papa Noel private inquiry queue
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=mpn-inquiry
+Group=mpn-inquiry
+WorkingDirectory=/opt/miami-papa-noel
+EnvironmentFile=/etc/miami-papa-noel/inquiry.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 /opt/miami-papa-noel/tools/web_inquiry/server.py --offline
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=60
+UMask=0077
+LimitCORE=0
+StateDirectory=miami-papa-noel
+StateDirectoryMode=0700
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/miami-papa-noel
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

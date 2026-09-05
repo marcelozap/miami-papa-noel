@@ -35,6 +35,18 @@ def test_detects_spanish():
     assert rec["language"] == "es"
 
 
+def test_north_pole_identity_keeps_real_service_terms():
+    rec = build("Family visit in Doral on December 10, 2026")
+    assert "Mrs. Claus Office" in rec["draft_en"] and "North Pole" in rec["draft_en"]
+    assert "Sra. Claus" in rec["draft_es"] and "Polo Norte" in rec["draft_es"]
+    assert rec["prompt_version"] == "triage-v1.1.0"
+    for draft in (rec["draft_en"], rec["draft_es"]):
+        assert "$325" in draft and "Doral" in draft and "50%" in draft
+    prompt = triage._model_instructions(PRICING)
+    assert "Mrs. Claus" in prompt and "North Pole" in prompt
+    assert "operator must review and send manually" in prompt
+
+
 def test_detects_english():
     rec = build("Hi, how much for a Santa visit for our office party in December?")
     assert rec["language"] == "en"
@@ -370,6 +382,10 @@ def test_model_failure_falls_back_to_rules(monkeypatch, capsys):
     for status, code in [
         (401, "invalid_api_key"), (429, "insufficient_quota"),
         (429, "rate_limit_exceeded"), (404, "model_not_found"),
+        (429, "credit_balance_exhausted"),
+        (429, "organization_spend_limit_exceeded"),
+        (429, "project_spend_limit_exceeded"),
+        (429, "organization_usage_limit_exceeded"), (429, "slow_down"),
         (403, "insufficient_permissions"), (400, "invalid_json_schema"),
         (400, "unsupported_parameter"), (400, "invalid_value"),
         (401, private), (403, [private]), (500, None),
@@ -403,6 +419,15 @@ def test_model_failure_falls_back_to_rules(monkeypatch, capsys):
             assert captured.err == ""
         else:
             assert "HTTP %s; category=%s." % (status, category) in captured.err
+            expected_hint = {
+                "credit_balance_exhausted": "API prepaid credit is exhausted",
+                "organization_spend_limit_exceeded": "organization spending limit",
+                "project_spend_limit_exceeded": "project spending limit",
+                "organization_usage_limit_exceeded": "OpenAI-assigned organization usage limit",
+                "slow_down": "honor Retry-After",
+            }.get(category)
+            if expected_hint:
+                assert expected_hint in captured.err
             if status == 429 and category == "unclassified":
                 assert "does not distinguish" in captured.err
 
