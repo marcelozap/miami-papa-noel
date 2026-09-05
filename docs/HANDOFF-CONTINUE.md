@@ -29,7 +29,7 @@ That file was written so you never have to compose a sentence under pressure.
 GitHub after the handoff commit):
 
 ```powershell
-cd "C:\Users\Green Machine\miami-papa-noel"
+cd "C:\XIV\santa"
 git push
 ```
 

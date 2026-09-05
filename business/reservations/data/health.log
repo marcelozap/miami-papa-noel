@@ -1,0 +1,1 @@
+{"at": "2026-09-04T13:25:56+00:00", "counts": {"inquiry": 0, "hold": 0, "pending_review": 0, "confirmed": 0, "completed": 0, "cancelled": 0}, "stale_holds": [], "route_regressions": [], "drafts_pending_approval": [], "invalid_records": [], "needs_operator": false}

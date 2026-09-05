@@ -164,7 +164,10 @@ def validate_no_insurance_claim(draft_en: str, draft_es: str, pricing: dict,
 
 def validate_payment_method(draft_en: str, draft_es: str) -> list:
     """Zelle only. No other method may appear on a customer surface."""
-    banned = ["cash app", "cashapp", "venmo", "paypal", "stripe", "square",
+    # Stripe is deliberately absent: the business's own Stripe Payment Link
+    # became an official deposit rail alongside Zelle (operator decision,
+    # 2026-08-30). Everything else stays forbidden.
+    banned = ["cash app", "cashapp", "venmo", "paypal", "square",
               "credit card", "debit card", "apple pay", "wire transfer", "zinli"]
     findings = []
     for label, draft in (("en", draft_en), ("es", draft_es)):

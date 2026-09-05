@@ -5,22 +5,29 @@
   "timezone": "America/New_York",
   "allowed_states": [
     "OPEN",
+    "HELD",
+    "DEPOSIT_SENT",
+    "BOOKED",
     "HOLD_48HR",
     "DEPOSIT_PAID",
     "CONFIRMED"
   ],
   "state_transitions": {
+    "_comment": "Canonical machine (tools/slots/slots.py). Legacy names are aliases: HOLD_48HR=HELD, DEPOSIT_PAID=DEPOSIT_SENT, CONFIRMED=BOOKED. A slot is sold only at BOOKED, reached only by operator Zelle verification.",
     "OPEN": [
-      "HOLD_48HR"
+      "HELD"
     ],
-    "HOLD_48HR": [
-      "OPEN",
-      "DEPOSIT_PAID"
+    "HELD": [
+      "DEPOSIT_SENT",
+      "OPEN"
     ],
-    "DEPOSIT_PAID": [
-      "CONFIRMED"
+    "DEPOSIT_SENT": [
+      "BOOKED",
+      "OPEN"
     ],
-    "CONFIRMED": []
+    "BOOKED": [
+      "OPEN"
+    ]
   },
   "payment_policy": {
     "deposit_method": "Zelle",

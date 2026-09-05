@@ -89,9 +89,10 @@
   "payment": {
     "method": "Zelle",
     "zelle_handle": "305-244-0360",
-    "text_en": "Payment is by Zelle only.",
-    "text_es": "El pago es unicamente por Zelle.",
-    "_comment": "Zelle only. Do not add Cash App, Venmo, Square, Stripe, wire, or card processing to any customer surface."
+    "stripe_payment_link": "",
+    "text_en": "Deposits are by Zelle.",
+    "text_es": "Los depositos son por Zelle.",
+    "_comment": "Two official rails ONLY: Zelle to 305-244-0360, and the business's own Stripe Payment Link (URL filled by the operator from the Stripe dashboard; never a key, never a bank number). Until stripe_payment_link holds a real buy.stripe.com URL, the customer-facing text stays Zelle-only - drafts must never promise a link that does not exist. When the operator adds the link, update method and both text lines. Cash App, Venmo, PayPal, Square, and wire stay forbidden on every customer surface."
   },
 
   "allowed_amounts": [195, 325, 450, 425, 500, 375, 550, 275, 600, 850, 150, 45],

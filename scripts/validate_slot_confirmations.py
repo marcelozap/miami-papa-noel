@@ -22,7 +22,17 @@ REQUIRED_COLUMNS = {
     "zelle_memo_id",
 }
 
-LOCKING_STATES = {"HOLD_48HR", "DEPOSIT_PAID", "CONFIRMED"}
+# Canonical state names (tools/slots/slots.py) map onto the legacy names this
+# validator was built around. One state machine, two spellings accepted.
+CANONICAL_ALIASES = {
+    "HELD": "HOLD_48HR",
+    "BOOKED": "CONFIRMED",
+}
+# DEPOSIT_SENT is deliberately NOT aliased to DEPOSIT_PAID: "sent" means the
+# customer says money is on the way and NOTHING is verified yet. Treating it
+# as PAID would demand a payment record before any human checked Zelle.
+
+LOCKING_STATES = {"HOLD_48HR", "DEPOSIT_SENT", "DEPOSIT_PAID", "CONFIRMED"}
 TERMINAL_STATES = {"DEPOSIT_PAID", "CONFIRMED"}
 ACTIVE_STATES = LOCKING_STATES | {"OPEN"}
 DEPOSIT_STATUSES = {
@@ -93,11 +103,12 @@ def validate() -> list[str]:
 
     slot_locks: dict[str, list[str]] = defaultdict(list)
     date_locks: dict[str, set[str]] = defaultdict(set)
-    allowed_states = {"", "OPEN", "HOLD_48HR", "DEPOSIT_PAID", "CONFIRMED"}
+    allowed_states = {"", "OPEN", "HOLD_48HR", "DEPOSIT_SENT", "DEPOSIT_PAID", "CONFIRMED"}
 
     for offset, row in enumerate(rows, start=2):
         label = row_label(offset, row)
         state = (row.get("state") or "").strip()
+        state = CANONICAL_ALIASES.get(state, state)
         slot_id = (row.get("time_slot_id") or "").strip()
         target_date = (row.get("target_date") or "").strip()
         deposit_status = (row.get("deposit_status") or "").strip()
