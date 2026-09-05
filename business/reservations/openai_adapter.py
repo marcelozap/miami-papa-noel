@@ -6,13 +6,15 @@ the environment — never in this repo. Model defaults to gpt-4o-mini and can be
 overridden with OPENAI_MODEL.
 
 Fail-closed copy rules: if the generated text violates the copy rules (claims
-"insured", wrong brand accent, leaks the client name or address), the output
-is rejected and the deterministic template captions stand — the manifest says
-so. Generated text is always a DRAFT for the operator; nothing here publishes.
+"insured", wrong brand accent, leaks the client name or address, carries the
+Zelle account number instead of the public line), the output is rejected and
+the deterministic template captions stand — the manifest says so. Generated
+text is always a DRAFT for the operator; nothing here publishes.
 """
 
 import json
 import os
+import re
 import urllib.request
 
 from malosound_adapter import MaloSoundAdapter
@@ -26,8 +28,9 @@ SYSTEM_PROMPT = (
     "'Papá Noel'); never claim or imply the business is insured; never include "
     "any client name or street address; always produce BOTH English and Spanish; "
     "tone is warm and family-first, and the angle is the bilingual visit "
-    "(English y español) with December dates filling; close with 305-244-0360 / "
-    "miamipapanoel.com. Respond with a JSON object with exactly these keys: "
+    "(English y español) with December dates filling; close with 786-975-9557 / "
+    "miamipapanoel.com — never mention any other phone number. Respond with a "
+    "JSON object with exactly these keys: "
     "caption_en, caption_es, video_brief."
 )
 
@@ -67,6 +70,10 @@ class OpenAIContentAdapter(MaloSoundAdapter):
             bad.append("claims insured")
         if "miami papá noel" in text:
             bad.append("wrong brand accent")
+        # Separators stripped, so "(305) 244-0360", "3052440360" and
+        # "+1 305 244 0360" are caught the same as the literal.
+        if "3052440360" in re.sub(r"[\s().+\-]", "", text):
+            bad.append("carries the Zelle account number")
         for key in ("client_name", "address"):
             val = str(brief.get(key) or "").strip().lower()
             if len(val) > 3 and val in text:

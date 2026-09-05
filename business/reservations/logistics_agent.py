@@ -1,6 +1,6 @@
 """Lane 2 — Logistics agent.
 
-For a given date, orders bookings by start time and checks every consecutive
+For a given date, orders bookings by start time and checks every ordered
 pair: is the gap between them enough for the drive (zone matrix) plus the
 next visit's setup time plus a safety buffer? Results:
 
@@ -13,7 +13,11 @@ Drive times are ESTIMATES from the zone matrix, not live traffic — same as
 business/december-slot-board.html. Real-world constraints this encodes:
 Christmas Eve slots run 60 min apart with 45-min visits (~15 min budget);
 peak evenings run 90 apart with 60-min visits (~30 min budget).
+Non-adjacent pairs are checked too: an overlapping provisional visit must
+not hide an existing confirmed visit or its required travel time.
 """
+
+from itertools import combinations
 
 import store
 import zones
@@ -31,7 +35,8 @@ def _minutes(hhmm):
 
 def check_date(records, date):
     """Check every scheduled (hold or later, not cancelled) booking on a
-    date. Writes each record's `logistics` field and returns the legs."""
+    date. Writes each record's `logistics` field and returns pairwise checks.
+    These are conservative feasibility constraints, not an optimized route."""
     day = [
         r for r in records
         if r.get("date") == date
@@ -44,7 +49,7 @@ def check_date(records, date):
     worst = {r["id"]: "ok" for r in day}
     rank = {"ok": 0, "tight": 1, "impossible": 2}
 
-    for a, b in zip(day, day[1:]):
+    for a, b in combinations(day, 2):
         end_a = _minutes(a["start_time"]) + int(a.get("duration_min") or 60)
         gap = _minutes(b["start_time"]) - end_a
         drive = zones.drive_min(a["zone"], b["zone"])

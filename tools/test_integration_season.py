@@ -169,5 +169,93 @@ class SeasonIntegrationTest(unittest.TestCase):
                              "%s leaked into the repository" % stray)
 
 
+class ReservationRouteIntegrationTest(unittest.TestCase):
+    """Exercise the reservation, payment-review, and route lanes together."""
+
+    def setUp(self):
+        path = mock.patch.object(sys, "path", [
+            str(HERE.parent / "business" / "reservations"), *sys.path,
+        ])
+        path.start()
+        self.addCleanup(path.stop)
+        import store
+        import reservation_agent
+        import operator_review
+        self.store = store
+        self.agent = reservation_agent
+        self.operator = operator_review
+        events = mock.patch.object(store, "append_event")
+        self.events = events.start()
+        self.addCleanup(events.stop)
+        self.records = []
+
+    def booking(self, time, package="standard", duration=60, zone="doral",
+                paid=True, date="2026-12-10"):
+        rec = self.agent.create(
+            self.records, client_name="Synthetic route fixture", phone="305-555-0142",
+            package=package, date=date, start_time=time, duration_min=duration,
+            zone=zone, address="100 Example Street", guest_count=4,
+        )
+        if paid:
+            self.operator.verify_deposit(
+                self.records, rec["id"], amount=rec["price_quoted"] / 2,
+                memo="SYNTHETIC-NOT-A-PAYMENT",
+            )
+            self.agent.advance(self.records, rec["id"])
+        return rec
+
+    def assert_route_blocks(self, rec):
+        self.events.reset_mock()
+        with self.assertRaisesRegex(self.store.TransitionError, "impossible"):
+            self.operator.approve(self.records, rec["id"])
+        self.assertEqual(rec["status"], "pending_review")
+        self.assertIsNone(rec["operator_approval"])
+        self.events.assert_not_called()
+
+    def test_intermediate_hold_cannot_hide_long_confirmed_visit(self):
+        first = self.booking("15:00", package="hoa", duration=120)
+        self.operator.approve(self.records, first["id"])
+        self.booking("15:30", package="jingle", duration=45, paid=False)
+        incoming = self.booking("16:30")
+        self.assert_route_blocks(incoming)
+        self.assertEqual(first["status"], "confirmed")
+
+    def test_intermediate_paid_request_cannot_hide_confirmed_visit(self):
+        first = self.booking("15:00", package="hoa", duration=120)
+        self.operator.approve(self.records, first["id"])
+        self.booking("15:30", package="jingle", duration=45)
+        self.assert_route_blocks(self.booking("16:30"))
+
+    def test_incoming_long_visit_cannot_hide_later_confirmation(self):
+        last = self.booking("17:00")
+        self.operator.approve(self.records, last["id"])
+        incoming = self.booking("15:00", package="photographer_4hr", duration=240)
+        self.booking("16:00", package="jingle", duration=45, paid=False)
+        self.assert_route_blocks(incoming)
+        self.assertEqual(last["status"], "confirmed")
+
+    def test_intermediate_hold_cannot_hide_impossible_drive(self):
+        first = self.booking("15:00", package="hoa", duration=120)
+        self.operator.approve(self.records, first["id"])
+        self.booking("16:00", package="jingle", duration=45, zone="homestead", paid=False)
+        incoming = self.booking("17:30", zone="homestead")
+        self.assert_route_blocks(incoming)
+
+    def test_three_feasible_visits_still_confirm(self):
+        day = [self.booking(time) for time in ("15:00", "16:30", "18:00")]
+        for rec in day:
+            self.operator.approve(self.records, rec["id"])
+            self.assertEqual(rec["status"], "confirmed")
+
+    def test_cancelled_and_other_date_do_not_block(self):
+        cancelled = self.booking("15:00", package="hoa", duration=120, paid=False)
+        self.operator.cancel(self.records, cancelled["id"], "synthetic cancellation")
+        other_day = self.booking("15:00", package="hoa", duration=120, date="2026-12-11")
+        self.operator.approve(self.records, other_day["id"])
+        incoming = self.booking("15:30")
+        self.operator.approve(self.records, incoming["id"])
+        self.assertEqual(incoming["status"], "confirmed")
+
+
 if __name__ == "__main__":
     unittest.main()
