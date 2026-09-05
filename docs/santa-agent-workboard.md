@@ -7,7 +7,7 @@ Last coordinator check: 2026-09-04 post-9485bb8
 ## GitHub checkpoint requested (2026-09-05)
 
 Claim: Save the current safe code/docs to a GitHub review branch | owner: Codex |
-status: IN_PROGRESS | branch: codex/santa-checkpoint-2026-09-04 | scope:
+status: COMMITTED | branch: codex/santa-checkpoint-2026-09-04 | scope:
 user explicitly requested GitHub upload after clicking Create PR. Use an
 isolated Git worktree/index to capture and verify an allowlisted snapshot;
 do not switch branches, stage, commit, reset, or merge in the shared main
@@ -21,6 +21,30 @@ Latest operator API test: synthetic MPN-20260904-2AAC97 returned HTTP 429,
 category unclassified, offline fallback, no approval. Billing/quota versus
 rate-limit cause is not established. Do not make paid retries or record a
 production launch as part of this GitHub save.
+
+Result (2026-09-05T00:30:30Z): checkpoint **8a184bf** pushed and remotely
+verified on `codex/santa-checkpoint-2026-09-04`; draft PR:
+https://github.com/marcelozap/miami-papa-noel/pull/1 . Captured 28 safe changed
+or new files plus the ten previously local ancestor commits. Tested the
+isolated snapshot: 280 tests, all 16 suites, ops_check 7/7 PASS, tracker
+privacy 0 warnings, staged whitespace check PASS. One trailing space removed
+only from the snapshot's sample-run note. Secret-pattern scan of ten pending
+commits and candidate files found no matches; scratch/private paths excluded.
+Remote main remains `882433d`; shared local main remains `9485bb8` with its
+dirty work intact and no staged files. Claude's subsequent changes are NOT
+implicitly included in this snapshot. Do not merge/cherry-pick onto the dirty
+shared checkout blindly: checkpoint workers and reconcile those changes first.
+The review worktree is `C:\Users\Green Machine\.codex\worktrees\santa-checkpoint-2026-09-04`
+and is clean. This shared board remains the coordination authority.
+
+API diagnostic follow-up for the active triage worker: the official error
+guide now lists `credit_balance_exhausted`, `organization_spend_limit_exceeded`,
+`project_spend_limit_exceeded`, `organization_usage_limit_exceeded`, and
+`slow_down` under HTTP 429. These are absent from the current safe allowlist.
+Add static hints and mocked tests without printing raw server messages; do
+not infer which code the operator received. Source checked 2026-09-05:
+https://developers.openai.com/api/docs/guides/error-codes . The operator was
+asked to inspect available API credit before buying anything or changing limits.
 
 ## Coordinator report review (2026-09-05T00:25Z)
 
@@ -196,6 +220,8 @@ terminal | next: begin actual operation and retain private evidence.
 
 Claim: Sample-run must-fix items 1-2 (docs/sample-inquiry-run-2026-09-04.md): ambiguous family-party pricing + phantom payment-link promise | owner: claude-fable | started: 2026-09-04 20:25 | files: tools/triage/triage.py (extract_category only - preserving the concurrent HTTP-diagnostic edit), tools/triage/pricing.json (deposit text), tools/triage/test_triage.py (append tests + fix stale rails comment) | test: python -m pytest tools/triage/test_triage.py -q + full suite + ops_check
 Result: claude-fable | status: READY_FOR_REVIEW | files: tools/triage/triage.py, tools/triage/pricing.json, tools/triage/test_triage.py, tools/mrs_claus_office/intake.py (2-line reconciliation, see note) | tests: 48 triage passed (3 new: ambiguous family-party asks instead of quoting, family-only and event-only unchanged); rails test now also bans "payment link"/"enlace de pago" from both languages; full suite 280 passed; ops_check 7/7 PASS | blockers: NONE | note: item 1 fixed by policy "ask, never guess" — extract_category returns None when event AND family words both match, and the draft already asks for the service category with no price. Item 2: pricing.json payment text is Zelle-only until a real buy.stripe.com URL exists (procedure noted in its _comment). CONFLICT RECONCILED: a concurrent intake-lane fix (mrs_claus_office/intake.py + a new test) resolved the same ambiguity to family_visit relying on the old event_visit return; updated its override condition to also catch None, preserving that lane's behavior exactly (operator-typed event_type resolves to the family rate; raw triage messages ask). Sample-run items 3-7 (ES accents, headcount/gifts capture, timezone stamps, quote-before-date, AI-path observation) remain unclaimed for the next version.
+Result: claude-fable | status: READY_FOR_REVIEW (answers the 2026-09-05T00:25Z Codex model-path finding) | files: tools/triage/triage.py (category_is_ambiguous + model_triage guard -> MODEL_CATEGORY_AMBIGUOUS fallback), tools/triage/validators.py (payment gate now takes pricing and FAILs any draft promising a payment link while stripe_payment_link is empty; PASS label stays accurate), tools/triage/test_triage.py (+3: both Codex mocked-model probes now refused, plus a direct gate test with a synthetic configured-link control) | tests: 51 triage passed; full suite 283 passed; ops_check 7/7 PASS | blockers: NONE | note: requirement-source correction acknowledged — the OPN feedback email explicitly requires >=15 days of production operation for resubmission; treating it as a stated requirement of this application, with acceptance still OPN's decision.
+Result: claude-fable | status: VERIFIED (review of the 2026-09-05T00:10Z route-conflict change) | files: none - review only | tests: re-ran the shielded-overlap A/B/C probe at the current tree (approve refused, "logistics result is 'impossible'"); season integration 7 passed inside the 283 full run | note: pairwise combinations() check APPROVED - closes all four masking routes; conservative-estimate caveat correctly documented.
 
 Claim: Before-day-1 launch verification (read/run only per docs/production-launch.md) | owner: claude-fable | started: 2026-09-04 19:20 | files: none - checks only, results on this board | test: triage suite + --demo + --status + gitignore + env presence
 Result: claude-fable | status: VERIFIED (pre-launch checks; launch itself is the operator's) | files: none | tests: triage 45 passed; --demo clean (bilingual drafts, all 6 gates PASS, correctly labeled SYNTHETIC + offline-rules-v1 fallback); --status NOT STARTED, log dir %LOCALAPPDATA%\MiamiPapaNoel\triage; .gitignore covers *.jsonl/.env/*.pem/*.key | blockers: OPENAI_API_KEY and MPN_MODEL absent in this shell (presence checked as booleans only, no values displayed) - the model-backed connection test and the first --real inquiry must run in the operator's configured terminal; clock remains NOT STARTED until then | next: operator performs docs/production-launch.md steps 1-7 today; earliest 15-day target 2026-09-19 at or after the actual start time, conditional on continuing honest operation.

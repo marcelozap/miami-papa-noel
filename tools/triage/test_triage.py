@@ -428,3 +428,73 @@ def test_family_only_words_still_price_family_visit():
 def test_event_only_words_still_price_event_visit():
     rec = build("We want Santa at our restaurant event on Dec 13 in Doral.")
     assert rec["category"] == "event_visit"
+
+
+# --------------------------- model output must obey the same protections ---
+
+def _fake_model(monkeypatch, model_result):
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self):
+            return json.dumps({"output_text": json.dumps(model_result)}).encode("utf-8")
+
+    monkeypatch.setenv("MPN_MODEL", "test-model")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setattr(triage.urllib.request, "urlopen",
+                        lambda request, timeout: FakeResponse())
+
+
+def test_model_may_not_resolve_ambiguous_family_party(monkeypatch):
+    # Codex probe 2026-09-05: the model prices the ambiguous "fiesta familiar"
+    # as a $450 event. The deterministic ambiguity rule must override it and
+    # fall back to a draft that asks instead of quoting.
+    _fake_model(monkeypatch, {
+        "language": "es", "requested_date": "2026-12-20",
+        "category": "event_visit", "location": "Doral",
+        "contact_status": "phone_only",
+        "draft_en": "Event visit is $450. Deposits are by Zelle.",
+        "draft_es": "Evento: $450. Los depositos son por Zelle.",
+    })
+    rec = build("Hola, quisiera una fiesta familiar en casa el 20 de diciembre en Doral. 305-555-0142")
+    assert rec["fallback_used"] is True
+    assert rec["error_code"] == "MODEL_CATEGORY_AMBIGUOUS"
+    assert rec["category"] is None
+    assert "$450" not in rec["draft_en"] and "$450" not in rec["draft_es"]
+
+
+def test_model_draft_promising_unconfigured_payment_link_is_rejected(monkeypatch):
+    # Codex probe 2026-09-05: a model draft promising "our secure online
+    # payment link" while pricing.json has no Stripe URL must FAIL the
+    # payment gate and fall back to the deterministic Zelle-only draft.
+    _fake_model(monkeypatch, {
+        "language": "en", "requested_date": "2026-12-13",
+        "category": "hoa_community", "location": "Doral",
+        "contact_status": "phone_only",
+        "draft_en": ("HOA / community event is $550, two hours, two-hour minimum. "
+                     "Deposits are by Zelle or our secure online payment link."),
+        "draft_es": ("Evento comunitario / HOA: $550, dos horas, minimo de dos horas. "
+                     "Los depositos son por Zelle o por nuestro enlace de pago seguro."),
+    })
+    rec = build("Our HOA event is Dec 13 in Doral. Call me at 305-555-0142.")
+    assert rec["fallback_used"] is True
+    assert rec["error_code"] == "MODEL_OUTPUT_VALIDATION_FAIL"
+    assert "payment link" not in rec["draft_en"].lower()
+    assert "enlace de pago" not in rec["draft_es"].lower()
+
+
+def test_payment_gate_flags_link_only_when_unconfigured():
+    en = "Deposits are by Zelle or our secure online payment link."
+    es = "Los depositos son por Zelle o por nuestro enlace de pago seguro."
+    unconfigured = validators.validate_payment_method(en, es, PRICING)
+    assert any(f.level == validators.FAIL for f in unconfigured)
+    # Synthetic URL for the test only - the real link is pasted by the
+    # operator into pricing.json from the Stripe dashboard.
+    configured = dict(PRICING, payment=dict(PRICING["payment"],
+                                            stripe_payment_link="https://buy.stripe.com/test_SYNTHETIC"))
+    findings = validators.validate_payment_method(en, es, configured)
+    assert all(f.level == validators.PASS for f in findings)

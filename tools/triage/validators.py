@@ -162,13 +162,19 @@ def validate_no_insurance_claim(draft_en: str, draft_es: str, pricing: dict,
     return findings
 
 
-def validate_payment_method(draft_en: str, draft_es: str) -> list:
-    """Zelle only. No other method may appear on a customer surface."""
-    # Stripe is deliberately absent: the business's own Stripe Payment Link
-    # became an official deposit rail alongside Zelle (operator decision,
-    # 2026-08-30). Everything else stays forbidden.
+def validate_payment_method(draft_en: str, draft_es: str, pricing: dict | None = None) -> list:
+    """Zelle, plus the business's own Stripe Payment Link once it exists.
+
+    Stripe is deliberately absent from the banned list: the business's own
+    Stripe Payment Link became an official deposit rail alongside Zelle
+    (operator decision, 2026-08-30). But a draft may not PROMISE a payment
+    link while pricing.json carries no real link URL - that tells a customer
+    to expect something that does not exist. Everything else stays forbidden.
+    """
     banned = ["cash app", "cashapp", "venmo", "paypal", "square",
               "credit card", "debit card", "apple pay", "wire transfer", "zinli"]
+    link_configured = bool(((pricing or {}).get("payment") or {}).get("stripe_payment_link"))
+    link_phrases = ["payment link", "enlace de pago", "link de pago"]
     findings = []
     for label, draft in (("en", draft_en), ("es", draft_es)):
         folded = _fold(draft)
@@ -178,8 +184,18 @@ def validate_payment_method(draft_en: str, draft_es: str) -> list:
                     "payment_method", FAIL,
                     "draft_%s mentions non-Zelle payment method: %r" % (label, term),
                 ))
+        if not link_configured:
+            for term in link_phrases:
+                if _fold(term) in folded:
+                    findings.append(Finding(
+                        "payment_method", FAIL,
+                        "draft_%s promises a payment link but no Stripe Payment "
+                        "Link is configured" % label,
+                    ))
+                    break
     if not findings:
-        findings.append(Finding("payment_method", PASS, "Zelle only"))
+        label = "Zelle and the configured payment link" if link_configured else "Zelle only"
+        findings.append(Finding("payment_method", PASS, label))
     return findings
 
 
@@ -191,7 +207,7 @@ def run_all(extracted: dict, draft_en: str, draft_es: str, pricing: dict,
     findings += validate_missing_information(extracted, draft_en)
     findings += validate_no_unsafe_confirmation(draft_en, draft_es, pricing)
     findings += validate_no_insurance_claim(draft_en, draft_es, pricing, policy_verified)
-    findings += validate_payment_method(draft_en, draft_es)
+    findings += validate_payment_method(draft_en, draft_es, pricing)
     return findings
 
 
