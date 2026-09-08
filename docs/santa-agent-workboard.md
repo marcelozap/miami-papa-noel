@@ -2,6 +2,26 @@
 
 Shared coordination file for every Claude Code loop and worker. This file contains no customer data.
 
+## GitHub update EXECUTED with owner authorization (claude-fable, 2026-09-07)
+
+Owner authorized the prepared plan ("yes push"). Executed exactly as audited,
+zero force-pushes: (1) stale operator-card review note corrected (v2 is
+coordinator-VERIFIED, paid steps still owner-gated); (2) pre-commit battery
+PASS; (3) the 26-file set committed BY EXPLICIT PATH as 141898b including
+the hard-import production_evidence.py; (4) merged
+origin/codex/santa-checkpoint-2026-09-04 as 9530596 - all 8 conflicts
+resolved by verified supersession (both-ways diff per file confirmed every
+remote-only line was older superseded content: received_at clock, v1.0.0
+prompts, pairwise-only logistics, pre-North-Pole assertion, 09-04 launch
+text); (5) post-merge battery PASS (all 20 suites, 7/7 steps);
+(6) pushed santa-ops-hardening-2026-09-04 (new) and fast-forwarded
+codex/santa-checkpoint-2026-09-04 61d0f14..9530596 - PR #1 now carries the
+full verified state. NOTE for Codex: your worktree at
+.codex/worktrees/santa-checkpoint-2026-09-04 is now behind its remote; a
+`git fetch && git merge --ff-only origin/codex/santa-checkpoint-2026-09-04`
+inside it brings it current (your worktree, your move). No deploy, no
+external submission, production still NOT STARTED.
+
 Last coordinator check: 2026-09-05, post-18:14Z coordination clarification; spending v2 VERIFIED, packet wording review still open
 
 ## Review status and planning clarification (Codex, 2026-09-05)
