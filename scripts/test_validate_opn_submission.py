@@ -19,6 +19,7 @@ MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC and SPEC.loader
 sys.modules[SPEC.name] = MODULE
 SPEC.loader.exec_module(MODULE)
+from production_evidence import VALIDATION_CHECKS  # noqa: E402
 
 
 class ValidatorTests(unittest.TestCase):
@@ -58,6 +59,8 @@ class ValidatorTests(unittest.TestCase):
             "real_customer": True,
             "location": "Doral",
             "contact_status": "phone supplied",
+            "validation": [{"check": name, "level": "PASS", "detail": "synthetic"}
+                           for name in VALIDATION_CHECKS],
         }
         row.update(overrides)
         return row
@@ -117,6 +120,86 @@ class ValidatorTests(unittest.TestCase):
             findings, earliest, models, approved, model_backed = MODULE.check_production_log(cfg)
             findings += MODULE.check_duration(cfg, earliest, approved, model_backed)
             self.assertFalse(self.failures(findings))
+
+    def test_old_fallback_or_unsent_inquiry_cannot_age_a_new_model_reply(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            log = root / "production-log.jsonl"
+            now = dt.datetime(2026, 9, 5, 15, tzinfo=dt.timezone.utc)
+            cfg = MODULE.Config(root, True, log_path=log, now=now, run_external=False)
+            old = self.base_row(model="offline-rules-v1", fallback_used=True)
+            unsent = self.base_row(inquiry_id="MPN-UNSENT", outcome="pending_review",
+                                   reviewer=None, approved_at=None, sent_at=None)
+            recent = self.base_row(
+                inquiry_id="MPN-RECENT", received_at="2026-09-04T10:00:00-04:00",
+                approved_at="2026-09-04T10:02:00-04:00", sent_at="2026-09-04T10:03:00-04:00")
+            self.write_log(log, [old, unsent, recent])
+            findings, earliest, _, approved, model_backed = MODULE.check_production_log(cfg)
+            self.assertFalse(self.failures(findings))
+            self.assertEqual(earliest, dt.datetime(2026, 9, 4, 14, 3, tzinfo=dt.timezone.utc))
+            duration = MODULE.check_duration(cfg, earliest, approved, model_backed)
+            self.assertTrue(any(f.area == "duration" for f in self.failures(duration)))
+
+    def test_duration_uses_full_send_timestamp_and_never_certifies_acceptance(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            sent = dt.datetime(2026, 9, 1, 14, 3, tzinfo=dt.timezone.utc)
+            target = sent + dt.timedelta(days=15)
+            for seconds, should_fail in [(-1, True), (0, False)]:
+                with self.subTest(seconds=seconds):
+                    cfg = MODULE.Config(root, True, now=target + dt.timedelta(seconds=seconds))
+                    findings = MODULE.check_duration(cfg, sent, 1, True)
+                    self.assertEqual(bool(self.failures(findings)), should_fail)
+                    text = " ".join(f.detail for f in findings)
+                    self.assertNotIn("requirement met", text)
+                    if not should_fail:
+                        self.assertIn("does not certify continued operation or OPN acceptance", text)
+
+    def test_invalid_or_incomplete_model_records_cannot_supply_the_start(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            log = root / "production-log.jsonl"
+            cfg = self.config(root, True, log, root / "evidence")
+            for override in [
+                {"validation": []}, {"validation": [{"check": "pricing", "level": "FAIL"}]},
+                {"error_code": "MODEL_HTTP_ERROR"}, {"model": None}, {"reviewer": " "},
+                {"sent_at": "2026-07-31T10:03:00-04:00"}, {"real_customer": False},
+                {"sent_at": "9999-12-31T23:59:59-23:59"},
+                {"sent_at": "0001-01-01T00:00:00+23:59"},
+            ]:
+                with self.subTest(override=override):
+                    self.write_log(log, [self.base_row(**override)])
+                    _, earliest, _, approved, model_backed = MODULE.check_production_log(cfg)
+                    self.assertIsNone(earliest)
+                    self.assertFalse(model_backed)
+                    self.assertTrue(self.failures(MODULE.check_duration(cfg, earliest, approved, model_backed)))
+
+    def test_timestamps_with_different_offsets_are_compared_as_instants(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            log = root / "production-log.jsonl"
+            cfg = self.config(root, True, log, root / "evidence")
+            self.write_log(log, [self.base_row(
+                received_at="2026-08-01T16:00:00+02:00",
+                approved_at="2026-08-01T10:02:00-04:00", sent_at="2026-08-01T14:03:00+00:00")])
+            findings, earliest, _, _, backed = MODULE.check_production_log(cfg)
+            self.assertFalse(self.failures(findings))
+            self.assertTrue(backed)
+            self.assertEqual(earliest, dt.datetime(2026, 8, 1, 14, 3, tzinfo=dt.timezone.utc))
+
+    def test_future_send_on_same_date_does_not_start_clock(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            log = root / "production-log.jsonl"
+            cfg = MODULE.Config(root, True, log_path=log,
+                                now=dt.datetime(2026, 9, 5, 14, tzinfo=dt.timezone.utc))
+            self.write_log(log, [self.base_row(
+                received_at="2026-09-05T13:00:00+00:00",
+                approved_at="2026-09-05T13:02:00+00:00", sent_at="2026-09-05T15:00:00+00:00")])
+            findings, earliest, _, _, backed = MODULE.check_production_log(cfg)
+            self.assertTrue(any("future" in f.detail for f in self.failures(findings)))
+            self.assertIsNone(earliest)
+            self.assertFalse(backed)
 
     def test_public_surface_scan_blocks_non_zelle_and_unverified_insurance(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -310,8 +393,8 @@ class ValidatorTests(unittest.TestCase):
             submission = root / "docs/OPN-SUBMISSION.md"
             submission_text = submission.read_text(encoding="utf-8")
             submission_text = submission_text.replace(
-                "`[TO FILL]` — recorded automatically as the first `--real` log line.",
-                "`2026-08-01` — recorded automatically as the first `--real` log line.")
+                "| **Launch date / status** | `[TO FILL]` — Launch date = the first real inquiry record",
+                "| **Launch date / status** | `2026-08-01` — Launch date = the first real inquiry record")
             submission_text = submission_text.replace(
                 "`[TO FILL]` — derives from the log:",
                 "`1 inquiry handled; median first-response time 3 minutes` — derives from the log:")

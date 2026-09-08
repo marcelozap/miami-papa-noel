@@ -14,7 +14,7 @@ for this human-operated inquiry workflow.
 | --- | --- | --- |
 | Bilingual inquiry and review software | Local form, private queue, six gates, snapshot-bound approval/send tracking and logout privacy fixes independently reviewed; full local checks pass | Verify the hosted synthetic workflow after hosting controls are ready |
 | Launch-readiness checker | Claude's handoff reviewed; R1/R2 origin/proxy mismatches corrected with regressions. Suite registered and full local release check passes | Run in the actual configured runtime; exit 0 does not verify host deployment or model access |
-| Working model connection | Last operator-supplied API result was HTTP 429 with offline fallback; this Codex process has no API key | Check API billing/limits in the owning project, configure the key privately in the runtime, and verify one synthetic request uses the selected model successfully |
+| Working model connection | Exact synthetic gpt-5.6-luna haiku request returned HTTP 200 on September 5; the earlier Santa gpt-4.1-mini request returned credit_balance_exhausted. No Santa model configuration was changed | Verify an authorized synthetic request through Santa's structured bilingual/gated path, confirm available usage/terms, and configure a replacement credential privately; the haiku alone does not establish production readiness or free ongoing usage |
 | Operational owner | Marcelo Zapata operates the workflow; performers deliver the Santa visit | Choose when/how the inbox will be checked and retain actual review/send records |
 | Local assisted operation | Existing email/phone inbox plus the triage CLI can be operated without a public backend | Follow production-launch.md in the configured operator terminal when a genuine inquiry arrives |
 | 24/7 website intake | Public site is static; new queue has not been connected to it | Select and authorize a persistent HTTPS host, deployment, and website routing after synthetic end-to-end verification |
@@ -76,8 +76,11 @@ account/billing configuration. No new service has been purchased here.
 
 ## Owner Inputs Needed Next
 
-1. Privately resolve the API billing/limit issue and configure the intended
-   model in the terminal or host that will actually run the workflow.
+1. Confirm available API usage/terms and privately configure the intended
+   model in the actual runtime. The gpt-5.6-luna haiku succeeded; separately
+   authorize a synthetic check through Santa's structured bilingual gates.
+   Do not assume that the prior failed model and this successful request
+   have identical access, or that the haiku proves ongoing free usage.
 2. Sign in to the existing Vercel account so the Santa project and plan can
    be inspected; no authenticated account was accessible in the app at the
    latest check. Decide and authorize the backend deployment arrangement

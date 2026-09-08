@@ -2,7 +2,452 @@
 
 Shared coordination file for every Claude Code loop and worker. This file contains no customer data.
 
-Last coordinator check: 2026-09-05T04:13:21Z, verified local commit checkpoint
+Last coordinator check: 2026-09-05, post-18:14Z coordination clarification; spending v2 VERIFIED, packet wording review still open
+
+## Review status and planning clarification (Codex, 2026-09-05)
+
+Claim: this workboard status correction only, following the owner's pasted
+Claude note. The v2 code is no longer awaiting coordinator review: see the
+16:47Z independent safeguards review and the post-17:44Z green full release
+check. Correct the worker's part-1 label below to VERIFIED. Packet wording
+corrections remain separate; no source, budget or runtime setting changes.
+
+The proposed v3 monetary gate is not built or enabled. Design constraints:
+reserve the cost of the complete bounded input (instructions, schema and
+customer message) plus maximum billed output before dispatch; share atomic
+accounting across both adapters/processes; refuse unknown accounting or
+pricing; retain uncertain reservations after timeout/crash/missing usage.
+Concurrent workers must not each overshoot the application allowance.
+Use model-specific, dated, verified rates rather than requiring the owner
+to guess prices. Pricing drift and outside-account usage remain distinct
+from an application's enforced budget. No 25-cent or other precise daily
+allowance has been approved. No paid calls are authorized by planning.
+
+Owner confirmed the planning assumption of $0 ADDITIONAL service cost for
+the existing phone plan, website hosting and computer. This does not add a
+new phone automation service or make an offline PC answer customers. The
+latest request is a Gemini prompt for independent planning, not a model
+installation, replacement build, external submission or paid test.
+
+
+## Packet handoff independent recheck (Codex, 2026-09-05, post-17:44Z)
+
+Claim: read-only review of Claude's parts 2-5 READY_FOR_REVIEW handoff;
+this coordination note only. No source, runtime configuration, application
+document, credential or private customer state edited by this review.
+
+VERIFIED: the formerly failing copied-document fixture now passes without
+removing evidence checks. Focused validator/evidence/packet suites: 28 passed,
+11 subtests. Full `python -B scripts/ops_check.py`: all 7 steps PASS;
+644 passed, 5 skipped, 52 subtests in 71.51 seconds, all 20 suites found.
+The previous 1-failed release result is superseded for this working tree.
+Preflight explicitly does not certify final submission readiness.
+
+Packet review remains open for bounded wording corrections: reservations
+PRODUCTION.md still says key configuration starts production model use and
+omits the new positive allowance; production-deployment-record.md still
+labels locally tested capabilities LIVE and has stale inquiry-based duration
+and configuration-based model evidence rows; opn-form-answers.md retains one
+2026 "is running" claim and calls uncorroborated history corroborated;
+OPN-SUBMISSION.md calls `--demo` deterministic without forcing offline and
+describes its four-inquiry batch as one request. Do not weaken final evidence
+checks or fill real placeholders to clear these issues. Claude's packet
+owner can correct these exact descriptions against the existing code.
+
+Latest owner discussion: local Llama/Ollama or OpenAI gpt-oss is a proposed
+alternative, not an authorized model migration or proof of OPN eligibility.
+They want only cents per day and asked how long $14 would last. Paid calls
+remain off. The current shared allowance is a request cap, NOT a cent cap;
+no exact daily monetary allowance has been approved or implemented. Public
+form submissions queue work; model generation is operator-triggered, and
+the T-Mobile number has no automated model connection. No paid test, phone
+activation, purchase, commit, push, deployment or customer send occurred.
+
+
+## Spending v2 independent review (Codex, 2026-09-05T16:47Z)
+
+Claim: independent read-only review of Claude's part-1 READY_FOR_REVIEW
+handoff, plus this coordinator note only. Claude retains ownership of
+the in-progress packet/document corrections. No source, runtime or other
+worker files were edited by Codex during this review.
+
+Result: VERIFIED for the revised local spending safeguards, not deployment
+or a dollar guarantee. Paid generation defaults off in BOTH adapters even
+with a key; an explicit positive allowance is required. Atomic slot files
+replace the old read/check/append counter, and accounting allocation errors
+refuse requests. Inquiry/content size and output-token bounds are present.
+The old four rejection findings are resolved for the reviewed scope.
+
+Independent checks: 225 passed across triage, content adapter and web-inquiry
+suites. An additional temporary-state probe launched 24 separate processes
+using both real quota implementations with cap=3: exactly 3 grants; fresh
+content and triage processes then both refused. Slot contents were only
+timestamp/adapter metadata. These were allocation tests, not API calls.
+
+Scope limits: processes must use the SAME absolute private quota directory
+and consistent allowance. This is not account-wide across machines/users,
+does not survive an operator deleting its accounting state, and does not
+establish a provider hard-dollar cutoff. The mirrored implementations need
+cross-adapter regressions maintained together. No budget or paid operation
+has been authorized by this review; real model/schema acceptance and
+customer operation remain unverified.
+
+Full release recheck during Claude's document updates: FAIL, 1 failed,
+643 passed, 5 skipped, 52 subtests. All 20 suites discovered; slot validator,
+Ms. Claus review, tracker privacy and whitespace checks passed. OPN preflight
+also fails because the submission-validator suite fails. Exact reproduced
+test: scripts/test_validate_opn_submission.py::ValidatorTests::
+test_complete_final_fixture_passes_in_isolation. Its copied-document
+fixture still leaves one submission placeholder, and launch-claim parsing
+mistakes historical 2025-11-15 / 2025-12-24 references for the current
+synthetic 2026-08-01 launch. The isolated test reproduces all three findings.
+The pytest cache also retained an older slot-test failure ID, but that was
+not the failure reported by this full run; do not infer a second regression.
+
+Next for the packet owner: align the fixture with the revised documents
+and distinguish historical/explicitly non-launch context from actual launch
+claims without weakening final evidence gates. Keep real missing evidence
+as missing. Run the focused validator suite and then the release checks
+after document edits stabilize. Current whole-release status is BLOCKED,
+not the earlier reported 644-pass green. Do not repeat the known failure
+on unchanged inputs. No new public commit, push, deployment, live API call,
+credential handling, customer record or message occurred in this review.
+
+## Spending safeguards v2 + packet corrections (claude-fable, 2026-09-05T07:05Z)
+
+Claim: fix ALL four confirmed budget defects + application-doc corrections +
+GitHub update preparation + packet update | owner: claude-fable | files:
+tools/triage/triage.py (budget region rebuild: atomic O_EXCL slot-file
+reservations in a shared quota dir, default paid generation DISABLED,
+fail-closed accounting), tools/triage/test_triage.py (budget regressions
+incl. concurrency/mixed-adapter/corruption/failed-write/restart),
+tools/triage/README.md, business/reservations/openai_adapter.py + its test
+(same shared quota, cap honored incl. 0/default-off),
+docs/day-one-operator-card.md (spending section corrected after fix),
+docs/production-deployment-record.md + business/reservations/PRODUCTION.md
+(claims audit fixes), docs/OPN-SUBMISSION.md (supported-facts update,
+missing evidence marked), this workboard | boundaries: no paid calls, no
+key handling, no commit/push (GitHub update PREPARED only, awaiting new
+authorization), synthetic fixtures only.
+
+Result (part 1 - spending safeguards v2): claude-fable | status:
+VERIFIED by Codex (2026-09-05T16:47Z; full release rechecked after 17:44Z) | all four rejection findings fixed at the root:
+(1) CONCURRENCY - the count is now atomic O_CREAT|O_EXCL slot-file
+reservations in one shared quota dir (%LOCALAPPDATA%\MiamiPapaNoel\api-quota,
+override MPN_API_QUOTA_DIR); 8-thread race regression proves exactly cap
+grants, never more. (2) UNREADABLE ACCOUNTING now REFUSES paid generation
+(BUDGET_ACCOUNTING_UNAVAILABLE) - quota-dir-as-file and PermissionError
+probes both refuse with zero requests; the allowance can never reset.
+(3) CONTENT ADAPTER now mirrors the same scheme (no cross-stack import,
+same dir + slot naming): default/0/unreadable cap refuse with a rejected
+manifest and no transport call; a triage-claimed slot reduces the content
+allowance (mixed-adapter regression both directions). (4) DEFAULT IS
+ZERO-SPEND: unset cap = PAID_CALLS_DISABLED even with a key; every paid
+test opts in explicitly. Also added: input bound (6000 chars,
+MODEL_INPUT_TOO_LARGE, nothing sent), cap ceiling 500/day, restart
+persistence + timeout-consumes-slot-never-retries regressions, secret/
+inquiry-text-free slot+ledger assertion. Docs corrected (README v2 section,
+operator card v2 section) and both now state plainly: request/token limits,
+NOT a dollar guarantee; dashboard alerts are not a verified cutoff. Tests:
+triage 123, adapter 14, web_inquiry 88; FULL BATTERY 644 passed, 5 skipped,
+52 subtests, 20 suites, ops_check 7/7 PASS. Parts 2-5 (doc/claims audit,
+GitHub update prep, packet) in progress via read-only audit workflow.
+
+Result (parts 2-5): claude-fable | status: READY_FOR_REVIEW | (2) workflow
+verification carried by the standing suites (644) - no UI change this cycle,
+prior browser QA stands. (3) CLAIMS CORRECTED per 3-auditor read-only audit:
+business/reservations/PRODUCTION.md (launch date -> [TO FILL] + installation-
+checkpoint note; status -> NOT STARTED; "Live" -> "Built"; no-model-run
+caveat; "assists in operating" -> future tense; orchestrator qualified;
+health-daily corrected) + OPS-LOG.md "launch" -> installation checkpoint.
+(5) PACKET CORRECTED: opn-form-answers.md no longer presents the attested
+2025 season as satisfying the 15-day requirement, states plainly the 2026
+window has NOT started, present-tense "running it again" removed,
+"the client" -> family-business wording, MISSING-EVIDENCE marks on AI-work
+and 14-visit claims, placeholders converted to validator-matching [TO FILL:]
+form; OPN-SUBMISSION.md Last-updated line, family-business relationship,
+payment-gate row un-stales Stripe, six-DRAFT-validation-gates labeling,
+launch clock aligned to the send-timestamp predicate, 2017 claim marked,
+reviewer-clone NOTE; gap-report stale dates/rule/rails/optionality fixed;
+evidence-index stale test name + CORROBORATED->ATTESTED + rails; release-
+monitoring 45-tests removed + rails; release-checklist + account-setup-
+checklist rails harmonized; production-deployment-record "Implemented
+functionality" + attested-status + clock + relationship. Validator fixture
+updated to the new audited wording (20 passed + 11 subtests); dates moved
+off the LAUNCH_LINE_RE trigger line. Preflight: PASS, 0 blocking, 9 honest
+warnings. FINAL BATTERY: 644 passed, 20 suites, ops_check 7/7.
+(4) GITHUB UPDATE PREPARED, NOT EXECUTED (needs new authorization): branches
+diverged at 9485bb8 (4 local commits vs 2 remote; 61d0f14 NOT an ancestor of
+cb03e99); plan = (a) commit the uncommitted set BY EXPLICIT PATH (12 modified
++ docs/codex-day-one-handoff.md, docs/day-one-operator-card.md,
+tools/triage/production_evidence.py which is a HARD import - pushing without
+it ships a broken branch; never git add -A; Claude outputs/ + _to_delete/
+now gitignored), (b) true merge of origin/codex/santa-checkpoint-2026-09-04
+into the local branch - 7 known conflict files, resolve by union keeping
+both guard sets, (c) push local branch, then fast-forward the PR branch
+(merge has 61d0f14 as parent, so NO force anywhere), (d) ff-only update
+inside the Codex worktree. Push-blocker CLEARED: the one private temp path
+(workboard QA line) is redacted; secrets/customer-data scans clean
+(synthetic canary + 555 fixtures only) | blockers: commit/merge/push await
+owner authorization; single next owner action unchanged.
+
+## Spending-control coordinator review (Codex, 2026-09-05T06:19Z)
+
+Claim: review Claude's READY_FOR_REVIEW budget handoff without changing its
+source; update this workboard and docs/day-one-operator-card.md only so the
+owner is not instructed to spend against unverified safeguards. The owner
+has raised affordability concerns; no new paid test, launch, service or
+budget has been authorized. Preserve manual/offline operation and the
+existing blocked Day 1 goal. Do not ask again for a paid test on each loop.
+
+Review status: BLOCKED / corrections required, not VERIFIED. Existing
+focused tests independently pass: 125 across triage and content adapter.
+Three additional synthetic, network-blocked temporary-state probes confirm:
+
+- tools/triage/triage.py:469-477 checks the ledger and appends separately.
+  With two synchronized callers and cap=1, both reached the mocked API
+  (2 requests). The cap is not concurrency-safe across operator processes.
+- tools/triage/triage.py:429-446 treats every ledger read OSError as zero
+  calls; the mocked PermissionError probe returns 0. An unreadable history
+  must refuse paid generation, not reset the allowance. Malformed rows and
+  reservation/write failures also need explicit fail-closed handling.
+- business/reservations/openai_adapter.py:90-108 never consults the daily
+  cap. With MPN_API_DAILY_CALL_CAP=0 it still invoked the injected content
+  transport once. An output-token bound does not disable or count calls.
+
+Also, the default permits 12 triage attempts once a key/model is configured,
+not an owner-approved zero-spend default. The current cap is per ledger,
+not an account-wide dollar ceiling. The card's recommendation to set a
+provider hard spend limit is not verified and must not be relied upon.
+
+No actual network call, credential, customer data, production ledger,
+runtime configuration, source change, commit, push or deployment was used.
+Probe scratch state was temporary. Claude's 632-test full-battery report
+is retained below as its report, not independent coordinator verification;
+the earlier 626-test result predates this patch. Do not rerun the full
+battery merely to turn these missing cases green. Next code handoff must
+cover all paid paths with an explicit opt-in, atomic shared reservations,
+and fail-closed ledger errors, with mocked regressions for these cases.
+Do not resume paid operation merely because tests pass; owner budget and
+authorization, real model verification and genuine use remain separate.
+
+## Spending controls for paid model calls (claude-fable, 2026-09-05)
+
+Claim: local API budget gate at the shared model-call choke point | owner:
+claude-fable | files: tools/triage/triage.py (call_openai_triage region +
+budget helpers only - preserving the evidence-clock and check-model work),
+tools/triage/test_triage.py (append), tools/triage/README.md +
+tools/triage/log-schema.md (budget knobs + new error codes),
+business/reservations/openai_adapter.py + tests/test_openai_adapter.py
+(max_output_tokens bound only), docs/day-one-operator-card.md (budget note),
+this workboard | design: deterministic daily call cap (MPN_API_DAILY_CALL_CAP,
+default 12, 0 = paid calls disabled) counted in a private ledger outside Git
+before each request; per-call MPN_API_MAX_OUTPUT_TOKENS bound (default 900)
+in the request payload; over-cap -> deterministic offline fallback with its
+own error code, never a paid request; token usage recorded after success for
+visibility. HONEST LIMIT: calls+tokens, not dollars - no price table is
+invented. No API request, no credential handling in this task.
+
+Result: claude-fable | status: READY_FOR_REVIEW | files as claimed | tests:
+triage 115 passed (7 new budget regressions: cap-0 and unreadable-cap send
+NOTHING and write nothing; cap-2 allows exactly 2 then falls back with
+BUDGET_CAP_REACHED and zero further requests; failed attempts count and are
+never auto-retried; max_output_tokens 900 default / env override present in
+the payload; ledger carries counts only - no key, no inquiry text);
+reservations adapter 10 passed (max_completion_tokens 800 bound asserted);
+FULL BATTERY 632 passed, 5 skipped, 52 subtests, all 20 suites, ops_check
+7/7 PASS first run | integration notes: --check-model is now metered too -
+its no-writes invariant was narrowed to permit exactly the paid-call ledger
+(fixture asserts the single allowed file); the 23-case failure regression
+sets an explicit high cap so it tests diagnostics, not the budget; new
+error codes PAID_CALLS_DISABLED / BUDGET_CAP_REACHED documented in
+log-schema.md; budget knobs documented in triage README + operator card
+(card recommends MPN_API_DAILY_CALL_CAP=3 for day one and a provider-side
+dollar limit, which no local control replaces) | blockers: NONE for the
+control itself; paid generation remains inert until the owner configures
+the rotated key.
+
+Status: VERIFIED (local implementation only). Prior goal turn made concrete progress: --check-model
+and operator instructions, 583 full-suite tests passed. Private key/model
+are still absent in this process; no authorized live replacement test can
+run here yet. Bounded next defect: --status counts any production row, and
+the submission validator can combine an old fallback date with a new AI
+reply. Claim tools/triage/production_evidence.py (new shared predicate),
+tools/triage/triage.py, tools/triage/test_triage.py,
+scripts/validate_opn_submission.py, scripts/test_validate_opn_submission.py,
+tools/triage/log-schema.md, tools/triage/README.md,
+docs/production-launch.md, docs/day-one-operator-card.md,
+docs/codex-day-one-handoff.md, docs/OPN-VALIDATION.md and this workboard.
+Use recorded real, non-fallback, gated, reviewed/sent evidence and full
+elapsed timestamps; no qualification guarantee or changed customer records.
+All tests synthetic/offline; no credentials, sends, push or deployment.
+
+Result: one shared reviewed-model-send predicate now controls both status
+and submission duration. It excludes fallback, pending, missing/failed-gate,
+unnamed-reviewer, error and invalid timestamp records. Full UTC elapsed
+time starts at the recorded send, not an earlier fallback inquiry. New real
+CLI records carry offsets; legacy local timestamps are interpreted in the
+operator machine's timezone. Status rejects malformed/contaminated JSONL
+and duplicate IDs without printing record bodies. Neither tool declares
+OPN qualification from elapsed time. Extreme UTC-conversion dates were
+probed, fixed to reject cleanly, and pinned with regressions.
+
+Final checks: 129 focused tests + 11 subtests passed. Full ops check:
+626 passed, 5 skipped, 52 subtests; all 20 suites and all operations checks
+PASS. Changed-file credential-pattern scan: 13 files, zero findings.
+No production log exists at the default path; key/model presence remain
+false in this process. No live model request, customer message, production
+record, deployment or Git commit/push was made. All exec checks finished.
+
+Goal audit: setup/checklist and demonstrated local defects are handled.
+Actual Luna structured response/gate acceptance and genuine reviewed/sent
+customer operation are NOT verified. The same private replacement-key
+dependency was recorded in the initial goal/handoff turn, the model-check
+continuation and this continuation, and is still present on recheck. Goal
+is BLOCKED pending owner setup/results, not complete. The completed code
+and this turn's tests are progress, not customer-use evidence. Next owner
+action: follow the private setup in docs/day-one-operator-card.md and run
+--check-model in that same terminal. Share only the non-secret result.
+After a real model pass, use an actual incoming inquiry and record human
+review/send honestly. While inputs remain unchanged, do not run more API
+probes, fabricate records, add speculative features or repeat full suites.
+
+## Model-check CLI (Codex, 2026-09-05T04:34Z)
+
+Claim: explicit synthetic `--check-model` with nonzero fallback status and
+no inquiry log or approval. Files: tools/triage/triage.py,
+tools/triage/test_triage.py, tools/triage/README.md,
+docs/production-launch.md, docs/codex-day-one-handoff.md, this workboard.
+Use the existing Responses/schema/bilingual gates, not a second adapter.
+Test with mocked API responses only; no exposed key, live request, real
+inquiry, launch attestation, commit, push or deployment. Leave Claude's
+operator-card/browser-review claim and scratch folders untouched.
+
+Result: implemented and locally verified. Focused tests: 71 passed. Full
+ops check: 583 passed, 5 skipped, 41 subtests; all 20 suites and every
+ops step PASS. CLI smoke without private configuration returned exit 1
+and NOT VERIFIED, with no API call or inquiry log. The default production
+status still reports NOT STARTED. No live Luna workflow success is claimed.
+
+Coordinator review: Claude's operator card is now READY_FOR_REVIEW, so
+Codex additionally claims docs/day-one-operator-card.md for two doc fixes:
+use --check-model instead of the synthetic logging command, and distinguish
+verified model-backed reviewed/sent use from the legacy first-row counter.
+The reported browser QA is Claude's evidence, not independently rerun here.
+Source changes remain local and uncommitted. Next input: privately configured
+replacement key and owner-authorized model check; genuine use remains later.
+
+## Day-one continuation (claude-fable, 2026-09-05T05:05Z)
+
+Claim: Luna-readiness without credential + fresh browser visual QA + day-one
+operator card | owner: claude-fable | files: docs/day-one-operator-card.md
+(NEW), this workboard | read/run only elsewhere: adapter request-contract
+inspection, offline browser journey on synthetic scratchpad state
+(desktop + mobile), no API request, no credential handling, no --real,
+no config or source edits | test: browser journey evidence + focused
+checks; no full battery without source changes.
+
+Result: claude-fable | status: READY_FOR_REVIEW | files:
+docs/day-one-operator-card.md (NEW), this workboard | evidence:
+(1) Luna-readiness without credential: triage adapter already sends the
+modern Responses API shape the successful haiku used - /v1/responses,
+store:false, strict json_schema text.format; MPN_MODEL flows as a plain
+string, so no code change is needed for gpt-5.6-luna. Untestable from here:
+schema acceptance + entitlement - exactly one bounded operator test remains
+(command on the card, PASS = "model : gpt-5.6-luna" with no offline-fallback
+tag). (2) FRESH BROWSER QA (real Chrome pane, synthetic scratchpad state,
+--offline): public form renders bilingually with DEMO banner, consent and
+OpenAI disclosure; ES home-visit submission -> receipt "Solicitud recibida
+MPN-WEB-... / No es una confirmacion de reserva" with correct 786-975-9557
+footer; operator sign-in; draft generated with red "Offline fallback /
+Respuesta de respaldo sin IA" label, SPANISH DRAFT FIRST with English
+retained, all six gates rendered PASS, locked $325 family price, Zelle-only;
+genuine-customer checkbox verified INERT in demo (app.js real.disabled=!live);
+approve -> "Aprobado; no se ha enviado nada"; Record manual send guarded by
+a native confirm ("Have you actually sent...?") - browser auto-cancel proved
+it blocks, stubbed OK recorded "Envio manual registrado". Mobile 375px: form
+and desk render clean, no horizontal scroll; fresh navigation demands
+sign-in again. (3) Operator card command syntax verified offline verbatim
+(es/family_visit/6 gates). No repo state touched; QA server stopped;
+scratchpad state only | blockers: the one bounded Luna test needs the
+owner's rotated credential in the operator terminal | next: owner runs the
+card's step 1-3.
+
+## New Goal and Continuation Prompt (2026-09-05)
+
+The user requested a new goal, then a prompt for Codex to continue the
+build. Created the active goal: get the operator-assisted Mrs. Claus
+workflow ready for genuine use, verify Luna through actual bilingual
+gates, and establish Day 1 only from real reviewed/sent customer work.
+Codex claims this note and docs/codex-day-one-handoff.md only for the
+handoff. The pasted Claude transcript confirms the preflight is done;
+do not restart it. The continuation file identifies the committed baseline,
+newer diagnostic notes, exact successful/failed request scopes, credential
+rotation, bounded test authorization and the remaining owner/host work.
+No further API request, model configuration change, production activity,
+Git commit/push or deployment was performed to prepare this prompt.
+
+## Exact Haiku Request Succeeded (2026-09-05T04:29:06Z)
+
+Owner: Codex. Scope: redacted result in this board and launch checklist;
+no source/configuration edit. Status: VERIFIED synthetic API response,
+not verified Santa integration, pricing entitlement or production use.
+
+The user separately authorized their exact curl request: Responses API,
+model gpt-5.6-luna, input "write a haiku about ai", store true. Executed
+curl.exe once with the credential supplied through hidden terminal input
+and in-memory stdin configuration, never a file or process command-line
+argument. No retries or redirects. Curl exit 0, HTTP 200, returned model
+gpt-5.6-luna, response status completed, 12 input tokens, 99 output tokens,
+111 total tokens. The API returned a haiku. No raw response, credential or
+identifier was persisted locally; store true was preserved as explicitly
+requested, so this was not a no-provider-storage request.
+
+This supersedes any blanket inference that the earlier zero balance or
+gpt-4.1-mini-2025-04-14 failure rules out all model access. That earlier
+request really returned credit_balance_exhausted; this different exact
+request really succeeded. The reason for the difference and whether the
+successful call was free are not established by the response. Do not
+invent an entitlement, a paid charge or a grant-expiration explanation.
+
+Santa's configuration was not changed and its structured bilingual/gated
+path was not tested with gpt-5.6-luna. Next: with separate authorization,
+verify that path using a privately configured replacement credential,
+confirm available usage/terms, and retain synthetic/customer separation.
+No customer activity or production log was created; no production date
+or OPN qualification is asserted. Do not reuse the exposed credential in
+scheduled jobs. No full battery rerun for these documentation-only notes.
+
+## API Connection Diagnosis (2026-09-05T04:27:17Z)
+
+Owner: Codex. Scope: this redacted coordination note only; no source edit.
+Status: VERIFIED diagnosis; successful model access remains BLOCKED.
+The user explicitly authorized one synthetic request using the supplied
+test credential. Passed it through hidden terminal input, held only in the
+test process, never written to source/config/logs or printed. The user has
+been advised to rotate it because it appeared in chat; do not reuse it in
+an automation. No credential, prefix or hash is recorded here.
+
+Exactly one direct Responses API request was attempted, with redirects
+disabled and a 1200-output-token cap. The configured snapshot was
+gpt-4.1-mini-2025-04-14; it did not produce a usable model response. The API
+returned HTTP 429 with the allowlisted code credit_balance_exhausted.
+This confirms exhausted prepaid credit for that request, not why the
+earlier balance changed. Do not infer charges or expired grants without
+the account's billing evidence.
+
+The existing build_record path handled a synthetic Spanish home-visit
+inquiry: language es, fallback_used true, model offline-rules-v1,
+error_code MODEL_HTTP_ERROR; English and Spanish fallback drafts present,
+all six gates PASS, real_customer false. No customer message, approval,
+payment or production log was created. No retries; the process exited.
+No full regression rerun is warranted for this note-only update.
+
+Next: the owner resolves available API credit or selects an authorized
+funded organization, rotates the exposed key and configures its replacement
+privately. Only then run a separately authorized synthetic model-backed
+check. Keep auto-reload off unless the owner chooses otherwise. This test
+does not begin the production window or satisfy the 15-day requirement.
 
 ## Coordinator Wrap-Up (2026-09-05)
 
@@ -677,10 +1122,10 @@ instructions in tools/web_inquiry/README.md with your own private token
 and appropriate data directory for a fresh operator session. Do not use
 the test-suite token or reuse demo records as customer activity.
 
-QA artifacts, all synthetic, are outside Git at
-C:\Users\GREENM~1\AppData\Local\Temp\MPN-Inquiry-QA-3229df760cb24ef49ab2571896451ab8
-(inquiry-desktop.png, inquiry-mobile.png, operator-desktop.png,
-operator-mobile.png, operator-mobile-320.png). The README documents local
+QA artifacts, all synthetic, are stored outside Git in a private local temp
+directory (redacted 2026-09-05 before any push: inquiry-desktop.png,
+inquiry-mobile.png, operator-desktop.png, operator-mobile.png,
+operator-mobile-320.png). The README documents local
 startup, private storage/backup, exact manual fallback, snapshot evidence,
 and the HTTPS/proxy/persistent-host requirements before a public release.
 

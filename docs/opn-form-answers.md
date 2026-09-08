@@ -19,8 +19,8 @@ corroborate them are assembled per `docs/evidence-intake.md`.
 > for intake, communications, scheduling, or follow-up.
 >
 > I proposed the system, built it, and operated it as sole technical and
-> operational owner. The client performs the service; the workflow and its
-> daily operation are mine.
+> operational owner. The owner (a family member with a distinct role)
+> performs the service; the workflow and its daily operation are mine.
 >
 > **Architecture.** Rather than a single assistant, I built a set of themed
 > agent workflows mapped to business functions — Santa, Mrs. Claus, and the
@@ -42,14 +42,21 @@ corroborate them are assembled per `docs/evidence-intake.md`.
 > I reviewed every customer-facing message before it sent. Scheduling,
 > logistics and payment tracking were operated by me, with the agent workflows
 > supporting intake and communications around them.
+> [MISSING EVIDENCE: one dated, redacted AI-workflow artifact per
+> docs/evidence-intake.md item 8; receipts prove the business operated, not
+> that AI did.]
 >
 > **Outcome:** 14 visits across a 40-day operating season, spanning hospitals,
 > county sites, retail, emergency services and private families — up from a
 > previous seasonal maximum of approximately 5 visits, per the owner's written
 > confirmation. The operational load moved off the performers entirely —
-> Santa shows up and performs, and nothing else lands on him. The client is running it again for
-> the 2026 season, with the workflow being extended to formalised booking
-> intake and a verified business listing.
+> Santa shows up and performs, and nothing else lands on him. The owner
+> confirmed renewal for the 2026 season (written confirmation, 2026-08-30).
+> Planned 2026 extensions - formalised booking intake and a business
+> listing - have not launched; the 2026 AI production window has not started.
+> [MISSING EVIDENCE: redacted receipts/booking records; 14-visit exact count
+> not yet confirmed against records; owner statement provenance completion
+> pending.]
 
 ## Deployment entry
 
@@ -77,9 +84,12 @@ Read these before typing anything into the form:
   guess — it is the field a technical reviewer checks hardest.
 - **Confirm 14 is exact** against the records before submitting. A precise
   number you can evidence beats "around 14."
-- **Do not pad the volume.** The review tests whether the workflow was real,
-  in production, and ran 15+ days. 40 days and 14 visits clear all three;
-  padding is the only way to lose.
+- **Do not pad the volume.** The feedback email requires at least one
+  customer AI solution operating in production for at least 15 days. As of
+  2026-09-05, that requirement is NOT met: the 2026 deployment has processed
+  no real customer inquiry and its evidence window has not started; the 2025
+  season's AI operation is operator-attested history, not instrumented
+  production evidence.
 - **Best single upload:** one dated message thread spanning several days,
   ideally coordinating an institutional booking — it proves duration and
   production use in one artifact. Redact patient names, children's faces,
@@ -117,6 +127,9 @@ reviewer will ask - and the honest split reads stronger, not weaker.
 > customer-facing output was reviewed by me before sending. Scheduling,
 > logistics, and payment tracking were the manual operational surround, not
 > AI functions, and are not claimed as such.
+> [MISSING EVIDENCE: one dated, redacted AI-workflow artifact per
+> docs/evidence-intake.md item 8; receipts prove the business operated, not
+> that AI did.]
 
 ### Concrete outcome
 
@@ -125,8 +138,11 @@ reviewer will ask - and the honest split reads stronger, not weaker.
 > locations, fire and police departments, and private families — up from a
 > previous seasonal maximum of approximately 5 visits, per the owner's written
 > confirmation of 2026-08-30. The operational load moved off the
-> non-technical performers entirely. The client is running the workflow again
-> for the 2026 season.
+> non-technical performers entirely. The owner (a family member with a
+> distinct role) is running the workflow again for the 2026 season.
+> [MISSING EVIDENCE: redacted receipts/booking records; 14-visit exact count
+> not yet confirmed against records; owner statement provenance completion
+> pending.]
 
 ### Production model or models
 
@@ -135,7 +151,7 @@ variants - never a guess:
 
 **Variant A - the 2025 model is verified in the records:**
 
-> The 2025 season ran on **[EXACT MODEL/TIER FROM THE ACCOUNT HISTORY]**.
+> The 2025 season ran on **[TO FILL: exact model/tier from the account history]**.
 > For the 2026 reactivation the model is pinned explicitly: every logged
 > inquiry records the exact model id that produced its draft, and a
 > deterministic rules engine (`offline-rules-v1`) is the no-model fallback -
@@ -146,7 +162,7 @@ variants - never a guess:
 > The 2025 season ran on a commercial assistant; the specific model version
 > is not retained in the 2025 records, and we state that plainly rather than
 > guess. The 2026 seasonal cycle removes the ambiguity: the production model is
-> **[EXACT MODEL ID FROM THE 2026 PRODUCTION LOG]**, recorded verbatim on
+> **[TO FILL: exact model id from the 2026 production log]**, recorded verbatim on
 > every logged inquiry, with a deterministic rules engine
 > (`offline-rules-v1`) as the no-model fallback - always logged as a
 > fallback, never presented as a model.
@@ -239,7 +255,8 @@ Either way, close with the policy line:
 > are logged as fallbacks with the cause, so outages appear in the record
 > instead of hiding in it. Third, at the draft level, any gate failure
 > blocks approval entirely - a bad price, a confirmation phrase, an
-> insurance claim, or a non-Zelle payment method cannot be approved. The
+> insurance claim, or a payment method outside the official rails cannot be
+> approved. The
 > business earns its year in about six weeks and cannot pause mid-season, so
 > nothing is permitted to become load-bearing beyond what the operator can
 > do by hand within the hour. The system fails closed at every layer: when
@@ -297,3 +314,5 @@ has a hole a reviewer will find:
 - [ ] One dated AI-workflow artifact selected, redacted, and indexed
 - [ ] Owner confirmation email dated and indexed
 - [ ] Tests and --preflight rerun at the submitted commit; reported counts taken from that run only
+
+Per docs/production-launch.md, the 2025 attested season is presented as corroborated history and never as the 2026 evidence window.

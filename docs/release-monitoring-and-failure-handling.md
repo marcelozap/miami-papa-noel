@@ -8,7 +8,7 @@ Scope: the bilingual inquiry triage deployment and the workflow around it.
 
 | Change | Check | State |
 |---|---|---|
-| Triage logic, extraction, drafting | `python -m pytest tools\triage\test_triage.py -q` — **45 tests, all passing** | **LIVE** |
+| Triage logic, extraction, drafting | `python -m pytest tools\triage\test_triage.py -q` — **all tests passing; dated counts live in `docs/santa-agent-workboard.md` and are re-measured at the submitted commit** | **LIVE** |
 | Validation gates | Negative tests assert each gate actually blocks: unlocked price, EN/ES mismatch, confirmation language (EN and accented ES), insurance claim, non-Zelle method, missing info without a question | **LIVE** |
 | Log integrity | Tests assert drafts and message bodies never reach the log, records are never pre-approved, synthetic and production logs are separate files | **LIVE** |
 | Slot confirmations | `python scripts\validate_slot_confirmations.py` — passing | **LIVE** |
@@ -62,8 +62,11 @@ operator reads the slot board and decides. **The tool never books.**
 
 ## 5. Missing payment handling
 
-**Zelle only** — 305-244-0360. No processor, no card handling, no online payment
-acceptance, no stored instrument. The system never moves money.
+**Official rails only:** Zelle to 305-244-0360; the business's own
+buy.stripe.com Payment Link once the operator creates it (adopted 2026-08-30,
+not yet live). All other methods prohibited. No processor, no card handling,
+no online payment acceptance, no stored instrument runs in this system. The
+system never moves money.
 
 | Situation | Handling |
 |---|---|

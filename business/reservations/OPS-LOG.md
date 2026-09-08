@@ -7,4 +7,4 @@ touched (created / advanced / confirmed / completed) · anything escalated.
 Format: `YYYY-MM-DD · health: <result> · activity: <summary>`
 
 <!-- First entry is written on launch day, on the production machine. -->
-2026-09-04 · health: clean · activity: system installed, 17/17 tests passed on this machine, launch
+2026-09-04 · health: clean · activity: system installed, 17/17 tests passed on this machine, installation checkpoint — production launch NOT STARTED (no real customer inquiry processed)

@@ -33,7 +33,9 @@ Final mode fails closed unless all of these are true:
 - The external production JSONL contains valid, privacy-minimal real records.
 - At least one real inquiry was processed by a non-fallback model, approved by
   the operator, and sent manually.
-- The earliest real record is at least 15 calendar days old.
+- The first valid real, gated, model-backed reviewed-and-sent record is at
+  least 15 full days old, measured from its send timestamp. An old fallback
+  or pending inquiry cannot age a newer model reply.
 - The external evidence index contains redacted artifacts with matching
   SHA-256 hashes, including a receipt or counterparty statement.
 - Public customer surfaces remain Zelle-only, policy-safe, and aligned with
@@ -127,7 +129,8 @@ Both modes also verify the repository's own claims:
 
 - no model name in `docs/OPN-SUBMISSION.md` or the deployment record that
   never appears in the production log
-- no launch or first-inquiry date that contradicts the earliest log record
+- no launch date that contradicts the first valid model-backed reviewed/sent
+  record (shown in the operator machine's local timezone for date comparisons)
 - test-count claims in the docs match what the suites actually pass
 - no tracked `.env`, `.pem`, `.key`, or `.jsonl` file in Git (the redacted
   example is the one exception)

@@ -13,10 +13,10 @@
 | **Deployment name** | Bilingual Inquiry Triage with Human Approval |
 | **Operator organization** | XIV (Marcelo Zapata) |
 | **Business served** | Miami Papa Noel — bilingual Santa appearance and booking business, Miami-Doral and surrounding areas |
-| **Relationship** | Miami Papa Noel is the service the performers deliver; the performers are experienced but not technical. Marcelo Zapata (XIV) proposed, built, and operates the workflow as **sole technical and operational owner**. Describe exactly this arrangement on the form; do not present it as an arms-length external enterprise customer |
+| **Relationship** | Miami Papa Noel is a family business with distinct principals: Walter Zapata owns and operates the Santa visit service; the performers are experienced but not technical. Marcelo Zapata (XIV) designed, built, and operates the AI workflow as **sole technical and operational owner**. It is not an arms-length external enterprise customer, and the packet says so plainly. Describe exactly this arrangement on the form |
 | **Prior season history** | The role-based workflow operated in production 2025-11-15 to 2025-12-24 (40 calendar days, inclusive), delivering 14 visits across hospitals, Miami-Dade County sites, Publix locations, fire and police departments, and private families - per `docs/operator-attestation-2025-season.md`. Supporting artifacts in assembly |
-| **Production status** | **2025 seasonal production completed; 2026 seasonal workflow reactivated and being improved.** Not currently active, and not a year-round service - seasonal by nature. The 2026 triage tool is built and runnable; its own production clock starts on the first real customer inquiry processed through it |
-| **Launch date** | `[TO FILL on first real inquiry]` — recorded automatically as `received_at` on the first `--real` log line. **Never backdated** |
+| **Production status** | **Per the dated 2025 owner attestation (`docs/operator-attestation-2025-season.md`), a prior seasonal operation ran during the attested 2025 season window (dates in the attestation and the Prior-season row above); the 2026 workflow is rebuilt and NOT STARTED.** Not currently active, and not a year-round service - seasonal by nature. The 2026 triage tool is built and runnable; its own production clock starts on the first real customer inquiry processed through it |
+| **Launch date** | `[TO FILL on first real inquiry]` — Launch date = the first real inquiry record (never backdated); the 15-day evidence window is measured from the send timestamp of the first valid real, model-backed, reviewed-and-sent record - fallback or unsent records never start it (shared predicate: `tools/triage/production_evidence.py`) |
 | **15-day qualification** | `[NOT YET MET]` — earliest qualification is first real inquiry + 15 days. Run `--status` for the live figure |
 
 ## Ownership and approval
@@ -28,7 +28,10 @@
 | **Release approval** | Single-operator. Documented in `docs/release-checklist.md` |
 | **Human approval gate** | **Mandatory and unskippable.** The tool has no send path. The operator types `APPROVE`, then copies the draft into the customer channel by hand |
 
-## Live functionality
+## Implemented functionality
+
+LIVE in this table means implemented and passing the synthetic regression
+suite; no production use has occurred and nothing is deployed.
 
 What the tool implements, verified by the synthetic regression suite
 (dated results in `docs/santa-agent-workboard.md`):

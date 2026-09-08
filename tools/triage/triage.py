@@ -34,6 +34,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import validators  # noqa: E402
+from production_evidence import (  # noqa: E402
+    QUALIFYING_DAYS, VALIDATION_CHECKS, reviewed_model_send_at,
+)
 
 HERE = Path(__file__).resolve().parent
 PRICING_PATH = HERE / "pricing.json"
@@ -41,9 +44,6 @@ PROMPT_VERSION = "triage-v1.1.0"
 OFFLINE_MODEL = "offline-rules-v1"
 OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses"
 MODEL_TIMEOUT_SECONDS = 30
-
-QUALIFYING_DAYS = 15
-
 
 # ------------------------------------------------------------------ storage --
 
@@ -385,6 +385,104 @@ def _http_error_diagnostic(error: urllib.error.HTTPError) -> str:
     return "OpenAI API request failed: HTTP %s; category=%s. %s" % (status, category, hint)
 
 
+# ------------------------------------------------------------- api budget ---
+#
+# Local spending controls, v2 (all four coordinator findings fixed):
+# - Paid generation is DISABLED BY DEFAULT. It runs only when the owner has
+#   BOTH configured credentials AND set MPN_API_DAILY_CALL_CAP to a positive
+#   number. A key alone never spends.
+# - The daily allowance is enforced by atomic slot-file reservations
+#   (os.O_CREAT | os.O_EXCL) in one shared quota directory, so concurrent
+#   processes AND both paid adapters (this one and the reservations content
+#   adapter) draw from a single count that cannot be exceeded together.
+# - Any accounting failure REFUSES paid generation - an unreadable or
+#   unwritable quota store never resets the allowance.
+# - This bounds request COUNT and per-call INPUT/OUTPUT size. It is NOT a
+#   dollar guarantee: no price table exists here, and provider dashboard
+#   alerts are not a verified hard cutoff.
+# Keep the reservation scheme in sync with the mirrored copy in
+# business/reservations/openai_adapter.py - the stacks share the quota
+# directory and slot-file naming but deliberately do not import each other.
+
+API_MAX_OUTPUT_TOKENS_DEFAULT = 900
+API_MAX_INPUT_CHARS = 6000
+API_CALL_CAP_CEILING = 500
+
+
+def _utcnow() -> dt.datetime:
+    return dt.datetime.now(dt.timezone.utc)
+
+
+def api_quota_dir() -> Path:
+    """Shared paid-call quota store, outside the repository."""
+    override = os.environ.get("MPN_API_QUOTA_DIR")
+    if override:
+        return Path(override)
+    base = os.environ.get("LOCALAPPDATA") or os.path.expanduser("~")
+    return Path(base) / "MiamiPapaNoel" / "api-quota"
+
+
+def api_ledger_path() -> Path:
+    """Usage-visibility ledger (informational only, never the counter)."""
+    return log_dir() / "api-usage.jsonl"
+
+
+def api_daily_call_cap() -> int:
+    """Explicit zero-spend opt-in: unset, 0, or unreadable DISABLE paid calls."""
+    raw = os.environ.get("MPN_API_DAILY_CALL_CAP", "")
+    if not raw:
+        return 0
+    try:
+        return max(0, min(int(raw), API_CALL_CAP_CEILING))
+    except ValueError:
+        return 0
+
+
+def api_max_output_tokens() -> int:
+    raw = os.environ.get("MPN_API_MAX_OUTPUT_TOKENS", "")
+    try:
+        value = int(raw) if raw else API_MAX_OUTPUT_TOKENS_DEFAULT
+    except ValueError:
+        return API_MAX_OUTPUT_TOKENS_DEFAULT
+    return max(1, value)
+
+
+def reserve_paid_call(cap: int, adapter: str,
+                      now: dt.datetime | None = None) -> tuple:
+    """Atomically claim one of today's shared paid-call slots.
+
+    Returns (True, slot_path) or (False, refusal_code). O_CREAT|O_EXCL makes
+    each slot claimable by exactly one process; slot files persist across
+    restarts, so the allowance survives them. Every OSError refuses the
+    call - accounting failure must never spend money.
+    """
+    moment = now or _utcnow()
+    day = moment.strftime("%Y-%m-%d")
+    try:
+        directory = api_quota_dir()
+        directory.mkdir(parents=True, exist_ok=True)
+        for slot in range(cap):
+            path = directory / ("%s-slot-%03d.json" % (day, slot))
+            try:
+                handle = os.open(str(path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            except FileExistsError:
+                continue
+            with os.fdopen(handle, "w", encoding="utf-8") as fh:
+                fh.write(json.dumps({"at": moment.isoformat(timespec="seconds"),
+                                     "adapter": adapter}))
+            return True, str(path)
+        return False, "BUDGET_CAP_REACHED"
+    except OSError:
+        return False, "BUDGET_ACCOUNTING_UNAVAILABLE"
+
+
+def _api_ledger_append(row: dict) -> None:
+    path = api_ledger_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write(json.dumps(row) + "\n")
+
+
 def call_openai_triage(text: str, pricing: dict) -> tuple:
     """Return (validated model result or None, model id or None, error code)."""
     model = os.environ.get("MPN_MODEL")
@@ -392,9 +490,32 @@ def call_openai_triage(text: str, pricing: dict) -> tuple:
     if not model or not key:
         return None, None, None
 
+    cap = api_daily_call_cap()
+    if cap == 0:
+        print("Paid model calls are disabled by default. Set "
+              "MPN_API_DAILY_CALL_CAP to a positive daily allowance to opt "
+              "in to spending. Offline drafting continues.", file=sys.stderr)
+        return None, None, "PAID_CALLS_DISABLED"
+    if len(text) > API_MAX_INPUT_CHARS:
+        print("Inquiry exceeds the paid-call input bound; offline drafting "
+              "continues and no request was sent.", file=sys.stderr)
+        return None, None, "MODEL_INPUT_TOO_LARGE"
+    # Reserve the slot BEFORE the request: a timeout or crash may still bill.
+    reserved, refusal = reserve_paid_call(cap, "triage")
+    if not reserved:
+        if refusal == "BUDGET_CAP_REACHED":
+            print("Local API budget reached (MPN_API_DAILY_CALL_CAP shared "
+                  "across all paid adapters and processes). Offline drafting "
+                  "continues; no request was sent.", file=sys.stderr)
+        else:
+            print("Paid-call accounting is unavailable; refusing to spend. "
+                  "Offline drafting continues.", file=sys.stderr)
+        return None, None, refusal
+
     payload = {
         "model": model,
         "store": False,
+        "max_output_tokens": api_max_output_tokens(),
         "input": [
             {"role": "system", "content": [{"type": "input_text", "text": _model_instructions(pricing)}]},
             {"role": "user", "content": [{"type": "input_text", "text": text}]},
@@ -428,6 +549,19 @@ def call_openai_triage(text: str, pricing: dict) -> tuple:
         return None, None, "MODEL_UNAVAILABLE"
     except (ValueError, TypeError, KeyError, json.JSONDecodeError):
         return None, None, "MODEL_PARSE_ERROR"
+
+    usage = body.get("usage") if isinstance(body, dict) else None
+    if isinstance(usage, dict):
+        try:
+            # Visibility only, never counted against the cap; tokens are what
+            # billing actually depends on.
+            _api_ledger_append({"kind": "usage",
+                                "at": _utcnow().isoformat(timespec="seconds"),
+                                "model": model,
+                                "input_tokens": usage.get("input_tokens"),
+                                "output_tokens": usage.get("output_tokens")})
+        except OSError:
+            pass
 
     try:
         if not isinstance(result, dict):
@@ -588,34 +722,87 @@ DEMO_INQUIRIES = [
     ("instagram_dm", "how much for christmas eve?"),
 ]
 
+MODEL_CHECK_INQUIRY = (
+    "Hola, quisiera una visita a mi casa en Doral el 10 de diciembre de 2026. "
+    "Esta consulta es una prueba sintetica."
+)
 
-def cmd_status(pricing: dict) -> int:
+
+def cmd_check_model(pricing: dict) -> int:
+    print("SYNTHETIC MODEL CHECK - not customer use or Day 1 evidence.")
+    print("No local inquiry log, approval or send will be recorded.")
+    if not all(os.environ.get(name, "").strip()
+               for name in ("OPENAI_API_KEY", "MPN_MODEL")):
+        print("NOT VERIFIED: configure OPENAI_API_KEY and MPN_MODEL privately in this terminal.")
+        return 1
+
+    print("Trying one synthetic inquiry through the configured API model; usage may be charged.")
+    record = build_record(MODEL_CHECK_INQUIRY, "web_form", real=False,
+                          pricing=pricing, now=dt.datetime.now())
+    print(render(record))
+    if record["fallback_used"] or record["model"] == OFFLINE_MODEL or record["error_code"]:
+        print("\nNOT VERIFIED: the model path failed; any drafts above are the offline fallback.")
+        print("Model path reason: %s" % (record["error_code"] or "MODEL_NOT_USED"))
+        print("Check the API diagnostic or model output; no automatic retry was made.")
+        return 1
+
+    findings = record["validation"]
+    gates_pass = (VALIDATION_CHECKS <= {f["check"] for f in findings}
+                  and all(f["level"] == "PASS" for f in findings))
+    expected = {"language": "es", "requested_date": "2026-12-10",
+                "category": "family_visit", "location": "Doral"}
+    extraction_pass = all(record[key] == value for key, value in expected.items())
+    if not gates_pass or not extraction_pass or not all(
+            record[key].strip() for key in ("draft_en", "draft_es")):
+        print("\nNOT VERIFIED: the synthetic extraction, bilingual drafts or safety gates did not pass.")
+        return 1
+
+    print("\nMODEL CHECK PASSED: model-backed EN/ES drafts and all six gates passed.")
+    print("Review both languages above. This does not certify production launch or OPN eligibility.")
+    return 0
+
+
+def cmd_status(pricing: dict, now: dt.datetime | None = None) -> int:
     path = log_path(real=True)
     print("production log : %s" % path)
+    print("OPN review     : elapsed time alone does not certify continuous operation or acceptance")
     if not path.exists():
         print("status         : NOT STARTED - no real customer inquiry processed yet")
-        print("qualifies on   : n/a until the first real inquiry is logged")
+        print("review after   : n/a until model-backed customer work is reviewed and sent")
         return 0
     rows = []
-    with open(path, encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
-            if line:
-                rows.append(json.loads(line))
-    approved = [r for r in rows if r.get("approved_at")]
-    if not rows:
-        print("status         : NOT STARTED - log file present but empty")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            inquiry_ids = set()
+            for line in fh:
+                if not line.strip():
+                    continue
+                row = json.loads(line)
+                if not isinstance(row, dict) or row.get("real_customer") is not True:
+                    raise ValueError("invalid production row")
+                inquiry_id = row.get("inquiry_id")
+                if not isinstance(inquiry_id, str) or not inquiry_id.strip() or inquiry_id in inquiry_ids:
+                    raise ValueError("invalid inquiry identity")
+                inquiry_ids.add(inquiry_id)
+                rows.append(row)
+    except (OSError, UnicodeError, ValueError):
+        print("status         : NOT VERIFIED - unreadable, malformed or contaminated production log")
+        print("Run the submission validator for a private evidence review; no clock is certified.")
+        return 1
+    now = (now or dt.datetime.now(dt.timezone.utc)).astimezone(dt.timezone.utc)
+    sends = [sent for row in rows if (sent := reviewed_model_send_at(row, now)) is not None]
+    print("inquiries      : %d total, %d recorded model-backed reviewed/sent" % (len(rows), len(sends)))
+    if not sends:
+        print("status         : NOT STARTED - no valid model-backed reviewed/sent evidence")
+        print("review after   : n/a; synthetic, fallback, unsent and invalid records do not start it")
         return 0
-    first = min(r["received_at"] for r in rows)
-    first_date = dt.date.fromisoformat(first[:10])
-    qualify = first_date + dt.timedelta(days=QUALIFYING_DAYS)
-    today = dt.date.today()
-    elapsed = (today - first_date).days
-    print("first real inq : %s" % first)
-    print("inquiries      : %d total, %d operator-approved" % (len(rows), len(approved)))
-    print("days elapsed   : %d" % elapsed)
-    print("qualifies on   : %s" % qualify.isoformat())
-    print("status         : %s" % ("QUALIFIED" if today >= qualify else "IN PROGRESS"))
+    first = min(sends)
+    review_after = first + dt.timedelta(days=QUALIFYING_DAYS)
+    print("first AI send  : %s" % first.isoformat(timespec="seconds"))
+    print("full days      : %d" % (now - first).days)
+    print("review after   : %s" % review_after.isoformat(timespec="seconds"))
+    print("status         : %s" % ("ELAPSED WINDOW REACHED - review evidence"
+                                    if now >= review_after else "IN PROGRESS"))
     return 0
 
 
@@ -626,14 +813,23 @@ def main(argv=None) -> int:
     ap.add_argument("--channel", default="instagram_dm",
                     choices=["instagram_dm", "whatsapp", "email", "phone", "web_form", "referral"])
     ap.add_argument("--real", action="store_true",
-                    help="a REAL customer inquiry. Starts/continues the production clock.")
+                    help="a REAL customer inquiry, never a synthetic test")
     ap.add_argument("--demo", action="store_true", help="run synthetic examples (never counts toward 15 days)")
+    ap.add_argument("--check-model", action="store_true",
+                    help="one synthetic API check; no local log; fails on offline fallback")
     ap.add_argument("--status", action="store_true", help="show production clock status")
     ap.add_argument("--reviewer", help="operator name recorded on approval")
     ap.add_argument("--no-prompt", action="store_true", help="print and exit without asking for approval")
     args = ap.parse_args(argv)
 
+    if args.check_model and (args.real or args.demo or args.status
+                             or args.message is not None or args.file is not None):
+        ap.error("--check-model cannot be combined with --real, --demo, --status, --message or --file")
+
     pricing = load_pricing()
+
+    if args.check_model:
+        return cmd_check_model(pricing)
 
     if args.status:
         return cmd_status(pricing)
@@ -652,9 +848,10 @@ def main(argv=None) -> int:
     if args.file:
         text = Path(args.file).read_text(encoding="utf-8")
     if not text:
-        ap.error("provide --message, --file, --demo, or --status")
+        ap.error("provide --message, --file, --demo, --check-model, or --status")
 
-    rec = build_record(text, args.channel, real=args.real, pricing=pricing, now=dt.datetime.now())
+    rec = build_record(text, args.channel, real=args.real, pricing=pricing,
+                       now=dt.datetime.now().astimezone())
     print(render(rec))
 
     blocking = [f for f in rec["validation"] if f["level"] == "FAIL"]
@@ -680,14 +877,14 @@ def main(argv=None) -> int:
 
     if answer == "APPROVE":
         reviewer = args.reviewer or os.environ.get("MPN_REVIEWER") or "operator"
-        approved_at = dt.datetime.now()
+        approved_at = dt.datetime.now().astimezone()
         print("\nApproved by %s. Copy the draft into the customer channel yourself." % reviewer)
         print("After it has actually been sent, type SENT exactly; otherwise type anything else.")
         try:
             sent_answer = input("> ").strip()
         except EOFError:
             sent_answer = ""
-        sent_at = dt.datetime.now() if sent_answer == "SENT" else None
+        sent_at = dt.datetime.now().astimezone() if sent_answer == "SENT" else None
         apply_approval(rec, reviewer, approved_at, sent_at)
         if sent_at is None:
             print("\nApproval recorded; the message is not marked sent yet.")

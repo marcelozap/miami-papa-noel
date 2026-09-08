@@ -31,11 +31,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "triage"))
+from production_evidence import (  # noqa: E402
+    QUALIFYING_DAYS, log_timestamp, reviewed_model_send_at,
+)
+
 FAIL = "FAIL"
 WARN = "WARN"
 INFO = "INFO"
-
-QUALIFYING_DAYS = 15
 
 # --------------------------------------------------------------- inventory --
 
@@ -61,6 +64,7 @@ REQUIRED_DOCS = [
 
 REQUIRED_TRIAGE_FILES = [
     "tools/triage/triage.py",
+    "tools/triage/production_evidence.py",
     "tools/triage/validators.py",
     "tools/triage/pricing.json",
     "tools/triage/test_triage.py",
@@ -181,10 +185,13 @@ class Finding:
 class Config:
     def __init__(self, repo_root: Path, final: bool, today: dt.date | None = None,
                  log_path: Path | None = None, evidence_dir: Path | None = None,
-                 run_external: bool = True):
+                 run_external: bool = True, now: dt.datetime | None = None):
         self.repo_root = Path(repo_root)
         self.final = final
         self.today = today or dt.date.today()
+        # A test date has no time: use its start, never assume that whole day elapsed.
+        self.now = (now or (dt.datetime.combine(today, dt.time.min).astimezone()
+                           if today else dt.datetime.now(dt.timezone.utc))).astimezone(dt.timezone.utc)
         self.log_path = Path(log_path) if log_path else default_log_path()
         self.evidence_dir = Path(evidence_dir) if evidence_dir else default_evidence_dir()
         self.run_external = run_external
@@ -289,7 +296,7 @@ def check_model_name_claims(cfg: Config, log_models: set) -> list:
     return findings
 
 
-def check_date_claims(cfg: Config, earliest: dt.date | None) -> list:
+def check_date_claims(cfg: Config, earliest: dt.datetime | None) -> list:
     findings = []
     for rel in STRICT_DOCS:
         path = cfg.repo_root / rel
@@ -305,11 +312,11 @@ def check_date_claims(cfg: Config, earliest: dt.date | None) -> list:
                 if earliest is None:
                     findings.append(Finding(gate(cfg), "claims",
                                             "%s asserts launch/first-inquiry date %s but no "
-                                            "production log exists" % (rel, raw)))
-                elif claimed != earliest:
+                                            "valid model-backed reviewed/sent evidence exists" % (rel, raw)))
+                elif claimed != earliest.astimezone().date():
                     findings.append(Finding(FAIL, "claims",
                                             "%s asserts launch date %s but the earliest "
-                                            "production record is %s"
+                                            "model-backed reviewed/sent record is %s"
                                             % (rel, raw, earliest.isoformat())))
     if not findings:
         findings.append(Finding(INFO, "claims", "no contradicted launch dates in strict docs"))
@@ -368,11 +375,11 @@ def _parse_log_timestamp(value, field: str):
         return None
     if not isinstance(value, str) or not value.strip():
         raise ValueError("must be an ISO timestamp or null")
-    return dt.datetime.fromisoformat(value)
+    return log_timestamp(value)
 
 
 def check_production_log(cfg: Config):
-    """Returns findings, earliest date, models, approved/sent count, model-backed flag."""
+    """Returns findings, first evidenced AI send, models, sent count and model flag."""
     findings = []
     path = cfg.log_path
     if not path.is_file():
@@ -400,6 +407,7 @@ def check_production_log(cfg: Config):
             findings.append(Finding(FAIL, "log", "line %d is not a JSON object" % lineno))
             continue
 
+        record_findings_start = len(findings)
         missing = [k for k in LOG_REQUIRED_KEYS if k not in rec]
         if missing:
             findings.append(Finding(FAIL, "log",
@@ -436,13 +444,10 @@ def check_production_log(cfg: Config):
             received_dt = _parse_log_timestamp(received, "received_at")
             if received_dt is None:
                 raise ValueError("must be an ISO timestamp")
-            received_date = received_dt.date()
-            if received_date > cfg.today:
+            if received_dt > cfg.now:
                 findings.append(Finding(FAIL, "log",
                                         "line %d: received_at %s is in the future"
                                         % (lineno, received)))
-            if earliest is None or received_date < earliest:
-                earliest = received_date
         except (TypeError, ValueError):
             findings.append(Finding(FAIL, "log",
                                     "line %d: received_at %r is not an ISO timestamp"
@@ -453,7 +458,7 @@ def check_production_log(cfg: Config):
             try:
                 parsed = _parse_log_timestamp(rec.get(field), field)
                 log_times[field] = parsed
-                if parsed is not None and parsed.date() > cfg.today:
+                if parsed is not None and parsed > cfg.now:
                     findings.append(Finding(FAIL, "log",
                                             "line %d: %s %s is in the future"
                                             % (lineno, field, rec.get(field))))
@@ -483,9 +488,6 @@ def check_production_log(cfg: Config):
                                         "is empty" % (lineno, field)))
             if not empty:
                 approved_sent += 1
-                if (rec.get("fallback_used") is False
-                        and rec.get("model") not in {"", "offline-rules-v1", "manual"}):
-                    model_backed = True
 
         if not isinstance(rec.get("fallback_used"), bool):
             findings.append(Finding(FAIL, "log",
@@ -495,6 +497,11 @@ def check_production_log(cfg: Config):
             models.add(model)
         else:
             findings.append(Finding(FAIL, "log", "line %d: model is empty" % lineno))
+
+        sent = reviewed_model_send_at(rec, cfg.now)
+        if sent is not None and not any(f.level == FAIL for f in findings[record_findings_start:]):
+            model_backed = True
+            earliest = sent if earliest is None else min(earliest, sent)
 
     if records == 0:
         level = FAIL if cfg.final else WARN
@@ -507,36 +514,38 @@ def check_production_log(cfg: Config):
     return findings, earliest, models, approved_sent, model_backed
 
 
-def check_duration(cfg: Config, earliest: dt.date | None, approved_sent: int,
+def check_duration(cfg: Config, earliest: dt.datetime | None, approved_sent: int,
                     model_backed: bool) -> list:
     findings = []
     if earliest is None:
         if cfg.final:
             findings.append(Finding(FAIL, "duration",
-                                    "15-day requirement NOT MET: no real production "
-                                    "record exists"))
-            findings.append(Finding(FAIL, "outcome",
-                                    "no approved_and_sent record exists; there is no concrete outcome to report"))
+                                    "15-day evidence window NOT STARTED: no valid real "
+                                    "model-backed reviewed/sent record exists"))
+            if approved_sent == 0:
+                findings.append(Finding(FAIL, "outcome",
+                                        "no approved_and_sent record exists; there is no concrete outcome to report"))
             findings.append(Finding(FAIL, "model",
                                     "no real non-fallback model record was approved and sent"))
         else:
             findings.append(Finding(INFO, "duration",
-                                    "clock not started; qualification is first real "
-                                    "inquiry + %d days" % QUALIFYING_DAYS))
+                                    "clock not started; review target is first valid real "
+                                    "model-backed reviewed/sent record + %d full days" % QUALIFYING_DAYS))
         return findings
 
-    elapsed = (cfg.today - earliest).days
+    elapsed = (cfg.now - earliest).days
     qualify_on = earliest + dt.timedelta(days=QUALIFYING_DAYS)
-    if elapsed >= QUALIFYING_DAYS:
+    if cfg.now >= qualify_on:
         findings.append(Finding(INFO, "duration",
-                                "first real inquiry %s; %d day(s) elapsed; 15-day "
-                                "requirement met on %s"
+                                "first model-backed reviewed/sent record %s; %d full day(s) "
+                                "elapsed; evidence review target %s. Elapsed time alone "
+                                "does not certify continued operation or OPN acceptance"
                                 % (earliest.isoformat(), elapsed, qualify_on.isoformat())))
     else:
         level = FAIL if cfg.final else INFO
         findings.append(Finding(level, "duration",
-                                "first real inquiry %s; only %d day(s) elapsed; "
-                                "qualifies on %s"
+                                "first model-backed reviewed/sent record %s; only %d full "
+                                "day(s) elapsed; review after %s"
                                 % (earliest.isoformat(), elapsed, qualify_on.isoformat())))
     if cfg.final and approved_sent == 0:
         findings.append(Finding(FAIL, "duration",

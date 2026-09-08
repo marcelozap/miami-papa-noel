@@ -24,7 +24,7 @@ with production use · `N/A` = does not exist
 | Never confirms a booking | `test_draft_never_confirms_booking`, `test_validator_catches_confirmation_language_*` | 2026-08-29 | VERIFIED |
 | Never claims a deposit was received | accent-insensitive block on "deposit received" / "depósito recibido" | 2026-08-29 | VERIFIED |
 | Never promises insurance while unverified | `test_draft_never_mentions_insurance` | 2026-08-29 | VERIFIED |
-| Zelle only | `test_draft_is_zelle_only` | 2026-08-29 | VERIFIED |
+| Official payment rails only | `test_draft_uses_only_official_payment_rails` | 2026-08-29 | VERIFIED |
 | No send path to a customer exists | `triage.py` has no customer-channel integration; approval only marks a record. The only network call is to the OpenAI API in opt-in AI mode | 2026-08-29 | VERIFIED |
 | Model output is re-validated before an operator sees it | `model_triage()` runs all six gates on model drafts and falls back on any FAIL | 2026-08-29 | VERIFIED |
 | Inquiry text sent to the API in AI mode only | `call_openai_triage()` with `store: false`; deterministic mode makes no network call | 2026-08-29 | VERIFIED |
@@ -61,7 +61,7 @@ with production use · `N/A` = does not exist
 |---|---|---|
 | Role-based workflow operated during the 2025 Christmas season, supporting real inquiries, bilingual drafting, booking coordination, outreach, payment tracking, logistics and follow-up | `docs/operator-attestation-2025-season.md` | **ATTESTED** — operator's record, dated 2026-08-29 |
 | Season window, channels, volume, model used, concrete outcome | attestation evidence table, fields 1-10 | `[TO FILL]` — artifacts sit in message history, calendar, and payment records outside this repository, which began 2026-06-10 |
-| Owner confirmation: dates, operator, functions, human review, 14 visits vs ~5 prior maximum, 2026 renewal, real operations | Written confirmation by Walter Zapata, who operates Miami Papa Noel, dated 2026-08-30. Sent copy kept in the external evidence folder, indexed as `statement` | **CORROBORATED by counterparty** - index the sent copy to complete |
+| Owner confirmation: dates, operator, functions, human review, 14 visits vs ~5 prior maximum, 2026 renewal, real operations | Written confirmation by Walter Zapata, who operates Miami Papa Noel, dated 2026-08-30. Sent copy kept in the external evidence folder, indexed as `statement` | **ATTESTED** + owner statement in hand (2026-08-30); provenance completion per `docs/opn-form-answers.md` item 1 and indexing as type `statement` still required before this row reads CORROBORATED |
 
 ## Pre-implementation safety audit
 
@@ -73,7 +73,7 @@ Findings from the required checks. Two are resolved in this working tree; one re
 | API keys, `.env`, certificates, `.pem` | **CLEAN** — none tracked, none in the working tree. `.gitignore` now excludes `.env`, `.env.*`, `*.pem`, `*.key`, `*.jsonl` |
 | Production logs excluded from Git | **RESOLVED** — logs default to `%LOCALAPPDATA%`, and `*.jsonl` is git-ignored except the redacted example |
 | **Unverified insurance claims** | **RESOLVED in this working tree** — `checkout.html` and `business/content-engine.html` use policy-neutral wording. `business/insurance-and-wave1-preflight.md` remains the authority before any insurance or COI language is restored |
-| **Non-Zelle payment methods** | **RESOLVED** — `business/account-setup-checklist.md` now lists Zelle only and prohibits Cash App, Venmo, Square, Stripe, card, and wire instructions |
+| **Non-Zelle payment methods** | **RESOLVED** — `business/account-setup-checklist.md` now states: Official rails only: Zelle to 305-244-0360; the business's own buy.stripe.com Payment Link once the operator creates it (adopted 2026-08-30, not yet live). All other methods prohibited |
 | **Pricing inconsistency** | **RESOLVED** — `business/offer-and-pricing.md`, `checkout.html`, and `tools/triage/pricing.json` contain the same locked rate card, including $195, $425, $275, $550, $600, $850, and $45 travel |
 | Automation overclaims | **CLEAN in this package** — no phone, WhatsApp, payment, or autonomous-agent automation is claimed anywhere. `business/AGENT-ROLES.md` describes operating roles performed by a human, and is not presented as running software |
 

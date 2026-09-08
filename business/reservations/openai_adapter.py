@@ -21,6 +21,55 @@ from malosound_adapter import MaloSoundAdapter
 
 API_URL = "https://api.openai.com/v1/chat/completions"
 
+# --- shared paid-call quota (mirror of tools/triage/triage.py) --------------
+# Same quota directory and slot-file naming as the triage stack, so BOTH
+# paid adapters and every concurrent process draw from ONE daily allowance.
+# The stacks deliberately do not import each other; keep this in sync.
+API_CALL_CAP_CEILING = 500
+API_MAX_INPUT_CHARS = 6000
+
+
+def _api_quota_dir():
+    override = os.environ.get("MPN_API_QUOTA_DIR")
+    if override:
+        return override
+    base = os.environ.get("LOCALAPPDATA") or os.path.expanduser("~")
+    return os.path.join(base, "MiamiPapaNoel", "api-quota")
+
+
+def _api_daily_call_cap():
+    """Explicit zero-spend opt-in: unset, 0, or unreadable DISABLE paid calls."""
+    raw = os.environ.get("MPN_API_DAILY_CALL_CAP", "")
+    if not raw:
+        return 0
+    try:
+        return max(0, min(int(raw), API_CALL_CAP_CEILING))
+    except ValueError:
+        return 0
+
+
+def _reserve_paid_call(cap, adapter):
+    """Atomically claim one shared slot; any OSError refuses (fail closed)."""
+    import datetime as _dt
+    moment = _dt.datetime.now(_dt.timezone.utc)
+    day = moment.strftime("%Y-%m-%d")
+    try:
+        directory = _api_quota_dir()
+        os.makedirs(directory, exist_ok=True)
+        for slot in range(cap):
+            path = os.path.join(directory, "%s-slot-%03d.json" % (day, slot))
+            try:
+                handle = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            except FileExistsError:
+                continue
+            with os.fdopen(handle, "w", encoding="utf-8") as fh:
+                fh.write(json.dumps({"at": moment.isoformat(timespec="seconds"),
+                                     "adapter": adapter}))
+            return True, path
+        return False, "budget cap reached"
+    except OSError:
+        return False, "paid-call accounting unavailable"
+
 SYSTEM_PROMPT = (
     "You are Santa Claus, the North Pole-themed AI content agent for the workshop. "
     "Write warm, funny, family-friendly scripts with light workshop, milk and "
@@ -87,10 +136,35 @@ class OpenAIContentAdapter(MaloSoundAdapter):
                 bad.append("missing " + k)
         return bad
 
+    def _budget_refusal(self, brief):
+        """Reason paid generation may not run now, or None. Never spends."""
+        cap = _api_daily_call_cap()
+        if cap == 0:
+            return ("paid generation is disabled by default; set "
+                    "MPN_API_DAILY_CALL_CAP to a positive daily allowance")
+        if len(json.dumps(brief, ensure_ascii=False)) > API_MAX_INPUT_CHARS:
+            return "brief exceeds the paid-call input bound"
+        reserved, why = _reserve_paid_call(cap, "content")
+        if not reserved:
+            return why + "; no request was sent"
+        return None
+
     def generate(self, brief, out_dir):
         os.makedirs(out_dir, exist_ok=True)
         with open(os.path.join(out_dir, "brief.json"), "w", encoding="utf-8") as f:
             json.dump(brief, f, indent=2, ensure_ascii=False)
+
+        refusal = self._budget_refusal(brief)
+        if refusal:
+            manifest = {"adapter": self.name, "model": self.model, "asset": None,
+                        "rejected": [refusal],
+                        "note": "no API request was made; the deterministic "
+                                "template captions stand"}
+            with open(os.path.join(out_dir, "manifest.json"), "w", encoding="utf-8") as f:
+                json.dump(manifest, f, indent=2, ensure_ascii=False)
+            return {"brief": os.path.join(out_dir, "brief.json"),
+                    "manifest": os.path.join(out_dir, "manifest.json"),
+                    "asset": None}
 
         payload = {
             "model": self.model,
@@ -99,6 +173,9 @@ class OpenAIContentAdapter(MaloSoundAdapter):
                 {"role": "user", "content": json.dumps(brief, ensure_ascii=False)},
             ],
             "response_format": {"type": "json_object"},
+            # Spending bound: captions are short; an unbounded response must
+            # never be billable. Calls here are already operator-invoked only.
+            "max_completion_tokens": 800,
         }
         resp = self.transport(payload)
         generated = json.loads(resp["choices"][0]["message"]["content"])

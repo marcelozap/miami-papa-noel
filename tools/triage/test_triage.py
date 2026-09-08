@@ -14,6 +14,8 @@ import sys
 import urllib.error
 from pathlib import Path
 
+import pytest
+
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
@@ -22,6 +24,23 @@ import validators  # noqa: E402
 
 PRICING = triage.load_pricing()
 NOW = dt.datetime(2026, 9, 1, 10, 0, 0)
+
+
+@pytest.fixture(autouse=True)
+def isolated_model_environment(monkeypatch, tmp_path):
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.delenv("MPN_MODEL", raising=False)
+    # Keep every log AND the shared paid-call quota inside the test sandbox -
+    # a model-path test must never touch the operator's real directories.
+    monkeypatch.setenv("MPN_LOG_DIR", str(tmp_path / "test-logs"))
+    monkeypatch.setenv("MPN_API_QUOTA_DIR", str(tmp_path / "test-quota"))
+    monkeypatch.delenv("MPN_API_DAILY_CALL_CAP", raising=False)
+    monkeypatch.delenv("MPN_API_MAX_OUTPUT_TOKENS", raising=False)
+
+    def no_network(*args, **kwargs):
+        pytest.fail("Tests must replace the API with a synthetic response")
+
+    monkeypatch.setattr(triage.urllib.request, "urlopen", no_network)
 
 
 def build(text, channel="instagram_dm"):
@@ -346,6 +365,8 @@ def test_successful_openai_response_is_used_and_recorded(monkeypatch):
 
     monkeypatch.setenv("MPN_MODEL", "test-model")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    # Explicit opt-in: paid generation is disabled by default.
+    monkeypatch.setenv("MPN_API_DAILY_CALL_CAP", "5")
     monkeypatch.setattr(triage.urllib.request, "urlopen", fake_urlopen)
 
     rec = build("Our HOA event is Dec 13 in Doral. Call me at 305-555-0142.")
@@ -364,6 +385,9 @@ def test_model_failure_falls_back_to_rules(monkeypatch, capsys):
 
     monkeypatch.setenv("MPN_MODEL", "test-model")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    # This regression loops through 23 simulated failures - raise the local
+    # spending cap so it exercises diagnostics, not the budget refusal.
+    monkeypatch.setenv("MPN_API_DAILY_CALL_CAP", "100")
     monkeypatch.setattr(triage.urllib.request, "urlopen", fake_urlopen)
 
     private = "DO-NOT-PRINT-test-key-or-customer-305-555-0142"
@@ -470,6 +494,8 @@ def _fake_model(monkeypatch, model_result):
 
     monkeypatch.setenv("MPN_MODEL", "test-model")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    # Explicit opt-in: paid generation is disabled by default.
+    monkeypatch.setenv("MPN_API_DAILY_CALL_CAP", "5")
     monkeypatch.setattr(triage.urllib.request, "urlopen",
                         lambda request, timeout: FakeResponse())
 
@@ -523,3 +549,426 @@ def test_payment_gate_flags_link_only_when_unconfigured():
                                             stripe_payment_link="https://buy.stripe.com/test_SYNTHETIC"))
     findings = validators.validate_payment_method(en, es, configured)
     assert all(f.level == validators.PASS for f in findings)
+
+
+# --------------------------------------------------- synthetic model check ---
+
+@pytest.fixture
+def model_check(monkeypatch, tmp_path):
+    baseline = build(triage.MODEL_CHECK_INQUIRY, channel="web_form")
+    state = {
+        "result": {key: baseline[key] for key in (
+            "language", "requested_date", "category", "location",
+            "contact_status", "draft_en", "draft_es")},
+        "calls": [], "failure": None,
+    }
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self):
+            return json.dumps({
+                "model": "gpt-5.6-luna", "status": "completed",
+                "output": [{"type": "message", "content": [
+                    {"type": "output_text", "text": json.dumps(state["result"])}]}],
+            }).encode("utf-8")
+
+    def fake_urlopen(request, timeout):
+        payload = json.loads(request.data)
+        state["calls"].append(payload)
+        assert request.full_url == "https://api.openai.com/v1/responses"
+        assert request.method == "POST"
+        assert timeout == triage.MODEL_TIMEOUT_SECONDS
+        assert payload["model"] == "gpt-5.6-luna"
+        assert payload["store"] is False
+        assert payload["text"]["format"]["strict"] is True
+        assert payload["text"]["format"]["schema"] == triage.MODEL_SCHEMA
+        assert payload["input"][1]["content"][0]["text"] == triage.MODEL_CHECK_INQUIRY
+        assert "PRIVATE-KEY-CANARY" not in request.data.decode("utf-8")
+        if state["failure"]:
+            raise state["failure"]
+        return FakeResponse()
+
+    def no_side_effect(*args, **kwargs):
+        pytest.fail("Model checks must not log, prompt, approve or send")
+
+    original_build = triage.build_record
+
+    def synthetic_only(*args, **kwargs):
+        assert kwargs["real"] is False
+        return original_build(*args, **kwargs)
+
+    monkeypatch.setenv("OPENAI_API_KEY", "PRIVATE-KEY-CANARY")
+    monkeypatch.setenv("MPN_MODEL", "gpt-5.6-luna")
+    monkeypatch.setenv("MPN_LOG_DIR", str(tmp_path / "must-not-exist"))
+    # Paid generation is off by default; the model check is an owner-approved
+    # paid action, so the fixture opts in with a small explicit allowance.
+    monkeypatch.setenv("MPN_API_DAILY_CALL_CAP", "5")
+    monkeypatch.setattr(triage.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(triage, "build_record", synthetic_only)
+    monkeypatch.setattr(triage, "write_log", no_side_effect)
+    monkeypatch.setattr(triage, "apply_approval", no_side_effect)
+    monkeypatch.setattr("builtins.input", no_side_effect)
+    yield state
+    leftovers = sorted(p.relative_to(tmp_path).as_posix()
+                       for p in tmp_path.rglob("*") if p.is_file()
+                       and not p.relative_to(tmp_path).as_posix().startswith("test-quota/"))
+    # Quota slot files (sandboxed under test-quota/) and the usage ledger are
+    # the ONLY permitted writes: every API attempt is metered against the
+    # shared spending cap, --check-model included. No inquiry log, approval,
+    # or send may ever appear here.
+    assert leftovers in ([], ["must-not-exist/api-usage.jsonl"]), leftovers
+
+
+def test_check_model_uses_real_adapter_schema_and_gates_without_logging(model_check, capsys):
+    assert triage.main(["--check-model"]) == 0
+    assert len(model_check["calls"]) == 1
+    output = capsys.readouterr()
+    assert "MODEL CHECK PASSED" in output.out
+    assert "gpt-5.6-luna" in output.out
+    assert "DRAFT (EN)" in output.out and "DRAFT (ES)" in output.out
+    assert "not customer use or Day 1 evidence" in output.out
+    assert "PRIVATE-KEY-CANARY" not in output.out + output.err
+
+
+@pytest.mark.parametrize("missing", ["OPENAI_API_KEY", "MPN_MODEL"])
+@pytest.mark.parametrize("value", [None, "", "  "])
+def test_check_model_requires_both_settings_before_network(model_check, monkeypatch, capsys,
+                                                          missing, value):
+    if value is None:
+        monkeypatch.delenv(missing)
+    else:
+        monkeypatch.setenv(missing, value)
+    assert triage.main(["--check-model"]) == 1
+    assert model_check["calls"] == []
+    assert "NOT VERIFIED" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("flags", [
+    ["--real"], ["--demo"], ["--status"],
+    ["--message", "synthetic"], ["--file", "missing.txt"],
+])
+def test_check_model_rejects_conflicting_modes_before_network(model_check, flags):
+    with pytest.raises(SystemExit) as result:
+        triage.main(["--check-model", *flags])
+    assert result.value.code == 2
+    assert model_check["calls"] == []
+
+
+def test_check_model_http_failure_is_not_false_success(model_check, capsys):
+    body = json.dumps({"error": {"code": "credit_balance_exhausted",
+                                  "message": "PRIVATE-KEY-CANARY"}}).encode()
+    model_check["failure"] = urllib.error.HTTPError(
+        "https://api.openai.com/v1/responses", 429, "PRIVATE-KEY-CANARY", {}, io.BytesIO(body))
+    assert triage.main(["--check-model", "--no-prompt"]) == 1
+    assert len(model_check["calls"]) == 1
+    output = capsys.readouterr()
+    assert "NOT VERIFIED" in output.out
+    assert "MODEL CHECK PASSED" not in output.out
+    assert "credit_balance_exhausted" in output.err
+    assert "PRIVATE-KEY-CANARY" not in output.out + output.err
+
+
+@pytest.mark.parametrize("field,value", [
+    ("draft_es", ""), ("draft_en", "Your booking is confirmed."),
+    ("language", "en"), ("requested_date", "2026-12-11"),
+    ("category", "school_daycare"),
+])
+def test_check_model_rejects_bad_drafts_or_wrong_synthetic_facts(model_check, capsys, field, value):
+    model_check["result"][field] = value
+    assert triage.main(["--check-model"]) == 1
+    assert len(model_check["calls"]) == 1
+    assert "MODEL CHECK PASSED" not in capsys.readouterr().out
+
+
+def test_check_model_does_not_pass_when_a_gate_disappears(model_check, monkeypatch, capsys):
+    original_run = triage.validators.run_all
+    monkeypatch.setattr(triage.validators, "run_all",
+                        lambda *args, **kwargs: original_run(*args, **kwargs)[:-1])
+    assert triage.main(["--check-model"]) == 1
+    assert len(model_check["calls"]) == 1
+    assert "MODEL CHECK PASSED" not in capsys.readouterr().out
+
+
+# ------------------------------------------------------- production evidence ---
+
+def operated_record(**overrides):
+    record = build(triage.MODEL_CHECK_INQUIRY)
+    record.update(
+        received_at="2026-09-01T09:00:00-04:00", approved_at="2026-09-01T09:02:00-04:00",
+        sent_at="2026-09-01T09:03:00-04:00", real_customer=True, model="gpt-test-model",
+        fallback_used=False, error_code=None, reviewer="Synthetic operator",
+        outcome="approved_and_sent",
+    )
+    record.update(overrides)
+    return record
+
+
+def write_status_fixture(tmp_path, monkeypatch, records):
+    monkeypatch.setenv("MPN_LOG_DIR", str(tmp_path))
+    path = tmp_path / "production-log.jsonl"
+    path.write_text("\n".join(json.dumps(row) for row in records), encoding="utf-8")
+    return path
+
+
+@pytest.mark.parametrize("override", [
+    {"fallback_used": True}, {"fallback_used": "false"}, {"fallback_used": None},
+    {"model": "offline-rules-v1"}, {"model": "manual"}, {"model": " "},
+    {"model": None}, {"model": ["test-model"]},
+    {"reviewer": ""}, {"reviewer": False},
+    {"outcome": "pending_review"}, {"outcome": "approved_awaiting_send"},
+    {"error_code": "MODEL_HTTP_ERROR"}, {"approved_at": None}, {"sent_at": None},
+    {"approved_at": "2026-08-31T10:00:00-04:00"},
+    {"sent_at": "2026-09-01T09:01:00-04:00"}, {"sent_at": "2026-09-01"},
+    {"sent_at": "2026-10-01T09:03:00-04:00"}, {"sent_at": "invalid-private-canary"},
+    {"sent_at": "9999-12-31T23:59:59-23:59"}, {"sent_at": "0001-01-01T00:00:00+23:59"},
+    {"validation": []}, {"validation": None}, {"validation": ["bad gate"]},
+])
+def test_status_never_counts_incomplete_or_fallback_evidence(tmp_path, monkeypatch, capsys, override):
+    write_status_fixture(tmp_path, monkeypatch, [operated_record(**override)])
+    now = dt.datetime(2026, 9, 20, tzinfo=dt.timezone.utc)
+    assert triage.cmd_status(PRICING, now) == 0
+    output = capsys.readouterr().out
+    assert "NOT STARTED" in output
+    assert "first AI send" not in output and "invalid-private-canary" not in output
+
+
+@pytest.mark.parametrize("level", ["FAIL", "UNKNOWN"])
+def test_status_rejects_failed_or_unknown_gate_levels(tmp_path, monkeypatch, capsys, level):
+    record = operated_record()
+    record["validation"][0]["level"] = level
+    write_status_fixture(tmp_path, monkeypatch, [record])
+    assert triage.cmd_status(PRICING, dt.datetime(2026, 9, 20, tzinfo=dt.timezone.utc)) == 0
+    assert "NOT STARTED" in capsys.readouterr().out
+
+
+def test_status_counts_recorded_model_sends_not_earlier_fallback_or_pending(tmp_path, monkeypatch, capsys):
+    fallback = operated_record(inquiry_id="fallback", received_at="2026-08-01T09:00:00-04:00",
+                               fallback_used=True, model=triage.OFFLINE_MODEL)
+    pending = operated_record(inquiry_id="pending", received_at="2026-08-02T09:00:00-04:00",
+                              outcome="pending_review", approved_at=None, sent_at=None)
+    real = operated_record(inquiry_id="model")
+    path = write_status_fixture(tmp_path, monkeypatch, [fallback, pending, real])
+    before, modified = path.read_bytes(), path.stat().st_mtime_ns
+    assert triage.cmd_status(PRICING, dt.datetime(2026, 9, 5, tzinfo=dt.timezone.utc)) == 0
+    output = capsys.readouterr().out
+    assert "3 total, 1 recorded model-backed reviewed/sent" in output
+    assert "first AI send  : 2026-09-01T13:03:00+00:00" in output
+    assert "review after   : 2026-09-16T13:03:00+00:00" in output
+    assert "IN PROGRESS" in output and "QUALIFIED" not in output
+    assert path.read_bytes() == before and path.stat().st_mtime_ns == modified
+    assert list(tmp_path.iterdir()) == [path]
+
+
+@pytest.mark.parametrize("seconds,status", [(-1, "IN PROGRESS"), (0, "ELAPSED WINDOW REACHED")])
+def test_status_waits_fifteen_full_days_without_certifying_opn(tmp_path, monkeypatch, capsys,
+                                                            seconds, status):
+    write_status_fixture(tmp_path, monkeypatch, [operated_record()])
+    now = dt.datetime(2026, 9, 16, 13, 3, tzinfo=dt.timezone.utc) + dt.timedelta(seconds=seconds)
+    assert triage.cmd_status(PRICING, now) == 0
+    output = capsys.readouterr().out
+    assert status in output and "QUALIFIED" not in output
+    assert "does not certify continuous operation or acceptance" in output
+
+
+@pytest.mark.parametrize("contents", [
+    'not JSON PRIVATE-CANARY', '[]', 'null', '"PRIVATE-CANARY"',
+    '{"real_customer": false}', '{"real_customer": true}',
+])
+def test_status_fails_closed_on_contaminated_or_malformed_log(tmp_path, monkeypatch, capsys, contents):
+    monkeypatch.setenv("MPN_LOG_DIR", str(tmp_path))
+    (tmp_path / "production-log.jsonl").write_text(contents, encoding="utf-8")
+    assert triage.cmd_status(PRICING) == 1
+    output = capsys.readouterr().out
+    assert "NOT VERIFIED" in output and "PRIVATE-CANARY" not in output
+    assert "first AI send" not in output
+
+
+def test_status_duplicate_ids_cannot_certify_a_clock(tmp_path, monkeypatch, capsys):
+    record = operated_record()
+    write_status_fixture(tmp_path, monkeypatch, [record, record])
+    assert triage.cmd_status(PRICING) == 1
+    assert "NOT VERIFIED" in capsys.readouterr().out
+
+
+def test_status_missing_log_is_read_only(tmp_path, monkeypatch, capsys):
+    monkeypatch.setenv("MPN_LOG_DIR", str(tmp_path / "absent"))
+    assert triage.cmd_status(PRICING) == 0
+    assert "NOT STARTED" in capsys.readouterr().out
+    assert not list(tmp_path.iterdir())
+
+# ------------------------------------------- api budget (spending controls v2) ---
+
+BUDGET_RESULT = {
+    "language": "en", "requested_date": "2026-12-13",
+    "category": "hoa_community", "location": "Doral clubhouse",
+    "contact_status": "phone_only",
+    "draft_en": (
+        "Thank you for reaching out about Papa Noel. HOA / community event is "
+        "$550, two hours, two-hour minimum. A 50% non-refundable deposit "
+        "locks the date. Payment is by Zelle only."
+    ),
+    "draft_es": (
+        "Gracias por escribir sobre Papa Noel. Evento comunitario / HOA: $550, "
+        "dos horas, minimo de dos horas. Un deposito no reembolsable del 50% "
+        "asegura la fecha. El pago es unicamente por Zelle."
+    ),
+}
+
+
+def _budget_fake_model(monkeypatch, cap=None):
+    """Configured model env plus a counting fake transport."""
+    calls = []
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self):
+            return json.dumps({"output_text": json.dumps(BUDGET_RESULT),
+                               "usage": {"input_tokens": 12, "output_tokens": 99}}).encode()
+
+    def fake_urlopen(request, timeout):
+        calls.append(json.loads(request.data.decode("utf-8")))
+        return FakeResponse()
+
+    monkeypatch.setenv("MPN_MODEL", "test-model")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    if cap is not None:
+        monkeypatch.setenv("MPN_API_DAILY_CALL_CAP", str(cap))
+    monkeypatch.setattr(triage.urllib.request, "urlopen", fake_urlopen)
+    return calls
+
+
+def _slot_files():
+    return sorted(triage.api_quota_dir().glob("*-slot-*.json"))
+
+
+def test_default_is_zero_spend_even_with_a_key(monkeypatch):
+    calls = _budget_fake_model(monkeypatch)  # cap deliberately NOT set
+    rec = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    assert rec["fallback_used"] is True
+    assert rec["error_code"] == "PAID_CALLS_DISABLED"
+    assert calls == [] and _slot_files() == []
+
+
+@pytest.mark.parametrize("raw", ["0", "banana", "-3"])
+def test_zero_or_unreadable_cap_disables_paid_calls(monkeypatch, raw):
+    calls = _budget_fake_model(monkeypatch, cap=raw)
+    rec = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    assert rec["error_code"] == "PAID_CALLS_DISABLED"
+    assert calls == []
+
+
+def test_cap_reached_falls_back_and_sends_nothing_more(monkeypatch):
+    calls = _budget_fake_model(monkeypatch, cap=2)
+    first = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    second = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    third = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    assert first["fallback_used"] is False and second["fallback_used"] is False
+    assert third["fallback_used"] is True
+    assert third["error_code"] == "BUDGET_CAP_REACHED"
+    assert len(calls) == 2 and len(_slot_files()) == 2
+
+
+def test_restart_persistence_slots_survive(monkeypatch):
+    calls = _budget_fake_model(monkeypatch, cap=1)
+    build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    # A process restart keeps nothing in memory; only the slot files remain.
+    rec = build("Second try after restart. Dec 13 Doral. 305-555-0142")
+    assert rec["error_code"] == "BUDGET_CAP_REACHED"
+    assert len(calls) == 1 and len(_slot_files()) == 1
+
+
+def test_concurrent_reservations_never_exceed_cap(monkeypatch, tmp_path):
+    import concurrent.futures
+    monkeypatch.setenv("MPN_API_QUOTA_DIR", str(tmp_path / "race-quota"))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+        outcomes = list(pool.map(lambda _: triage.reserve_paid_call(3, "triage"),
+                                 range(24)))
+    granted = [slot for ok, slot in outcomes if ok]
+    assert len(granted) == 3 and len(set(granted)) == 3
+    assert all(why == "BUDGET_CAP_REACHED" for ok, why in outcomes if not ok)
+
+
+def test_mixed_adapters_share_one_allowance(monkeypatch):
+    # The content adapter mirrors the same slot-file scheme; pre-claimed
+    # slots from EITHER adapter reduce this one's allowance.
+    calls = _budget_fake_model(monkeypatch, cap=2)
+    ok, _ = triage.reserve_paid_call(2, "content")  # simulates the other stack
+    assert ok
+    first = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    second = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    assert first["fallback_used"] is False
+    assert second["error_code"] == "BUDGET_CAP_REACHED"
+    assert len(calls) == 1
+
+
+def test_accounting_failure_refuses_spending(monkeypatch, tmp_path):
+    blocked = tmp_path / "quota-as-file"
+    blocked.write_text("not a directory", encoding="utf-8")
+    monkeypatch.setenv("MPN_API_QUOTA_DIR", str(blocked))
+    calls = _budget_fake_model(monkeypatch, cap=5)
+    rec = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    assert rec["error_code"] == "BUDGET_ACCOUNTING_UNAVAILABLE"
+    assert rec["fallback_used"] is True and calls == []
+
+
+def test_failed_slot_write_refuses_spending(monkeypatch):
+    calls = _budget_fake_model(monkeypatch, cap=5)
+    def denied(*args, **kwargs):
+        raise PermissionError("synthetic denial")
+    monkeypatch.setattr(triage.os, "open", denied)
+    rec = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    assert rec["error_code"] == "BUDGET_ACCOUNTING_UNAVAILABLE"
+    assert calls == []
+
+
+def test_timeout_consumes_the_slot_and_never_retries(monkeypatch):
+    monkeypatch.setenv("MPN_MODEL", "test-model")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("MPN_API_DAILY_CALL_CAP", "1")
+    attempts = []
+
+    def timing_out(request, timeout):
+        attempts.append(1)
+        raise TimeoutError("synthetic timeout")
+
+    monkeypatch.setattr(triage.urllib.request, "urlopen", timing_out)
+    first = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    second = build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    assert first["error_code"] == "MODEL_UNAVAILABLE"
+    assert second["error_code"] == "BUDGET_CAP_REACHED"
+    assert len(attempts) == 1  # a possibly-billed timeout is never retried
+
+
+def test_oversized_input_is_never_sent(monkeypatch):
+    calls = _budget_fake_model(monkeypatch, cap=5)
+    rec = build("Dec 13 Doral 305-555-0142 " + "x" * (triage.API_MAX_INPUT_CHARS + 1))
+    assert rec["error_code"] == "MODEL_INPUT_TOO_LARGE"
+    assert calls == [] and _slot_files() == []
+
+
+def test_max_output_tokens_bound_is_sent(monkeypatch):
+    calls = _budget_fake_model(monkeypatch, cap=5)
+    build("Our HOA event is Dec 13 in Doral. 305-555-0142")
+    assert calls[0]["max_output_tokens"] == triage.API_MAX_OUTPUT_TOKENS_DEFAULT
+    monkeypatch.setenv("MPN_API_MAX_OUTPUT_TOKENS", "500")
+    build("Second HOA event Dec 14 in Doral. 305-555-0142")
+    assert calls[1]["max_output_tokens"] == 500
+
+
+def test_quota_and_ledger_contain_no_secret_and_no_inquiry_text(monkeypatch):
+    _budget_fake_model(monkeypatch, cap=5)
+    build("Our HOA event is Dec 13 in Doral. Call 305-555-0142")
+    stored = "".join(p.read_text(encoding="utf-8") for p in _slot_files())
+    stored += triage.api_ledger_path().read_text(encoding="utf-8")
+    assert "test-key" not in stored
+    assert "Doral" not in stored and "305-555-0142" not in stored

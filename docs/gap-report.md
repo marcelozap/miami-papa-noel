@@ -40,14 +40,15 @@ that cannot be manufactured or backdated.
 python tools\triage\triage.py --message "<real inquiry text>" --channel instagram_dm --real
 ```
 
-That first line's `received_at` is the launch date. Fifteen days later the
-requirement is met.
+Launch date = the first real inquiry record (never backdated); the 15-day
+evidence window is measured from the send timestamp of the first valid real,
+model-backed, reviewed-and-sent record - fallback or unsent records never
+start it (shared predicate: `tools/triage/production_evidence.py`).
 
 | Milestone | Date |
 |---|---|
-| First real inquiry | `[TO FILL]` — earliest 2026-08-29 |
-| Qualification | first real inquiry + 15 days |
-| If started 2026-08-29 | **2026-09-13** |
+| First real inquiry | `[TO FILL]` — earliest = the day the first real inquiry is actually processed (not before 2026-09-05) |
+| Qualification | that date + 15 full days measured from the qualifying send |
 
 Timing is favorable: September is when HOA, school, and corporate inquiries
 begin arriving for December, so the deployment will see genuine volume rather
@@ -114,11 +115,13 @@ preflight document records an active policy.
 
 ### 2. Non-Zelle payment methods recommended internally — RESOLVED
 
-`business/account-setup-checklist.md` now lists Zelle only and explicitly
-prohibits Cash App, Venmo, Square, Stripe, card, and wire instructions.
+`business/account-setup-checklist.md` now states the rule. Official rails
+only: Zelle to 305-244-0360; the business's own buy.stripe.com Payment Link
+once the operator creates it (adopted 2026-08-30, not yet live). All other
+methods prohibited.
 
-Customer-facing surfaces remain Zelle-only, and the tool blocks every other
-method.
+Customer-facing surfaces carry only the official rails, and the tool blocks
+every other method.
 
 ### 3. Pricing documentation out of sync — RESOLVED
 
@@ -140,8 +143,9 @@ history of record and is not a blocker for this submission.
 Ten evidence fields are listed there for anyone who wants to strengthen the
 record — season window, channels, volume, outcome, dated artifacts. They sit in
 message history, calendar entries, and payment records rather than in this
-repository, which began 2026-06-10. Filling them is optional and additive; the
-submission does not depend on it.
+repository, which began 2026-06-10. Filling them is optional for the
+architecture packet, REQUIRED if any 2025 operational claim is put on the
+form.
 
 ---
 

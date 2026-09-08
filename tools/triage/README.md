@@ -5,7 +5,8 @@ AI-assisted bilingual inquiry triage with mandatory human approval.
 **What it does:** the operator pastes a real customer inquiry. The tool detects
 English or Spanish, extracts the date, service category, location and contact
 status, flags schedule risk, and drafts a short reply in both languages using
-only the locked price list and Zelle-only terms.
+only the locked price list and configured payment terms. Until a real Stripe
+Payment Link is configured, drafts offer Zelle only.
 
 **What it never does:** send anything, confirm a booking, say a deposit was
 received, promise insurance, or quote a price that is not in `pricing.json`.
@@ -29,17 +30,35 @@ toward the 15-day production requirement** and are written to a separate log.
 The tool is fully functional offline. Model assistance is opt-in:
 
 ```powershell
-$env:MPN_MODEL = "<exact model id>"
-$env:OPENAI_API_KEY = "<key>"
+$secret = Read-Host 'Replacement OpenAI key' -AsSecureString
+$env:OPENAI_API_KEY = [System.Net.NetworkCredential]::new('', $secret).Password
+Remove-Variable secret
+$env:MPN_MODEL = 'gpt-5.6-luna'
+python -B C:\XIV\santa\tools\triage\triage.py --check-model
 ```
+
+Use a replacement for any key exposed in chat. This sets the key only in the
+current terminal's environment without putting its value in shell history.
+The selected Luna model succeeded on a separate haiku request; that is not yet
+verification of this workflow or free ongoing access.
+
+`--check-model` makes one synthetic Spanish home-visit request through the
+same Responses API, structured schema and six validation gates used for
+inquiries. It prints EN/ES drafts for review and **writes no local inquiry log,
+approval or send record**. Exit 0 means the model path, expected extraction
+and gates passed for this sample; exit 1 means not verified, including any
+offline fallback. Incompatible modes such as `--real` are rejected with exit 2
+before a request. This check may consume API credit. It never starts Day 1,
+certifies a production launch or establishes OPN eligibility. Review both
+languages, even after a pass. It does not automatically retry.
 
 No install required — the call goes over `urllib` from the standard library to
 the OpenAI Responses API, with a strict JSON schema and `store: false`.
 
 Rules:
 
-- **The key lives in an environment variable or an ignored local `.env`. Never
-  in the repository.** `.gitignore` covers `.env`, `*.pem`, `*.key`.
+- **The key lives in a private runtime environment, never in the repository.**
+  This CLI reads environment variables; it does not automatically load `.env`.
 - **No customer-facing API key.** Customers never touch this tool; the operator
   runs it locally.
 - **In AI mode the customer's inquiry text is sent to the OpenAI API.** The
@@ -70,17 +89,16 @@ Rules:
 
 ## Daily use
 
-**A real customer inquiry:**
+Put a genuine incoming inquiry in a private text file outside Git, then run
+with its actual source channel. Do not use a canned example with `--real`.
 
 ```powershell
-python tools\triage\triage.py --message "Hi, do you have Dec 13 open for our HOA in Doral?" --channel instagram_dm --real
+$inquiryFile = Join-Path $env:LOCALAPPDATA 'MiamiPapaNoel\intake\inquiry.txt'
+python tools\triage\triage.py --file $inquiryFile --channel email --reviewer 'Marcelo Zapata' --real
 ```
 
-**From a file** (easier for long messages, avoids shell quoting):
-
-```powershell
-python tools\triage\triage.py --file inquiry.txt --channel whatsapp --real
-```
+The file must already exist and contain real business work. It is not created
+by this command. For synthetic testing use `--check-model` or `--demo` instead.
 
 **Check the production clock:**
 
@@ -113,6 +131,9 @@ message was sent.
 `--real` marks a genuine customer inquiry and writes to the production log.
 **Use it only for real inquiries.** Without it, everything goes to the synthetic
 log and is excluded from the 15-day count. Do not pass `--real` while testing.
+The flag alone does not establish Day 1: `--status` uses the first valid
+model-backed, gated, reviewed-and-sent record, not a fallback or pending draft.
+It reports a 15-full-day evidence review target, never OPN qualification.
 
 ---
 
@@ -128,7 +149,7 @@ blocks approval outright.
 | `missing_information` | Missing date/category/location with no question asked |
 | `unsafe_confirmation` | "confirmed", "booked", "deposit received", "reservado", "depósito recibido" — accent-insensitive |
 | `insurance_claim` | Any insurance language while the policy is unverified |
-| `payment_method` | Venmo, Cash App, Stripe, Square, PayPal, card, wire |
+| `payment_method` | Unapproved methods or a promised payment link before a real Stripe link is configured |
 
 If a draft is blocked, the inquiry is logged with
 `outcome: blocked_by_validation` and you handle it manually. **Do not edit the
@@ -226,3 +247,36 @@ python scripts\validate_slot_confirmations.py
 | `test_triage.py` | 45 tests, all synthetic |
 | `log-schema.md` | Production log fields and derived metrics |
 | `examples/inquiry-redacted.jsonl` | Redacted five-line sample (synthetic) |
+
+## Spending controls (v2: shared, atomic, off by default)
+
+Paid generation is **disabled by default, even with a key configured**.
+It runs only when the owner explicitly sets `MPN_API_DAILY_CALL_CAP` to a
+positive number - the zero-spend opt-in the owner asked for.
+
+When enabled, the daily allowance is enforced by atomic slot-file
+reservations (`O_CREAT|O_EXCL`) in one shared quota directory
+(`%LOCALAPPDATA%\MiamiPapaNoelpi-quota`, override `MPN_API_QUOTA_DIR`):
+
+- **Shared across everything**: concurrent processes AND both paid adapters
+  (triage/web queue and the reservations content adapter) draw from a
+  single count. Two racing processes cannot exceed the cap together.
+- **Reserved before the request**: a timeout or crash after reservation may
+  still have billed, so the slot stays spent and is never auto-retried.
+- **Fail closed**: an unreadable, corrupted, or unwritable quota store
+  REFUSES paid generation (`BUDGET_ACCOUNTING_UNAVAILABLE`) - it never
+  resets the allowance. Over-cap refusals are `BUDGET_CAP_REACHED`;
+  disabled mode is `PAID_CALLS_DISABLED`. All fall back to offline drafts.
+- **Restart-persistent**: slot files survive restarts; the day's spent
+  allowance cannot be recovered by relaunching.
+- **Input and output bounds**: inquiries over 6000 characters are never
+  sent (`MODEL_INPUT_TOO_LARGE`), and every request carries
+  `max_output_tokens` (`MPN_API_MAX_OUTPUT_TOKENS`, default 900). The cap
+  value itself is ceilinged at 500/day.
+
+**What this is NOT: a dollar guarantee.** It bounds request count and
+per-call size. Token prices, other applications on the same account, and
+provider-side billing behavior are outside its reach. Dashboard budget
+alerts are not a verified hard cutoff - do not rely on them as one.
+The usage ledger (`api-usage.jsonl`, token counts only) is informational
+and never the counter.

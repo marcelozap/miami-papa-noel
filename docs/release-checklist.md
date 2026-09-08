@@ -41,7 +41,7 @@ copy reaches real inquiries. Approver: Marcelo Zapata.
 - [ ] No draft output can contain "confirmed", "booked", "reserved", "deposit received", or the Spanish equivalents
 - [ ] No insurance language unless `business/insurance-and-wave1-preflight.md` records a **verified active policy**
 - [ ] `business/wave1-batch-01.md` passes the outreach-surface scan before sending
-- [ ] Zelle is the only payment method mentioned anywhere customer-facing
+- [ ] Official rails only anywhere customer-facing: Zelle to 305-244-0360; the business's own buy.stripe.com Payment Link once the operator creates it (adopted 2026-08-30, not yet live). All other methods prohibited
 - [ ] English and Spanish state identical prices, deposits, and durations
 - [ ] Every quoted figure appears in `pricing.json`
 
@@ -49,7 +49,7 @@ copy reaches real inquiries. Approver: Marcelo Zapata.
 
 - [ ] Page opened locally and checked
 - [ ] Prices match `pricing.json`
-- [ ] Zelle-only; no Cash App, Venmo, Square, Stripe, or card language
+- [ ] Official rails only: Zelle to 305-244-0360; the business's own buy.stripe.com Payment Link once the operator creates it (adopted 2026-08-30, not yet live). All other methods prohibited
 - [ ] No insurance claim unless the policy is verified
 - [ ] Canonical URL and language toggles intact
 

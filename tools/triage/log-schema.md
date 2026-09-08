@@ -1,8 +1,8 @@
 # Production Log Schema
 
-One JSON object per line (JSONL), append-only. This log is the production
-evidence for the OpenAI Partner Network submission. Without it there is no
-submission, which is why it ships with the tool rather than after it.
+One JSON object per line (JSONL), append-only. This is the implementation's
+operational evidence format, not a format mandated by OPN. Records support
+the submission but do not by themselves prove genuine or continuous use.
 
 ## Location
 
@@ -10,7 +10,7 @@ submission, which is why it ships with the tool rather than after it.
 
 | Log | Path | Counts toward 15 days |
 |---|---|---|
-| Production | `%LOCALAPPDATA%\MiamiPapaNoel\triage\production-log.jsonl` | **Yes** |
+| Production | `%LOCALAPPDATA%\MiamiPapaNoel\triage\production-log.jsonl` | Only valid model-backed reviewed/sent records establish the clock |
 | Synthetic | `%LOCALAPPDATA%\MiamiPapaNoel\triage\synthetic-log.jsonl` | **No, never** |
 
 Override the directory with `MPN_LOG_DIR`. `.gitignore` excludes `*.jsonl`
@@ -21,7 +21,7 @@ except the redacted example in `tools/triage/examples/`.
 | Field | Type | Meaning |
 |---|---|---|
 | `inquiry_id` | string | `MPN-YYYYMMDD-XXXXXX`. Stable handle for one inquiry |
-| `received_at` | ISO 8601 | When the operator entered the inquiry. **The earliest real one starts the production clock** |
+| `received_at` | ISO 8601 | When the operator entered the inquiry; not by itself a production launch |
 | `channel` | enum | `instagram_dm` · `whatsapp` · `email` · `phone` · `web_form` · `referral` |
 | `language` | `en` \| `es` | Detected language of the customer's message |
 | `requested_date` | ISO date \| null | Event date. `null` when the customer did not state one — never inferred from a bare month |
@@ -34,10 +34,11 @@ except the redacted example in `tools/triage/examples/`.
 | `sent_at` | ISO 8601 \| null | When the operator actually sent it in the customer channel. Recorded only after the operator types `SENT` following the manual send |
 | `fallback_used` | bool | `true` when the deterministic offline path produced the draft |
 | `outcome` | enum | `pending_review` · `approved_awaiting_send` · `approved_and_sent` · `rejected_by_operator` · `blocked_by_validation` |
-| `error_code` | string \| null | `VALIDATION_FAIL`, `MODEL_UNAVAILABLE`, `MODEL_HTTP_ERROR`, `MODEL_PARSE_ERROR`, `MODEL_SCHEMA_ERROR`, `MODEL_OUTPUT_VALIDATION_FAIL`, `TOOL_UNAVAILABLE`, or `null` |
+| `error_code` | string \| null | `VALIDATION_FAIL`, `MODEL_UNAVAILABLE`, `MODEL_HTTP_ERROR`, `MODEL_PARSE_ERROR`, `MODEL_SCHEMA_ERROR`, `MODEL_OUTPUT_VALIDATION_FAIL`, `MODEL_CATEGORY_AMBIGUOUS`, `PAID_CALLS_DISABLED`, `BUDGET_CAP_REACHED`, `TOOL_UNAVAILABLE`, or `null` |
 
 Supporting fields also written: `location`, `contact_status`, `schedule_risk`,
-`schedule_risk_reason`, `price_list_version`, `real_customer`.
+`schedule_risk_reason`, `price_list_version`, `real_customer`, and `validation`
+(the named gate results, including level and detail).
 
 ## What is deliberately NOT logged
 
@@ -52,14 +53,15 @@ the value.
 
 ## Metrics this log yields
 
-Nothing has to be tracked separately — every figure below falls out of the log:
+These metrics derive from recorded actions. Customer outcomes, continuous
+availability and actual manual sends still need corroborating business evidence:
 
 | Metric | Derivation |
 |---|---|
 | Inquiries handled | count of rows |
-| Days in production | `today - min(received_at)` where `real_customer` is true |
+| Elapsed evidence window | Full elapsed days since the first valid real model-backed reviewed/sent record's `sent_at`; not proof of continuous operation |
 | Median first-response time | median of `sent_at - received_at` |
-| Drafts approved without edit | `approved_at not null` ÷ total |
+| Approval rate | `approved_at not null` / total; the log does not prove whether the operator edited a reply |
 | Rejection rate | `outcome = rejected_by_operator` ÷ total |
 | Validation blocks | `outcome = blocked_by_validation` |
 | Fallback rate | `fallback_used = true` ÷ total |
@@ -76,6 +78,18 @@ A redacted five-line sample is at
 
     python tools/triage/triage.py --status
 
-Reports the first real inquiry, days elapsed, and the earliest qualification
-date (first real inquiry + 15 days). **Never backdate.** The clock starts when
-the tool processes a real customer inquiry, and only then.
+Reports the first evidenced model-backed manual send and a review target 15
+full days later. The shared `production_evidence.py` rule requires a true real
+customer flag, non-fallback model, no model error, named reviewer, all six gate
+results without failures, `approved_and_sent`, and ordered non-future inquiry,
+approval and send times. Incomplete records cannot move the start earlier.
+
+Status never declares `QUALIFIED`; `ELAPSED WINDOW REACHED` means review the
+evidence, not that OPN acceptance or continuous operation has been certified.
+Malformed JSON, synthetic rows or duplicate IDs make status fail closed.
+All status checks are read-only. **Never edit or backdate the evidence.**
+
+New real CLI records include UTC offsets. Legacy offset-free CLI timestamps
+are interpreted in the operator machine's local timezone; keep that timezone
+correct when reviewing older records. Status displays UTC timestamps. The
+submission validator shares the same starting-record and elapsed-time rules.

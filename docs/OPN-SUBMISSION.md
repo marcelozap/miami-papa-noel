@@ -3,16 +3,20 @@
 **Applicant:** Marcelo Zapata / XIV
 **Deployment:** Miami Papa Noel — AI-assisted bilingual inquiry triage
 **Date:** 2026-08-29
+**Last updated:** 2026-09-05 (content revised after the original date; see Git history).
 
 ---
 
 ## Summary
 
 Miami Papa Noel is a bilingual seasonal service business in Miami-Doral,
-operating since 2017, with a public booking site at `miamipapanoel.com` and a
-documented role-based operations workflow. It runs under XIV, the operator's
-business. **It is the operator's own business, not an external third-party
-customer**, and is not presented as one.
+operating since 2017 per the owner's account [MISSING EVIDENCE: no dated
+artifact before 2022-12-24], with a public booking site at `miamipapanoel.com`
+and a documented role-based operations workflow. It runs under XIV, the
+operator's business. Miami Papa Noel is a family business with distinct
+principals: Walter Zapata owns and operates the Santa visit service; Marcelo
+Zapata (XIV) designed, built, and operates the AI workflow. **It is not an
+arms-length external enterprise customer**, and the packet says so plainly.
 
 The role-based workflow operated during the 2025 Christmas season — inquiries,
 bilingual drafting, booking coordination, outreach, payment receipt tracking,
@@ -23,8 +27,11 @@ are being assembled and are labeled as such throughout.
 **What is submitted for review is the 2026 deployment:** a real, runnable,
 instrumented tool that performs bilingual inquiry triage with mandatory human
 approval. It is built, tested, and documented, and is ready to enter production
-on its first real customer inquiry. It reaches 15 days of continuous operation
-15 days after that first real record.
+on its first real customer inquiry. Launch date = the first real inquiry
+record (never backdated); the 15-day evidence window is measured from the
+send timestamp of the first valid real, model-backed, reviewed-and-sent
+record - fallback or unsent records never start it (shared predicate:
+`tools/triage/production_evidence.py`).
 
 ---
 
@@ -58,7 +65,9 @@ The operator types `APPROVE`, then copies the draft into the channel by hand.
 
 ### Enforced safety gates
 
-Six, each with negative tests proving it blocks rather than warns:
+Six draft-validation gates (all software-enforced, applied to deterministic
+AND model output), each with negative tests proving it blocks rather than
+warns:
 
 | Gate | Blocks |
 |---|---|
@@ -67,7 +76,7 @@ Six, each with negative tests proving it blocks rather than warns:
 | Missing information | Required fields absent with no question asked |
 | Unsafe confirmation | "confirmed", "booked", "deposit received", "reservado", "depósito recibido" — accent-insensitive |
 | Insurance claim | Any insurance language while the policy is unverified |
-| Payment method | Venmo, Cash App, Stripe, Square, PayPal, card, wire |
+| Payment method | Venmo, Cash App, Square, PayPal, card, Apple Pay, wire, Zinli; and any payment-link promise while no real buy.stripe.com link is configured |
 
 The tool is structurally incapable of confirming a booking or acknowledging a
 deposit. Only a human does either, and only after funds clear.
@@ -103,7 +112,7 @@ against real inquiry samples once enough have accumulated.
 | Requirement | Response |
 |---|---|
 | **Active customer AI deployment** | Built and ready; the production clock starts on the first real inquiry |
-| **Launch date / status** | `[TO FILL]` — recorded automatically as the first `--real` log line. Never backdated |
+| **Launch date / status** | `[TO FILL]` — Launch date = the first real inquiry record (never backdated); the 15-day evidence window is measured from the send timestamp of the first valid real, model-backed, reviewed-and-sent record - fallback or unsent records never start it (shared predicate: `tools/triage/production_evidence.py`) |
 | **Operational owner** | **Marcelo Zapata — built and operated.** Sole operator and sole committer in the repository history |
 | **Live AI functionality** | Configured Responses API path for structured extraction and bilingual drafting, with deterministic extraction and drafting as the tested fallback; six enforced gates |
 | **Concrete outcome** | `[TO FILL]` — derives from the log: inquiries handled, median first-response time, share approved unedited, rejection rate, fallback rate |
@@ -117,6 +126,10 @@ against real inquiry samples once enough have accumulated.
 ---
 
 ## Verification a reviewer can run
+
+NOTE (2026-09-05): the public repository is currently behind this working
+tree; the commands below reproduce the documented behavior only after the
+prepared branch update is pushed (pending owner authorization).
 
 ```powershell
 git clone https://github.com/marcelozap/miami-papa-noel

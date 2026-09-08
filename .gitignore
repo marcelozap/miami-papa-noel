@@ -22,3 +22,7 @@ slot-state.json
 availability-snapshot.json
 prospects.json
 tools/content/queue.json
+
+# Session working dirs - never commit
+Claude outputs/
+_to_delete/

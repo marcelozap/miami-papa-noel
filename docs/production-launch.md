@@ -4,8 +4,10 @@ Operate one existing workflow first: bilingual inquiry triage for Miami Papa
 Noel, reviewed and sent by Marcelo. The software runs locally on demand when an
 inquiry arrives. It does not need a publicly exposed operator board.
 
-Status checked 2026-09-04: repository relocated to `C:\XIV\santa`; the default
-triage production log reports NOT STARTED. This document does not start it.
+Status checked 2026-09-05: repository relocated to `C:\XIV\santa`; no first
+genuine model-backed reviewed/sent inquiry has been verified by this
+coordinator. A separate Luna haiku succeeded; the Santa model path still
+needs a privately configured check. This document does not start Day 1.
 
 ## Start
 
@@ -14,9 +16,13 @@ triage production log reports NOT STARTED. This document does not start it.
    key into chat or commit it. Configuration in another terminal is not proof
    it is available to the terminal used for customer work.
 2. Run `python scripts/ops_check.py` from `C:\XIV\santa`.
-3. Run `python tools/triage/triage.py --demo` in that configured terminal.
-   This synthetic check may call the paid API. Check for actual model use and
-   passing gates; an offline fallback is not an AI connection test.
+3. Run `python -B tools/triage/triage.py --check-model` in that configured
+   terminal. This makes one synthetic Spanish inquiry through the real
+   adapter/schema/gates and may consume API credit. Exit 0 plus
+   `MODEL CHECK PASSED` means this sample passed; any fallback returns 1.
+   Review both displayed languages. No local inquiry log is written and no
+   customer operation is established by the test. Private setup commands
+   are in tools/triage/README.md; never paste the key into chat or source.
 4. Put one genuine incoming inquiry in a private local text file outside Git.
    Use the business's existing email, website inbox, or messages as its source.
 5. Run the following with the file and channel that actually apply:
@@ -51,16 +57,17 @@ this workflow. The operator board's current state storage needs its own review.
 - On days without inquiries, record that fact in a private operations note.
   Do not create an inquiry to fill the gap. A health check is operational
   evidence, not an additional customer served.
-- Check status with `python tools/triage/triage.py --status`. Its QUALIFIED
-  label measures elapsed dates only; it does not prove continuing AI use or
-  predict the OPN decision. The code can start its date counter on a fallback
-  row, so verify the actual first model-backed use separately.
+- Check status with `python tools/triage/triage.py --status`. It uses the
+  first valid, real, model-backed reviewed/sent record and reports a UTC
+  review target 15 full days after that send. It excludes fallback and unsent
+  records and never labels the workflow QUALIFIED. An elapsed window does
+  not prove continuing operation or predict the OPN decision.
 - Record downtime honestly and retain a second private backup of evidence.
   Track inquiries handled, approvals/sends, edits, and failures. Attribute
   bookings or time savings only when records support them.
 
-If actual operation starts September 4, 2026, the 15-day review target is
-September 19 at or after the same start time. Shift the target with the actual
+If actual operation starts September 5, 2026, the 15-day review target is
+September 20 at or after the same start time. Shift the target with the actual
 start. Maintain evidence that the workflow continues operating across the
 window. A newly configured page left idle is not sufficient evidence of use.
 

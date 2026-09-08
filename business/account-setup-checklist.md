@@ -88,13 +88,15 @@ Color code:
 
 ### Payments
 
-Use the approved payment method only:
+Use the official rails only:
 
 - Zelle to 305-244-0360
+- The business's own buy.stripe.com Payment Link once the operator creates it
+  (adopted 2026-08-30, not yet live)
 
-Do not set up or publish Cash App, Venmo, Square, Stripe, card processing, or
-wire instructions. Require the 50% retainer to clear before treating a date as
-booked.
+All other methods prohibited. Do not set up or publish Cash App, Venmo,
+Square, card processing, or wire instructions. Require the 50% retainer to
+clear before treating a date as booked.
 
 Require a deposit to hold the date.
 
