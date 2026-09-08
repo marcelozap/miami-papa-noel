@@ -16,6 +16,7 @@ from openai_adapter import OpenAIContentAdapter
 def sandboxed_quota(monkeypatch, tmp_path):
     """Shared paid-call quota stays in the sandbox and is opted in for the
     generation tests; paid generation is disabled by default otherwise."""
+    monkeypatch.setattr(openai_adapter, "reserve_cost", lambda *args: None)
     monkeypatch.setenv("MPN_API_QUOTA_DIR", str(tmp_path / "quota"))
     monkeypatch.setenv("MPN_API_DAILY_CALL_CAP", "10")
 

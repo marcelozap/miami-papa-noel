@@ -28,6 +28,9 @@ NOW = dt.datetime(2026, 9, 1, 10, 0, 0)
 
 @pytest.fixture(autouse=True)
 def isolated_model_environment(monkeypatch, tmp_path):
+    # Cost accounting is exercised end to end in test_spend_guard.py;
+    # these synthetic model/gate tests isolate the pre-existing contracts.
+    monkeypatch.setattr(triage, "reserve_cost", lambda *args: None)
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("MPN_MODEL", raising=False)
     # Keep every log AND the shared paid-call quota inside the test sandbox -

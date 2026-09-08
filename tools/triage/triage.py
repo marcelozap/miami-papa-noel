@@ -34,6 +34,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import validators  # noqa: E402
+from spend_guard import private_path, reserve_cost  # noqa: E402
 from production_evidence import (  # noqa: E402
     QUALIFYING_DAYS, VALIDATION_CHECKS, reviewed_model_send_at,
 )
@@ -459,7 +460,7 @@ def reserve_paid_call(cap: int, adapter: str,
     moment = now or _utcnow()
     day = moment.strftime("%Y-%m-%d")
     try:
-        directory = api_quota_dir()
+        directory = private_path(api_quota_dir())
         directory.mkdir(parents=True, exist_ok=True)
         for slot in range(cap):
             path = directory / ("%s-slot-%03d.json" % (day, slot))
@@ -472,7 +473,7 @@ def reserve_paid_call(cap: int, adapter: str,
                                      "adapter": adapter}))
             return True, str(path)
         return False, "BUDGET_CAP_REACHED"
-    except OSError:
+    except (OSError, ValueError, RuntimeError):
         return False, "BUDGET_ACCOUNTING_UNAVAILABLE"
 
 
@@ -529,6 +530,11 @@ def call_openai_triage(text: str, pricing: dict) -> tuple:
             }
         },
     }
+    refusal = reserve_cost(payload, api_quota_dir())
+    if refusal:
+        print("Estimated-cost guard refused the request: " + refusal
+              + ". Offline drafting continues; no request was sent.", file=sys.stderr)
+        return None, None, refusal
     request = urllib.request.Request(
         OPENAI_RESPONSES_URL,
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),

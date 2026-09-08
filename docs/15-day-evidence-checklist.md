@@ -1,10 +1,13 @@
 # 15-Day Evidence Checklist
 
 For the current launch, start with `docs/production-launch.md`. The selected
-workflow is the existing human-reviewed bilingual inquiry assistant. Record
-the first evidenced model-backed operational use separately from the CLI's
-elapsed-date counter, which can also include deterministic fallback records.
-The CLI's QUALIFIED label is not an OPN acceptance decision.
+workflow is the existing human-reviewed bilingual inquiry assistant. The
+15-day window is measured only from the first valid, real, model-backed,
+reviewed-and-sent record (shared predicate: `tools/triage/production_evidence.py`)
+— synthetic runs, demos, unsent drafts, and deterministic fallback records
+never start or extend it. `--status` never prints a `QUALIFIED` label; once
+the window has elapsed it prints `ELAPSED WINDOW REACHED - review evidence`,
+which is not an OPN acceptance decision.
 
 The production clock starts when the tool processes the **first real customer
 inquiry** and not one moment earlier. Synthetic runs, demos, and tests never

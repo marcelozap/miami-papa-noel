@@ -2,6 +2,16 @@
 
 AI-assisted bilingual inquiry triage with mandatory human approval.
 
+**Current spending requirements (2026-09-08):** a key and positive call cap
+alone no longer enable paid drafting. Both paid adapters also require an
+approved private `MPN_API_COST_POLICY`, with a daily cents allowance and fresh,
+model-specific pricing. No policy or spending permission ships with this code.
+Missing/invalid policy or exhausted estimated allowance means no API request.
+See [the operator card](../../docs/day-one-operator-card.md) for the current
+manual workflow and engineering configuration contract. Older model-setup
+examples below are incomplete without that policy. Set
+`MPN_API_DAILY_CALL_CAP=0` to explicitly keep every draft offline.
+
 **What it does:** the operator pastes a real customer inquiry. The tool detects
 English or Spanish, extracts the date, service category, location and contact
 status, flags schedule risk, and drafts a short reply in both languages using
@@ -256,7 +266,7 @@ positive number - the zero-spend opt-in the owner asked for.
 
 When enabled, the daily allowance is enforced by atomic slot-file
 reservations (`O_CREAT|O_EXCL`) in one shared quota directory
-(`%LOCALAPPDATA%\MiamiPapaNoelpi-quota`, override `MPN_API_QUOTA_DIR`):
+(`%LOCALAPPDATA%\MiamiPapaNoel\api-quota`, override `MPN_API_QUOTA_DIR`):
 
 - **Shared across everything**: concurrent processes AND both paid adapters
   (triage/web queue and the reservations content adapter) draw from a

@@ -3,6 +3,22 @@
 Written 2026-08-30 on the desktop. Read this top to bottom before doing
 anything else on the laptop.
 
+**Stale snapshot notice (added 2026-09-08):** this document froze at the
+2026-08-30 desktop state — a specific commit, a specific "N commits ahead of
+GitHub" count, and a **68 passed** test total. None of those numbers are
+current; the suites have grown substantially since (see the preflight output
+in `docs/santa-agent-workboard.md` or rerun the commands in section 0 for the
+real count at HEAD). More importantly, the repository relocated to
+`C:\XIV\santa` on 2026-09-04 (see `CLAUDE.md`); do not clone a second working
+copy into a folder named `miami-papa-noel` on any machine that can instead
+sync to that canonical path. Section 0's git-clone instructions describe a
+scenario (desktop ahead of GitHub, laptop needs its own clone) that predates
+the relocation and may no longer apply — check current repo location and
+`git status` before following it literally. The five-item scoreboard, the
+minimum-strong-packet list, and the numbered rules in sections 2-3 describe
+what still needs to happen and remain useful; only the specific counts and
+machine-split narrative above are dated.
+
 ---
 
 ## THE SIMPLE VERSION - only four things are actually left

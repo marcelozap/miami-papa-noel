@@ -23,6 +23,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 SUITES = [
+    "tools/triage/test_evidence_backup.py",
+    "tools/triage/test_spend_guard.py",
     "tools/triage/test_triage.py",
     "scripts/test_validate_opn_submission.py",
     "scripts/test_evidence_index.py",

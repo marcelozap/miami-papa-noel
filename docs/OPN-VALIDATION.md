@@ -144,9 +144,10 @@ python scripts\validate_opn_submission.py --init-evidence
 
 ## Result interpretation
 
-`PREFLIGHT PASS - evidence still required` means the software and safety
-controls are ready for real evidence collection. It is not a Partner Network
-qualification.
+`RESULT: PASS - 0 blocking findings, N warning(s).` in preflight mode means
+the software and safety controls are ready for real evidence collection —
+the warnings are expected until the production log and evidence index exist.
+It is not a Partner Network qualification.
 
-`PASS` in final mode means the local packet satisfies the encoded checklist.
-OpenAI still makes the partnership decision.
+The same `RESULT: PASS` line in final mode means the local packet satisfies
+the encoded checklist. OpenAI still makes the partnership decision.

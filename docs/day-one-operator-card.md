@@ -1,97 +1,98 @@
-# Day One Operator Card — Marcelo
+# Santa: Handle an Inquiry
 
-The shortest honest path to the first genuine AI-assisted customer reply,
-using the inboxes you already have (786-975-9557 text/WhatsApp, Instagram,
-santa@miamipapanoel.com). Nothing here requires hosting, Stripe, or a
-phone integration. Full detail: docs/production-launch.md.
+## Use it now without API charges
 
-**Paid steps are not approved right now.** The owner has raised affordability
-concerns. The rebuilt v2 spending controls passed coordinator review
-(2026-09-05), but paid generation stays off by default and unapproved until
-the owner explicitly opts in. Keep using manual/offline replies. This card
-is a future procedure, not permission to spend or a claim that Day 1 began.
+Texts to 786-975-9557 arrive on the existing phone. Mrs. Claus does not
+answer that number automatically. You read the message, prepare a reply,
+review it, and send it from your normal inbox.
 
-## Once, before the first inquiry
-
-1. **Rotate the exposed API key** in the OpenAI dashboard (the test key
-   appeared in chat and must be treated as burned). Never paste the new
-   one into chat, files, or Git.
-2. In the PowerShell window you will actually use:
-
-   ```powershell
-   Set-Location 'C:\XIV\santa'
-   $secret = Read-Host 'New OpenAI API key' -AsSecureString
-   $env:OPENAI_API_KEY = [System.Net.NetworkCredential]::new('', $secret).Password
-   Remove-Variable secret
-   $env:MPN_MODEL = 'gpt-5.6-luna'
-   $env:MPN_REVIEWER = 'Marcelo Zapata'
-   ```
-
-3. **One bounded synthetic test** through the real gated path (this is
-   the step that verifies gpt-5.6-luna for Santa — the haiku did not):
-
-   ```powershell
-   python -B C:\XIV\santa\tools\triage\triage.py --check-model
-   ```
-
-   PASS = exit 0 and `MODEL CHECK PASSED`, with the selected model and
-   all six gates passing. Review both languages. Exit 1 / NOT VERIFIED
-   means the model path or sample checks failed; read the sanitized hint
-   and do not retry repeatedly. This may consume API credit; the haiku
-   success does not prove ongoing free access. No local inquiry log,
-   approval or send is written. Never add `--real` to a test.
-
-## Every genuine inquiry (the actual Day 1)
-
-1. A real customer writes to one of the existing inboxes. Copy their
-   message exactly.
-2. Same terminal:
-
-   ```powershell
-   $inquiryFile = Join-Path $env:LOCALAPPDATA 'MiamiPapaNoel\intake\inquiry.txt'
-   python tools\triage\triage.py --real --channel whatsapp --reviewer 'Marcelo Zapata' --file $inquiryFile
-   ```
-
-   Put the genuine message in that private file outside Git before running
-   the command. Channels: `instagram_dm`, `whatsapp`, `phone`, `web_form`,
-   `email`, `referral`; use the true source.
-3. Read both drafts and every gate. Type `APPROVE` only if you approve.
-4. **You** send the reply from the actual inbox. Then answer the second
-   prompt (`SENT`) so the send is recorded truthfully.
-5. Check the actual record: real customer, non-fallback model, named
-   reviewer, approval/send times and `approved_and_sent`. That is evidence
-   of an operated model-assisted reply. Run
-   `python tools\triage\triage.py --status` to see the first valid model-backed reviewed/sent record and
-   its 15-full-day review target in UTC. Fallback and unsent records do not
-   start this counter. It does not certify OPN acceptance or continuous
-   operation. Never backdate the evidence. Quiet days remain quiet; never
-   manufacture an inquiry.
-
-## What Day 1 is NOT
-
-No `--real` on tests. No public website change (the new queue is local
-only). No Stripe link until a real one exists. No automated calls/texts.
-A model success on synthetic input is progress, not customer evidence —
-only step "Every genuine inquiry" creates Day 1, and OPN decides
-acceptance, not this card.
-
-## Spending controls (v2 - coordinator-VERIFIED 2026-09-05)
-
-The rejected limiter was rebuilt: paid generation is now **off by default
-even with a key** - nothing spends until you explicitly set a daily
-allowance in the same terminal:
+In the PowerShell window used for Santa, explicitly keep paid calls off:
 
 ```powershell
-$env:MPN_API_DAILY_CALL_CAP = '3'   # your explicit opt-in; unset/0 = no spending
+Set-Location 'C:\XIV\santa'
+$env:MPN_API_DAILY_CALL_CAP = '0'
 ```
 
-The allowance is one shared atomic count across BOTH paid adapters and all
-concurrent processes; it survives restarts, and any accounting failure
-refuses to spend rather than resetting. `--demo` draws 4 from it,
-`--check-model` and each inquiry draw 1. Inquiries over 6000 characters
-and responses over the token bound are never sent/accepted.
+Put the customer's actual message in a private text file outside this
+repository. For example, use your existing private intake folder, then run:
 
-Still true and unchanged: this caps calls and tokens, **not dollars**.
-No provider-side hard cutoff has been verified for this account, and
-synthetic data is not free usage. The coordinator re-review passed
-2026-09-05; paid steps still remain unapproved until you authorize them.
+```powershell
+$inquiryFile = Join-Path $env:LOCALAPPDATA 'MiamiPapaNoel\intake\inquiry.txt'
+python -B tools\triage\triage.py --real --channel whatsapp --reviewer 'Marcelo Zapata' --file $inquiryFile
+```
+
+Use the actual source channel: whatsapp, instagram_dm, phone, web_form,
+email, or referral. The file must exist before running the command.
+
+1. Read the English and Spanish drafts and all six checks.
+2. Check availability and travel time yourself. Templates do not reserve dates.
+3. Approve only a correct reply. Send it yourself from the customer's inbox.
+4. Type SENT only after actually sending it. Never use --real for test data.
+
+No automatic texts, calls, posts, payments, or customer sends occur here.
+These local template replies make no OpenAI API request. Existing phone,
+website, and computer costs are assumed covered; this is not a promise that
+future hosting or phone automation has no service charges.
+
+## Paid drafting remains off
+
+The new estimated-cost guard requires a private pricing/budget policy as
+well as a positive call allowance. No daily amount has been selected or
+authorized. Do not add credits or enable calls just to follow this card.
+
+With approval later, an engineer verifies the selected model's current
+official prices, creates the private policy, and tests the configured path
+once within the agreed allowance. The exposed chat key must be replaced.
+Never paste API keys or bank details into this guide, Git, or chat.
+
+Generate, regenerate, --check-model, each of the four --demo inquiries, and
+content generation can cost money when enabled. Visiting the site, queueing
+an inquiry, reviewing drafts, and --status do not themselves call the model.
+
+The guard conservatively reserves an estimated amount before dispatch.
+It retains that amount after success, rejection, timeout, or crash. A full
+allowance, invalid/stale pricing, unsupported payload, or accounting error
+refuses the request. There is no automatic retry. It is NOT a provider
+billing guarantee or an account-wide limit covering other applications.
+
+## Check evidence without spending
+
+```powershell
+python -B tools\triage\triage.py --status
+```
+
+Offline replies and synthetic tests do not start the model-backed evidence
+counter. A genuine model-backed, reviewed-and-sent customer reply can start
+the local evidence record. The displayed 15-full-day UTC target does not
+certify continuous production operation or OpenAI Partner Network acceptance.
+
+## Engineer Notes: Cost Policy
+
+Both adapters use tools/triage/spend_guard.py and the same absolute private
+MPN_API_QUOTA_DIR (default: LOCALAPPDATA\MiamiPapaNoel\api-quota).
+MPN_API_COST_POLICY points to an absolute JSON path outside the repository.
+No policy file is supplied or activated by this change.
+
+Required policy fields: daily_cents (positive decimal string), verified_on
+(UTC YYYY-MM-DD, at most seven days old), and models. Each exact model ID
+maps to input_usd_per_million, output_usd_per_million (positive decimal
+strings), and source (official https://developers.openai.com/ pricing URL).
+The source/date are operator attestations, not an automatic web verification.
+Do not invent rates or use the synthetic test fixture prices for deployment.
+
+Accounting uses SQLite BEGIN IMMEDIATE and durable commit before dispatch.
+Same-day budget changes refuse requests rather than silently raising the
+allowance. Input estimate covers the full serialized UTF-8 text envelope
+(instructions and schema included), plus 4096 protocol tokens, with 25%
+input-rate headroom. Maximum output includes the endpoint's configured token
+limit; payloads over 64 KiB, output over 4096 tokens, and tools/media refuse.
+This deliberately conservative estimate may stop drafts earlier than actual
+billing would. No unused reservation is released. Call slots may also be
+consumed by a later monetary refusal; neither counter automatically retries.
+
+Use one shared private directory and policy across both adapters/processes.
+Do not delete accounting files, change directories, or run older unguarded
+copies to restore allowance. Separate machines/users/directories, tampering,
+provider pricing changes, or costs outside these two adapters are not covered.
+At midnight UTC the next day's allowance becomes available; two daily
+allowances could be used close together across midnight, not a rolling 24h cap.

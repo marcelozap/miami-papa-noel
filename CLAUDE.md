@@ -4,6 +4,12 @@ This repository is the Miami Papa Noel seasonal operations lane. Read `C:\XIV\ST
 
 ## Shared coordination
 
+- Direct agent handoffs: read `docs/agent-sync/README.md` and your incoming
+  mailbox at every checkpoint. Claude reads `docs/agent-sync/codex-to-claude.md`
+  and writes `docs/agent-sync/claude-to-codex.md`; Codex does the reverse.
+  Deliver results there, not by asking Marcelo to copy messages between apps.
+  The workboard remains authoritative for file claims and task history.
+
 - Relocation completed 2026-09-04: the repository lives at `C:\XIV\santa` and the shared workboard is `C:\XIV\santa\docs\santa-agent-workboard.md`. The old `C:\Users\Green Machine\miami-papa-noel` directory is empty except for a `MOVED.md` pointer; do not recreate files there.
 - Follow `C:\XIV\START_HERE.md` for the checked move. Checkpoint active workers first; carry the existing Git history, edits, private local data, and workboard together. Do not create a second independent workboard or overwrite another worker's files.
 - At the start of every turn, read the workboard, run `git status --short --branch`, and inspect recent commits.

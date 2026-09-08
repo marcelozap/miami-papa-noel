@@ -16,6 +16,11 @@ import json
 import os
 import re
 import urllib.request
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools" / "triage"))
+from spend_guard import private_path, reserve_cost
 
 from malosound_adapter import MaloSoundAdapter
 
@@ -54,7 +59,7 @@ def _reserve_paid_call(cap, adapter):
     moment = _dt.datetime.now(_dt.timezone.utc)
     day = moment.strftime("%Y-%m-%d")
     try:
-        directory = _api_quota_dir()
+        directory = private_path(_api_quota_dir())
         os.makedirs(directory, exist_ok=True)
         for slot in range(cap):
             path = os.path.join(directory, "%s-slot-%03d.json" % (day, slot))
@@ -67,7 +72,7 @@ def _reserve_paid_call(cap, adapter):
                                      "adapter": adapter}))
             return True, path
         return False, "budget cap reached"
-    except OSError:
+    except (OSError, ValueError, RuntimeError):
         return False, "paid-call accounting unavailable"
 
 SYSTEM_PROMPT = (
@@ -136,25 +141,35 @@ class OpenAIContentAdapter(MaloSoundAdapter):
                 bad.append("missing " + k)
         return bad
 
-    def _budget_refusal(self, brief):
+    def _budget_refusal(self, brief, payload):
         """Reason paid generation may not run now, or None. Never spends."""
         cap = _api_daily_call_cap()
         if cap == 0:
             return ("paid generation is disabled by default; set "
                     "MPN_API_DAILY_CALL_CAP to a positive daily allowance")
-        if len(json.dumps(brief, ensure_ascii=False)) > API_MAX_INPUT_CHARS:
+        payload_chars = len(json.dumps(brief, ensure_ascii=False)) + len(SYSTEM_PROMPT)
+        if payload_chars > API_MAX_INPUT_CHARS:
             return "brief exceeds the paid-call input bound"
         reserved, why = _reserve_paid_call(cap, "content")
         if not reserved:
             return why + "; no request was sent"
-        return None
+        return reserve_cost(payload, _api_quota_dir())
 
     def generate(self, brief, out_dir):
         os.makedirs(out_dir, exist_ok=True)
         with open(os.path.join(out_dir, "brief.json"), "w", encoding="utf-8") as f:
             json.dump(brief, f, indent=2, ensure_ascii=False)
 
-        refusal = self._budget_refusal(brief)
+        payload = {
+            "model": self.model,
+            "messages": [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": json.dumps(brief, ensure_ascii=False)},
+            ],
+            "response_format": {"type": "json_object"},
+            "max_completion_tokens": 800,
+        }
+        refusal = self._budget_refusal(brief, payload)
         if refusal:
             manifest = {"adapter": self.name, "model": self.model, "asset": None,
                         "rejected": [refusal],
@@ -166,17 +181,6 @@ class OpenAIContentAdapter(MaloSoundAdapter):
                     "manifest": os.path.join(out_dir, "manifest.json"),
                     "asset": None}
 
-        payload = {
-            "model": self.model,
-            "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": json.dumps(brief, ensure_ascii=False)},
-            ],
-            "response_format": {"type": "json_object"},
-            # Spending bound: captions are short; an unbounded response must
-            # never be billable. Calls here are already operator-invoked only.
-            "max_completion_tokens": 800,
-        }
         resp = self.transport(payload)
         generated = json.loads(resp["choices"][0]["message"]["content"])
         violations = self._violations(generated, brief)

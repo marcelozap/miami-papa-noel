@@ -34,7 +34,28 @@ except the redacted example in `tools/triage/examples/`.
 | `sent_at` | ISO 8601 \| null | When the operator actually sent it in the customer channel. Recorded only after the operator types `SENT` following the manual send |
 | `fallback_used` | bool | `true` when the deterministic offline path produced the draft |
 | `outcome` | enum | `pending_review` · `approved_awaiting_send` · `approved_and_sent` · `rejected_by_operator` · `blocked_by_validation` |
-| `error_code` | string \| null | `VALIDATION_FAIL`, `MODEL_UNAVAILABLE`, `MODEL_HTTP_ERROR`, `MODEL_PARSE_ERROR`, `MODEL_SCHEMA_ERROR`, `MODEL_OUTPUT_VALIDATION_FAIL`, `MODEL_CATEGORY_AMBIGUOUS`, `PAID_CALLS_DISABLED`, `BUDGET_CAP_REACHED`, `TOOL_UNAVAILABLE`, or `null` |
+| `error_code` | string \| null | see the table below, or `null` |
+
+Every value `error_code` can actually carry, grouped by cause. Each one means
+a model did not produce the draft. Most mean the deterministic offline
+draft stood in; `VALIDATION_FAIL` is different — the draft was blocked by
+the gates, so there may be no approved reply at all. A code here describes
+what happened to the **draft**, never whether the operator sent anything:
+only `outcome` and `sent_at` record an actual send.
+
+| Group | Codes |
+| --- | --- |
+| Draft rejected by the gates | `VALIDATION_FAIL`, `MODEL_OUTPUT_VALIDATION_FAIL`, `MODEL_CATEGORY_AMBIGUOUS` |
+| API call attempted and failed | `MODEL_UNAVAILABLE`, `MODEL_HTTP_ERROR`, `MODEL_PARSE_ERROR`, `MODEL_SCHEMA_ERROR` |
+| Refused before any request (call allowance) | `PAID_CALLS_DISABLED`, `BUDGET_CAP_REACHED`, `BUDGET_ACCOUNTING_UNAVAILABLE`, `MODEL_INPUT_TOO_LARGE` |
+| Refused before any request (estimated-cost guard) | `COST_POLICY_REQUIRED`, `COST_POLICY_INVALID`, `COST_POLICY_CHANGED_TODAY`, `COST_BUDGET_REACHED`, `COST_ACCOUNTING_UNAVAILABLE` |
+
+A code in either "refused before any request" group means **this tool
+dispatched no API request for that record**, so that record generated no
+charge. That is a per-record statement about this tool only — it is not
+account-wide billing proof. Other applications, other machines, and any
+usage outside these two adapters are invisible here; the provider's own
+billing page is the only authority on what the account was charged.
 
 Supporting fields also written: `location`, `contact_status`, `schedule_risk`,
 `schedule_risk_reason`, `price_list_version`, `real_customer`, and `validation`
@@ -45,7 +66,13 @@ Supporting fields also written: `location`, `contact_status`, `schedule_risk`,
 - **The customer's message text.** Never stored.
 - **The drafted replies.** Stripped before the line is written — verified by
   `test_log_line_excludes_draft_bodies`.
-- Names, phone numbers, emails, street addresses, payment memos.
+- **Customer** names, phone numbers, emails, street addresses, payment memos.
+
+The operator's own identity is deliberately the exception: `reviewer` holds
+the name of the human who approved the draft, and the approval and send
+timestamps are retained. That is the point of the record — it is the
+accountability trail, not anonymous data. Treat the log as private
+operational data about the operator as well as the customer.
 
 `location` holds a coarse area only (`Doral`, `Kendall`), never a street
 address. `contact_status` records *whether* a phone or email was supplied, never

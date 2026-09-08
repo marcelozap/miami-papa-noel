@@ -5,6 +5,11 @@ the source of truth; content and outreach are downstream of confirmed bookings.
 
 Every loop iteration must follow this order:
 
+At each checkpoint also follow `docs/agent-sync/README.md`: read the other
+agent's mailbox, acknowledge its message ID in your own mailbox, and publish
+completed handoffs directly there. Marcelo is not the message courier.
+This file describes work cycles, not a scheduler that wakes a stopped app.
+
 1. Read `C:\XIV\START_HERE.md`. The Santa repository relocated to `C:\XIV\santa` on 2026-09-04 (verified: Git history, workboard, and full test suite present). Read `CLAUDE.md` and `docs/santa-agent-workboard.md` from `C:\XIV\santa`. Never start a second workboard elsewhere.
 2. Inspect `git status --short --branch`, recent commits, and any current claims.
 3. If another worker owns a file, do not touch it. Choose the highest-priority unclaimed item and record the claim on the shared workboard.
