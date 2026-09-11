@@ -101,6 +101,34 @@ test('approval sends the exact revision and inquiry that were displayed',async()
   await clicked;
 });
 
+test('sending a chat message posts to /api/chat and renders the reply',async()=>{
+  const h=harness();
+  h.get('chat-input').value='Family visit in Doral on December 20';
+  const pending=h.get('chat-form').listeners.submit({preventDefault(){},currentTarget:h.get('chat-form')});
+  assert.equal(h.requests[0].url,'/api/chat');
+  const sent=JSON.parse(h.requests[0].options.body);
+  assert.equal(sent.message,'Family visit in Doral on December 20');
+  assert.equal(typeof sent.session_key,'string');
+  h.requests[0].resolve(response({language:'en',message:'Synthetic reply',source:'template',status:'reply',booking_confirmed:false}));
+  await pending;
+  const bubbles=h.get('chat-thread').children;
+  assert.equal(bubbles[bubbles.length-1].textContent,'Synthetic reply');
+});
+
+test('a failed chat turn shows a retry that resends the same message',async()=>{
+  const h=harness();
+  h.get('chat-input').value='Hola';
+  const pending=h.get('chat-form').listeners.submit({preventDefault(){},currentTarget:h.get('chat-form')});
+  h.requests[0].resolve(response({error:'Service unavailable'},false));
+  await pending;
+  assert.equal(h.get('chat-retry').hidden,false);
+  const retried=h.get('chat-retry').onclick();
+  assert.equal(JSON.parse(h.requests[1].options.body).message,'Hola');
+  h.requests[1].resolve(response({language:'es',message:'Recibido',source:'template',status:'reply',booking_confirmed:false}));
+  await retried;
+  assert.equal(h.get('chat-retry').hidden,true);
+});
+
 test('an action completing after logout does not reopen the queue',async()=>{
   const h=harness(); h.run("token='synthetic-token';reviewer='Synthetic Operator';selected='synthetic-id'");
   const button=h.run("action('Generate','/api/draft')");

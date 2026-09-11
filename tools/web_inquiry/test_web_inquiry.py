@@ -126,6 +126,234 @@ def http(app):
     thread.join()
 
 
+# ---------------------------------------------------------------- chat -----
+
+SESSION = "synthetic-session-key-0001"
+
+
+@pytest.fixture
+def chat_secret(monkeypatch):
+    secret = "ab" * 32
+    monkeypatch.setenv("MPN_CHAT_SECRET", secret)
+    return secret
+
+
+def test_chat_is_disabled_without_a_configured_secret(app):
+    assert app.chat_service is None
+    refused(503, lambda: app.chat_reply(SESSION, "Hola", "203.0.113.5"))
+
+
+def test_chat_requires_a_well_formed_session_key(chat_secret, tmp_path):
+    live = web.App(tmp_path / "chat-private", TOKEN, "http://127.0.0.1:8226")
+    try:
+        refused(400, lambda: live.chat_reply("short", "Hola", "203.0.113.5"))
+        refused(400, lambda: live.chat_reply(None, "Hola", "203.0.113.5"))
+    finally:
+        live.close()
+
+
+@pytest.fixture
+def chat_app(chat_secret, tmp_path):
+    application = web.App(tmp_path / "chat-private", TOKEN, "http://127.0.0.1:8226")
+    yield application
+    application.close()
+
+
+def test_chat_rejects_empty_or_oversized_messages(chat_app):
+    refused(400, lambda: chat_app.chat_reply(SESSION, "", "203.0.113.5"))
+    refused(400, lambda: chat_app.chat_reply(SESSION, "x" * 1001, "203.0.113.5"))
+
+
+def test_chat_never_confirms_a_booking_and_uses_locked_pricing(chat_app):
+    result = chat_app.chat_reply(SESSION, "Family visit in Doral", "203.0.113.5")
+    assert result["booking_confirmed"] is False
+    assert result["status"] == "reply"
+    assert "$325" in result["message"]
+
+
+def test_chat_gathers_missing_details_progressively_across_turns(chat_app):
+    first = chat_app.chat_reply(SESSION, "Family visit in Doral", "203.0.113.6")
+    assert "?" in first["message"]  # still asks for date and contact
+    second = chat_app.chat_reply(SESSION, "December 20 2026, phone 305-555-1212",
+                                 "203.0.113.6")
+    # Having accumulated both prior facts plus a phone number, the running
+    # transcript no longer needs to ask the customer to repeat themselves.
+    assert "confirm" not in second["message"].lower()
+
+
+def test_chat_escalates_payment_questions_to_a_human_without_a_template_quote(chat_app):
+    result = chat_app.chat_reply(SESSION, "Did you get my Zelle payment, refund please?",
+                                 "203.0.113.7")
+    assert result["status"] == "human_required"
+    assert "786-975-9557" in result["message"]
+    assert "$" not in result["message"]
+
+
+def test_chat_sessions_are_isolated_by_session_key(chat_app):
+    chat_app.chat_reply(SESSION, "Family visit in Doral", "203.0.113.8")
+    # A second, unrelated visitor must not inherit the first one's category -
+    # a vague message alone should still get the generic "depends on visit
+    # type" line, not the $325 family-visit price the first session earned.
+    other = chat_app.chat_reply("synthetic-session-key-0002", "How much is it",
+                                "203.0.113.9")
+    assert "$325" not in other["message"]
+    assert "depends on the type of visit" in other["message"].lower()
+
+
+def test_chat_session_key_reuse_by_a_different_caller_cannot_mix_contexts(chat_app):
+    """Codex finding 2: same session_key, two different IPs."""
+    first = chat_app.chat_reply(SESSION, "Family visit in Doral", "203.0.113.30")
+    assert "$325" in first["message"]
+    hijack = chat_app.chat_reply(SESSION, "How much is it", "203.0.113.31")
+    assert "$325" not in hijack["message"]
+    assert "depends on the type of visit" in hijack["message"].lower()
+    # The original owner's context must survive the attempted takeover: it
+    # still remembers the category from the first turn (still $325 priced)
+    # and, once given a phone number, stops asking for contact info too.
+    still_first = chat_app.chat_reply(SESSION, "phone 305-555-1212", "203.0.113.30")
+    assert "$325" in still_first["message"]
+    assert "phone" not in still_first["message"].lower() and "email" not in still_first["message"].lower()
+
+
+def test_chat_daily_cap_survives_a_restart(chat_secret, tmp_path):
+    """Codex finding 1: the personal allowance must not reset on restart."""
+    address = "203.0.113.40"
+    app = web.App(tmp_path / "restart-private", TOKEN, "http://127.0.0.1:8226")
+    try:
+        for _ in range(web.CHAT_DAILY_TURNS_PER_CALLER):
+            result = app.chat_reply(SESSION, "Family visit in Doral", address)
+            assert result["status"] != "CHAT_PERSONAL_DAILY_LIMIT"
+    finally:
+        app.close()
+    restarted = web.App(tmp_path / "restart-private", TOKEN, "http://127.0.0.1:8226")
+    try:
+        capped = restarted.chat_reply(SESSION, "One more, please", address)
+        assert capped["status"] == "CHAT_PERSONAL_DAILY_LIMIT"
+    finally:
+        restarted.close()
+
+
+def test_chat_daily_cap_reservation_is_atomic_under_concurrency(chat_app):
+    """CHAT_DAILY_TURNS_PER_CALLER must never be exceeded by a race."""
+    address = "203.0.113.41"
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = list(pool.map(
+            lambda _: chat_app.chat_reply(SESSION, "Family visit in Doral", address),
+            range(8)))
+    admitted = [r for r in results if r["status"] != "CHAT_PERSONAL_DAILY_LIMIT"]
+    assert len(admitted) == web.CHAT_DAILY_TURNS_PER_CALLER
+    with chat_app.connect() as db:
+        row = db.execute("SELECT turns FROM chat_caller_turns").fetchone()
+    assert row["turns"] == web.CHAT_DAILY_TURNS_PER_CALLER
+
+
+def test_chat_daily_cap_accounting_failure_refuses_rather_than_grants(chat_app, monkeypatch):
+    def fail(*a, **k):
+        raise sqlite3.OperationalError("PRIVATE DATABASE PATH")
+    monkeypatch.setattr(chat_app, "connect", fail)
+    result = chat_app.chat_reply(SESSION, "Family visit in Doral", "203.0.113.42")
+    assert result["status"] == "CHAT_ACCOUNTING_UNAVAILABLE"
+    assert b"PRIVATE" not in json.dumps(result).encode()
+
+
+def test_chat_caps_one_visitor_well_under_the_shared_daily_pool(chat_app):
+    address = "203.0.113.20"
+    for _ in range(web.CHAT_DAILY_TURNS_PER_CALLER):
+        result = chat_app.chat_reply(SESSION, "Family visit in Doral", address)
+        assert result["status"] != "CHAT_PERSONAL_DAILY_LIMIT"
+    capped = chat_app.chat_reply(SESSION, "One more question", address)
+    assert capped["status"] == "CHAT_PERSONAL_DAILY_LIMIT"
+    assert "786-975-9557" in capped["message"]
+    assert "tomorrow" not in capped["message"].lower()  # this is a per-person cap, not the shared daily one
+
+
+def test_chat_personal_daily_cap_does_not_affect_other_visitors(chat_app):
+    address = "203.0.113.21"
+    for _ in range(web.CHAT_DAILY_TURNS_PER_CALLER):
+        chat_app.chat_reply(SESSION, "Family visit in Doral", address)
+    other = chat_app.chat_reply("synthetic-session-key-0003", "Family visit in Doral",
+                                "203.0.113.22")
+    assert other["status"] != "CHAT_PERSONAL_DAILY_LIMIT"
+
+
+def test_chat_personal_daily_cap_resets_on_a_new_day(chat_app, monkeypatch):
+    address = "203.0.113.23"
+    for _ in range(web.CHAT_DAILY_TURNS_PER_CALLER):
+        chat_app.chat_reply(SESSION, "Family visit in Doral", address)
+    assert chat_app.chat_reply(SESSION, "One more", address)["status"] == "CHAT_PERSONAL_DAILY_LIMIT"
+    tomorrow = web.now() + web.dt.timedelta(days=1)
+    monkeypatch.setattr(web, "now", lambda: tomorrow)
+    fresh = chat_app.chat_reply(SESSION, "Family visit in Doral", address)
+    assert fresh["status"] != "CHAT_PERSONAL_DAILY_LIMIT"
+
+
+def test_chat_daily_capacity_shows_a_check_back_tomorrow_message(chat_app):
+    chat_app.chat_service.admission.reserve = lambda address, message: "CHAT_CAPACITY_REACHED"
+    result = chat_app.chat_reply(SESSION, "Family visit in Doral", "203.0.113.10")
+    assert result["status"] == "CHAT_CAPACITY_REACHED"
+    assert "tomorrow" in result["message"].lower()
+    assert "786-975-9557" in result["message"]
+    assert "$" not in result["message"]
+
+
+def test_chat_rate_limit_message_says_wait_not_tomorrow(chat_app):
+    chat_app.chat_service.admission.reserve = lambda address, message: "CHAT_RATE_LIMITED"
+    result = chat_app.chat_reply(SESSION, "Family visit in Doral", "203.0.113.11")
+    assert "tomorrow" not in result["message"].lower()
+    assert "wait" in result["message"].lower()
+
+
+def test_chat_capacity_message_is_translated_for_spanish_speakers(chat_app):
+    chat_app.chat_service.admission.reserve = lambda address, message: "CHAT_CAPACITY_REACHED"
+    result = chat_app.chat_reply(SESSION, "Hola, quiero una visita familiar", "203.0.113.12")
+    assert result["language"] == "es"
+    assert "mañana" in result["message"].lower()
+
+
+def test_chat_guard_invalid_request_is_refused_cleanly_not_uncaught(chat_app):
+    def explode(body, address):
+        raise web.web_chat_guard.InvalidRequest("CHAT_INVALID_REQUEST")
+    chat_app.chat_service.respond = explode
+    refused(400, lambda: chat_app.chat_reply(SESSION, "Hola", "203.0.113.13"))
+
+
+def test_chat_http_endpoint_round_trips_and_enforces_limits(chat_app):
+    service = web.Server(("127.0.0.1", 0), chat_app)
+    port = service.server_address[1]
+    chat_app.origin = "http://127.0.0.1:%d" % port
+    chat_app.host = "127.0.0.1:%d" % port
+    thread = threading.Thread(target=service.serve_forever)
+    thread.start()
+    try:
+        def post(path, body_bytes, origin=None):
+            conn = HTTPConnection("127.0.0.1", port, timeout=5)
+            conn.request("POST", path, body=body_bytes, headers={
+                "Origin": origin or chat_app.origin, "Content-Type": "application/json"})
+            resp = conn.getresponse()
+            data = resp.read()
+            conn.close()
+            return resp.status, data
+
+        status, body = post("/api/chat", json.dumps(
+            {"session_key": SESSION, "message": "Family visit in Doral"}).encode())
+        assert status == 200
+        payload = json.loads(body)
+        assert payload["booking_confirmed"] is False
+
+        status, body = post("/api/chat", json.dumps(
+            {"session_key": SESSION, "message": "Family visit in Doral"}).encode(),
+            origin="http://evil.example.invalid")
+        assert status == 403
+
+        status, body = post("/api/chat", (b'{"session_key":"%s","message":"%s"}'
+                                          % (SESSION.encode(), b"x" * 5000)))
+        assert status == 413
+    finally:
+        service.shutdown()
+        service.server_close()
+        thread.join()
+
+
 def test_submit_is_durable_and_never_calls_model(app):
     app.builder = lambda *a, **k: pytest.fail("Public intake must not invoke model")
     receipt = app.submit(payload())

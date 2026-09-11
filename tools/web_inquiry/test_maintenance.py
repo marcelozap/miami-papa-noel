@@ -40,8 +40,32 @@ def database(tmp_path):
     statements = [node.value for node in ast.walk(tree)
                   if isinstance(node, ast.Constant) and isinstance(node.value, str)
                   and node.value.startswith("CREATE TABLE IF NOT EXISTS ")]
-    assert len(statements) == 2
+    assert len(statements) == 3
     path = tmp_path / "source.sqlite3"
+    with closing(sqlite3.connect(path)) as db:
+        for statement in statements:
+            db.execute(statement)
+        add_row(db, 1, "drafting")
+        add_row(db, 2, "approved")
+        db.commit()
+    return path
+
+
+@pytest.fixture
+def legacy_database(tmp_path):
+    """A pre-chat backup: inquiries + events only, no chat_caller_turns.
+
+    Reproduces Codex's finding: maintenance.check/restore_check must still
+    accept this exact known legacy schema read-only, not just the current
+    three-table one.
+    """
+    tree = ast.parse(Path(m.__file__).with_name("server.py").read_text(encoding="utf-8"))
+    statements = [node.value for node in ast.walk(tree)
+                  if isinstance(node, ast.Constant) and isinstance(node.value, str)
+                  and node.value.startswith("CREATE TABLE IF NOT EXISTS ")
+                  and "chat_caller_turns" not in node.value]
+    assert len(statements) == 2
+    path = tmp_path / "legacy-source.sqlite3"
     with closing(sqlite3.connect(path)) as db:
         for statement in statements:
             db.execute(statement)
@@ -78,7 +102,7 @@ def test_backup_restore_round_trip_keeps_drafting_and_approved(database, tmp_pat
     first = m.backup(database, tmp_path / "backups")
     second = m.backup(database, tmp_path / "backups")
     assert first["backup"] != second["backup"]
-    assert first["counts"] == {"inquiries": 2, "events": 2}
+    assert first["counts"] == {"inquiries": 2, "events": 2, "chat_caller_turns": 0}
     saved = Path(first["backup"])
     result = m.restore_check(saved, tmp_path / "restore")
     restored = Path(result["database"])
@@ -87,6 +111,37 @@ def test_backup_restore_round_trip_keeps_drafting_and_approved(database, tmp_pat
     assert list(restored.parent.iterdir()) == [restored]
     assert not (tmp_path / "server.lock").exists()
     assert not (restored.parent / "server.lock").exists()
+
+
+def test_legacy_two_table_backup_is_accepted_read_only(legacy_database):
+    result = m.check(legacy_database)
+    assert result["status"] == "ok"
+    assert result["counts"] == {"inquiries": 2, "events": 2}
+
+
+def test_legacy_backup_and_restore_round_trip_preserves_populated_rows(legacy_database, tmp_path):
+    original = contents(legacy_database)
+    first = m.backup(legacy_database, tmp_path / "backups")
+    assert first["counts"] == {"inquiries": 2, "events": 2}
+    restored = m.restore_check(Path(first["backup"]), tmp_path / "restore")
+    assert restored["counts"] == first["counts"]
+    assert contents(Path(restored["database"])) == contents(Path(first["backup"])) == original
+
+
+def test_a_schema_that_matches_neither_known_variant_is_refused(tmp_path):
+    """Not just missing a table - an unrecognized *combination* must refuse too."""
+    path = tmp_path / "unrecognized.sqlite3"
+    with closing(sqlite3.connect(path)) as db:
+        db.execute("""CREATE TABLE IF NOT EXISTS inquiries (
+            id TEXT PRIMARY KEY, request_key TEXT UNIQUE NOT NULL,
+            fingerprint TEXT UNIQUE NOT NULL, payload TEXT NOT NULL,
+            status TEXT NOT NULL, received_at TEXT NOT NULL,
+            record TEXT, reviewed_language TEXT)""")
+        db.execute("""CREATE TABLE IF NOT EXISTS chat_caller_turns (
+            day TEXT NOT NULL, caller TEXT NOT NULL, turns INTEGER NOT NULL,
+            PRIMARY KEY (day, caller))""")
+        db.commit()
+    assert_refused(lambda: m.check(path), "schema-invalid")
 
 
 def test_wal_committed_writes_during_backup_share_one_snapshot(database, tmp_path, monkeypatch):
@@ -111,7 +166,7 @@ def test_wal_committed_writes_during_backup_share_one_snapshot(database, tmp_pat
         monkeypatch.setattr(m, "_online_backup", during_backup)
         result = m.backup(database, tmp_path / "backups")
         assert committed
-        assert result["counts"] == {"inquiries": 3, "events": 3}
+        assert result["counts"] == {"inquiries": 3, "events": 3, "chat_caller_turns": 0}
         assert contents(Path(result["backup"])) == initial
         assert len(contents(database)["inquiries"]) == 4
         monkeypatch.setattr(m, "_online_backup", original_backup)
@@ -125,7 +180,7 @@ def test_uncommitted_rows_are_excluded(database, tmp_path):
         add_row(writer, 3)
         result = m.backup(database, tmp_path / "backups")
         writer.rollback()
-    assert result["counts"] == {"inquiries": 2, "events": 2}
+    assert result["counts"] == {"inquiries": 2, "events": 2, "chat_caller_turns": 0}
 
 
 @pytest.mark.parametrize("operation", ["check", "backup", "restore"])
@@ -151,7 +206,7 @@ def test_sources_are_readonly_and_never_use_creation_mode(database, tmp_path, mo
     call = {"check": lambda: m.check(database),
             "backup": lambda: m.backup(database, tmp_path / "backups"),
             "restore": lambda: m.restore_check(database, tmp_path / "restore")}[operation]
-    assert call()["counts"] == {"inquiries": 2, "events": 2}
+    assert call()["counts"] == {"inquiries": 2, "events": 2, "chat_caller_turns": 0}
     assert len(opened) == (1 if operation == "check" else 3)
     assert opened[0] == database.as_uri() + "?mode=ro"
     assert database.read_bytes() == before
@@ -165,7 +220,7 @@ def test_empty_queue_and_uri_escaped_paths(database, tmp_path):
     renamed = database.with_name("synthetic # 100%.sqlite3")
     database.rename(renamed)
     result = m.backup(renamed, tmp_path / "private # 100%")
-    assert result["counts"] == {"inquiries": 0, "events": 0}
+    assert result["counts"] == {"inquiries": 0, "events": 0, "chat_caller_turns": 0}
     restored = m.restore_check(result["backup"], tmp_path / "restore # 100%")
     assert contents(Path(restored["database"])) == contents(renamed)
 
@@ -374,7 +429,7 @@ def test_failure_cleans_only_new_artifacts(database, tmp_path, monkeypatch, rest
     else:
         assert_refused(call, "comparison-failed" if phase in ("comparison", "row-count") else "operation-failed")
     assert not dest.exists()
-    assert m.check(database)["counts"] == {"inquiries": 2, "events": 2}
+    assert m.check(database)["counts"] == {"inquiries": 2, "events": 2, "chat_caller_turns": 0}
 
 
 def test_failure_preserves_preexisting_backup_directory(database, tmp_path, monkeypatch):
@@ -515,13 +570,13 @@ def test_cli_only_reports_counts_paths_status(database, tmp_path):
         assert result.returncode == 0 and not result.stderr
         report = json.loads(result.stdout)
         assert set(report) <= {"status", "database", "backup", "counts"}
-        assert report["status"] == "ok" and report["counts"] == {"inquiries": 2, "events": 2}
+        assert report["status"] == "ok" and report["counts"] == {"inquiries": 2, "events": 2, "chat_caller_turns": 0}
         assert all(secret not in result.stdout for secret in PRIVATE.split())
     result = subprocess.run([sys.executable, script, "restore-check", "--backup", report["backup"],
                              "--restore-dir", str(tmp_path / "restore")], capture_output=True,
                             text=True, timeout=10, check=False)
     assert result.returncode == 0 and not result.stderr
-    assert json.loads(result.stdout)["counts"] == {"inquiries": 2, "events": 2}
+    assert json.loads(result.stdout)["counts"] == {"inquiries": 2, "events": 2, "chat_caller_turns": 0}
     assert all(secret not in result.stdout for secret in PRIVATE.split())
 
 

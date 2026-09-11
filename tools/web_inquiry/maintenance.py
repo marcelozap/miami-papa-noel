@@ -3,7 +3,8 @@
 Public APIs (Python 3.10+): check(database, *, timeout=30),
 backup(database, backup_dir, *, timeout=30), and
 restore_check(backup, restore_dir, *, timeout=30). They return JSON-compatible
-dicts containing status, resolved paths, and inquiries/events row counts only.
+dicts containing status, resolved paths, and inquiries/events/chat_caller_turns
+row counts only.
 Failures raise MaintenanceError with a fixed status, never a SQLite diagnostic.
 The CLI exposes the same commands, with an optional --timeout in seconds.
 
@@ -22,6 +23,11 @@ A read transaction pins the snapshot through validation and Connection.backup;
 rollback-journal writers may briefly wait, while WAL writers can keep committing.
 Restoration uses that same online backup API, then compares schema, counts and
 private in-memory row digests, including rowids. No actions or leases are replayed.
+A backup made before the chat_caller_turns table existed (two tables:
+inquiries, events) is still accepted read-only by check()/restore_check();
+this module never writes to a backup or upgrades it in place. A restored
+legacy copy gains the new table only the next time the server (App.__init__)
+actually opens it - CREATE TABLE IF NOT EXISTS - before real use.
 SQL progress, lock waits and backup retries share a finite deadline (max 300s).
 An OS/storage stall or forced process termination still needs a supervisor
 timeout and may leave partial artifacts. SQLite can maintain WAL shared memory
@@ -76,7 +82,21 @@ SCHEMA = {
         ("actor", "TEXT", 1, None, 0, 0),
         ("action", "TEXT", 1, None, 0, 0),
     ),
+    "chat_caller_turns": (
+        ("day", "TEXT", 1, None, 1, 0),
+        ("caller", "TEXT", 1, None, 2, 0),
+        ("turns", "INTEGER", 1, None, 0, 0),
+    ),
 }
+
+# Pre-chat databases (backed up before chat_caller_turns existed) are still
+# accepted for read-only check/restore - never created going forward, and
+# never written to. A restored legacy copy gains the new table only the
+# next time App.__init__ runs against it (CREATE TABLE IF NOT EXISTS);
+# nothing here upgrades a backup file directly.
+LEGACY_SCHEMA = {name: columns for name, columns in SCHEMA.items()
+                 if name != "chat_caller_turns"}
+SCHEMA_VARIANTS = (SCHEMA, LEGACY_SCHEMA)
 
 
 class MaintenanceError(Exception):
@@ -199,9 +219,11 @@ def _inspect(db, deadline):
         "SELECT type,name,tbl_name,sql FROM sqlite_schema ORDER BY name"))
     objects = {(kind, name) for kind, name, _, _ in schema
                if not name.startswith("sqlite_") and kind != "index"}
-    if objects != {("table", name) for name in SCHEMA}:
+    active = next((variant for variant in SCHEMA_VARIANTS
+                  if objects == {("table", name) for name in variant}), None)
+    if active is None:
         raise MaintenanceError("schema-invalid")
-    for table, columns in SCHEMA.items():
+    for table, columns in active.items():
         actual = tuple(row[1:] for row in db.execute('PRAGMA table_xinfo("%s")' % table))
         if actual != columns:
             raise MaintenanceError("schema-invalid")
@@ -214,7 +236,7 @@ def _inspect(db, deadline):
     if not {("id",), ("request_key",), ("fingerprint",)} <= unique:
         raise MaintenanceError("schema-invalid")
     counts, digests = {}, {}
-    for table in SCHEMA:
+    for table in active:
         count, digest = 0, hashlib.sha256()
         for row in db.execute('SELECT rowid,* FROM "%s" ORDER BY rowid' % table):
             deadline.remaining()

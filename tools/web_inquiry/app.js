@@ -116,6 +116,55 @@ function render() {
     },'operator-result');actions.append(copy,sent);detail.append(actions);
   }
 }
+// --- Chat with Mrs. Claus ---------------------------------------------------
+// The server keeps its own bounded, per-session running context, looked up
+// by this page-load's session key. Nothing about the visitor's conversation
+// is written to browser storage: a reload starts a fresh chat, the same
+// no-persistent-storage policy this file already holds for the operator
+// token. The session key itself is never sent back as trusted history -
+// each turn is a plain {session_key, message} request.
+let chatSessionKey='', chatLog=[], chatBusy=false;
+function renderChat() {
+  const thread=$('chat-thread'); thread.replaceChildren();
+  for(const turn of chatLog) thread.append(node('p',turn.text,'chat-bubble chat-'+turn.role));
+  thread.scrollTop=thread.scrollHeight;
+  syncTranscriptField();
+}
+function syncTranscriptField() {
+  try {
+    const field=document.querySelector('#inquiry-form [name="message"]');
+    if(!field) return;
+    field.value=chatLog.map(t=>(t.role==='customer'?'Customer / Cliente: ':'Mrs. Claus: ')+t.text).join('\n\n');
+  } catch(e) {}
+}
+function addChatMessage(role,text) { chatLog.push({role,text}); renderChat(); }
+function sendChat(text) {
+  chatBusy=true; $('chat-send').disabled=true; $('chat-retry').hidden=true;
+  notice('chat-status','Mrs. Claus is typing / La Sra. Claus está escribiendo…');
+  return api('/api/chat',{session_key:chatSessionKey,message:text}).then(data=>{
+    notice('chat-status','');
+    addChatMessage('assistant',data.message);
+  }).catch(e=>{
+    notice('chat-status',e.message||'Connection failed; you can try again or call Santa / Falló la conexión; puede intentar de nuevo o llamar a Santa',true);
+    $('chat-retry').hidden=false;
+    $('chat-retry').onclick=()=>sendChat(text);
+  }).finally(()=>{ chatBusy=false; $('chat-send').disabled=false; });
+}
+function initChat() {
+  if(!$('chat-form')) return;
+  chatSessionKey=crypto.randomUUID();
+  addChatMessage('assistant',"Hi! I'm Mrs. Claus, a virtual AI assistant at Miami Papa Noel's North Pole workshop. Tell me a bit about the visit you have in mind - the date, the type of event, and the city. / ¡Hola! Soy la Sra. Claus, una asistente virtual de inteligencia artificial en el taller del Polo Norte de Miami Papa Noel. Cuénteme sobre la visita que tiene en mente: la fecha, el tipo de evento y la ciudad.");
+  $('chat-form').addEventListener('submit',e=>{
+    e.preventDefault();
+    if(chatBusy) return;
+    const input=$('chat-input'), text=input.value.trim();
+    if(!text) return;
+    input.value=''; addChatMessage('customer',text);
+    return sendChat(text);
+  });
+  $('send-to-team').addEventListener('toggle',syncTranscriptField);
+}
+initChat();
 $('inquiry-form').addEventListener('submit',e=>{
   e.preventDefault();const form=e.currentTarget;
   busy(form.querySelector('button'),async()=>{

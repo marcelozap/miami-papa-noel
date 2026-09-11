@@ -27,11 +27,92 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tools" / "triage"))
 import triage
+from tools.web_chat import service as web_chat
+from tools.web_chat_guard import guard as web_chat_guard
 
 MAX_BODY = 16384
+CHAT_MAX_BODY = web_chat_guard.MAX_BODY_BYTES
 MIN_FREE_BYTES = 16 * 1024 * 1024
+
+# In-memory only: lets a returning message build on what this visitor already
+# said, without trusting client-submitted history. Bounded and process-local
+# by design - a restart or eviction simply starts that visitor's context over;
+# the durable record of value is the inquiry an operator actually reviews,
+# created separately once the visitor asks to send it (see chat_reply()).
+CHAT_SESSION_LIMIT = 500
+CHAT_SESSION_MAX_TURNS = 12
+CHAT_SESSION_IDLE_SECONDS = 1800
+
+# Per-visitor daily ceiling, independent of and stricter than the shared
+# admission guard's 200-turns/day GLOBAL cap: keeps one caller (by IP, like
+# the guard's own identity) from using up the whole day's shared allowance.
+# A "couple" messages is enough for a short exchange; a longer conversation
+# should route to a human via the send-to-team form, not keep chatting.
+CHAT_DAILY_TURNS_PER_CALLER = 3
+# Bounds the durable table's worst-case row growth from IP rotation; does not
+# claim to fully prevent it (Codex: "IP rotation can evade a per-IP ceiling").
+CHAT_DAILY_CALLERS_LIMIT = 5000
+
+# Friendlier, situation-specific text for tools.web_chat_guard's refusal
+# codes, shown instead of its generic "call Santa" fallback. Keyed by the
+# ChatService.respond() "status" field. CHAT_CAPACITY_REACHED is the
+# admission guard's global 200-turns/day cap - the practical stand-in for
+# "today's budget/allowance is used up" at the chat-turn level. It is NOT
+# the same as the separate, deeper OpenAI dollar-cost guard in
+# tools/triage/spend_guard.py: that one currently fails silently to a free
+# template reply rather than surfacing a distinct status here.
+CHAT_STATUS_MESSAGES = {
+    "CHAT_CAPACITY_REACHED": {
+        "en": "Mrs. Claus has reached her chat limit for today. Please check "
+              "back tomorrow, or call Santa now at 786-975-9557.",
+        "es": "La Sra. Claus alcanzó su límite de conversaciones de hoy. Por "
+              "favor vuelva mañana, o llame a Santa ahora al 786-975-9557.",
+    },
+    "CHAT_RATE_LIMITED": {
+        "en": "Please wait a few minutes before sending another message, or "
+              "call Santa now at 786-975-9557.",
+        "es": "Por favor espere unos minutos antes de enviar otro mensaje, o "
+              "llame a Santa ahora al 786-975-9557.",
+    },
+    "CHAT_ACCOUNTING_UNAVAILABLE": {
+        "en": "Mrs. Claus is temporarily unavailable. Please try again "
+              "shortly, or call Santa now at 786-975-9557.",
+        "es": "La Sra. Claus no está disponible por un momento. Intente de "
+              "nuevo en unos minutos, o llame a Santa ahora al 786-975-9557.",
+    },
+    "CHAT_DUPLICATE": {
+        "en": "I already have that message! Feel free to add something new, "
+              "or call Santa at 786-975-9557.",
+        "es": "¡Ya tengo ese mensaje! Puede agregar algo nuevo, o llamar a "
+              "Santa al 786-975-9557.",
+    },
+    "CHAT_PERSONAL_DAILY_LIMIT": {
+        "en": "You've reached today's chat limit so everyone gets a turn. "
+              "Please send what you have so far to our team below, or call "
+              "Santa now at 786-975-9557.",
+        "es": "Alcanzó su límite de mensajes de hoy para que todos puedan "
+              "chatear. Envíe lo que tiene hasta ahora a nuestro equipo "
+              "abajo, o llame a Santa ahora al 786-975-9557.",
+    },
+}
+
+
+def chat_secret():
+    """Stable >=32-byte server secret for the chat admission guard.
+
+    Unset or malformed disables chat entirely rather than starting with a
+    fresh/mismatched secret, which tools.web_chat_guard treats as an
+    accounting failure and fails closed on every request anyway.
+    """
+    raw = os.environ.get("MPN_CHAT_SECRET", "")
+    try:
+        secret = bytes.fromhex(raw)
+    except ValueError:
+        return None
+    return secret if len(secret) >= 32 else None
 ASSETS = {
     "/app.css": (HERE / "app.css", "text/css"),
     "/app.js": (HERE / "app.js", "text/javascript"),
@@ -122,6 +203,18 @@ class App:
         self.lock = threading.RLock()
         self.request_times = {}
         self.export_lock = threading.Lock()
+        self.chat_sessions = {}
+        secret = chat_secret()
+        self.chat_ip_salt = secret
+        if secret is None:
+            self.chat_service = None
+        else:
+            admission = web_chat_guard.AdmissionGuard(self.data_dir / "chat-admission.sqlite3", secret)
+            # Model path stays off regardless of MPN_MODEL/OPENAI_API_KEY until
+            # the owner opts in explicitly for this specific surface.
+            self.chat_service = web_chat.ChatService(
+                admission, allow_model=os.environ.get("MPN_CHAT_ALLOW_MODEL") == "1",
+                builder=self.builder)
         with self.connect() as db:
             db.execute("""CREATE TABLE IF NOT EXISTS inquiries (
                 id TEXT PRIMARY KEY, request_key TEXT UNIQUE NOT NULL,
@@ -131,6 +224,11 @@ class App:
             db.execute("""CREATE TABLE IF NOT EXISTS events (
                 seq INTEGER PRIMARY KEY, inquiry_id TEXT NOT NULL,
                 at TEXT NOT NULL, actor TEXT NOT NULL, action TEXT NOT NULL)""")
+            # Durable per-caller/day chat allowance: a restart must not reset
+            # how many turns a visitor has already used today (Codex finding 1).
+            db.execute("""CREATE TABLE IF NOT EXISTS chat_caller_turns (
+                day TEXT NOT NULL, caller TEXT NOT NULL, turns INTEGER NOT NULL,
+                PRIMARY KEY (day, caller))""")
             # A process restart cannot silently count an interrupted model call.
             for row in db.execute("SELECT id FROM inquiries WHERE status='drafting'").fetchall():
                 self.event(db, row["id"], "system", "draft_interrupted")
@@ -243,6 +341,107 @@ class App:
                         received.isoformat(timespec="seconds"), None, None))
             self.event(db, inquiry_id, "website", "received")
         return {"request_id": inquiry_id, "status": "received", "duplicate": False}
+
+    def _prune_chat_sessions(self):
+        cutoff = time.monotonic() - CHAT_SESSION_IDLE_SECONDS
+        for key in [k for k, v in self.chat_sessions.items() if v["at"] < cutoff]:
+            del self.chat_sessions[key]
+
+    def _reserve_daily_caller_turn(self, day, caller):
+        """Atomic, durable per-caller/day chat allowance (Codex finding 1).
+
+        Lives in the same durable database as the operator queue, not a
+        process-local dict, so a restart cannot silently reset how many
+        turns a visitor already used today. Returns "OK" (reserved),
+        "LIMIT" (this caller already used today's allowance), or "ERROR"
+        (accounting failure - refuse the turn, never guess or grant it).
+        """
+        try:
+            with self.lock, self.connect() as db:
+                db.execute("BEGIN IMMEDIATE")
+                db.execute("DELETE FROM chat_caller_turns WHERE day != ?", (day,))
+                row = db.execute("SELECT turns FROM chat_caller_turns WHERE day=? AND caller=?",
+                                 (day, caller)).fetchone()
+                used = row["turns"] if row else 0
+                if type(used) is not int or used < 0:
+                    return "ERROR"
+                if used >= CHAT_DAILY_TURNS_PER_CALLER:
+                    return "LIMIT"
+                if row is None:
+                    total = db.execute("SELECT COUNT(*) AS n FROM chat_caller_turns "
+                                       "WHERE day=?", (day,)).fetchone()["n"]
+                    if total >= CHAT_DAILY_CALLERS_LIMIT:
+                        return "ERROR"
+                    db.execute("INSERT INTO chat_caller_turns VALUES (?,?,1)", (day, caller))
+                else:
+                    db.execute("UPDATE chat_caller_turns SET turns=? WHERE day=? AND caller=?",
+                              (used + 1, day, caller))
+            return "OK"
+        except (sqlite3.Error, OSError):
+            return "ERROR"
+
+    def chat_reply(self, session_key, message, verified_ip):
+        """One public chat turn: template-first reply, never a queue write.
+
+        Builds a bounded, server-owned running transcript for this browser
+        session (never trusting a client-submitted history or role) and hands
+        it to tools.web_chat.service.ChatService, which owns admission
+        (rate limit/dedup), template drafting, the optional gated model path,
+        and returning only the public, pre-checked reply fields. Nothing here
+        creates an operator-visible inquiry; that only happens when the
+        visitor explicitly sends the conversation via /api/inquiry.
+        """
+        if self.chat_service is None:
+            raise Refused(503, "Chat is not configured / El chat no está configurado")
+        if not isinstance(session_key, str) or not re.fullmatch(r"[A-Za-z0-9_-]{16,100}", session_key):
+            raise Refused(400, "Invalid session identifier / Identificador de sesión no válido")
+        if not isinstance(message, str) or not 0 < len(message) <= web_chat_guard.MAX_MESSAGE_CHARS:
+            raise Refused(400, "Invalid message / Mensaje no válido")
+        # Per-visitor daily ceiling, independent of the shared guard's own
+        # limits: keeps one caller from using up the whole day's admitted
+        # allowance before other visitors get a turn. Identity is a salted
+        # hash of the verified IP, never stored raw, mirroring the guard's
+        # own approach; it resets naturally at the next UTC day.
+        language = triage.detect_language(message)
+        day = now().strftime("%Y-%m-%d")
+        caller = hmac.new(self.chat_ip_salt, ("chat-caller:" + verified_ip).encode("utf-8"),
+                          hashlib.sha256).hexdigest()
+        reservation = self._reserve_daily_caller_turn(day, caller)
+        if reservation != "OK":
+            status = "CHAT_PERSONAL_DAILY_LIMIT" if reservation == "LIMIT" else "CHAT_ACCOUNTING_UNAVAILABLE"
+            friendly = CHAT_STATUS_MESSAGES[status]
+            return {"language": language, "message": friendly.get(language, friendly["en"]),
+                   "source": "template", "status": status, "booking_confirmed": False}
+        with self.lock:
+            self._prune_chat_sessions()
+            session = self.chat_sessions.get(session_key)
+            if session is not None and session["caller"] != caller:
+                # A different visitor presented an existing key. Never read or
+                # mutate the original owner's context (Codex finding 2):
+                # answer this turn statelessly and leave their session alone.
+                combined = message[-web_chat_guard.MAX_MESSAGE_CHARS:]
+            else:
+                if session is None:
+                    if len(self.chat_sessions) >= CHAT_SESSION_LIMIT:
+                        raise Refused(503, "Chat is busy; call Santa at 786-975-9557 "
+                                           "/ El chat está ocupado; llame al 786-975-9557")
+                    session = self.chat_sessions[session_key] = {
+                        "text": "", "turns": 0, "caller": caller}
+                if session["turns"] < CHAT_SESSION_MAX_TURNS:
+                    combined = (session["text"] + " " + message).strip() if session["text"] else message
+                    session["text"] = combined[-web_chat_guard.MAX_MESSAGE_CHARS:]
+                    session["turns"] += 1
+                combined = session["text"]
+                session["at"] = time.monotonic()
+        body = json.dumps({"message": combined, "consent": True}, ensure_ascii=False).encode("utf-8")
+        try:
+            result = self.chat_service.respond(body, verified_ip)
+        except web_chat_guard.InvalidRequest:
+            raise Refused(400, "Invalid message / Mensaje no válido") from None
+        friendly = CHAT_STATUS_MESSAGES.get(result.get("status"))
+        if friendly:
+            result = {**result, "message": friendly.get(result.get("language"), friendly["en"])}
+        return result
 
     @staticmethod
     def row(db, inquiry_id):
@@ -443,7 +642,8 @@ class Handler(BaseHTTPRequestHandler):
             self.check_host()
             if self.headers.get("Origin") != self.server.app.origin:
                 raise Refused(403, "Origin not allowed / Origen no permitido")
-            operator = self.path != "/api/inquiry"
+            public_paths = ("/api/inquiry", "/api/chat")
+            operator = self.path not in public_paths
             if operator:
                 self.authenticate()
             self.server.app.throttle(self.rate_address, operator=operator)
@@ -455,7 +655,8 @@ class Handler(BaseHTTPRequestHandler):
                 size = int(self.headers.get("Content-Length", "0"))
             except ValueError:
                 raise Refused(400, "Invalid request size / Tamaño no válido") from None
-            if not 0 < size <= MAX_BODY:
+            cap = CHAT_MAX_BODY if self.path == "/api/chat" else MAX_BODY
+            if not 0 < size <= cap:
                 raise Refused(413, "Request too large or empty / Solicitud demasiado grande o vacía")
             try:
                 data = json.loads(self.rfile.read(size))
@@ -463,6 +664,10 @@ class Handler(BaseHTTPRequestHandler):
                 raise Refused(400, "Invalid request / Solicitud no válida") from None
             if not isinstance(data, dict):
                 raise Refused(400, "Expected an object / Se requiere un objeto")
+            if self.path == "/api/chat":
+                result = self.server.app.chat_reply(
+                    data.get("session_key"), data.get("message"), self.rate_address)
+                return self.reply(200, result)
             if not operator:
                 return self.reply(201, self.server.app.submit(data))
             actor = text_field(data, "reviewer", 100)

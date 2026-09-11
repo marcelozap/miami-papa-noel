@@ -44,7 +44,7 @@ def state(tmp_path):
     ddl = [node.value for node in ast.walk(tree)
            if isinstance(node, ast.Constant) and isinstance(node.value, str)
            and node.value.startswith("CREATE TABLE IF NOT EXISTS ")]
-    assert len(ddl) == 2
+    assert len(ddl) == 3
     directory = tmp_path / "state"
     directory.mkdir()
     with closing(sqlite3.connect(directory / "inquiries.sqlite3")) as db:

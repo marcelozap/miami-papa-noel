@@ -18,22 +18,33 @@
   <div class="mode" id="mode" role="status">Checking service / Comprobando servicio</div>
   <main>
     <section id="intake">
-      <h2>Mrs. Claus Office / Oficina de la Sra. Claus</h2>
-      <p class="muted">A request is not a confirmed booking. / Una solicitud no es una reserva confirmada.</p>
-      <form id="inquiry-form" action="/api/inquiry" method="post">
-        <div class="fields">
-          <label>Name / Nombre<input name="name" maxlength="100" autocomplete="name" required></label>
-          <label>Phone or email / Teléfono o correo<input name="contact" maxlength="160" autocomplete="email" required></label>
-        </div>
-        <label>Visit details / Detalles de la visita
-          <textarea name="message" rows="6" maxlength="3000" required></textarea>
-        </label>
-        <p class="muted privacy">Contact details and your inquiry are stored privately. When AI drafting is used, the inquiry and contact are sent to OpenAI for operator review. / Sus datos de contacto y consulta se guardan de forma privada. Al usar borradores con IA, la consulta y el contacto se envían a OpenAI para revisión del operador.</p>
-        <label class="check"><input name="consent" type="checkbox" required>I agree to this processing and contact about my inquiry. / Acepto este tratamiento y el contacto sobre mi consulta.</label>
-        <button type="submit">Send request / Enviar solicitud</button>
+      <h2>Chat with Mrs. Claus / Chatear con la Sra. Claus</h2>
+      <p class="muted">Mrs. Claus is an AI assistant, not a person, and this chat is not a confirmed booking. / La Sra. Claus es una asistente de inteligencia artificial, no una persona, y este chat no es una reserva confirmada.</p>
+      <div id="chat-thread" class="chat-thread" role="log" aria-live="polite" aria-label="Conversation with Mrs. Claus / Conversación con la Sra. Claus"></div>
+      <p id="chat-status" role="status" aria-live="polite"></p>
+      <form id="chat-form" class="chat-row">
+        <label class="sr-only" for="chat-input">Message / Mensaje</label>
+        <textarea id="chat-input" rows="2" maxlength="500" required placeholder="Type your message / Escriba su mensaje"></textarea>
+        <button type="submit" id="chat-send">Send / Enviar</button>
       </form>
-      <p id="intake-result" role="status" aria-live="polite"></p>
-      <p class="contact">Call / Llamar: <a href="tel:+17869759557">786-975-9557</a> · <a href="mailto:santa@miamipapanoel.com">santa@miamipapanoel.com</a></p>
+      <button type="button" id="chat-retry" class="secondary" hidden>Try again / Intentar de nuevo</button>
+      <details id="send-to-team">
+        <summary>Ready to send this to our team? / ¿Listo para enviar esto a nuestro equipo?</summary>
+        <form id="inquiry-form" action="/api/inquiry" method="post">
+          <div class="fields">
+            <label>Name / Nombre<input name="name" maxlength="100" autocomplete="name" required></label>
+            <label>Phone or email / Teléfono o correo<input name="contact" maxlength="160" autocomplete="email" required></label>
+          </div>
+          <label>Your conversation so far / Su conversación hasta ahora
+            <textarea name="message" rows="6" maxlength="3000" readonly required></textarea>
+          </label>
+          <p class="muted privacy">Contact details and your conversation are stored privately. When AI drafting is used, the inquiry and contact are sent to OpenAI for operator review. / Sus datos de contacto y su conversación se guardan de forma privada. Al usar borradores con IA, la consulta y el contacto se envían a OpenAI para revisión del operador.</p>
+          <label class="check"><input name="consent" type="checkbox" required>I agree to this processing and contact about my inquiry. / Acepto este tratamiento y el contacto sobre mi consulta.</label>
+          <button type="submit">Send request / Enviar solicitud</button>
+        </form>
+        <p id="intake-result" role="status" aria-live="polite"></p>
+      </details>
+      <p class="contact">Prefer to talk to a person? Call or text Santa / ¿Prefiere hablar con una persona? Llame o escriba a Santa: <a href="tel:+17869759557">786-975-9557</a> · <a href="mailto:santa@miamipapanoel.com">santa@miamipapanoel.com</a></p>
     </section>
     <section id="operator">
       <h2>North Pole Desk / Mesa del Polo Norte</h2>

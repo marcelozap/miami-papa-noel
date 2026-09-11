@@ -25,6 +25,18 @@ and token on the review screen. The token stays in browser memory, not
 browser storage or cookies. Reloading or signing out removes access from
 that page. Never use the synthetic token in the test suite for operation.
 
+Set `MPN_CHAT_SECRET` (64 hex characters, at least 32 random bytes) to enable
+the public chat widget at `/`; leave it unset to run the form only, exactly
+as before. Generate one locally with
+`python -c "import secrets;print(secrets.token_hex(32))"` and never commit
+it. The secret must stay the same across restarts and worker processes -
+tools/web_chat_guard fails closed on a changed or missing secret rather than
+silently resetting anyone's rate limit.
+
+```powershell
+$env:MPN_CHAT_SECRET = (python -c "import secrets;print(secrets.token_hex(32))")
+```
+
 Use `--port 8227` if another program already occupies 8226. The service
 refuses a second process using the same data directory. Stop with Ctrl+C.
 The computer and server process must stay running for this local version;
@@ -61,6 +73,56 @@ even if API credentials are present in the launching shell.
 The queue does not send email alerts or poll automatically. An operator
 must check it while accepting inquiries. There are no customer-facing
 AI responses until the operator actually sends an approved reply.
+
+## Chat with Mrs. Claus
+
+When `MPN_CHAT_SECRET` is set, `/` shows a chat thread instead of the plain
+form. This talks to `tools.web_chat.service.ChatService` (template-first
+replies, sensitive-topic keywords routed to a human, optional model path
+left off by default - set `MPN_CHAT_ALLOW_MODEL=1` only after owner
+approval, and even then the existing triage call cap and estimated-cost
+guard still apply) through `tools.web_chat_guard.guard.AdmissionGuard`
+(server-side rate limit, duplicate suppression, and daily capacity, keyed
+by a hashed caller identity - no raw IP or message text is stored).
+
+Each visitor's browser session keeps its own short-lived running context
+in the server process only (never in browser storage, matching the
+existing no-persistent-storage rule for this file): later messages build
+on earlier ones so Mrs. Claus does not re-ask for a date the visitor
+already gave. A page reload starts a new context; the bounded per-session
+turn count and character limit are separate from, and in addition to, the
+guard's own six-turns-per-five-minutes and 200-per-day caps.
+
+`App.chat_reply()` also enforces its own per-visitor daily ceiling
+(`CHAT_DAILY_TURNS_PER_CALLER`, default 3), independent of and stricter
+than the guard's 200-turns/day *global* pool - the guard limits the site's
+total, this limits one caller's share of it, so a single visitor (or a
+script) cannot exhaust the whole day's allowance before anyone else gets a
+turn. Identity is a salted hash of the verified IP (same trust boundary as
+`client_ip()`/the operator-desk rate limiter), never stored raw, tracked
+in-memory only and reset at the next UTC day. Reaching it shows a distinct
+"you've reached today's limit" message (not the guard's "check back
+tomorrow" one, since it resets for that visitor at midnight UTC just like
+the shared pool, but the wording should read as personal, not sitewide) and
+points at the send-to-team form and the phone number - never a dead end.
+
+Chatting never creates an operator-visible inquiry by itself - that stays
+consent-gated. The visitor sends the conversation to the team with a small
+"Ready to send this to our team?" form (name, phone/email, the same consent
+checkbox as before) that posts the visible transcript through the existing
+`/api/inquiry` endpoint, unchanged. This is the replacement for the old
+copy-and-paste-into-email flow: the transcript is filled in automatically
+instead of retyped, but a human still explicitly chooses to send it, and an
+operator still drafts, reviews and manually sends any reply, exactly as
+before. Nothing here confirms a booking, availability, or a price outside
+`tools/triage/pricing.json`.
+
+`tools/web_chat_http/` is a separate, independently delivered adapter that
+also exposes a bounded `POST /api/chat` on top of the same `App` and
+`ChatService`/`AdmissionGuard` pair, as its own `ChatServer` class with its
+own entrypoint. It is not used by `server.py`'s own chat route above; see
+that module's README before running both, to avoid maintaining two chat
+entrypoints for the same feature.
 
 ## Storage and Privacy
 
@@ -148,8 +210,18 @@ declare a launch date, qualification date, or guaranteed OPN acceptance.
 
 ## Deployment Prerequisites
 
-The public website has **not** been changed to point at this local form.
-Before genuine public intake:
+The public marketing site does **not** link to this service. An earlier
+revision of this file said its primary button pointed at a placeholder
+hostname; that was true of an earlier working tree and is no longer true -
+as of 2026-09-11 `index.html` and `book.html` contain no chat link and no
+chat copy at all (verified: zero occurrences of `inquiry.example.invalid`,
+"chat", or "Mrs. Claus" in either). The placeholder hostname survives only
+in deployment examples and internal notes, never in a served page.
+
+So there is no dead link to fix - there is a link to *add*, once a real
+host exists. `deploy/inquiry/nginx.conf.example` still uses
+`inquiry.example.invalid` as its example hostname. Before genuine public
+intake:
 
 1. Choose an approved, continuously running host with a private persistent
    volume and backups. Keep one application process per data directory.
@@ -187,6 +259,12 @@ Before genuine public intake:
    synthetic flow on HTTPS before changing the actual site's inquiry
    route. Public deployment, DNS changes, and enabling actual customer
    operation require owner authorization.
+7. Replace the `inquiry.example.invalid` placeholder in
+   `deploy/inquiry/nginx.conf.example` with the real, owner-approved
+   hostname from step 2. Only then add a link to it from the marketing
+   pages - and note that `deploy/public-files.json` is the allowlist that
+   decides what the site actually publishes, so a new page or asset must
+   be added there deliberately, not just dropped in the repository.
 
 Stripe verification/payment links, mobile voice/SMS integration, and
 recording consent are separate unfinished provider tasks. This component
