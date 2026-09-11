@@ -1,4 +1,8 @@
 {
+  "framework": null,
+  "buildCommand": "node scripts/build_public_site.cjs",
+  "outputDirectory": "dist",
+  "installCommand": "",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [

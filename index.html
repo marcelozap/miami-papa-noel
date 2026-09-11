@@ -236,15 +236,34 @@
     }
 
     .hero {
+      position: relative;
+      isolation: isolate;
       min-height: 94vh;
       display: grid;
       align-items: end;
       padding: 128px 0 58px;
       color: white;
+      background: #171313;
+    }
+
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
       background:
-        linear-gradient(90deg, rgba(23, 19, 19, .96) 0%, rgba(23, 19, 19, .76) 48%, rgba(23, 19, 19, .34) 100%),
-        linear-gradient(180deg, rgba(23, 19, 19, .20) 0%, rgba(23, 19, 19, .84) 100%),
-        url("assets/premium/santa-family-event-1600-premium.jpg") center / cover no-repeat;
+        linear-gradient(90deg, rgba(23, 19, 19, .94) 0%, rgba(23, 19, 19, .78) 40%, rgba(23, 19, 19, .04) 75%),
+        linear-gradient(180deg, transparent 35%, rgba(23, 19, 19, .68) 100%);
     }
 
     .hero-grid {
@@ -959,6 +978,10 @@
       grid-column: span 2;
     }
 
+    .gallery .gallery-portrait {
+      object-position: 68% center;
+    }
+
     .proof {
       background: var(--champagne);
     }
@@ -1182,15 +1205,43 @@
       }
 
       .hero {
-        min-height: 88vh;
-        padding: 104px 0 38px;
-        background:
-          linear-gradient(180deg, rgba(23, 19, 19, .46) 0%, rgba(23, 19, 19, .92) 100%),
-          url("assets/premium/santa-family-event-1600-premium.jpg") center / cover no-repeat;
+        min-height: auto;
+        padding: 270px 0 30px;
+      }
+
+      .hero-photo {
+        top: 90px;
+        height: 300px;
+        object-position: 75% top;
+      }
+
+      .hero::before {
+        background: linear-gradient(180deg, rgba(23, 19, 19, .05) 180px, rgba(23, 19, 19, .78) 300px, #171313 390px);
+      }
+
+      .hero h1 {
+        font-size: 36px;
+        line-height: 1.02;
+      }
+
+      .hero-copy {
+        font-size: 17px;
+        line-height: 1.45;
+        margin-bottom: 20px;
+      }
+
+      .hero .actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .hero .actions a:first-child {
+        grid-column: 1 / -1;
       }
 
       .hero-card {
-        padding: 18px;
+        display: none;
       }
 
       section {
@@ -1291,6 +1342,7 @@
 
   <main>
     <section class="hero">
+      <img class="hero-photo" src="assets/santa-standing-holiday-portrait.jpg" width="1600" height="1200" alt="Papa Noel standing beside a decorated Christmas tree" data-i18n-alt="photos.standing" fetchpriority="high" decoding="async">
       <div class="shell hero-grid">
         <div>
           <p class="eyebrow" data-i18n="hero.eyebrow">Private Santa visits in Miami-Doral</p>
@@ -1298,8 +1350,8 @@
           <p class="hero-copy" data-i18n="hero.copy">A warm, bilingual, photo-ready Santa experience for homes, schools, communities, businesses, and Christmas Eve surprises in Miami-Doral.</p>
           <div class="actions">
             <a class="button" href="/checkout" data-i18n="hero.primary">Find the Right Visit</a>
-            <a class="button secondary" href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="hero.whatsapp">WhatsApp</a>
             <a class="button secondary" href="tel:+17869759557" data-i18n="hero.secondary">Call or Text</a>
+            <a class="button secondary" href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="hero.whatsapp">WhatsApp</a>
           </div>
         </div>
         <aside class="hero-card" aria-label="Booking highlights">
@@ -1628,7 +1680,7 @@
         </div>
         <div class="gallery">
           <img src="assets/premium/santa-family-event-1600-premium.jpg" alt="Papa Noel with a family at a Christmas event" loading="lazy" decoding="async">
-          <img src="assets/premium/santa-photo-2-1600-premium.jpg" alt="Papa Noel seated by a decorated Christmas tree" loading="lazy" decoding="async">
+          <img class="gallery-portrait" src="assets/santa-seated-holiday-portrait.jpg" width="1600" height="1200" alt="Papa Noel seated beside a Christmas tree with a festive stocking" data-i18n-alt="photos.seated" loading="lazy" decoding="async">
           <img src="assets/premium/santa-gift-delivery-1400-premium.jpg" alt="Papa Noel handing out gifts at a children event" loading="lazy" decoding="async">
           <img src="assets/premium/santa-community-event-1600-premium.jpg" alt="Papa Noel with children and entertainers at a community event" loading="lazy" decoding="async">
           <img src="assets/premium/santa-pet-visit-1600-premium.jpg" alt="Papa Noel with a family dog during Christmas" loading="lazy" decoding="async">
@@ -1724,8 +1776,7 @@
         <div class="actions">
           <a class="button" href="/checkout" data-i18n="cta.primary">Request a Visit</a>
           <a class="button secondary" href="tel:+17869759557" data-i18n="cta.call">Call or Text</a>
-          <a class="button secondary" href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="cta.whatsapp">WhatsApp</a>
-          <a class="button secondary" href="/book?source=home-email-button" data-i18n="cta.email">Request Online</a>
+          <a class="button secondary" href="/book?source=home-email-button" data-i18n="cta.email">See Services &amp; Pricing</a>
         </div>
       </div>
     </section>
@@ -1897,6 +1948,8 @@
         "video.community": "Community event moments",
         "video.available": "Video available on request.",
         "gallery.eyebrow": "Photo Gallery",
+        "photos.standing": "Papa Noel standing beside a decorated Christmas tree",
+        "photos.seated": "Papa Noel seated beside a Christmas tree with a festive stocking",
         "gallery.title": "Real smiles from real visits.",
         "gallery.copy": "A few moments from family visits, community events, toy drives, and holiday celebrations.",
         "proof.quote": "\"Every donation, every toy, every hour of help means the world to these children.\"",
@@ -1929,7 +1982,7 @@
         "cta.primary": "Request a Visit",
         "cta.call": "Call or Text",
         "cta.whatsapp": "WhatsApp",
-        "cta.email": "Request Online",
+        "cta.email": "See Services & Pricing",
         "footer.subline": "Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events",
         "sticky.whatsapp": "WhatsApp",
         "sticky.call": "Call / Text",
@@ -2086,6 +2139,8 @@
         "video.community": "Momentos de eventos comunitarios",
         "video.available": "Video disponible por solicitud.",
         "gallery.eyebrow": "Galería de Fotos",
+        "photos.standing": "Papá Noel de pie junto a un árbol de Navidad decorado",
+        "photos.seated": "Papá Noel sentado junto a un árbol de Navidad con una bota navideña",
         "gallery.title": "Sonrisas reales de visitas reales.",
         "gallery.copy": "Algunos momentos de visitas familiares, eventos comunitarios, donaciones de juguetes y celebraciones navideñas.",
         "proof.quote": "\"Cada donación, cada juguete, cada hora de ayuda es un mundo para estos niños.\"",
@@ -2118,7 +2173,7 @@
         "cta.primary": "Solicitar Visita",
         "cta.call": "Llamar o Escribir",
         "cta.whatsapp": "WhatsApp",
-        "cta.email": "Solicitar en línea",
+        "cta.email": "Ver Servicios y Precios",
         "footer.subline": "Visitas privadas bilingües de Santa para familias, negocios, escuelas y eventos comunitarios en Miami-Doral",
         "sticky.whatsapp": "WhatsApp",
         "sticky.call": "Llamar / Texto",
@@ -2146,6 +2201,10 @@
       });
       document.querySelectorAll("[data-whatsapp-cta]").forEach((link) => {
         link.href = "https://wa.me/17869759557?text=" + encodeURIComponent(whatsappMessages[activeLang]);
+      });
+      document.querySelectorAll("[data-i18n-alt]").forEach((image) => {
+        const key = image.getAttribute("data-i18n-alt");
+        if (dictionary[key]) image.alt = dictionary[key];
       });
       localStorage.setItem("miamiPapaNoelLanguage", activeLang);
     }
