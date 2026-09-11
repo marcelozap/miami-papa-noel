@@ -2,7 +2,7 @@
 
 ## Gallery release integration (Codex, 2026-09-11T14:00Z)
 
-VERIFIED for release. Owner explicitly authorized pushing all finished work. Reviewed
+COMMITTED and public deployment VERIFIED. Owner explicitly authorized pushing all finished work. Reviewed
 Claude 028's frozen gallery and the local preservation commits, running the
 full offline gate, then publishing via main's existing Vercel integration.
 Codex owns release coordination and review only; no redesign is requested.
@@ -16,6 +16,12 @@ HTTP-served browser: five images decoded, viewer next/Escape and EN/ES work,
 no JS errors observed; mobile outer width 390 (375 content) has no overflow.
 Publishing preservation commits also saves backend source, not a backend
 deployment. Production verification follows the push; no Day 1 claim.
+
+2026-09-11T14:02:12Z: b2ffa094f5fa89f72d21d0a4114c39140c5d62c5 pushed
+atomically to main and ops. HTTPS homepage/book/five gallery photos match
+Git bytes; six private paths and six removed GPS originals return 404 on
+miamipapanoel.com. Live Spanish gallery viewer works. Preview stopped.
+Earlier deployment URLs and Git history remain outside this exclusion check.
 
 
 ## Homepage photo gallery: warmth and proof without clutter (claude, 2026-09-11T05:10Z)

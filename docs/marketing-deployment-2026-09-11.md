@@ -1,5 +1,27 @@
 # Marketing Website Deployment
 
+## Latest: Santa Photo Gallery
+
+Verified 2026-09-11T14:02:12Z at https://miamipapanoel.com/.
+Release b2ffa094f5fa89f72d21d0a4114c39140c5d62c5 includes five bilingual
+gallery photos, keyboard-accessible viewer, preparation acknowledgement
+summary fix, and previously local source-preservation commits.
+The backend source is saved on GitHub, not deployed. Paid AI remains off.
+
+Independent offline ops: 824 passed, 7 skipped, 52 subtests; all seven steps
+PASS. Public build: 53 allowlisted files. Local HTTP mobile review at 390
+outer/375 content pixels has no horizontal overflow and five decoded images.
+Live homepage/book/five gallery images return 200 and match Git bytes.
+Six private URLs and six GPS-tagged originals return 404 on the production
+domain. Old deployment URLs and Git history were not purged.
+
+Deploy without an assistant: run the offline checks, build with
+`node scripts/build_public_site.cjs`, review the explicit allowlist, then push
+an approved commit to main through the existing Vercel integration.
+For rollback, prefer a reviewed forward fix/revert that RETAINS the GPS
+exclusions. Promoting older releases could restore the removed originals.
+No billing, Stripe, DNS, customer-send or production-evidence changes occurred.
+
 ## Latest: Simplified Customer Site
 
 Verified 2026-09-11 through 03:00:29 UTC. Supersedes the earlier release below.
