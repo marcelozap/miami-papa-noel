@@ -246,6 +246,7 @@ GALLERY_PHOTOS = [  # Owner confirmed guest photo waivers; editorial order is de
 
 def test_homepage_gallery_is_compact_accessible_and_allowlisted():
     text = (ROOT / 'index.html').read_text(encoding='utf-8')
+    assert text.index('class="hero"') < text.index('id="gallery"') < text.index('id="packages"') < text.index('id="faq"')
     page = CustomerPage(text)
     manifest = set(json.loads((ROOT / 'deploy/public-files.json').read_text()))
     links = [attrs for tag, attrs, _, _ in page.elements

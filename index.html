@@ -125,7 +125,7 @@
     .visit p { color:var(--muted); font-size:14px; }
     .visit .price { color:var(--pine); font-size:23px; font-weight:600; }
     .visit a { margin-top:auto; padding-top:12px; font-weight:600; font-size:14px; }
-    .gallery { padding:8px 0 48px; }
+    .gallery { padding:48px 0 0; }
     .gallery .section-heading { align-items:flex-end; }
     .gallery .section-heading p { color:var(--muted); font-size:15px; max-width:420px; text-align:right; }
     .photo-grid { display:grid; grid-template-columns:1.15fr 1fr 1fr; grid-auto-rows:1fr; gap:14px; list-style:none; margin:0; padding:0; }
@@ -182,7 +182,7 @@
       .visit-grid { grid-template-columns:1fr; gap:12px; }
       .visit { padding:20px; gap:6px; }
       .visit a { padding-top:6px; }
-      .gallery { padding:0 0 32px; }
+      .gallery { padding:32px 0 0; }
       .gallery .section-heading p { text-align:left; max-width:none; }
       .photo-grid { grid-template-columns:1fr 1fr; grid-auto-rows:auto; gap:10px; }
       .photo-grid li:first-child { grid-column:span 2; grid-row:auto; }
@@ -224,6 +224,21 @@
         </div>
       </div>
     </section>
+    <section class="gallery" id="gallery">
+      <div class="shell">
+        <div class="section-heading">
+          <h2 data-i18n="gallery.title">Meet your Santa</h2>
+          <p data-i18n="gallery.copy">Christmas moments with Santa and his guests.</p>
+        </div>
+        <ul class="photo-grid">
+          <li><a class="photo" href="assets/premium/santa-family-event-1600-premium.jpg" style="--focus:42% 55%"><span class="photo-frame"><img src="assets/premium/santa-family-event-1600-premium.jpg" width="900" height="1600" alt="Santa posing with an adult and child beside a Christmas tree" data-i18n-alt="photos.greeting" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="gallery.greeting">A Christmas moment together.</span></a></li>
+          <li><a class="photo" href="assets/santa-seated-holiday-portrait.jpg" style="--focus:62% 50%"><span class="photo-frame"><img src="assets/santa-seated-holiday-portrait.jpg" width="1600" height="1200" alt="Papa Noel seated beside a Christmas tree with a holiday gift sack" data-i18n-alt="photos.seated" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="photos.caption">Your Santa, ready for a little Christmas magic.</span></a></li>
+          <li><a class="photo" href="assets/optimized/extra-20231210-160208-1200.jpg" style="--focus:45% 30%"><span class="photo-frame"><img src="assets/optimized/extra-20231210-160208-1200.jpg" width="675" height="1200" alt="Papa Noel seated on a white throne at the end of a red carpet, beside a gold and silver Christmas tree" data-i18n-alt="photos.throne" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="gallery.throne">Ready for your event photos.</span></a></li>
+          <li><a class="photo" href="assets/premium/santa-community-event-1600-premium.jpg"><span class="photo-frame"><img class="group-photo" src="assets/premium/santa-community-event-1600-premium.jpg" width="1600" height="900" alt="Santa with children and holiday performers posing for a group photo" data-i18n-alt="photos.cup" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="gallery.cup">Holiday celebrations with everyone.</span></a></li>
+          <li><a class="photo" href="assets/premium/santa-pet-visit-1600-premium.jpg" style="--focus:50% 30%"><span class="photo-frame"><img src="assets/premium/santa-pet-visit-1600-premium.jpg" width="900" height="1600" alt="Papa Noel petting a Labrador in a Christmas sweater beside a lit tree" data-i18n-alt="photos.pet" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="gallery.pet">Pets are welcome in the photo, too.</span></a></li>
+        </ul>
+      </div>
+    </section>
     <section class="visits" id="packages">
       <div class="shell">
         <div class="section-heading">
@@ -250,21 +265,6 @@
             <a href="/book?package=Christmas%20Eve&amp;source=home" data-i18n="eve.action">Request Christmas Eve</a>
           </article>
         </div>
-      </div>
-    </section>
-    <section class="gallery" id="gallery">
-      <div class="shell">
-        <div class="section-heading">
-          <h2 data-i18n="gallery.title">Meet your Santa</h2>
-          <p data-i18n="gallery.copy">Christmas moments with Santa and his guests.</p>
-        </div>
-        <ul class="photo-grid">
-          <li><a class="photo" href="assets/premium/santa-family-event-1600-premium.jpg" style="--focus:42% 55%"><span class="photo-frame"><img src="assets/premium/santa-family-event-1600-premium.jpg" width="900" height="1600" alt="Santa posing with an adult and child beside a Christmas tree" data-i18n-alt="photos.greeting" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="gallery.greeting">A Christmas moment together.</span></a></li>
-          <li><a class="photo" href="assets/santa-seated-holiday-portrait.jpg" style="--focus:62% 50%"><span class="photo-frame"><img src="assets/santa-seated-holiday-portrait.jpg" width="1600" height="1200" alt="Papa Noel seated beside a Christmas tree with a holiday gift sack" data-i18n-alt="photos.seated" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="photos.caption">Your Santa, ready for a little Christmas magic.</span></a></li>
-          <li><a class="photo" href="assets/optimized/extra-20231210-160208-1200.jpg" style="--focus:45% 30%"><span class="photo-frame"><img src="assets/optimized/extra-20231210-160208-1200.jpg" width="675" height="1200" alt="Papa Noel seated on a white throne at the end of a red carpet, beside a gold and silver Christmas tree" data-i18n-alt="photos.throne" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="gallery.throne">Ready for your event photos.</span></a></li>
-          <li><a class="photo" href="assets/premium/santa-community-event-1600-premium.jpg"><span class="photo-frame"><img class="group-photo" src="assets/premium/santa-community-event-1600-premium.jpg" width="1600" height="900" alt="Santa with children and holiday performers posing for a group photo" data-i18n-alt="photos.cup" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="gallery.cup">Holiday celebrations with everyone.</span></a></li>
-          <li><a class="photo" href="assets/premium/santa-pet-visit-1600-premium.jpg" style="--focus:50% 30%"><span class="photo-frame"><img src="assets/premium/santa-pet-visit-1600-premium.jpg" width="900" height="1600" alt="Papa Noel petting a Labrador in a Christmas sweater beside a lit tree" data-i18n-alt="photos.pet" loading="lazy" decoding="async"></span><span class="photo-caption" data-i18n="gallery.pet">Pets are welcome in the photo, too.</span></a></li>
-        </ul>
       </div>
     </section>
     <section class="questions" id="faq">
