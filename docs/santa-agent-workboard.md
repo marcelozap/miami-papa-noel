@@ -1,62 +1,127 @@
 # Miami Papa Noel Agent Workboard
 
-## Preparation acknowledgements + local preservation commits (claude, 2026-09-11T03:45Z)
+## Gallery release integration (Codex, 2026-09-11T14:00Z)
 
-COMMITTED locally, NOT pushed, NOT deployed. Owner-directed ("continue
-building until you finish") after the owner asked what was left. Codex is
-paused. Review welcome; nothing here changes the live site until a push.
+VERIFIED for release. Owner explicitly authorized pushing all finished work. Reviewed
+Claude 028's frozen gallery and the local preservation commits, running the
+full offline gate, then publishing via main's existing Vercel integration.
+Codex owns release coordination and review only; no redesign is requested.
+Paid AI stays disabled; no customer sends, billing, Stripe activation or DNS
+changes. The explicit public allowlist remains the deployment boundary.
 
-**Fix (`fbc1ea2`):** `book.html` + `scripts/test_public_release.py`. The four
-required preparation checkboxes never reached `buildMessage()`, so WhatsApp,
-SMS, email, copy and the hidden `message_summary` carried none of them. Added a
-`requirements` name list, EN/ES labels in `messageLabels` (parity asserted),
-two message lines (`Preparation confirmed: ...` / `Still to confirm: ...`,
-with `none yet` / `none` and `ninguna todavía` / `nada` fallbacks), and change
-listeners so the preview updates. No markup, price, phone or index.html
-changes; the checkboxes stay `required`; the POST path unchanged except the
-summary now also lists them.
+Independent offline ops: 824 passed, 7 skipped, 52 subtests, all 28 suites and
+seven steps PASS. Build: 53 allowlisted files. Frozen four-file hashes match
+Claude 028. New secret-pattern scan: zero hits; no new record/database files.
+HTTP-served browser: five images decoded, viewer next/Escape and EN/ES work,
+no JS errors observed; mobile outer width 390 (375 content) has no overflow.
+Publishing preservation commits also saves backend source, not a backend
+deployment. Production verification follows the push; no Day 1 claim.
 
-**Regression:** runs the real `buildMessage()` under a Node `vm` DOM shim for
-EN none / EN partial / ES all, asserts label parity, the change-listener
-wiring, `summary == text`, and that all three link hrefs equal
-`encodeURIComponent(text)`. Verified it FAILS against the published 526f1d1
-`book.html` (AssertionError), so it is a real guard.
 
-**Verification:** focused 15 passed / 1 skipped (was 14+1). Full offline
-ops with `MPN_API_DAILY_CALL_CAP=0 MPN_CHAT_ALLOW_MODEL=0`: 822 passed,
-7 skipped, 52 subtests, 28 suites, all seven steps PASS, exit 0 (86.97s).
-Build: 58 dist files. Real browser on a local `dist/` server (port 8241,
-stopped after): `/book.html?package=family` preselected Family Visit; ticking
-chair + parking rewrote all three link hrefs to "Preparation confirmed:
-sturdy armless chair, parking within 100 ft / Still to confirm: A/C on,
-adult for gifts and photos"; ES switch rewrote them to "Preparación
-confirmada: silla firme sin brazos, estacionamiento a menos de 100 pies /
-Falta confirmar: aire acondicionado encendido, adulto encargado de regalos y
-fotos". No form submitted. Pane could not draw, so no screenshot; the hrefs
-are the evidence.
+## Homepage photo gallery: warmth and proof without clutter (claude, 2026-09-11T05:10Z)
 
-**Preservation commits** (grouped by owner so each reverts independently;
-`git reset --soft 526f1d1` undoes all of them if Codex/Cowork prefer to
-commit their own):
-- `9c84196` feat(chat): web_inquiry chat integration (claude) + web_chat /
-  web_chat_guard / web_chat_http (Codex), env example, chat-release-status,
-  launch_preflight test.
-- `e4af6e1` feat(triage): Spanish home-visit prompt v1.1.1 (Codex).
-- `4bd5aa8` feat(opn): contextual scanner, packet provenance, honest labels,
-  model-check record.
-- `886dbc9` feat(handoff): season-dashboard (Cowork), offline_workshop,
-  START-SANTA.md, santa-editor-project.json, marketing/photo records, and
-  ops_check.py suite registration. Intermediate commits are not individually
-  ops-clean (registration lands here); the tip is.
-Secret/PII scan over every added line before committing: no keys, no
-customer data; only the approved Zelle rail, the public phone, 555 fixtures,
-and prospect business contacts already tracked in HEAD (`lead-tracker.csv`).
+READY_FOR_REVIEW, frozen, UNCOMMITTED. Owner feedback: the simplified site lost
+personality and photographic proof. Bounded homepage improvement only; the
+request/call journey, three visit choices, prices, phone, EN/ES, no-login,
+book.html, backend, paid-AI settings and hosting are untouched. Codex to
+integrate and publish; no push or deploy from here.
 
-**Not done / not buildable:** OPN remains NOT STARTED; `--final` fails
-closed with 8 blockers, all one cause (no real model-backed customer reply).
-Needs paid generation authorized and a real inquiry, not code. Nothing was
-pushed; main and the ops remote still point at 526f1d1. No paid call, no
-customer send, no DNS or account change.
+**Changed files (SHA256):**
+- `index.html` e8871daee8b643f54d179d5508de9eaa00d95148b4d1096dbd792b23df05bb89
+- `scripts/test_public_release.py` 29cf25ca71478d6da064b5c0b371f33de79777c5b602f221ec625d63d0ab5413
+- `deploy/public-files.json` 94f1e4531d48bd0bcb5554d6143f41abbc9b1986e8d64c25aa8f640b862914cd
+- NEW `assets/optimized/extra-20231210-160208-1200.jpg` (185 KB, 675x1200)
+  61f0e30a1acf554db744a1706fbbe8e3c65e71c3e7bf9d3bafac7e1d8724c4fc - web-size
+  copy of the already-allowlisted `assets/extra/20231210_160208.jpg`, EXIF
+  orientation baked in, all metadata stripped, same convention as the existing
+  `optimized/extra-*-1200.jpg` files.
+
+**What changed on the page.** New `#gallery` section between the visit choices
+and the FAQ: "Meet your Santa" / "Conoce a tu Santa", five Santa-only photos in
+a featured-plus-four grid (desktop 1.15fr/1fr/1fr with the first tile spanning
+two rows; mobile full-width featured tile then 2x2), captions under each tile,
+EN/ES alt text and captions, per-photo `--focus` object-position so faces are
+never cut in the 4:5 crops. Click-to-enlarge is a native `<dialog>`: visible
+"x Close" button top-right (99x44 on phones), 48px prev/next, "n / 5" counter,
+ArrowLeft/ArrowRight wrap, Escape closes (explicit handler, not only the
+native cancel), focus lands on Close on open and returns to the thumbnail on
+close, body scroll locks while open, backdrop click closes, `aria-label`
+localised via a new `data-i18n-aria` hook. Without JS or `showModal`, each
+tile is a plain link to the full image. The seated portrait moved from the
+FAQ column into the gallery; the FAQ is now a single 760px column. No new
+copy makes a claim: "Real photos of your Santa" is the only statement, and the
+regression forbids review/insurance/award/superlative wording in `<main>`.
+
+**Photo selection (all 16 candidates inspected, not just listed).**
+Used - Santa is the only identifiable person: standing portrait (hero,
+unchanged), peace sign by the lobby tree (featured; no camera watermark),
+seated portrait, white throne with red carpet (new web copy), close-up with
+the cup, Labrador visit. NOT used, flagged for Marcelo before any use:
+`santa-family-event` (woman + young girl, face clearly visible - note it is
+still the `og:image` and schema image in `<head>`, pre-existing, owner's
+call), `santa-gift-delivery` (two children), `santa-community-event` (a dozen
+children + performers), `santa-photo-1` and `IMG_20221224_222329681` (other
+adults), `IMG_20221224_223822307` (three young women, a child, a dog),
+`extra-20231214-114914` / `20231214_114907` (elf and Grinch performers in an
+institutional hallway with a wall plaque and room number), `Screenshot_...`
+(child), `santa-card` (photo strip naming a third-party business and a
+photographer's phone number). No AI-generated or edited faces; the phone
+watermark on two originals is left as-is and cropped out of the tiles.
+
+**Privacy finding fixed in this change (please do not drop it when
+integrating):** six full-resolution originals in the public allowlist carry
+GPS EXIF - `santa-card`, `santa-community-event`, `santa-family-event`,
+`santa-pet-visit` (a family's home), `santa-photo-1`, `santa-photo-2`. No
+public page references any of them; only their `optimized/` and `premium/`
+derivatives are used, and all derivatives are clean (Pillow cross-check: 34
+JPEGs, 6 flagged, detector 0 mismatches). Removed the six from
+`deploy/public-files.json` (58 -> 53 entries, ~14 MB less to deploy, no visible
+change) and added `test_no_published_image_carries_gps_metadata`, a pure-Python
+Exif GPSInfo (0x8825) check over every allowlisted JPEG. The build's own
+stale-output guard correctly refused to rebuild until the six stale copies
+were removed from the gitignored `dist/`; expect that once on Codex's machine
+too. No page on the live site leaks GPS, but the six originals stay fetchable
+by direct URL until this ships.
+
+**Tests.** `test_public_release.py`: sections 3 -> 4 plus exactly one
+`<dialog>`; `data-i18n-aria` added to the parity key set; new
+`test_homepage_gallery_is_compact_accessible_and_allowlisted` pins the five
+photos and their order, the hero portrait, lazy/async/width/height/alt on
+every thumb, manifest membership and file existence, dialog ids and button
+types, the keyboard/focus tokens in the script, and the no-invented-trust
+wording rule; new GPS guard as above. Both new tests FAIL against published
+526f1d1 (gallery at the selection assertion; GPS because the detector flags
+all six originals). Focused: 17 passed / 1 skipped. Full offline ops with
+`MPN_API_DAILY_CALL_CAP=0 MPN_CHAT_ALLOW_MODEL=0`, rerun after the final
+edit: 824 passed, 7 skipped, 52 subtests passed in 87.11s (0:01:27); all 28 suites discovered and listed; seven steps PASS; PASS - all steps green.; exit 0.
+
+**Real-browser verification on HTTP-served `dist/` (127.0.0.1:8241, stopped
+afterwards), not a data: URL.** In-app Chromium: desktop 1280x800 and mobile
+375x812 - all five gallery images returned HTTP 200 and decoded
+(`naturalWidth > 0`), `scrollWidth == clientWidth` (1265/1265 and 375/375),
+zero elements past the right edge, tiles 384x877 + 334x417 (desktop) and
+343x429 + 167x208 (mobile); viewer open / arrows / wrap / Escape / close
+button / focus return exercised; EN and ES checked on heading, copy, captions,
+alts, viewer label and control names; booking links present
+(`/book?source=home`, three `/book?package=...`, `tel:`, WhatsApp). Playwright
+Chromium, independent run with a real keyboard: desktop 1280x900, iPhone 13
+(390, dsf 3, touch) EN and ES, Galaxy S9+ (320 CSS px) - no overflow, 5/5
+loaded, Escape closes on both form factors. Defects found and fixed during
+this pass, before freezing: Escape did not close the viewer under the in-app
+driver (explicit handler added); mobile rows had a blank gap because
+`grid-auto-rows:1fr` stretched the small rows to the featured row (mobile now
+`auto`); the throne photo was demoted from the featured tile because
+full-height display exposed the phone watermark. Earlier headless-Edge PNGs
+were misleading (window-size clipping) and were deleted.
+
+**Screenshots** (outside Git, like the photo-intake archive):
+`C:\XIV\backups\santa-gallery-qa-20260911\` - desktop-1280-en-full.png,
+desktop-1280-lightbox.png, mobile-390-en-full.png, mobile-390-es-full.png,
+mobile-390-es-gallery.png, mobile-390-lightbox.png, mobile-360-full.png.
+
+Not done: no commit, push, deploy, DNS, paid call, customer send or Day 1
+claim. All other pending work is unchanged. Codex: stage exactly the four
+paths above.
 
 ## Reviewed simplification release (Codex, 2026-09-11T02:57Z)
 

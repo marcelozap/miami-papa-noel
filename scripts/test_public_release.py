@@ -150,13 +150,14 @@ def test_customer_pages_translate_all_visible_copy_and_link_to_real_pages(filena
         input=literal, capture_output=True, encoding='utf-8', check=True, timeout=5)
     translations = json.loads(parsed.stdout)
     keys = {attrs[key] for _, attrs, _, _ in page.elements
-            for key in ('data-i18n', 'data-i18n-alt', 'data-i18n-placeholder') if key in attrs}
+            for key in ('data-i18n', 'data-i18n-alt', 'data-i18n-placeholder', 'data-i18n-aria') if key in attrs}
     for lang in ('en', 'es'):
         assert all(translations[lang].get(key) for key in keys)
     links = [attrs.get('href', '') for tag, attrs, _, _ in page.elements if tag == 'a']
     assert not any('/operator' in href or '/login' in href for href in links)
     if filename == 'index.html':
-        assert sum(tag == 'section' for tag, _, _, _ in page.elements) == 3
+        assert sum(tag == 'section' for tag, _, _, _ in page.elements) == 4
+        assert sum(tag == 'dialog' for tag, _, _, _ in page.elements) == 1
         assert sum(tag == 'article' for tag, _, _, _ in page.elements) == 3
         assert any(href.startswith('/book?') for href in links)
         assert {'gallery', 'services', 'packages', 'faq'} <= {
@@ -203,6 +204,73 @@ def test_output_symlink_refused(project, tmp_path_factory):
         pytest.skip('symlink privilege unavailable')
     assert run_build(project).returncode != 0
     assert not list(target.iterdir())
+
+
+def jpeg_has_gps(path):
+    """True when a JPEG's Exif IFD0 carries a GPSInfo pointer (tag 0x8825). Pure Python, no Pillow."""
+    data = path.read_bytes()
+    if data[:2] != b'\xff\xd8':
+        return False
+    offset = 2
+    while offset + 4 <= len(data) and data[offset] == 0xFF:
+        marker, size = data[offset + 1], int.from_bytes(data[offset + 2:offset + 4], 'big')
+        if marker == 0xE1 and data[offset + 4:offset + 10] == b'Exif\x00\x00':
+            tiff = data[offset + 10:offset + 2 + size]
+            endian = 'little' if tiff[:2] == b'II' else 'big'
+            ifd = int.from_bytes(tiff[4:8], endian)
+            count = int.from_bytes(tiff[ifd:ifd + 2], endian)
+            return any(int.from_bytes(tiff[ifd + 2 + 12 * n:ifd + 4 + 12 * n], endian) == 0x8825
+                       for n in range(count))
+        if marker in (0xDA, 0xD9):
+            break
+        offset += 2 + size
+    return False
+
+
+def test_no_published_image_carries_gps_metadata():
+    manifest = json.loads((ROOT / 'deploy/public-files.json').read_text())
+    photos = [p for p in manifest if p.lower().endswith(('.jpg', '.jpeg'))]
+    assert len(photos) >= 5
+    leaking = [p for p in photos if jpeg_has_gps(ROOT / p)]
+    assert leaking == [], leaking
+
+
+GALLERY_PHOTOS = [  # Santa-only, owner-approved public assets; editorial order is deliberate
+    'assets/premium/santa-photo-2-1600-premium.jpg',  # featured tile: clean, no camera watermark
+    'assets/santa-seated-holiday-portrait.jpg',
+    'assets/optimized/extra-20231210-160208-1200.jpg',
+    'assets/optimized/extra-20231210-171256-1200.jpg',
+    'assets/premium/santa-pet-visit-1600-premium.jpg',
+]
+
+
+def test_homepage_gallery_is_compact_accessible_and_allowlisted():
+    text = (ROOT / 'index.html').read_text(encoding='utf-8')
+    page = CustomerPage(text)
+    manifest = set(json.loads((ROOT / 'deploy/public-files.json').read_text()))
+    links = [attrs for tag, attrs, _, _ in page.elements
+             if tag == 'a' and 'photo' in attrs.get('class', '').split()]
+    thumbs = [attrs for tag, attrs, _, _ in page.elements
+              if tag == 'img' and attrs.get('loading') == 'lazy' and attrs.get('data-i18n-alt', '').startswith('photos.')]
+    assert [a['href'] for a in links] == [i['src'] for i in thumbs] == GALLERY_PHOTOS
+    for attrs in thumbs:
+        assert attrs['src'] in manifest and (ROOT / attrs['src']).is_file(), attrs['src']
+        assert attrs['alt'] and attrs['width'] and attrs['height'] and attrs['decoding'] == 'async'
+    hero = next(attrs for tag, attrs, _, _ in page.elements if tag == 'img' and attrs.get('class') == 'hero-photo')
+    assert hero['src'] == 'assets/santa-standing-holiday-portrait.jpg' and hero['data-i18n-alt'] == 'photos.standing'
+    # click-to-enlarge viewer: native <dialog>, labelled, obvious close, prev/next, keyboard arrows
+    dialog = next(attrs for tag, attrs, _, _ in page.elements if tag == 'dialog')
+    assert dialog['id'] == 'lightbox' and dialog['aria-label'] and dialog['data-i18n-aria'] == 'gallery.viewer'
+    buttons = {attrs['id']: attrs for tag, attrs, _, _ in page.elements if tag == 'button' and 'id' in attrs}
+    assert {'lightboxClose', 'lightboxPrev', 'lightboxNext'} <= set(buttons)
+    assert all(buttons[name]['type'] == 'button' for name in ('lightboxClose', 'lightboxPrev', 'lightboxNext'))
+    for token in ('lightbox.showModal()', 'lightbox.close()', '"ArrowLeft"', '"ArrowRight"',
+                  'lightboxClose.focus()', 'event.preventDefault()', 'typeof lightbox.showModal === "function"'):
+        assert token in text, token
+    # nothing on the page invents trust: no reviews, counts, insurance, awards or superlatives
+    body = text.split('<main>')[1].split('</main>')[0].lower()
+    for claim in ('review', 'insured', 'insurance', 'award', 'best in', '#1', 'five-star', '5-star', 'families served'):
+        assert claim not in body, claim
 
 
 REQUIREMENTS = ('chair_ready', 'air_conditioning', 'gift_photo_adult', 'parking_ready')
