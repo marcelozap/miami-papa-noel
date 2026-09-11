@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Papa Noel — Season Dashboard</title>
+<style>
+:root{--ink:#1b1a19;--ink2:#4b4644;--ink3:#7d7673;--bg:#faf8f5;--card:#fff;--line:#e5ddd3;
+--red:#a3231f;--redbg:#fdf2f1;--grn:#1d6b45;--grnbg:#edf6f0;--amb:#8a6412;--ambbg:#fdf6e6;
+--sh:0 1px 2px rgba(0,0,0,.05),0 4px 12px rgba(0,0,0,.04)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+header.top{background:var(--red);color:#fff;padding:20px 0 18px}
+header.top h1{margin:0;font-size:21px;letter-spacing:-.2px}
+header.top p{margin:5px 0 0;font-size:14px;opacity:.9}
+nav{position:sticky;top:0;z-index:40;background:rgba(250,248,245,.97);border-bottom:1px solid var(--line)}
+nav div{display:flex;gap:4px;overflow-x:auto;padding:8px 16px;max-width:1000px;margin:0 auto;scrollbar-width:none}
+nav div::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;padding:9px 14px;border-radius:9px;text-decoration:none;color:var(--ink2);font-weight:600;font-size:14.5px}
+nav a:hover{background:#efe7de;color:var(--ink)}
+section{padding:34px 0 6px}
+h2{font-size:20px;margin:0 0 4px}
+h2 span{color:var(--red);margin-right:8px}
+.lede{color:var(--ink2);margin:0 0 18px;max-width:68ch}
+h3{font-size:16px;margin:22px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--sh);margin-bottom:14px}
+.note{border-left:3px solid var(--amb);background:var(--ambbg);padding:12px 15px;border-radius:0 9px 9px 0;margin:12px 0;font-size:14.5px}
+.note.stop{border-left-color:var(--red);background:var(--redbg)}
+.note.ok{border-left-color:var(--grn);background:var(--grnbg)}
+.note b{color:var(--amb)} .note.stop b{color:var(--red)} .note.ok b{color:var(--grn)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f2ebe3;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink2)}
+td.amt{font-weight:700;white-space:nowrap}
+tr.peak td{background:var(--redbg)} tr.peak td.amt{color:var(--red)}
+button{font:inherit;cursor:pointer}
+.cp{border:1px solid var(--line);background:#fff;color:var(--ink2);font-size:13.5px;padding:8px 14px;border-radius:7px;min-height:40px}
+.cp:hover{background:var(--bg)} .cp.ok{background:var(--grnbg);color:var(--grn);border-color:#bfe0cc}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:11px 16px;border-radius:9px;font-weight:600;font-size:15px;min-height:46px}
+.btn.pri{background:var(--red);color:#fff;border-color:var(--red)}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:11px;margin-bottom:12px;overflow:hidden;box-shadow:var(--sh)}
+.sc header{padding:11px 15px;background:#f2ebe3;border-bottom:1px solid var(--line)}
+.sc h3{margin:0;font-size:15px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.half{padding:0;min-width:0;border-left:1px solid var(--line)} .half:first-child{border-left:none}
+.lbl{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 14px;font-size:12.5px;
+text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);border-bottom:1px solid var(--line)}
+pre{margin:0;padding:14px;white-space:pre-wrap;overflow-wrap:anywhere;font:14.5px/1.6 inherit}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.filters select,.filters input{font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;min-height:44px}
+.filters input{flex:1;min-width:160px}
+.cnt{font-size:13.5px;color:var(--ink3);margin:0 0 10px}
+.lead{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--sh)}
+.lead h4{margin:0 0 2px;font-size:15.5px}
+.lead .sub{font-size:13px;color:var(--ink3)}
+.lead .det{font-size:14px;color:var(--ink2);margin-top:7px}
+.pill{display:inline-block;max-width:100%;overflow-wrap:anywhere;font-size:11.5px;font-weight:700;
+letter-spacing:.3px;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:#f0e8df;
+color:var(--ink3);margin:6px 6px 0 0}
+.pill.src{background:var(--grnbg);color:var(--grn)}
+.pill.unv{background:var(--ambbg);color:var(--amb)}
+.pill.dup{background:var(--redbg);color:var(--red)}
+.acts{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px;align-items:center}
+.acts a{text-decoration:none;font-weight:600;font-size:14px;padding:9px 14px;border-radius:8px;background:var(--red);color:#fff;min-height:40px;display:inline-flex;align-items:center}
+.acts a.alt{background:#fff;color:var(--ink2);border:1px solid var(--line);overflow-wrap:anywhere}
+.acts select{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;min-height:40px}
+.lead textarea{width:100%;margin-top:9px;font:inherit;font-size:14px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;min-height:44px}
+.task{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--line)}
+.task:first-child{border-top:none}
+.task input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--grn);flex:0 0 auto}
+.task b{display:block} .task span{color:var(--ink2);font-size:14.5px}
+.task.done b,.task.done span{opacity:.45;text-decoration:line-through}
+footer{margin-top:40px;padding:24px 0 60px;border-top:1px solid var(--line);color:var(--ink3);font-size:13.5px}
+code{background:#f2ebe3;padding:1px 5px;border-radius:4px;font-size:13.5px;overflow-wrap:anywhere}
+@media (max-width:640px){.pair{grid-template-columns:1fr} .half{border-left:none;border-top:1px solid var(--line)}
+.half:first-child{border-top:none} h2{font-size:18.5px}}
+@media print{nav,.cp,.btn,.filters,.acts select,.lead textarea,footer,.noprint{display:none!important}
+body{background:#fff} .card,.sc,.lead,table{box-shadow:none} section{page-break-inside:avoid}
+a[href]:after{content:""}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<h1>Papa Noel — Season Dashboard</h1>
+<p>Offline copy for the family. Built 2026-09-09 from the project files. No login, no internet needed to read it.</p>
+</div></header>
+
+<nav><div>
+<a href="#today">Today</a><a href="#prices">Prices</a><a href="#rules">Booking rules</a>
+<a href="#say">What to say</a><a href="#leads">Leads</a><a href="#save">Save &amp; restore</a><a href="#truth">What is real</a>
+</div></nav>
+
+<div class="wrap">
+
+<section id="today">
+<h2><span>1</span>Today</h2>
+<p class="lede">Tick these off as they happen. Ticks are saved in this browser only — see Save &amp; restore.</p>
+<div class="card">
+<div class="task"><input type="checkbox" data-k="t1"><div><b>Answer the phone and write the details down</b><span>Date, start time, city, event type, how many children and adults, how long, and whether Santa hands out gifts.</span></div></div>
+<div class="task"><input type="checkbox" data-k="t2"><div><b>Check the date is free before promising anything</b><span>Dec 12, 13, 19, 20 and Dec 24 fill first. Never hold one of those without a deposit.</span></div></div>
+<div class="task"><input type="checkbox" data-k="t3"><div><b>Send the price from the table below — nothing invented</b><span>If a number is not in the Prices table, do not quote it. Say you will check and call back.</span></div></div>
+<div class="task"><input type="checkbox" data-k="t4"><div><b>Ask for the deposit, then wait for it to actually arrive</b><span>50% by Zelle to 305-244-0360, event date and client name in the memo.</span></div></div>
+<div class="task"><input type="checkbox" data-k="t5"><div><b>Only after the money is in the account, call it booked</b><span>Until then it is a request, not a booking. Put it on the calendar as <code>CONFIRMED - Papa Noel - Client Name - City</code>.</span></div></div>
+<div class="task"><input type="checkbox" data-k="t6"><div><b>Export your notes at the end of the day</b><span>Save &amp; restore section. The browser is not a backup.</span></div></div>
+</div>
+</section>
+
+<section id="prices">
+<h2><span>2</span>Prices</h2>
+<p class="lede">Copied from the project's locked price file, version <code>2026-08-28.1</code>,
+which the project records as matching the published <code>checkout.html</code> page.
+These are the only figures to quote.</p>
+<div class="scroll"><table>
+<thead><tr><th>What</th><th>Price</th><th>When</th></tr></thead>
+<tbody>
+<tr><td>Entry Jingle</td><td class="amt">$195</td><td>Mon–Thu daytime, Dec 1–18 only. Limited number.</td></tr>
+<tr><td>Family Visit</td><td class="amt">$325</td><td>First hour, then $150 per extra half hour.</td></tr>
+<tr><td>HOA / community event</td><td class="amt">$550</td><td>Two hours, two-hour minimum.</td></tr>
+<tr><td>School or daycare</td><td class="amt">$275</td><td>One hour, weekday daytime.</td></tr>
+<tr><td>Corporate or office party</td><td class="amt">$450</td><td>First hour.</td></tr>
+<tr><td>Photographer mini-session block</td><td class="amt">$600</td><td>Four hours. $850 for a full day.</td></tr>
+<tr class="peak"><td>Peak evenings</td><td class="amt">$425</td><td>Dec 12, 13, 19 and 20 after 4pm. Never discounted.</td></tr>
+<tr class="peak"><td>Christmas Eve</td><td class="amt">$500</td><td>Per 45-minute visit until 8pm. Sold in slots, not hours.</td></tr>
+<tr class="peak"><td>Christmas Eve after 9pm</td><td class="amt">$375</td><td>Fifteen minutes. A gift drop while the child peeks.</td></tr>
+</tbody></table></div>
+<div class="note"><b>Travel.</b> Free within 25 miles of Doral.
+$45 between 25 and 50 miles. Further than that, say you will quote it and call back.</div>
+<div class="note stop"><b>Not on this list, so do not say it.</b> There is no Christmas Day price, no Mrs. Claus price,
+no elf price and no add-on price in the project's locked file. If someone asks, take the request and say you will
+check. Quoting a number that is not here creates a promise the business has not agreed to.</div>
+</section>
+
+<section id="rules">
+<h2><span>3</span>Booking rules</h2>
+<p class="lede">These come from the published checkout page and the project's booking process.</p>
+<div class="card">
+<h3 style="margin-top:0">Deposit</h3>
+<p style="margin:0 0 10px">A 50% non-refundable deposit locks the date. The balance is due on arrival. Paid by Zelle to <b>305-244-0360</b>,
+with the event date and the client's name in the memo.</p>
+<p style="margin:0 0 10px"><i>Un deposito no reembolsable del 50% asegura la fecha. El saldo se paga al llegar.</i></p>
+<h3>The line that decides everything</h3>
+<p style="margin:0 0 10px"><b>A date is not reserved until the deposit clears.</b> Booking is confirmed only after
+availability, deposit, address, parking details and calendar confirmation. An inquiry, a quote, a "yes we want it",
+even a screenshot of a payment — none of those are a booking.</p>
+<h3>Reschedule</h3>
+<p style="margin:0 0 10px">One free reschedule if a named storm or Papa Noel himself forces it.</p>
+<h3>Dates that fill first</h3>
+<p style="margin:0">2026-12-12 · 2026-12-13 · 2026-12-19 · 2026-12-20 · 2026-12-24 — held first-come with a deposit, never discounted.</p>
+</div>
+<div class="note stop"><b>Never check off a payment inside this page.</b> This dashboard cannot see the bank
+and does not verify money. Confirm a deposit by looking at the actual Zelle account, then write it down here yourself.</div>
+</section>
+
+<section id="say">
+<h2><span>4</span>What to say</h2>
+<p class="lede">Taken word for word from the project's message templates. English on the left, Spanish on the right.
+Tap Copy, then paste into the text message or email and fill in the parts in brackets.</p>
+<article class="sc" id="sc0">
+<header><h3>New Inquiry</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc0en">Copy</button></div><pre id="sc0en">Hi, thank you for reaching out to Miami Papa Noel. We would be happy to check availability. Please send the date, city, preferred time, type of event, approximate number of children/guests, and whether Santa will hand out gifts.
+
+You can also send the details here:
+https://miamipapanoel.com/book</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc0es">Copiar</button></div><pre id="sc0es">Hola, gracias por escribir a Miami Papa Noel. Con gusto revisamos disponibilidad. Por favor envie fecha, ciudad, hora preferida, tipo de evento, cantidad aproximada de ninos/invitados y si Papa Noel entregara regalos.
+
+Tambien puede enviar los detalles aqui:
+https://miamipapanoel.com/book</pre></div>
+</div></article>
+<article class="sc" id="sc1">
+<header><h3>Asked For Price</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc1en">Copy</button></div><pre id="sc1en">Pricing depends on date, city, visit length, event type, number of children/guests, and whether Santa will hand out gifts. Family visits start at $325 for the first hour, event visits at $450, HOA and community events at $550 for two hours, schools and daycares at $275 for a weekday daytime hour, and Christmas Eve gift delivery at $500 per 45-minute slot.
+
+Send the event details here and we will reply with the best option:
+https://miamipapanoel.com/book</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc1es">Copiar</button></div><pre id="sc1es">El precio depende de la fecha, ciudad, duracion de la visita, tipo de evento, cantidad de ninos/invitados y si Papa Noel entregara regalos. Las visitas familiares comienzan en $325 la primera hora, los eventos en $450, los eventos de HOA y comunidades en $550 por dos horas, escuelas y guarderias en $275 por una hora entre semana, y la entrega de regalos en Nochebuena en $500 por bloque de 45 minutos.
+
+Envie los detalles aqui y le respondemos con la mejor opcion:
+https://miamipapanoel.com/book</pre></div>
+</div></article>
+<article class="sc" id="sc2">
+<header><h3>Asked If He Is Available</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc2en">Copy</button></div><pre id="sc2en">We can check. Please send the date, city, time window, and type of event here:
+https://miamipapanoel.com/book
+
+December weekends and Christmas Eve are limited, so it is best to request early.</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc2es">Copiar</button></div><pre id="sc2es">Podemos revisar. Por favor envie la fecha, ciudad, horario y tipo de evento aqui:
+https://miamipapanoel.com/book
+
+Los fines de semana de diciembre y Nochebuena se llenan rapido, por eso es mejor solicitar con tiempo.</pre></div>
+</div></article>
+<article class="sc" id="sc3">
+<header><h3>Date Unavailable</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc3en">Copy</button></div><pre id="sc3en">Hi [CLIENT NAME], thank you for thinking of Miami Papa Noel. Unfortunately, [REQUESTED DATE] is already sold out.
+
+If your plans are flexible, we still have [OPTION 1] or [OPTION 2] available. You can also join the waitlist in case a slot opens up.
+
+To check availability or request another date, visit miamipapanoel.com/book or text/WhatsApp 786-975-9557.</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc3es">Copiar</button></div><pre id="sc3es">Hola [CLIENT NAME], gracias por pensar en Miami Papa Noel. Lamentablemente, el [REQUESTED DATE] ya esta completamente reservado.
+
+Si tienen flexibilidad, todavia tenemos disponible [OPTION 1] o [OPTION 2]. Tambien los puedo poner en lista de espera por si se abre un espacio.
+
+Para ver disponibilidad o pedir otra fecha, entren a miamipapanoel.com/book o escriban por texto/WhatsApp al 786-975-9557.</pre></div>
+</div></article>
+<article class="sc" id="sc4">
+<header><h3>Price Objection</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc4en">Copy</button></div><pre id="sc4en">Hi [CLIENT NAME], I understand, and depending on the event that may be the right choice.
+
+Here is the honest difference. Papa Noel has been doing this since 2017, and he runs the entire visit in Spanish and English. Across the Santas listed in Miami, Hialeah and Fort Lauderdale, almost none advertise Spanish. In a room where half the grandparents speak it, that is the whole visit, not a detail.
+
+The standard family visit is $325 for the first hour, $150 per extra half hour. I hold that rate.
+
+If a weekday daytime between Dec 1 and Dec 18 works, I do have a limited entry visit at $195 for 45 minutes, in exchange for a review and permission to use one photo. Those are capped and they go early.
+
+miamipapanoel.com/book or text/WhatsApp 786-975-9557.</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc4es">Copiar</button></div><pre id="sc4es">Hola [CLIENT NAME], lo entiendo, y segun el evento puede ser la opcion correcta.
+
+Le explico la diferencia con franqueza. Papa Noel hace esto desde 2017 y hace toda la visita en espanol e ingles. De todos los Santas que se anuncian en Miami, Hialeah y Fort Lauderdale, casi ninguno ofrece espanol. En un salon donde la mitad de los abuelos lo hablan, eso no es un detalle, es la visita completa.
+
+La visita familiar estandar es $325 la primera hora y $150 cada media hora adicional. Ese precio lo mantengo.
+
+Si les sirve un dia entre semana durante el dia, del 1 al 18 de diciembre, tengo una visita de entrada limitada a $195 por 45 minutos, a cambio de una resena y permiso para usar una foto. Son pocas y se van temprano.
+
+miamipapanoel.com/book o por texto/WhatsApp al 786-975-9557.</pre></div>
+</div></article>
+<article class="sc" id="sc5">
+<header><h3>Deposit And Cancellation Policy</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc5en">Copy</button></div><pre id="sc5en">Hi [CLIENT NAME], here is the booking policy.
+
+A 50% non-refundable retainer reserves the date, by Zelle to 305-244-0360. Please put [EVENT DATE] and [CLIENT NAME] in the memo. The balance is due on arrival by Zelle. A date is not booked until the deposit clears.
+
+On peak dates, 50% is due at booking and the balance 7 days prior.
+
+More than 14 days out, the retainer transfers once within the same season. Inside 14 days it is forfeit. Inside 48 hours or a no-show, 100% is due. One free reschedule if a named storm or Papa Noel himself forces it.</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc5es">Copiar</button></div><pre id="sc5es">Hola [CLIENT NAME], esta es la politica de reserva.
+
+Un deposito no reembolsable del 50% separa la fecha, por Zelle al 305-244-0360. Por favor pongan [EVENT DATE] y [CLIENT NAME] en la nota. El balance se paga al llegar por Zelle. La fecha no queda reservada hasta que el deposito se acredite.
+
+En fechas pico, el 50% se paga al reservar y el balance 7 dias antes.
+
+Con mas de 14 dias, el deposito se transfiere una vez dentro de la misma temporada. Dentro de 14 dias se pierde. Dentro de 48 horas o si no asisten, se debe el 100%. Un cambio de fecha sin costo si una tormenta con nombre o el propio Papa Noel lo obliga.</pre></div>
+</div></article>
+<article class="sc" id="sc6">
+<header><h3>School / Daycare Reply</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc6en">Copy</button></div><pre id="sc6en">Thank you for considering Miami Papa Noel for your school/daycare. We can help with photos, a warm bilingual greeting, story time, classroom visits, gift handoff, or a simple holiday moment for the children.
+
+Please send the date, time window, location, approximate number of children, and event format here:
+https://miamipapanoel.com/book</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc6es">Copiar</button></div><pre id="sc6es">Gracias por considerar a Miami Papa Noel para su escuela/daycare. Podemos ayudar con fotos, saludo bilingue, cuento, visita al salon, entrega de regalos o un momento navideno sencillo para los ninos.
+
+Por favor envie fecha, horario, ubicacion, cantidad aproximada de ninos y formato del evento aqui:
+https://miamipapanoel.com/book</pre></div>
+</div></article>
+<article class="sc" id="sc7">
+<header><h3>HOA / Apartment Reply</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc7en">Copy</button></div><pre id="sc7en">Thank you for considering Miami Papa Noel for your community event. We can support clubhouse events, resident photos, children&#x27;s greetings, gift moments, and holiday parties.
+
+Please send the date, location, time window, approximate guest count, and event plan here:
+https://miamipapanoel.com/book</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc7es">Copiar</button></div><pre id="sc7es">Gracias por considerar a Miami Papa Noel para su evento comunitario. Podemos apoyar eventos en clubhouse, fotos para residentes, saludos para ninos, entrega de regalos y fiestas navidenas.
+
+Por favor envie fecha, ubicacion, horario, cantidad aproximada de invitados y plan del evento aqui:
+https://miamipapanoel.com/book</pre></div>
+</div></article>
+<article class="sc" id="sc8">
+<header><h3>Christmas Eve Gift Delivery</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc8en">Copy</button></div><pre id="sc8en">Christmas Eve gift delivery is available by request and fills quickly. Gifts must be provided by the family and clearly labeled with each child&#x27;s name.
+
+Please send the date, address area, preferred time window, number of children, and gift details here:
+https://miamipapanoel.com/christmas-eve</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc8es">Copiar</button></div><pre id="sc8es">La entrega de regalos en Nochebuena esta disponible por solicitud y se llena rapido. Los regalos deben ser provistos por la familia y marcados con el nombre de cada nino.
+
+Por favor envie fecha, area/direccion, horario preferido, cantidad de ninos y detalles de regalos aqui:
+https://miamipapanoel.com/christmas-eve</pre></div>
+</div></article>
+<article class="sc" id="sc9">
+<header><h3>Travel Fee</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc9en">Copy</button></div><pre id="sc9en">Hi [CLIENT NAME], thank you for sending the address.
+
+Travel is free within 25 miles of Doral. Between 25 and 50 miles it is $45. Beyond 50 miles it is quoted by address, date and schedule.
+
+For [EVENT ADDRESS], the travel fee is [TRAVEL FEE]. The visit rate stays [RATE], and travel is added to the final total.
+
+To move forward, send the request at miamipapanoel.com/book or text/WhatsApp 786-975-9557.</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc9es">Copiar</button></div><pre id="sc9es">Hola [CLIENT NAME], gracias por enviar la direccion.
+
+El viaje esta incluido dentro de 25 millas de Doral. Entre 25 y 50 millas son $45. Mas alla de 50 millas se cotiza segun la direccion, la fecha y el horario.
+
+Para [EVENT ADDRESS], el cargo de viaje es [TRAVEL FEE]. La tarifa de la visita sigue siendo [RATE], y el viaje se suma al total.
+
+Para continuar, envie la solicitud en miamipapanoel.com/book o por texto/WhatsApp al 786-975-9557.</pre></div>
+</div></article>
+<article class="sc" id="sc10">
+<header><h3>Event Requirements — send after booking</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc10en">Copy</button></div><pre id="sc10en">Hi [CLIENT NAME], we are looking forward to the Papa Noel visit on [EVENT DATE].
+
+Please have four things ready before he arrives: a sturdy armless chair, air conditioning, parking within 100 feet, and one designated adult to manage the gift bag and the photo line.
+
+If gifts will be handed out, label them clearly with each child&#x27;s name and have that adult keep them in order before Papa Noel walks in. It is what keeps the line moving and the children calm.
+
+If anything changes with timing, gate access or parking, text/WhatsApp 786-975-9557 as soon as you can.</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc10es">Copiar</button></div><pre id="sc10es">Hola [CLIENT NAME], estamos listos para la visita de Papa Noel el [EVENT DATE].
+
+Por favor tengan cuatro cosas listas antes de que llegue: una silla firme sin brazos, aire acondicionado, estacionamiento a menos de 100 pies, y un adulto designado para manejar la bolsa de regalos y la fila de fotos.
+
+Si va a entregar regalos, por favor marquenlos claramente con el nombre de cada nino y que ese adulto los tenga en orden antes de que Papa Noel entre. Eso es lo que mantiene la fila moviendose y a los ninos tranquilos.
+
+Si cambia algo del horario, la entrada o el estacionamiento, escriban por texto/WhatsApp al 786-975-9557 lo antes posible.</pre></div>
+</div></article>
+<article class="sc" id="sc11">
+<header><h3>Running Late</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc11en">Copy</button></div><pre id="sc11en">Hi [CLIENT NAME], this is Miami Papa Noel. Traffic is heavier than expected and we will be about [DELAY TIME] behind the [EVENT TIME] start.
+
+We are on the way. The visit will still be the full time you booked, and the children will not feel rushed.
+
+Please keep the chair, the gift bag and the photo area ready so we can begin the moment we arrive. I will message again if the timing changes.
+
+Text/WhatsApp 786-975-9557 if there are gate or parking instructions I should know.</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc11es">Copiar</button></div><pre id="sc11es">Hola [CLIENT NAME], le escribe Miami Papa Noel. El trafico esta mas pesado de lo esperado y vamos a llegar unos [DELAY TIME] despues de la hora de inicio de las [EVENT TIME].
+
+Ya vamos en camino. La visita sera el tiempo completo que reservaron, y los ninos no van a sentir prisa.
+
+Por favor tengan lista la silla, la bolsa de regalos y el area de fotos para empezar apenas lleguemos. Les aviso de nuevo si cambia el tiempo.
+
+Texto/WhatsApp al 786-975-9557 si hay instrucciones de entrada o estacionamiento que deba saber.</pre></div>
+</div></article>
+<article class="sc" id="sc12">
+<header><h3>Follow-Up After No Reply</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc12en">Copy</button></div><pre id="sc12en">Hi, just following up in case you are still planning a Papa Noel visit. We are happy to check availability when you have the date, city, and event type.
+
+Request here:
+https://miamipapanoel.com/book</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc12es">Copiar</button></div><pre id="sc12es">Hola, solo queria dar seguimiento por si todavia estan planificando una visita de Papa Noel. Con gusto revisamos disponibilidad cuando tengan fecha, ciudad y tipo de evento.
+
+Solicitud aqui:
+https://miamipapanoel.com/book</pre></div>
+</div></article>
+<article class="sc" id="sc13">
+<header><h3>Review Request</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc13en">Copy</button></div><pre id="sc13en">Thank you again for having Papa Noel at your event. It was a joy to be part of it.
+
+If you have a moment, a short review would help our family business more than you know. Even one sentence helps another family feel comfortable booking.
+
+If you are comfortable, you can also send one photo we may share. We only repost photos with permission — please reply with &quot;Yes, you may share this photo.&quot;
+
+Review and referral page: https://miamipapanoel.com/after-visit</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc13es">Copiar</button></div><pre id="sc13es">Gracias otra vez por recibir a Papa Noel en su evento. Fue un gusto ser parte.
+
+Si tiene un momento, una resena corta ayudaria a nuestro negocio familiar mas de lo que se imagina. Una sola frase ya ayuda a que otra familia se anime a reservar.
+
+Si esta comodo, tambien puede enviarnos una foto que podamos compartir. Solo publicamos fotos con permiso — por favor responda con &quot;Si, pueden compartir esta foto.&quot;
+
+Pagina de resenas y referidos: https://miamipapanoel.com/after-visit</pre></div>
+</div></article>
+<article class="sc" id="sc14">
+<header><h3>Declining A Free Or No-Budget Ask</h3></header>
+<div class="pair">
+<div class="half"><div class="lbl">English <button class="cp" data-t="sc14en">Copy</button></div><pre id="sc14en">Hi [CLIENT NAME], thank you for thinking of Miami Papa Noel, and for the work you are doing with [ORGANIZATION/EVENT].
+
+We are not able to take unpaid appearances this season. December dates are limited, and each one carries travel, preparation and time away from paid bookings.
+
+If a sponsor or a budget comes together, I would be glad to quote the rate for your event type, and I am happy to be the name you bring to a sponsor.
+
+miamipapanoel.com/book or text/WhatsApp 786-975-9557. Wishing you a good event either way.</pre></div>
+<div class="half"><div class="lbl">Español <button class="cp" data-t="sc14es">Copiar</button></div><pre id="sc14es">Hola [CLIENT NAME], gracias por pensar en Miami Papa Noel y por el trabajo que hacen con [ORGANIZATION/EVENT].
+
+Esta temporada no podemos aceptar presentaciones sin pago. Las fechas de diciembre son limitadas, y cada una implica viaje, preparacion y tiempo fuera de reservas pagadas.
+
+Si consiguen un patrocinador o un presupuesto, con gusto cotizo la tarifa segun el tipo de evento, y con gusto soy el nombre que le llevan al patrocinador.
+
+miamipapanoel.com/book o por texto/WhatsApp al 786-975-9557. De cualquier manera, les deseo un buen evento.</pre></div>
+</div></article>
+
+<div class="note stop"><b>One reply is held back on purpose.</b> The project file
+<code>business/insurance-and-wave1-preflight.md</code> records the commercial policy as
+<b>NOT ACTIVE / NOT VERIFIED</b> as of 2026-08-26, with a preflight deadline of 2026-10-26.
+Until someone has the policy document in hand, do not say insured, fully insured, certificate of insurance, COI, additional insured, liability policy or offer a certificate — in English or Spanish.
+Held back for that reason:<ul style="margin:8px 0 0"><li><b>Certificate Of Insurance / Background Check</b> — in <code>business/lead-reply-bank.md</code></li></ul></div>
+</section>
+
+<section id="leads">
+<h2><span>5</span>Leads</h2>
+<p class="lede">Organisations already written down in the project. Nothing here has been re-checked today —
+each card says where it came from and when. Phone numbers and email addresses go stale; expect some to be wrong.</p>
+<div class="filters">
+<select id="fGroup"><option value="">All types</option></select>
+<select id="fStatus"><option value="">Any status</option><option value="__none">Not started</option></select>
+<input id="fQ" type="search" placeholder="Search name or city">
+</div>
+<p class="cnt" id="cnt"></p>
+<div id="list"></div>
+</section>
+
+<section id="save">
+<h2><span>6</span>Save &amp; restore</h2>
+<div class="note stop"><b>The browser is not a backup.</b> Your ticks, statuses and notes are stored inside this one
+browser on this one device. Clearing history, using a different browser or phone, or opening the file in private mode
+will show none of it. Export a CSV at the end of every working day and keep it somewhere real.</div>
+<div class="card">
+<p style="margin:0 0 12px">Export writes a CSV file to your Downloads. Import reads one back in and replaces what is
+in the browser now.</p>
+<div style="display:flex;flex-wrap:wrap;gap:9px;align-items:center">
+<button class="btn pri" id="exp">Export my notes (CSV)</button>
+<label class="btn" for="imp" style="display:inline-flex;align-items:center;margin:0">Import a CSV…</label>
+<input id="imp" type="file" accept=".csv,text/csv" style="position:absolute;width:1px;height:1px;opacity:0">
+<button class="btn" id="prt">Print the essentials</button>
+</div>
+<p id="msg" style="margin:12px 0 0;font-size:14.5px"></p>
+</div>
+<div class="note"><b>What Print gives you.</b> Prices, booking rules and every script, with the buttons and
+filters removed — the pages worth keeping in the car and in the suit bag, where no phone signal is needed.</div>
+</section>
+
+<section id="truth">
+<h2><span>7</span>What is real, and what is not</h2>
+<p class="lede">Written from the project's own status files so nobody is surprised later.</p>
+<div class="card">
+<div class="note ok"><b>Live and working.</b> The public website at
+<a href="https://www.miamipapanoel.com">www.miamipapanoel.com</a>. Dad answering
+<b>786-975-9557</b> himself. These prices, as published on the checkout page.</div>
+<div class="note stop"><b>Not live.</b> The new automatic chat assistant is <b>not deployed</b> and must not be
+advertised. The local marketing pages now use services and inquiry links instead; the new backend still needs an
+approved host and deployment verification. Nothing on this page depends on it.</div>
+<div class="note"><b>Not verified.</b> Commercial insurance: not active as recorded 2026-08-26. Any claim about being
+insured, or about providing a certificate, stays out of every message until that changes.</div>
+<div class="note"><b>The lead list needs a clean-up.</b> The project's <code>lead-tracker.csv</code> has
+25 rows whose columns do not line up with its own header, so a status may really be a campaign
+name. This page re-reads those rows by their content and labels them; it does not change the original file.
+7 rows named "Example …" were left out as placeholders, not real businesses.</div>
+<div class="note"><b>This page needs your phone and your internet.</b> Tapping a number only dials if the device is a
+phone with service. The website links only open with a connection. The page itself reads fine with neither.</div>
+</div>
+</section>
+
+<footer><div>
+Miami Papa Noel · <a href="https://www.miamipapanoel.com">www.miamipapanoel.com</a> · calls 786-975-9557 · deposits by Zelle 305-244-0360<br>
+Built 2026-09-09 from C:\XIV\santa. Prices from <code>tools/triage/pricing.json</code> version 2026-08-28.1.
+Leads from <code>business/wave1-hoa-prospects-2026-08-26.md</code> and <code>lead-tracker.csv</code>.
+Scripts from <code>business/client-message-templates.md</code> and <code>business/lead-reply-bank.md</code>.<br>
+No internet, account or paid service is needed to open this file. It does not send anything anywhere.
+</div></footer>
+</div>
+
+<script>
+var LEADS = [{"org":"Miami Management, Inc.","city":"Miami (SW 142 Ave); Broward div. Sunrise","phone":"305-378-0130 · Broward 954-846-7545 · TF 800-273-4603","email":"customers@miamimanagement.com","web":"miamimanagement.com","detail":"370+ associations, 70,000+ units","events":"Yes — annual Toys for Tots drive","provenance":"miamimanagement.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L000"},{"org":"FirstService Residential Florida","city":"Miami 33126; FL corporate Plantation","phone":"786-319-5204 · corp 954-925-8200 · care 866-378-1099","email":"","web":"fsresidential.com/florida","detail":"","events":"Yes — lifestyle programming, Residential Hospitality Program","provenance":"fsresidential.com/florida/offices/miami-property-management/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L001"},{"org":"KW Property Management (KWPMC)","city":"Miami 33122 — 8200 NW 33rd St (Doral); Sunrise","phone":"305-476-9188 · TF 800-514-5770 · Broward 954-933-5644","email":"","web":"kwpmc.com","detail":"","events":"Partial — Hospitality Luxury Services division","provenance":"kwpmc.com/miami-dade/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L002"},{"org":"Affinity Management Services","city":"Doral — 8200 NW 41 St #308; Plantation","phone":"800-977-6279 · text 305-325-4243","email":"Info@ManagedByAffinity.com","web":"managedbyaffinity.com","detail":"not stated (since 2007)","events":"Partial — community-engagement language","provenance":"managedbyaffinity.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L003"},{"org":"Castle Group","city":"Plantation 33325","phone":"954-792-6000 · 800-337-5850","email":"","web":"castlegroup.com","detail":"not stated on own site","events":"Yes — Lifestyle Services Group, booking agents & event planning","provenance":"castlegroup.com/services/lifestyle-services/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L004"},{"org":"Associa – Association Services of Florida","city":"Miramar 33025","phone":"954-922-3514 · CAI 786-505-5811","email":"Luis.rodriguez@associaflorida.com (CAI dir.)","web":"associaflorida.com","detail":"150 South Florida staff","events":"Yes — Lifestyle Services line; Doral named","provenance":"associaflorida.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L005"},{"org":"Marquis Association Mgmt (Associa)","city":"Miami 33137 + Fisher Island + Ocean Reef","phone":"786-655-5155 · BD 786-655-5129","email":"oded.abravanel@marquishoa.com","web":"marquishoa.com","detail":"","events":"Yes — dedicated lifestyle professionals, concierge","provenance":"marquishoa.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L006"},{"org":"Premier Association Services (Associa)","city":"Miramar 33025","phone":"954-797-9007","email":"","web":"premierassociationservices.com","detail":"","events":"Yes — \"dedicated lifestyle directors\"","provenance":"premierassociationservices.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L007"},{"org":"Vesta Property Services","city":"Miami 33186; Hollywood","phone":"305-552-7855 · Broward 754-217-3991","email":"smartinez@vestapropertyservices.com (CAI dir.)","web":"vestapropertyservices.com","detail":"not stated (25+ yrs)","events":"Yes — Amenity Management / Lifestyle division","provenance":"vestapropertyservices.com/miami/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L008"},{"org":"Unlimited Property Management","city":"Miami 33166 — 7665 NW 50th St (Doral border)","phone":"305-553-9731","email":"Info@UnlimitedPM.com","web":"unlimitedpm.com","detail":"not stated (since 2003)","events":"No events — but advertises bilingual EN/ES support; serves Doral, Hialeah, Sweetwater","provenance":"unlimitedpm.com/hoa-property-management-doral/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L009"},{"org":"Campbell Property Management","city":"Deerfield Beach HQ; 8 offices","phone":"954-427-8770 · Miami 305-942-2490 · W.Broward 954-739-1600 · C.Broward 954-968-4481","email":"contact@campbellproperty.com · brappaport@campbellproperty.com","web":"campbellpropertymanagement.com","detail":"not stated on own site","events":"Yes — lifestyle & amenity management (CAI listing)","provenance":"campbellpropertymanagement.com/contact-us/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L010"},{"org":"United Community Management Corp.","city":"Coral Springs 33065","phone":"Miami 305-944-8447 · Delray 561-637-2991 · PBG 561-625-8588","email":"","web":"","detail":"~225 communities, ~37,000 homes; AAMC","events":"","provenance":"sfpma.com/listing/united-community-management-corp/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L011"},{"org":"RealManage (South Florida)","city":"Coral Springs 33065","phone":"917-847-1179 (Jason Taic)","email":"Jason.taic@realmanage.com","web":"realmanage.com","detail":"3,500+ communities nationally","events":"","provenance":"cai-seflorida.org directory","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L012"},{"org":"Allied Property Group","city":"Miami 33186 — 12350 SW 132 Ct #114","phone":"305-232-1579","email":"","web":"alliedpropertygroup.net","detail":"","events":"","provenance":"alliedpropertygroup.net/contact/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L013"},{"org":"Florida Property Mgmt Strategies","city":"Miami 33186","phone":"786-841-7259","email":"","web":"myfpms.com","detail":"","events":"No — operations only","provenance":"myfpms.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L014"},{"org":"Phoenix Management Services","city":"Lauderdale Lakes 33319","phone":"954-640-7070 · PB 561-964-1550","email":"","web":"phoenixfla.com","detail":"25,000+ units","events":"","provenance":"phoenixfla.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L015"},{"org":"New Horizons Property Mgmt Solutions","city":"Miami Lakes 33016","phone":"786-391-0087","email":"","web":"newhorizonspropertymgmtsol.com","detail":"not stated (10+ yrs)","events":"not stated — Doral is a named service area","provenance":"newhorizonspropertymgmtsol.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L016"},{"org":"CADISA Inc.","city":"Miami 33145","phone":"305-860-2935","email":"contactus@cadisainc.com · carlos@ · jackie@","web":"cadisainc.com","detail":"not stated (since 2005)","events":"not stated — Doral, Key Biscayne, Brickell named","provenance":"cadisainc.com/contact/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L017"},{"org":"AKAM","city":"Dania Beach 33004","phone":"954-843-2526","email":"","web":"akam.com","detail":"","events":"Partial — brand language only","provenance":"akam.com/south-florida/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L018"},{"org":"Landmark Management Services","city":"Pembroke Pines 33028","phone":"954-392-6000","email":"customerservice@landmarkmgmt.com","web":"landmarkmgmt.com","detail":"","events":"","provenance":"landmarkmgmt.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L019"},{"org":"GRS Community Management","city":"Coconut Creek 33073","phone":"561-641-8554","email":"residentservices@grsmgt.com","web":"grsmgt.com","detail":"","events":"","provenance":"grsmgt.com/contact/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L020"},{"org":"Trident Management","city":"Miami Beach 33139","phone":"305-535-7599 · 954-816-0661","email":"Jason@TridentMiami.com","web":"tridentmiami.com","detail":"","events":"not stated — has a dedicated Doral page","provenance":"tridentmiami.com/areas-we-serve/doral/","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L021"},{"org":"IPMS of South Florida","city":"Cutler Bay 33157","phone":"305-242-7174","email":"info@ipmsmiami.com","web":"ipmsmiami.com","detail":"","events":"","provenance":"ipmsmiami.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L022"},{"org":"Apex Property Management Group","city":"Palmetto Bay 33157","phone":"786-471-0729","email":"Office@apexmgroup.net","web":"apex-management.net","detail":"","events":"","provenance":"apex-management.net","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L023"},{"org":"Veridian","city":"Miami 33179","phone":"786-820-4780","email":"sebastian@veridianhq.com","web":"veridianhq.com","detail":"","events":"","provenance":"cai-seflorida.org directory","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L024"},{"org":"Miami Association Management, LLC","city":"Miami Beach 33141","phone":"305-359-8216","email":"","web":"miamiassociationmgmt.com","detail":"","events":"","provenance":"miamiassociationmgmt.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L025"},{"org":"Ambassador Community Management","city":"Fort Lauderdale 33319","phone":"954-741-8811","email":"","web":"","detail":"not stated (since 1992)","events":"","provenance":"sfpma.com listing","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L026"},{"org":"Oasis Community Management","city":"Margate 33063","phone":"954-653-9790","email":"contact@myoasisfl.com","web":"myoasisfl.com","detail":"not stated (since 2012)","events":"","provenance":"myoasisfl.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L027"},{"org":"PMI Fort Lauderdale","city":"Fort Lauderdale 33309","phone":"954-399-6922","email":"hello@pmifortlauderdale.com","web":"pmifortlauderdale.com","detail":"","events":"Partial — portal event booking only","provenance":"fortlauderdaleassociationmanagement.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L028"},{"org":"Coral Condos Inc.","city":"Coral Springs 33077","phone":"305-306-1893 · after-hrs 954-752-2189","email":"office@coralcondos.com","web":"coralcondos.com","detail":"","events":"","provenance":"coralcondos.com","group":"Community association management","ask":"HOA / community event — $550, two hours","srcfile":"business/wave1-hoa-prospects-2026-08-26.md (built 26 Aug 2026)","verified":true,"id":"L029"},{"org":"Woof Gang Bakery & Grooming Doral","city":"Doral","phone":"305-905-4020","email":"doral@woofgangbakery.com","group":"Pet Business","ask":"Pet Photos with Santa","detail":"Pet bakery and grooming traffic with strong local pet-parent fit","action":"Send email","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L030"},{"org":"Bark Square","city":"Doral","phone":"786-401-7748","email":"info@barksquare.com","group":"Pet Business","ask":"Pet Photos with Santa","detail":"Indoor dog hotel daycare and grooming space fits Santa Paws pop-up","action":"Send email","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L031"},{"org":"KOOLANDKUTE Doral","city":"Doral","phone":"786-960-6068","email":"","group":"Pet Groomer","ask":"Pet Photos with Santa","detail":"Modern Doral groomer with repeat pet-parent traffic","action":"Send contact form","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L032"},{"org":"Pet Supermarket Doral","city":"Doral","phone":"786-761-5080","email":"","group":"Pet Store","ask":"Pet Photos with Santa","detail":"High-foot-traffic pet retail location for a short photo event","action":"Call store manager","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L033"},{"org":"Petco Doral","city":"Doral","phone":"305-513-8464","email":"","group":"Pet Store","ask":"Pet Photos with Santa","detail":"Petco grooming and store traffic fits a weekend Santa Paws activation","action":"Call grooming manager","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L034"},{"org":"The Pet Care Clinic of Doral","city":"Doral","phone":"305-477-7387","email":"","group":"Veterinary / Boarding","ask":"Pet Photos with Santa","detail":"Vet boarding and grooming services fit a client-appreciation photo day","action":"Send contact form","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L035"},{"org":"Doggie Bakery Miami","city":"Miami","phone":"","email":"","group":"Pet Bakery","ask":"Pet Photos with Santa","detail":"Vet-founded dog treat brand with community-friendly event angle","action":"Send contact form","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L036"},{"org":"Doggie Bag Cafe & Pet Boutique","city":"Miami","phone":"305-710-7266","email":"es@doggiebagcafe.com","group":"Pet Cafe / Boutique","ask":"Pet Photos with Santa","detail":"Party packages and events language makes partnership fit clear","action":"Send email","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L037"},{"org":"The Dog Bar","city":"Miami Beach","phone":"305-532-5654","email":"customerservice@dogbar.com","group":"Pet Boutique","ask":"Pet Photos with Santa","detail":"Established Miami Beach pet boutique with grooming and strong gift traffic","action":"Send email","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L038"},{"org":"PAWS4you Rescue","city":"Miami","phone":"305-253-1092","email":"info@paws4you.org","group":"Animal Rescue","ask":"Pet Photos with Santa","detail":"Adoption-event audience is a good fit for Santa fundraiser photos","action":"Send email","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L039"},{"org":"Key Point Academy Doral","city":"Doral","phone":"786-212-1273","email":"info.doral@keypointschools.com","group":"Preschool / Daycare","ask":"","detail":"STEAM preschool with admissions contact and summer-camp fit for bilingual Santa story time","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L040"},{"org":"World of Kids Academy","city":"Doral","phone":"305-593-7010","email":"info@worldofkidsacademy.com","group":"Preschool / Childcare / Elementary","ask":"","detail":"Private Doral school serving infants through elementary with clear family-event fit","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L041"},{"org":"Kids' Corner Child Development Center","city":"Doral","phone":"305-477-7551","email":"info@kidscornerflorida.com","group":"Child Development Center","ask":"","detail":"Active Doral center with summer program and online tour path","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L042"},{"org":"KLA Schools of Doral","city":"Doral","phone":"305-418-9000","email":"admissionsdoral@klaschools.com","group":"Preschool / Summer Camp","ask":"","detail":"Enrollment-open preschool with active summer camp and director contact paths","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L043"},{"org":"Cadence Academy Preschool Doral","city":"Doral","phone":"786-885-6200","email":"","group":"Preschool","ask":"December Photo Day","detail":"Large Doral preschool with tour scheduling and strong weekday family traffic","action":"Call or contact form","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L044"},{"org":"Wise Choice Summer Camp at Albizu University","city":"Doral","phone":"305-630-3600","email":"info@wisechoicesummercamp.com","group":"Summer Camp","ask":"","detail":"Live summer camp season makes a Santa pop-in timely and easy to picture","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L045"},{"org":"Little Village Child Care & Learning Center","city":"Miami","phone":"305-207-7220","email":"littlevillagegf@gmail.com","group":"Child Care / Summer Camp","ask":"","detail":"Flagler-area center serving infants to 12 years old with summer camp operations","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L046"},{"org":"Shine Bright Academy","city":"Hialeah","phone":"305-456-4505","email":"","group":"Preschool / Camp","ask":"","detail":"Hialeah bilingual preschool with year-round camp programs and family audience","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L047"},{"org":"Doral Preschool","city":"Doral","phone":"305-718-9520","email":"DoralPreschool@gmail.com","group":"Preschool / Child Care","ask":"","detail":"APPLE-accredited bilingual Doral preschool with VPK and camp language on site","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L048"},{"org":"Coloring Dreams Preschool Doral","city":"Doral","phone":"786-762-1807","email":"","group":"Preschool / Seasonal Programs","ask":"","detail":"Doral preschool promoting seasonal programs and inquiry path for family events","action":"Schools and daycares page","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L049"},{"org":"Miami Management Inc.","city":"Miami / Broward","phone":"305-378-0130","email":"customers@miamimanagement.com","group":"Residential Community Management","ask":"HOA Package","detail":"370+ associations and existing holiday community drive; ask for resident event or vendor recommendation contact","action":"Send bilingual HOA email","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"dupe":true,"id":"L050"},{"org":"Castle Group","city":"Plantation","phone":"954-792-6000","email":"","group":"Residential Community Management","ask":"HOA Package","detail":"Lifestyle Services Group with booking agents; ask who reviews December entertainment vendors","action":"Call lifestyle services","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"dupe":true,"id":"L051"},{"org":"Marquis Association Management","city":"Miami","phone":"786-655-5155","email":"oded.abravanel@marquishoa.com","group":"Residential Community Management","ask":"HOA Package","detail":"Luxury Miami / Fisher Island / Key Biscayne fit; use polished residential Santa angle","action":"Send luxury HOA email","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L052"},{"org":"FirstService Residential Miami","city":"Miami","phone":"786-319-5204","email":"","group":"Residential Community Management","ask":"HOA Package","detail":"Large Florida manager with lifestyle programming; ask for Miami holiday vendor contact","action":"Call for lifestyle contact","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"id":"L053"},{"org":"Affinity Management Services","city":"Doral","phone":"800-977-6279","email":"Info@ManagedByAffinity.com","group":"Residential Community Management","ask":"HOA Package","detail":"Doral headquarters and reachable email; lead with local bilingual community event fit","action":"Send local Doral HOA email","status_in_file":"New lead","provenance":"","srcfile":"lead-tracker.csv (repo root)","verified":false,"dupe":true,"id":"L054"}];
+var KEY = "papanoel-dashboard-v1";
+var store = {};
+var storageReadable = true;
+var storageWarningShown = false;
+try {
+  store = JSON.parse(localStorage.getItem(KEY) || "{}");
+  if (!store || typeof store !== "object" || Array.isArray(store)) throw new Error("Invalid saved state");
+} catch (err) { store = {}; storageReadable = false; }
+function save(candidate) {
+  if (!storageReadable) return false;
+  try { localStorage.setItem(KEY, JSON.stringify(candidate || store)); return true; }
+  catch (err) { return false; }
+}
+function msg(t) { var m = document.getElementById("msg"); if (m) m.textContent = t; }
+function saveEdit() {
+  if (!save()) {
+    var warning = "NOT SAVED: browser storage is unavailable. Your changes remain in this open page only. Export them before closing; previously saved data has not been replaced.";
+    msg(warning);
+    if (!storageWarningShown) { window.alert(warning); storageWarningShown = true; }
+  } else {
+    storageWarningShown = false;
+    msg("Saved in this browser. Keep an exported backup on another device.");
+  }
+}
+
+/* ---- checklist ---- */
+var boxes = document.querySelectorAll(".task input");
+for (var i = 0; i < boxes.length; i++) {
+  (function (cb) {
+    var k = "chk:" + cb.getAttribute("data-k");
+    cb.checked = !!store[k];
+    cb.parentNode.parentNode.classList.toggle("done", cb.checked);
+    cb.addEventListener("change", function () {
+      store[k] = cb.checked; saveEdit();
+      cb.parentNode.parentNode.classList.toggle("done", cb.checked);
+    });
+  })(boxes[i]);
+}
+
+/* ---- copy ---- */
+function copyText(t, btn) {
+  var label = btn.textContent, done = function () {
+    btn.textContent = "Copied"; btn.classList.add("ok");
+    setTimeout(function () { btn.textContent = label; btn.classList.remove("ok"); }, 1400);
+  };
+  function fallback() {
+    var ta = document.createElement("textarea");
+    ta.value = t; ta.setAttribute("readonly", "");
+    ta.style.position = "fixed"; ta.style.top = "0"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, t.length);
+    var ok = false; try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
+    document.body.removeChild(ta);
+    if (ok) { done(); } else { btn.textContent = "Select and copy"; }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t).then(done, fallback);
+  } else { fallback(); }
+}
+document.addEventListener("click", function (ev) {
+  var b = ev.target;
+  if (b && b.classList && b.classList.contains("cp")) {
+    var el = document.getElementById(b.getAttribute("data-t"));
+    if (el) copyText(el.textContent, b);
+  }
+});
+
+/* ---- leads ---- */
+var STATUS = ["Not started", "Left a message", "Spoke to them", "Sent the price",
+              "Asked for deposit", "Deposit cleared - booked", "Not this year"];
+var fG = document.getElementById("fGroup"), fS = document.getElementById("fStatus"),
+    fQ = document.getElementById("fQ"), listEl = document.getElementById("list");
+var groups = [];
+for (var g = 0; g < LEADS.length; g++) {
+  if (groups.indexOf(LEADS[g].group) === -1 && LEADS[g].group) groups.push(LEADS[g].group);
+}
+groups.sort();
+for (var gi = 0; gi < groups.length; gi++) {
+  var o = document.createElement("option"); o.value = groups[gi]; o.textContent = groups[gi]; fG.appendChild(o);
+}
+for (var si = 1; si < STATUS.length; si++) {
+  var os = document.createElement("option"); os.value = STATUS[si]; os.textContent = STATUS[si]; fS.appendChild(os);
+}
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+    return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c];
+  });
+}
+function tel(p) { return "tel:+1" + String(p).replace(/\D/g, ""); }
+function site(u) { return /^https?:/.test(u) ? u : "https://" + u; }
+
+function render() {
+  var q = fQ.value.trim().toLowerCase(), gsel = fG.value, ssel = fS.value, shown = 0, out = "";
+  for (var i = 0; i < LEADS.length; i++) {
+    var L = LEADS[i], st = store["st:" + L.id] || "", nt = store["nt:" + L.id] || "";
+    if (gsel && L.group !== gsel) continue;
+    if (ssel === "__none") { if (st && st !== "Not started") continue; }
+    else if (ssel && st !== ssel) continue;
+    if (q && (L.org + " " + (L.city || "")).toLowerCase().indexOf(q) === -1) continue;
+    shown++;
+    var acts = "";
+    if (L.phone) acts += '<a href="' + tel(L.phone) + '">Call ' + esc(L.phone) + "</a>";
+    if (L.email) acts += '<a class="alt" href="mailto:' + esc(L.email) + '">' + esc(L.email) + "</a>";
+    if (L.web) acts += '<a class="alt" href="' + esc(site(L.web)) + '" target="_blank" rel="noopener">Website</a>';
+    var sel = '<select data-id="' + L.id + '">';
+    for (var s = 0; s < STATUS.length; s++) {
+      sel += "<option" + (st === STATUS[s] || (!st && s === 0) ? " selected" : "") + ">" + STATUS[s] + "</option>";
+    }
+    sel += "</select>";
+    var pills = "";
+    if (L.verified) pills += '<span class="pill src">Source on file: ' + esc(L.provenance || "see file") + "</span>";
+    else pills += '<span class="pill unv">Not independently checked</span>';
+    if (L.dupe) pills += '<span class="pill dup">Also in the Wave 1 list above</span>';
+    if (L.ask) pills += '<span class="pill">' + esc(L.ask) + "</span>";
+    if (!L.phone && !L.email) pills += '<span class="pill unv">No phone or email on file</span>';
+    out += '<div class="lead"><h4>' + esc(L.org) + '</h4><div class="sub">' +
+      esc(L.city || "City not recorded") + " · from " + esc(L.srcfile) + "</div>" +
+      (L.detail ? '<div class="det">' + esc(L.detail) + "</div>" : "") +
+      (L.action ? '<div class="det"><b>Next:</b> ' + esc(L.action) + "</div>" : "") +
+      (L.events ? '<div class="det"><b>Runs events:</b> ' + esc(L.events) + "</div>" : "") +
+      pills +
+      '<div class="acts">' + acts + sel + "</div>" +
+      '<textarea data-id="' + L.id + '" placeholder="Notes — what they said, when to call back">' + esc(nt) + "</textarea></div>";
+  }
+  listEl.innerHTML = out;
+  document.getElementById("cnt").textContent =
+    shown + " of " + LEADS.length + " shown. " + countWorked() + " have been started.";
+  var sels = listEl.querySelectorAll("select");
+  for (var a = 0; a < sels.length; a++) {
+    sels[a].addEventListener("change", function () {
+      var v = this.value;
+      store["st:" + this.getAttribute("data-id")] = (v === "Not started" ? "" : v);
+      saveEdit();
+      render();
+    });
+  }
+  var tas = listEl.querySelectorAll("textarea");
+  for (var b = 0; b < tas.length; b++) {
+    tas[b].addEventListener("change", function () {
+      store["nt:" + this.getAttribute("data-id")] = this.value; saveEdit();
+    });
+  }
+}
+function countWorked() {
+  var n = 0;
+  for (var i = 0; i < LEADS.length; i++) {
+    var st = store["st:" + LEADS[i].id];
+    if (st && st !== "Not started") n++;
+  }
+  return n;
+}
+fG.addEventListener("change", render); fS.addEventListener("change", render);
+fQ.addEventListener("input", render);
+
+/* ---- CSV export / import ---- */
+var CSV_HEADER = ["id", "organisation", "city", "phone", "email", "source_file", "status", "notes"];
+var CHECK_IDS = ["t1", "t2", "t3", "t4", "t5", "t6"];
+var MAX_CSV_CHARS = 2 * 1024 * 1024;
+function csvCell(v) {
+  var text = String(v == null ? "" : v);
+  // A quoted CSV cell can still be a formula in spreadsheet software.
+  // V2 escapes existing apostrophes too, making this operation reversible.
+  if (/^[\s]*[=+\-@]|^[\t\r\n']/.test(text)) text = "'" + text;
+  return '"' + text.replace(/"/g, '""') + '"';
+}
+function decodeCell(text) { return text.charAt(0) === "'" ? text.slice(1) : text; }
+function validateState(candidate) {
+  if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) throw new Error("Invalid saved state");
+  var known = Object.create(null);
+  for (var i = 0; i < LEADS.length; i++) known[LEADS[i].id] = true;
+  Object.keys(candidate).forEach(function (key) {
+    var value = candidate[key];
+    if (key.indexOf("chk:") === 0 && CHECK_IDS.indexOf(key.slice(4)) !== -1 && typeof value === "boolean") return;
+    if (key.indexOf("nt:") === 0 && known[key.slice(3)] && typeof value === "string") return;
+    if (key.indexOf("st:") === 0 && known[key.slice(3)] && typeof value === "string" && (!value || STATUS.indexOf(value) !== -1)) return;
+    throw new Error("Unknown field or invalid status in saved state");
+  });
+  return candidate;
+}
+function buildCSV() {
+  validateState(store);
+  var rows = [CSV_HEADER, ["__state_v2__", JSON.stringify({schema:2,state:store}), "", "", "", "", "", ""]];
+  for (var i = 0; i < LEADS.length; i++) {
+    var L = LEADS[i];
+    rows.push([L.id, L.org, L.city || "", L.phone || "", L.email || "", L.srcfile,
+               store["st:" + L.id] || "", store["nt:" + L.id] || ""]);
+  }
+  var checks = [];
+  for (var k in store) { if (k.indexOf("chk:") === 0 && store[k]) checks.push(k.slice(4)); }
+  rows.push(["__checklist__", checks.join(" "), "", "", "", "", "", ""]);
+  var out = [];
+  for (var r = 0; r < rows.length; r++) {
+    var line = [];
+    for (var c = 0; c < rows[r].length; c++) line.push(csvCell(rows[r][c]));
+    out.push(line.join(","));
+  }
+  return out.join("\r\n");
+}
+function parseCSV(text) {
+  if (text.length > MAX_CSV_CHARS || text.indexOf("\0") !== -1) throw new Error("CSV is too large or contains invalid bytes");
+  var rows = [], row = [], cur = "", q = false, closed = false, i = 0;
+  text = text.replace(/^\uFEFF/, "");
+  while (i < text.length) {
+    var ch = text.charAt(i);
+    if (q) {
+      if (ch === '"') {
+        if (text.charAt(i + 1) === '"') { cur += '"'; i++; } else { q = false; closed = true; }
+      } else cur += ch;
+    } else if (ch === ",") { row.push(cur); cur = ""; closed = false; }
+    else if (ch === "\n" || ch === "\r") {
+      if (ch === "\r" && text.charAt(i + 1) === "\n") i++;
+      row.push(cur); rows.push(row); row = []; cur = ""; closed = false;
+    } else if (closed) throw new Error("Unexpected text after a quoted CSV field");
+    else if (ch === '"') {
+      if (cur !== "") throw new Error("Quote inside an unquoted CSV field");
+      q = true;
+    } else cur += ch;
+    i++;
+  }
+  if (q) throw new Error("Unfinished quoted CSV field");
+  if (cur !== "" || row.length || closed) { row.push(cur); rows.push(row); }
+  return rows;
+}
+
+function importCandidate(text) {
+  var rows = parseCSV(text);
+  if (rows.length < 2 || JSON.stringify(rows[0]) !== JSON.stringify(CSV_HEADER)) throw new Error("Expected a complete dashboard CSV export");
+  var known = Object.create(null), seen = Object.create(null), candidate = {}, snapshot = null, checks = null;
+  for (var i = 0; i < LEADS.length; i++) known[LEADS[i].id] = true;
+  var v2 = rows.some(function (r) { return r[0] === "__state_v2__"; });
+  for (var r = 1; r < rows.length; r++) {
+    var row = v2 ? rows[r].map(decodeCell) : rows[r];
+    if (row.length !== CSV_HEADER.length) throw new Error("Wrong number of CSV columns");
+    var id = row[0];
+    if (!id || seen[id]) throw new Error("Missing or duplicate row identifier");
+    seen[id] = true;
+    if (id === "__state_v2__") {
+      if (row.slice(2).some(Boolean)) throw new Error("Invalid snapshot row");
+      var meta = JSON.parse(row[1]);
+      if (!meta || meta.schema !== 2) throw new Error("Unsupported snapshot version");
+      snapshot = validateState(meta.state);
+    } else if (id === "__checklist__") {
+      if (row.slice(2).some(Boolean)) throw new Error("Invalid checklist row");
+      checks = row[1] ? row[1].split(" ") : [];
+      if (new Set(checks).size !== checks.length || checks.some(function (k) { return CHECK_IDS.indexOf(k) === -1; })) throw new Error("Invalid checklist identifier");
+      checks.forEach(function (k) { candidate["chk:" + k] = true; });
+    } else {
+      if (!known[id]) throw new Error("This export contains an unknown lead identifier");
+      if (row[6] && STATUS.indexOf(row[6]) === -1) throw new Error("Invalid lead status");
+      if (row[6]) candidate["st:" + id] = row[6];
+      if (row[7]) candidate["nt:" + id] = row[7];
+    }
+  }
+  if (checks === null || Object.keys(known).some(function (id) { return !seen[id]; })) throw new Error("Incomplete export; existing data was not replaced");
+  if (v2) {
+    if (!snapshot) throw new Error("Missing state snapshot");
+    for (var j = 0; j < LEADS.length; j++) {
+      var lead = LEADS[j].id;
+      if ((snapshot["st:" + lead] || "") !== (candidate["st:" + lead] || "") ||
+          (snapshot["nt:" + lead] || "") !== (candidate["nt:" + lead] || "")) throw new Error("CSV rows differ from its snapshot; use the original unedited export");
+    }
+    if (CHECK_IDS.some(function (k) { return !!snapshot["chk:" + k] !== !!candidate["chk:" + k]; })) throw new Error("Checklist differs from snapshot");
+    return snapshot;
+  }
+  return validateState(candidate);
+}
+
+function restoreCSV(text) {
+  var candidate;
+  try { candidate = importCandidate(text); }
+  catch (err) { msg("Import refused: " + err.message + ". Nothing was changed."); return false; }
+  if (!window.confirm("Replace ALL current notes, statuses and ticks with this export? This is not a merge. Cancel to keep your current data.")) {
+    msg("Import cancelled. Nothing was changed."); return false;
+  }
+  if (!save(candidate)) {
+    msg("Import NOT SAVED. Existing notes and stored data were preserved. Browser storage is unavailable."); return false;
+  }
+  store = candidate;
+  for (var b = 0; b < boxes.length; b++) {
+    boxes[b].checked = !!store["chk:" + boxes[b].getAttribute("data-k")];
+    boxes[b].parentNode.parentNode.classList.toggle("done", boxes[b].checked);
+  }
+  render();
+  msg("Restored and saved your notes, statuses and ticks from the validated export.");
+  return true;
+}
+document.getElementById("exp").addEventListener("click", function () {
+  var csv;
+  try { csv = buildCSV(); }
+  catch (err) { msg("Export refused: " + err.message + ". Existing data is unchanged."); return; }
+  var name = "papa-noel-notes-" + new Date().toISOString().slice(0, 10) + ".csv";
+  var blob = null;
+  try { blob = new Blob(["\uFEFF" + csv], {type: "text/csv;charset=utf-8"}); } catch (err) { blob = null; }
+  var a = document.createElement("a");
+  a.href = blob && window.URL && window.URL.createObjectURL
+    ? window.URL.createObjectURL(blob)
+    : "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+  a.download = name; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  if (blob && window.URL && window.URL.revokeObjectURL) {
+    setTimeout(function () { window.URL.revokeObjectURL(a.href); }, 1000);
+  }
+  msg("Download requested: " + name + ". Check that it completed, then keep a copy on another device.");
+});
+document.getElementById("imp").addEventListener("change", function (ev) {
+  var f = ev.target.files && ev.target.files[0];
+  if (!f) return;
+  if (f.size > MAX_CSV_CHARS) { msg("Import refused: file exceeds 2 MB. Nothing was changed."); ev.target.value = ""; return; }
+  var rd = new FileReader();
+  rd.onload = function () {
+    restoreCSV(String(rd.result));
+    ev.target.value = "";
+  };
+  rd.onerror = function () { msg("Could not read that file. Nothing was changed."); ev.target.value = ""; };
+  rd.readAsText(f);
+});
+document.getElementById("prt").addEventListener("click", function () { window.print(); });
+
+if (!storageReadable) msg("Could not read existing browser data. It has not been overwritten. New edits cannot be saved; keep this page open and export them.");
+render();
+</script>
+</body>
+</html>

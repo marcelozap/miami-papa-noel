@@ -23,7 +23,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 SUITES = [
+    "business/season-dashboard/test_dashboard.py",
     "scripts/test_public_release.py",
+    "tools/test_offline_workshop.py",
+    "tools/web_chat_http/test_http.py",
+    "tools/web_chat/test_service.py",
+    "tools/web_chat_guard/test_guard.py",
     "tools/triage/test_evidence_backup.py",
     "tools/triage/test_spend_guard.py",
     "tools/triage/test_triage.py",

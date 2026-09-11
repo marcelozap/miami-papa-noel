@@ -1,0 +1,17 @@
+{
+  "name": "Miami Papa Noel",
+  "format": "descriptive-handoff-v1",
+  "integration_status": "descriptor_only_not_an_installed_editor_plugin",
+  "repository": "https://github.com/marcelozap/miami-papa-noel",
+  "local_root": "C:/XIV/santa",
+  "website_entry": "index.html",
+  "chat_ui": ["tools/web_inquiry/index.html", "tools/web_inquiry/app.css", "tools/web_inquiry/app.js"],
+  "offline_preview_command": "python -B tools/offline_workshop.py",
+  "offline_preview_url": "http://127.0.0.1:8240",
+  "review_required": ["tools/triage", "tools/slots", "tools/web_chat_guard", "tools/web_inquiry/server.py", "deploy", "vercel.json"],
+  "never_upload": [".git", ".env", ".env.*", "*.key", "*.pem", "*.sqlite3", "*.jsonl", "node_modules", "__pycache__"],
+  "automatic_publish": false,
+  "paid_ai_enabled": false,
+  "handoff": "START-SANTA.md",
+  "release_status": "docs/chat-release-status.md"
+}
