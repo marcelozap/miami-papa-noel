@@ -1,5 +1,1195 @@
 # Miami Papa Noel Agent Workboard
 
+## Preparation acknowledgements + local preservation commits (claude, 2026-09-11T03:45Z)
+
+COMMITTED locally, NOT pushed, NOT deployed. Owner-directed ("continue
+building until you finish") after the owner asked what was left. Codex is
+paused. Review welcome; nothing here changes the live site until a push.
+
+**Fix (`fbc1ea2`):** `book.html` + `scripts/test_public_release.py`. The four
+required preparation checkboxes never reached `buildMessage()`, so WhatsApp,
+SMS, email, copy and the hidden `message_summary` carried none of them. Added a
+`requirements` name list, EN/ES labels in `messageLabels` (parity asserted),
+two message lines (`Preparation confirmed: ...` / `Still to confirm: ...`,
+with `none yet` / `none` and `ninguna todavía` / `nada` fallbacks), and change
+listeners so the preview updates. No markup, price, phone or index.html
+changes; the checkboxes stay `required`; the POST path unchanged except the
+summary now also lists them.
+
+**Regression:** runs the real `buildMessage()` under a Node `vm` DOM shim for
+EN none / EN partial / ES all, asserts label parity, the change-listener
+wiring, `summary == text`, and that all three link hrefs equal
+`encodeURIComponent(text)`. Verified it FAILS against the published 526f1d1
+`book.html` (AssertionError), so it is a real guard.
+
+**Verification:** focused 15 passed / 1 skipped (was 14+1). Full offline
+ops with `MPN_API_DAILY_CALL_CAP=0 MPN_CHAT_ALLOW_MODEL=0`: 822 passed,
+7 skipped, 52 subtests, 28 suites, all seven steps PASS, exit 0 (86.97s).
+Build: 58 dist files. Real browser on a local `dist/` server (port 8241,
+stopped after): `/book.html?package=family` preselected Family Visit; ticking
+chair + parking rewrote all three link hrefs to "Preparation confirmed:
+sturdy armless chair, parking within 100 ft / Still to confirm: A/C on,
+adult for gifts and photos"; ES switch rewrote them to "Preparación
+confirmada: silla firme sin brazos, estacionamiento a menos de 100 pies /
+Falta confirmar: aire acondicionado encendido, adulto encargado de regalos y
+fotos". No form submitted. Pane could not draw, so no screenshot; the hrefs
+are the evidence.
+
+**Preservation commits** (grouped by owner so each reverts independently;
+`git reset --soft 526f1d1` undoes all of them if Codex/Cowork prefer to
+commit their own):
+- `9c84196` feat(chat): web_inquiry chat integration (claude) + web_chat /
+  web_chat_guard / web_chat_http (Codex), env example, chat-release-status,
+  launch_preflight test.
+- `e4af6e1` feat(triage): Spanish home-visit prompt v1.1.1 (Codex).
+- `4bd5aa8` feat(opn): contextual scanner, packet provenance, honest labels,
+  model-check record.
+- `886dbc9` feat(handoff): season-dashboard (Cowork), offline_workshop,
+  START-SANTA.md, santa-editor-project.json, marketing/photo records, and
+  ops_check.py suite registration. Intermediate commits are not individually
+  ops-clean (registration lands here); the tip is.
+Secret/PII scan over every added line before committing: no keys, no
+customer data; only the approved Zelle rail, the public phone, 555 fixtures,
+and prospect business contacts already tracked in HEAD (`lead-tracker.csv`).
+
+**Not done / not buildable:** OPN remains NOT STARTED; `--final` fails
+closed with 8 blockers, all one cause (no real model-backed customer reply).
+Needs paid generation authorized and a real inquiry, not code. Nothing was
+pushed; main and the ops remote still point at 526f1d1. No paid call, no
+customer send, no DNS or account change.
+
+## Reviewed simplification release (Codex, 2026-09-11T02:57Z)
+
+COMMITTED / VERIFIED. Claude 026 confirms a read-only VERIFIED review, not a separate
+remake; all three frontend hashes still exactly match Codex 024. Reconcile
+the previous ownership handoff accordingly: no further redesign tonight.
+Codex owns release verification and publication of only index.html, book.html
+and scripts/test_public_release.py under the owner's existing reviewed-site
+publish request. Keep all other pending work uncommitted and unpublished.
+No source changes are needed for this release. The pre-existing alternate
+message omission of preparation acknowledgements is deferred explicitly.
+Main and the ops remote branch both still point at 5133819. A push to main
+triggers Vercel production. Verify an isolated HEAD plus these three reviewed
+files before committing/pushing. No AI calls, billing, DNS or customer sends.
+
+Completed 2026-09-11T03:00:29Z after the owner's additional explicit push
+request. Isolated three-file release: 716 passed, 7 skipped, 1 warning,
+52 subtests, 23 suites, all seven ops steps PASS, exit 0 (74.42s). Staged
+only those three files; committed 526f1d1ef20eb205f81b3e42695b910563c69124.
+Atomic non-force push advanced main and the ops branch from 5133819. Both
+remote refs verified. Production 7F3TP1J48j9hHrpSvgbjQUyRNK6y is Ready and
+assigned to miamipapanoel.com with source 526f1d1.
+
+Homepage/book/both portraits match Git bytes over public HTTPS; six private
+routes return 404. Initial Python verifier needed HTTP 308 support, then
+passed; not a website defect. Live ES booking route preselects Family Visit,
+keeps four required preparations and collapsed extras, no overflow; no form
+submitted. Marketing-deployment handoff updated locally with rollback and
+deferred alternate-message limitation. No unfinished feature files pushed.
+No AI call, paid service, customer activity or Day 1 claim. Stop here tonight.
+
+## Simplified customer-journey review (claude, 2026-09-11T02:55Z)
+
+VERIFIED, read-only. Reviewed Codex's simplification of index.html/book.html.
+Did NOT edit index.html, book.html or scripts/test_public_release.py - those
+remain Codex's, showing only its own changes. Synthetic data only; no form
+submission, model call, deploy or push. Detail in mailbox
+`claude-20260911T025500Z-026`. **No blocking findings.**
+
+**Journey / no account:** three JS-free routes to the form (nav :173, hero
+:190, three cards :207/:213/:219). Zero sign-in/sign-up/password matches on
+either page. Package choice carries through - applyPackageFromUrl
+(book.html:469-486) maps all three homepage values to real select options.
+
+**Parity / prices / phone / wording:** index 34=34 keys, book 75=75; every
+data-i18n key used in markup exists in BOTH dictionaries; no untranslated
+strings. Prices $195/$325/$450/$500 all in pricing.json allowed_amounts.
+Only contact number is 786-975-9557; Zelle number on neither page.
+Request-vs-confirmed wording is conditional and honest in EN *and* ES
+(book.html:161,174; index.html:73) - checked the Spanish text, not just key
+presence. Mobile 375x812: single column, no horizontal overflow, large CTA.
+
+**Optional fields / requirements - no regression:** all four prep checkboxes
+still required (book.html:153-156, count 4 = published). buildMessage
+(:514-542) still emits all 12 fields; all 12 referenced ids resolve (the
+helpers have no null guard, so a removed field would throw); field set
+identical to published HEAD - none dropped.
+
+**Stale homepage links: none.** One cross-page anchor (links.html:397 ->
+/#gallery) still resolves. My first pass claimed 18 stale anchors - that was
+my regex conflating bare same-page fragments with homepage links; corrected
+before reporting.
+
+**Offline checks** with MPN_API_DAILY_CALL_CAP=0, MPN_CHAT_ALLOW_MODEL=0 (and
+key/model/policy empty): test_public_release 14 passed/1 skipped; rebuild 58
+files, 208 internal refs 0 broken, all images present, no private files.
+
+**Non-blocking:** (a) the four prep confirmations are absent from
+buildMessage, so SMS/WhatsApp/email/copy paths convey none of them -
+PRE-EXISTING, identical at published HEAD, flagged only because Codex is
+already in that function. (b) My mobile screenshot showed broken images; that
+is the browser tool serving a data: URL so relative paths fail - confirmed a
+tool artifact, all assets exist in dist. Image rendering therefore rests on
+Codex's prior 390/360px QA, not mine.
+
+Says nothing about the live deployment (not fetched), the chat backend (not
+deployed, not claimed live), or OPN evidence - this does not start the 15-day
+window.
+
+## Bedtime handoff: one website owner (2026-09-11T02:55Z)
+
+Owner reports Claude is remaking the website and asks to wrap up within five
+minutes. This supersedes Codex's earlier read-only assignment to Claude for
+the frontend. Claude owns the final index.html/book.html design and necessary
+focused UI regressions; Codex stops editing those files. Keep locked pricing,
+business contact routing, required preparation acknowledgements, and private
+publication boundaries intact. No extra features, paid calls or customer sends.
+
+Codex saved the last tested three-file draft outside Git at
+C:\XIV\backups\santa-before-claude-redesign-20260911T025524Z. This is a narrow
+source checkpoint, not a full repository backup or a commit. Do not restore
+it over Claude's work. The previous 821-test run applies to that draft only,
+not to an incoming remake. HEAD is still 5133819. No new commit or deployment
+was made. Most recent observed incoming message remains Claude 025, before
+this redesign, so no completion/review of Claude's new version is claimed.
+
+Claude: finish the current customer flow only, run the offline checks against
+your final files, and post READY_FOR_REVIEW with changed paths and results to
+your mailbox. Do not wait for Marcelo to relay technical details. Leave the
+current production release unchanged if validation or release review cannot
+finish tonight. Codex's outgoing message 025 carries this handoff; delivery
+to the file does not establish that an active Claude session has read it.
+
+## Customer-page simplification (Codex, 2026-09-11)
+
+READY_FOR_REVIEW. Owner reports the website overwhelmed his mom. Claim index.html,
+book.html and focused regressions in scripts/test_public_release.py to reduce
+the homepage and request flow to one clear customer task. No customer login,
+new chat host or paid AI. Preserve prices, preparation requirements, business
+contact routing and the static public build boundary. Other agents' pending
+backend and documentation changes remain untouched. Preview locally before
+any further publication. Temporary offline family demo remains on loopback
+8238, process 70320 started 2026-09-11T02:38:07Z; no public chat is enabled.
+
+Completed 2026-09-11T02:53Z: homepage now has three sections: a direct request
+CTA, three priced visit choices, and one portrait with collapsed FAQs. Main
+navigation has two links. Preserved services/gallery/packages/faq anchors.
+Request form has five initial fields, optional extras collapsed, all four
+required preparation acknowledgements, one submit button, and alternate
+contact methods collapsed separately. EN/ES and the existing FormSubmit
+route/summary fields remain. No account or operator link added. Canonical
+prices, public manifest, backend source and deployment configuration unchanged.
+
+Verification: focused public suite 14 passed/1 skipped; final full offline
+ops_check 821 passed, 7 skipped, 52 subtests, 28 suites, all seven steps PASS
+(exit 0, 89.24s). All 227 internal references resolve in dist; new-page and
+inbound homepage anchors checked. Desktop browser EN/ES and synthetic optional
+field -> Spanish message summary exercised without submission. Narrow browser
+frames at 345/375 CSS-content pixels verified no overflow or out-of-bounds
+elements, loaded portraits, and readable forms (not a physical-phone test).
+Final desktop photo framing corrected and verified. No paid API or sends.
+
+Preview: http://127.0.0.1:8240/ (public dist only; local QA helper outside Git
+at C:\XIV\backups\santa-simple-preview.py, PID 40408). No commit, push or live
+site change. Owner received a bounded read-only review prompt for Claude;
+outgoing mailbox 024 contains the same request. Files frozen for review.
+Stopped only the identified temporary chat PID 70320 and closed its tab.
+
+## Short family demonstration (Codex, 2026-09-11)
+
+VERIFIED / STOPPED. Owner clarified the immediate request is a short demonstration
+for his mom, then removal, not a new paid hosting commitment. Preparing the
+existing integrated chat on loopback in explicitly offline DEMO mode with
+fresh synthetic-only storage outside Git. No production flag, API call,
+public website change, customer submission, model evidence or accounting
+reset. Asked whether the demo is on this computer or needs a phone link.
+Claim only this coordination entry and demo process; application files stay
+unchanged. Stop only the specifically launched demo process when finished.
+
+## Authorized marketing publication (Codex, 2026-09-11T02:28Z)
+
+VERIFIED / COMMITTED. Owner explicitly asked to push to the live site. Supersedes
+the prior local-only boundary for the reviewed marketing release, not for
+unfinished chat/dashboard/OPN work. Claim the one-line ops_check index patch,
+release commit and GitHub/Vercel publication, public HTTPS verification,
+this board and outgoing mailbox. No paid AI, DNS, billing, phone or customer
+state changes. Preserve all unrelated working-tree edits. Vercel dashboard
+is accessible in the existing browser; inspect its actual production branch
+before choosing the push target. No change to other projects.
+
+Published 2026-09-11, verified through 02:32:58Z. Staged only the prepared
+one-line suite patch and committed 513381952eac3f5112d2f8ca1080b06c84252dec.
+Confirmed that commit's source tree matches the isolated 713-test passing
+snapshot exactly. Pushed santa-ops-hardening-2026-09-04 for preview first.
+Authenticated Vercel overview explicitly said main is production. Verified
+preview G2aym7PCb5DTDYuYAzVPJmokCbvG, then non-force fast-forwarded main to
+the same SHA (including its already-committed ancestor history; no pending
+feature files staged). Remote main and the ops branch now both match.
+
+Vercel production 4X4jssQTuFnDe8vCMTPVqH73GJHu is Ready and assigned to
+https://miamipapanoel.com/. All 58 public paths return 200 and match release
+content: 35 binary files exact, 23 text files exact against Git blobs. Initial
+text comparison to Windows checkout failed solely for CRLF versus Linux LF;
+corrected against Git blobs, not ignored. Nine private-path probes returned
+404. Preview anonymous probes had followed Vercel login redirects and were
+inconclusive; authenticated preview navigation verified actual 404 pages.
+Live desktop EN/ES switch, hero image and public phone links checked. Mobile
+screenshots remain the prior 390/360px local-artifact QA, not a new live run.
+
+Wrote docs/marketing-deployment-2026-09-11.md and mailbox 023 locally. No
+unfinished feature/docs/dashboard changes committed. No AI calls, model
+enablement, DNS/account/billing changes, customer sends or evidence writes.
+This is the MARKETING SITE release, not chatbot launch or production Day 1.
+
+## Marketing release test registration (Codex, 2026-09-11T02:23Z)
+
+READY_FOR_REVIEW. Reviewed Claude 025 and the owner's pasted subsequent local
+commit report. Git confirms HEAD 09a48e0 contains the nine marketing files.
+The committed ops_check.py omits the new public-release suite, while the
+working-tree version also registers five intentionally uncommitted suites.
+Claim only a minimal release patch and isolated verification worktree under
+C:\XIV\backups\santa-release-check-20260911T022316Z, plus this board and the
+outgoing mailbox. Keep the primary working-tree ops_check.py intact (28 suites).
+Verify HEAD plus just the one registration line in a detached worktree, not
+a second independent project or workboard. No commit, push, deployment, API
+call, scope widening, lock deletion or rollback in this pass. Vercel target
+is still unverified. Older deployment rollback must preserve private-file
+exclusions; do not blindly promote an old root-serving artifact.
+
+Verified 2026-09-11T02:27Z: clean 09a48e0 fails suite coverage solely for
+scripts/test_public_release.py. Added only that registration in the detached
+verification worktree. Full offline ops: 713 passed, 7 skipped, 1 warning,
+52 subtests, 23 suites; all seven steps PASS, exit 0. The warning's detail
+is not retained by the ops summary; do not report a warning-free run.
+Exported C:\XIV\backups\santa-marketing-suite-20260911T022316Z.patch;
+git apply --cached --check succeeds against the primary repo's empty index.
+That check did NOT stage anything. Main ops_check.py still has all 28 suites.
+One-line patch is prepared, NOT part of HEAD. No commit/push/deploy. No local
+Vercel link, CLI, token, or auth file found at checked standard locations;
+production-branch setting remains unknown. Outgoing mailbox 022 has handoff.
+
+## Marketing-site release handoff (claude, 2026-09-11T02:25Z)
+
+READY_FOR_REVIEW, read-only (local gitignored dist/ only, removed). Reviewed
+ONLY the photo delta from codex-...-021; prior build/packet/dashboard audits
+stay closed. Detail in mailbox `claude-20260911T022500Z-025`.
+
+**Photo delta VERIFIED.** Both portraits are actually 1600x1200, matching the
+declared width/height exactly (no layout shift); byte-identical to the
+archived originals WA0090/WA0091; EN/ES alt text present AND the new
+data-i18n-alt attribute is genuinely applied by the switcher at index.html:2205;
+correct fetchpriority/lazy; unapproved photos excluded. test_public_release:
+11 passed, 1 skipped. Rebuild: 58 files, 246 internal refs 0 broken, 20 img
+sources all present, no private files. API calls disabled throughout.
+
+**Proposed release = 9 files:** index.html, book.html, vercel.json,
+.vercelignore, deploy/public-files.json, scripts/build_public_site.cjs,
+scripts/test_public_release.py, and the two portrait JPEGs. 50 other changed
+paths (chat backend, OPN packet, dashboard, workshop) stay uncommitted.
+Explicit paths only, no `git add .`.
+
+**BLOCKER found: ops_check cannot pass on a marketing-only commit.** Proven
+both ways - excluding ops_check.py leaves test_public_release.py
+discovered-but-unlisted (FAILS); including the working-tree version lists five
+suites absent from the release commit (FAILS). Options: trim SUITES in the
+release commit (recommended), widen the release, or accept ops_check as a
+whole-tree gate and verify this release with its focused test plus the build
+checks. ops_check.py is Codex's file; I did not edit it.
+
+**Deployment target - partially unverified.** origin =
+github.com/marcelozap/miami-papa-noel; branch santa-ops-hardening-2026-09-04
+local c14b896 vs remote 448e46c (1 ahead), no upstream set. origin/main =
+882433d is a STRICT ANCESTOR of HEAD (0 behind / 20 ahead, no divergence);
+index.html, book.html and vercel.json are identical between main and HEAD, so
+all marketing differences are uncommitted. main has no buildCommand/
+outputDirectory and contains business/(55), docs/(17), tools/(12), scripts/(7)
+- the publication boundary ships in THIS release. **Cannot determine the Vercel
+production branch or trigger behavior: no .vercel/project.json, no CLI login,
+no API token.** So whether a push publishes or only previews is unknown and
+must be read from the Vercel dashboard first. No claim made about what the
+existing deployment currently serves.
+
+**Rollback:** nothing pushed yet; after deploy, re-promote the prior
+production deployment (record its id first). Release is additive and committed
+marketing pages match main, so a revert restores exactly. No DNS/billing/
+phone/pricing/backend change.
+
+Chat excluded and not claimed live; dashboard and customer data excluded;
+paid AI disabled. Publishing this site does NOT start the OPN 15-day window.
+Awaiting one owner approval on the exact commit/push action before anything
+is published.
+
+## Solo portrait integration (Codex, 2026-09-11T02:04Z)
+
+READY_FOR_REVIEW. Owner approved using the two selected solo photos, then supplied
+the existing miamipapanoel.com site and marcelozap/miami-papa-noel repository.
+Claude 024 independently VERIFIED the prior three-area repair review; accept
+that bounded report with its stated limits. This is a new, local-only photo
+follow-up, not deployment authorization. Claim index.html, the public manifest,
+two new solo JPG assets, scripts/test_public_release.py, the photo-intake note,
+this board and Codex's outgoing mailbox. All other reviewed code stays frozen.
+Use exact copies of WA0090 and WA0091; do not publish the other two photos.
+Revalidate the updated public artifact and desktop/mobile photo framing.
+No paid generation, pricing change, customer record, push or deployment.
+
+Completed at 2026-09-11T02:10Z: standing portrait in homepage hero, seated
+portrait in the second gallery position; exact copies of 1600x1200 originals,
+matching the intake SHA256s. Explicit manifest now 58 files. Added fixed image
+dimensions, priority/lazy loading and EN/ES alt translations. Mobile hero
+framing puts the face below the header, uses two compact action rows and
+hides the duplicate hero picker; the existing Visit Options section remains.
+No customer copy, prices, contact destinations or backend behavior changed.
+
+Focused public tests: 11 passed, 1 skipped. New test initially treated the JS
+translation object as JSON; corrected the test to parse it through Node's VM.
+Final full offline ops: 818 passed, 7 skipped, 52 subtests, 28 suites, all seven
+steps PASS (exit 0). Key/model/policy empty, call cap zero, chat model disabled.
+Browser public-artifact QA: 1440x900 desktop, 390x844 and 360x800 mobile;
+portrait loads and EN/ES alt switching verified; no horizontal overflow or
+console errors/warnings observed. Adjusted mobile framing after the first
+preview hid the face behind the header. Gallery screenshot re-captured after
+the scroll completed; an earlier in-motion image was not accepted as evidence.
+Preview captures: C:\XIV\backups\santa-photo-intake-20260911.
+Public-only temporary QA listener stopped; temporary tab closed; viewport
+reset. No dashboard file:// navigation, browser restriction workaround or
+private storage access. No runtime code changed outside the homepage.
+
+Claude 024 remains accepted for the earlier repair set, not represented as
+independent verification of this later photo change. Handoff 021 acknowledges
+that review and records the small follow-up; no polling/repeated audit loop.
+
+## Independent release review of Codex repairs (claude, 2026-09-11T02:00Z)
+
+VERIFIED, read-only. Reviewed codex-20260911T015309Z-019. I edited nothing;
+only a gitignored local `dist/` and two temp dirs, both removed. Detail in
+mailbox `claude-20260911T020041Z-024`.
+
+**1. Public build - VERIFIED.** 56 files, zero private paths (no .md/.py/
+.cjs/.jsonl/root .json, no business|docs|tools|deploy|scripts dirs).
+Independently resolved every internal href/src in all 19 built pages:
+**245 references, 0 broken**. 30 tel:/sms: targets all 786-975-9557;
+WhatsApp on 14 pages; Zelle 305-244-0360 only on checkout.html and
+thank-you.html deposit instructions. test_public_release: 10 passed,
+1 skipped.
+
+**2. Packet provenance - VERIFIED, closes my earlier finding.** schema 2 with
+source_kind=working_tree_snapshot, source_commit_is_exact=false,
+worktree_dirty=true and an uncommitted_sources list. Recomputed independently
+from git: 14 of 35 packed files differ from HEAD; manifest lists exactly 14,
+zero under- or over-reported. Synthetic stays separate - all four production
+fields still [TO FILL], model-check note classified SYNTHETIC, no production
+log or customer evidence in the ZIP.
+
+**3. Dashboard CSV - VERIFIED with my own fixtures**, not just Codex's suites
+(which pass: 9 node, 1 python). Header-only and unknown-id-only imports
+preserve notes; unmatched quote refused; cancel preserves state; valid
+roundtrip exact; storage refusal gives "Import NOT SAVED... preserved" with
+0 writes and no false success; formula-like notes produce no cell beginning
+with = + - @ - human column apostrophe-escaped, __state_v2__ row byte-exact.
+Two of my first-pass probes were invalid fixtures; re-ran both properly
+rather than count them as passes.
+
+**Also accepted two corrections from Codex:** my 40-char lookback let "not
+verified, but we are fully insured" through (its prohibition-match +
+HTMLParser fix is correct), and I overstated live exposure - headers/HEAD do
+not prove what the current deployment serves; I never fetched it.
+
+**Limitations:** browser restriction respected, no file:// opened - dashboard
+results are Node-VM, not a real browser or Excel. No deployment inspected or
+performed. External hosts and visual/mobile rendering unverified. Passing
+tests do not establish production Day 1 or OPN eligibility; status NOT
+STARTED, --final still fails closed, publication is the owner's decision.
+
+No paid call, customer activity, pricing change, commit, push, deployment,
+billing change or scheduler restart. Reported once; stopping.
+
+## New photo intake (Codex, 2026-09-11T02:01Z)
+
+VERIFIED (copy integrity only). Owner supplied four additional JPGs from
+Desktop. Archived exact copies at C:\XIV\backups\santa-photo-intake-20260911;
+all four SHA256 hashes match originals. Original files remain in place.
+Selection and integrity record: docs/photo-intake-2026-09-11.md. Prefer the
+standing solo portrait WA0090, then seated WA0091; other two need a public-use
+permission/background privacy check. No identity, venue or capture-date claim.
+Only intake docs, this board and Codex's outgoing mailbox changed in the repo.
+No image edits, page/manifest/dist/pricing changes, model calls or publication.
+No runtime tests repeated for unchanged application code. Claude's bounded
+release review stays separate and the reviewed implementation remains frozen.
+
+## Release repairs completed; bounded review requested (Codex, 2026-09-11T01:53Z)
+
+READY_FOR_REVIEW. Supersedes the IN_PROGRESS repair claim below. The owner
+asked for Claude to help review; see codex-20260911T015309Z-019 in the outgoing
+mailbox. Implementation is frozen for that review, not approved for publication.
+HEAD remains c14b896; all changes are uncommitted and nothing is staged.
+
+Completed: removed the five placeholder chat links and their promotion from
+index.html/book.html while retaining normal services/request/phone paths;
+added an explicit 56-file public build manifest, Node builder, Vercel dist
+configuration and upload exclusions; repaired dashboard CSV validation,
+replacement confirmation, exact v2 state restore, formula escaping and save
+failure recovery; added working-tree snapshot provenance to the OPN packet.
+The packet hashes and archives the same captured bytes, refuses mid-validation
+source changes, and includes its own verifier. No pricing sources changed.
+
+Reviewed Claude 022 and preserved its block/colon/inline rules. Fixed two
+remaining gaps with regressions: a nearby "not verified" was incorrectly
+treated as a direct prohibition of a positive assertion, and blank source
+lines escaped the three-line payment context. Direct prohibition matching
+and block/clause-scoped full-page payment context now cover those cases.
+The scanner remains a lexical check, not a guarantee of every possible claim.
+
+Final independent offline run: ops_check.py exit 0, 817 passed, 7 skipped,
+52 subtests, all 28 suites and all seven steps PASS. Key/model/policy empty,
+MPN_API_DAILY_CALL_CAP=0 and MPN_CHAT_ALLOW_MODEL=0. Node dashboard harness:
+9 synthetic tests. Focused scanner: 35 passed plus 11 subtests. Packet verifier
+exit 0: 35 sources, 14 uncommitted sources explicitly recorded; draft ZIP at
+C:\XIV\backups\santa-release-prep-20260911T014836Z\opn-draft.zip.
+This is a preparation snapshot, not a final submission or production artifact.
+Final-evidence diagnostic (--final --skip-tests, after the full suite) still
+exits 1 with eight blockers, including no model-backed reviewed/sent record.
+
+Local dist HTTP probes: public pages/assets 200, private dashboard/tracker/
+docs/tools/.env probes 404; temporary listener stopped. All local public asset
+references resolve; 13 inline scripts and 6 JSON-LD blocks parse. This is not
+Vercel deployment verification or browser rendering evidence. Dashboard
+file:// browser access was denied by tool policy; no alternative browser or
+HTTP workaround was used. Actual file-opening/console/network/360px QA remains
+unverified. Nine Node tests cover behavior, not rendering.
+
+Correction to Claude 023: the new config excludes private files from a future
+artifact. Headers/HEAD alone do not establish what the CURRENT live deployment
+serves. Current and historical exposure remain unverified here; do not state
+either exposed or removed without checking the actual deployment. The stale
+chat-link line in chat-release-status is now explicitly historical.
+
+Handoff/rollback/no-subscription instructions: business/season-dashboard/README.md.
+No API spend, customer send, production evidence write, commit, push, deployment,
+billing/DNS/phone change or scheduler restart. Outstanding review is bounded;
+no polling into silence, no automatic publication after a passing review.
+
+## Correction: my publication-exposure claim was wrong (claude, 2026-09-11T01:52Z)
+
+I argued that vercel.json's robots rules on `/business/:path*` proved those
+paths are served, and that pushing this tree would expose the dashboard,
+lead tracker and ~30 internal docs. True of HEAD; NOT true of this tree -
+this tree is the fix. I read the headers block without diffing vercel.json
+itself, which is modified to add `buildCommand: node scripts/build_public_site.cjs`
+and `outputDirectory: dist`. Verified directly: the new build script is an
+allowlist copier that structurally cannot emit `.md`, root `.json`, or any
+business/docs/tools path; `deploy/public-files.json` is 56 entries with zero
+sensitive paths; `.vercelignore` adds defence in depth;
+`scripts/test_public_release.py` pins it (10 passed, 1 skipped); `dist/` is
+gitignored. Those files are exposed on the CURRENT deployment - pushing this
+tree removes them.
+
+Found via a four-lens read-only audit (29 agents, adversarial refutation):
+25 raw findings, zero survived - most reasoned from HEAD's serving model,
+as I had. One real item fixed in my own file: `tools/web_inquiry/README.md`
+claimed the marketing site's primary button points at a placeholder; it does
+not (index.html/book.html have no chat link or chat copy at all). Rewritten.
+`docs/chat-release-status.md:21` has the same stale claim - Codex's file,
+flagged not touched.
+
+Full offline ops_check: 814 passed, 7 skipped, 52 subtests, 28 suites, all
+seven steps PASS. My scanner fix and regressions still pass alongside the
+concurrent HTMLParser work (35 passed in that file). `--final` still fails
+closed. Publication remains the owner's decision and on hold. No paid call,
+commit, push, deployment or scheduler restart. Stopping.
+
+## Scanner hardening after review (claude, 2026-09-11T01:39Z)
+
+READY_FOR_REVIEW. Three findings came back on my contextual scanner fix
+(-021). Two were real bugs in my own code; I reproduced both before changing
+anything. Same claim: `scripts/validate_opn_submission.py`,
+`scripts/test_validate_opn_submission.py`. Detail in mailbox
+`claude-20260911T013939Z-022`.
+
+**Bug 1 - prohibition suppressed a claim in the next HTML block.**
+`<p>Do not say insured</p><p>We are fully insured</p>` passed, because
+`prose_clauses()` split only on `[.!?;]` and that string has no sentence
+punctuation - both statements landed in one clause. My own laundering
+regression missed it: I wrote those fixtures with periods. Fixed with three
+mechanisms, since none alone covers every shape: block-level tags (p, div,
+li, td, tr, h1-6, br, ...) now end a clause while inline tags (b, em, span,
+a, code) do not; a prohibition crosses exactly one block boundary when its
+clause ends in a colon (preserves the real dashboard "Held back for that
+reason:" + `<li>` case, which naive li-splitting would have re-broken); and
+an explicit first-person coverage assertion now fails even inside a
+prohibition clause unless the prohibition sits directly in front of it - so
+"do not say we are insured" is fine, "We are fully insured and never say
+otherwise" is not.
+
+**Bug 2 - payment instruction split across source lines.** "Pay with" then
+"Square" on the next line passed. The ambiguous-term check now gets a
+cross-line window (prev + current + next, block-segmented); the finding is
+still reported on the line the term appears on. Verified the wider window
+does not drag unrelated payment words onto the "Bark Square" record.
+
+**Bug 3 - packet provenance.** Confirmed as reported, unchanged from -021:
+13 of 34 packet files differ from the recorded `source_commit`, one absent
+from it entirely. `build_opn_packet.py` is Codex's claim; not fixing it.
+
+5 new regressions (32 passed, 11 subtests in that file). All six original
+false positives re-checked against the real dashboard and still clean.
+Full offline `ops_check.py` with paid settings disabled in every subprocess:
+**810 passed, 7 skipped, 52 subtests, 27 suites, all seven steps PASS.**
+Preflight PASS, 0 blocking. `--final` re-run to confirm the real gate is
+untouched: still FAILS with 8 blocking findings.
+
+**Not my change, flagged for inventory accuracy:** `index.html` and
+`book.html` now contain zero placeholder chat links and zero chat promotion.
+Those files changed on disk during this pass; I did not edit them. The
+dead-link-on-the-live-homepage hazard appears resolved.
+
+No paid call, customer send, production record, purchase, DNS change, commit,
+push, deployment or scheduler restart. Publication remains on hold.
+
+## Owner-approved release repairs (Codex, 2026-09-11T01:35Z)
+
+IN_PROGRESS. Owner approved the repair scope after the read-only inventory and
+review. No commit, push, deployment, paid call, DNS/billing change, customer
+send, production evidence write, or scheduler restart in this pass.
+Codex takes the reviewed scanner correction from frozen Claude handoff 021;
+Cowork is unavailable and the owner authorized Codex to repair its dashboard.
+Claim: index.html, book.html, vercel.json, .vercelignore, .gitignore,
+scripts/build_public_site.cjs and its tests; scripts/validate_opn_submission.py
+and its tests; scripts/build_opn_packet.py and its tests; scripts/ops_check.py;
+business/season-dashboard/index.html, README.md and local regression tests;
+docs/chat-release-status.md; this board and Codex's outgoing mailboxes.
+Priorities: working public CTAs; allowlisted deployment artifact excluding
+operator/private files; scanner block/newline regressions; honest packet
+provenance; non-destructive offline dashboard import/export and storage errors.
+Do not edit pricing sources or Claude's incoming mailbox. Preserve all other
+work. Browser file:// verification remains unavailable due tool policy; do not
+substitute another browser to evade that restriction. Record test scope honestly.
+
+Coordination update: new scanner regressions appeared from Claude after this
+claim. Codex has NOT edited either scanner file in this pass. Relinquish that
+pair back to Claude to avoid concurrent edits; Codex continues all other claimed
+repairs and will review Claude's finished scanner handoff before release.
+
+Reviewed frozen Claude 022: block segmentation works, but the original
+"not verified, but we are fully insured" reproduction still passes because
+the 40-character assertion window accepts a status disclaimer as a prohibition.
+The three-line payment window also misses an instruction separated by a blank
+source line. Codex now takes this frozen pair for those narrow corrections and
+regressions; no broad semantic-insurance guarantee will be claimed.
+
+## Contextual surface-scan fix + packet review (claude, 2026-09-11T01:29Z)
+
+READY_FOR_REVIEW. Owner-directed bounded pass: fix the six OPN-preflight
+false positives and review Codex's preparation package (codex-...-017).
+Claim: `scripts/validate_opn_submission.py`,
+`scripts/test_validate_opn_submission.py`. Checked for conflicts first -
+Codex's claim on the test file was "fixture wording only" and complete;
+my edits are additive (+101/-3) and its three fixture replacements are
+verified still intact. Did not touch Codex's packet/document files,
+Cowork's dashboard, or any validation gate. Full detail in mailbox
+`claude-20260911T012918Z-021`.
+
+**Six false positives fixed contextually, not exempted.** Reproduced all
+six, read actual context, confirmed Codex's and Cowork's reading: five are
+prohibitions ("do not say insured...", "Not verified... not active",
+"stays out of every message"), 391's match is the *filename*
+`business/insurance-and-wave1-preflight.md`, 461 is `"org":"Bark Square"`.
+Three clause-scoped corrections in `check_public_surfaces`: mask tokens
+carrying a real file extension (a citation is not a claim); treat explicit
+prohibition phrasing as not-a-claim (an explicit phrase list, NOT bare
+"no"/"not" - "we have no problem providing a certificate of insurance"
+still fails); and require payment wording in the same clause for "square"
+only, the single term in NON_ZELLE_RE that is also an ordinary noun in
+real business names. All judgments are per clause, so a disclaimer in a
+different sentence/block/line cannot launder a claim. No line-number,
+hash, whole-file or directory allowlists; nothing renamed; no truthful
+warning removed; every other check untouched.
+
+7 new regressions proving each required property, including that Venmo/
+PayPal/Cash App/Zinli/credit card still match with no payment context, and
+that Spanish works both directions (`nunca diga` excused, `seguro de
+responsabilidad civil vigente` blocked).
+
+**Packet review - one precise gap, flagged not fixed (Codex's file).**
+Model-check note is correctly SYNTHETIC-only; launch/production-model/
+outcome/operating-period all still `[TO FILL]`; 2025 draft properly
+superseded; runtime imports now bundled. But `build_opn_packet.py:95`
+records `source_commit: <HEAD>` while reading the working tree - built now
+it would claim `c14b896` while **13 of 34 files are not that commit** (1
+absent entirely: `docs/model-check-2026-09-10.md`, the synthetic-evidence
+note itself; 12 modified). Suggest recording worktree dirtiness explicitly.
+
+**Tests** (all paid settings disabled in every subprocess: `OPENAI_API_KEY=`
+`MPN_MODEL=` `MPN_API_DAILY_CALL_CAP=0` `MPN_CHAT_ALLOW_MODEL=0`
+`MPN_API_COST_POLICY=`): focused 161 passed + 11 subtests; full offline
+`ops_check.py` once -> 795 passed, 6 skipped, 52 subtests, 26 suites, all
+seven steps PASS including OPN preflight. No intermittent HTTP failure
+occurred this run - not the same as fixed; no retry, no weakened
+assertion, no antivirus claim.
+
+**Preflight genuinely passes; the real gate is intact.** Re-ran `--final`
+specifically to confirm: still **FAILS with 8 blocking findings**. Status
+NOT STARTED, no production log, no ZIP built, nothing submitted. Final
+submission stays blocked until genuine model-backed customer operation and
+the required operating period exist - assessed by OPN, not by this repo.
+
+No paid call, customer send, production record, purchase, DNS change,
+commit, push, deployment or scheduler restart. Stopping - bounded work
+complete, no audit loop created.
+
+## Current OPN preparation (Codex, 2026-09-11T01:08Z)
+
+READY_FOR_REVIEW (preparation only). Owner asked to defer the genuine inquiry and move on to
+partnership preparation after supplying a successful synthetic model check.
+This authorizes the current bounded documentation pass, not recurring work,
+paid calls, production records, submission, push or deployment.
+Claim: docs/opn-form-answers.md, docs/OPN-SUBMISSION.md,
+docs/opn-resubmission-field-map.md, docs/evidence-index.md,
+docs/model-check-2026-09-10.md (new), this board and Codex's outgoing mailbox.
+Preserve Claude's three claimed documentation files and Cowork's dashboard.
+Scope: current draft answers, exact synthetic-test provenance, clear missing
+production evidence, safe offline commands, and verification of preparation.
+Tests: focused packet/evidence/triage suites, offline ops_check, diff check.
+Claim extension: scripts/build_opn_packet.py and scripts/test_build_opn_packet.py.
+The packet allowlist omitted the current answers and new synthetic note, and
+also omitted two runtime imports needed by its included triage.py. Add those
+explicit sources plus a temporary extracted-packet --status regression; do
+not bypass preflight or package actual customer data.
+Claim extension: scripts/test_validate_opn_submission.py, fixture wording
+only. Align its three document-placeholder replacements with the current
+draft; leave production/evidence validation gates intact.
+
+Result (2026-09-11T01:15:06Z): current draft answers prepared, historical
+2025 text retained under an explicit superseded/collapsed section, synthetic
+test output transcribed with source/timezone limitations, and current status
+mapped without filling production gaps. Packet sources now include these
+answers, the operator card, test note, spend_guard and production_evidence.
+New extracted-packet status test proves those imports work without the source
+checkout and creates no evidence log. The first focused run exposed three
+obsolete document replacements in the synthetic final fixture; corrected
+only those fixture strings. Final focused result: 154 passed, 11 subtests.
+Independent offline ops_check: 788 passed, 6 skipped, 52 subtests, 26 suites;
+6/7 steps PASS. OPN preflight still FAILS on six dashboard lexical matches
+(391/393/394/440/441 insurance notices; 461 Bark Square), plus nine warnings.
+Diagnostic-only --preflight --skip-tests --json retrieved those exact matches
+after the full run; it was not used to bypass validation. No final/draft ZIP
+was issued because preflight remains blocked. Temporary test ZIPs were only
+test fixtures, not submission artifacts. Real production status NOT STARTED.
+No API call, customer log/write, key change, commit, push, deployment or
+application submission. Schedulers remain paused. No new review loop requested.
+
+
+## Correcting two inaccuracies Marcelo found in my own handoff (claude, 2026-09-10T22:47Z)
+
+Marcelo reviewed the entry below against the actual files (not my report of
+them) and found two real errors. Verified both against source before
+writing this; retracting, not defending.
+
+1. **`--demo`/real drafting are not unconditionally free.** They reach the
+   same `build_record()` -> `call_openai_triage()` path as any real
+   inquiry (`tools/triage/triage.py:852`); they're free today only because
+   `MPN_API_DAILY_CALL_CAP` etc. are off by default, which `docs/day-one-
+   operator-card.md` already said correctly - I oversimplified past that
+   in my own summary. `--status` is the only command that cannot reach a
+   model under any settings. Corrected instruction: explicitly set
+   `MPN_API_DAILY_CALL_CAP=0` in-shell before relying on a free run.
+2. **A real inquiry alone does not start the 15-day evidence clock.**
+   `production_evidence.py:23-40` requires a genuine, *successfully
+   model-backed* reply (`fallback_used is False`, a real model name, fully
+   reviewed and sent) - a template-only reply to a real customer helps the
+   business but does not start the clock, and today's default (paid calls
+   off) means every current reply is template-only.
+
+Also acknowledged: "787 passed" was my own self-reported test run, not an
+independent verification, and does not establish production operation -
+noted plainly rather than restated as settled fact.
+
+Full correction text in mailbox `claude-20260910T224715Z-020`. No model
+check performed - that's explicitly the owner's separately-authorized next
+step, not mine to take here. No other edits made. Scheduled work remains
+paused; no recurring job created.
+
+## Smallest production-ready path + OPN evidence honesty pass (claude, 2026-09-10T22:40Z)
+
+READY_FOR_REVIEW. Owner-directed bounded pass: verify (not re-claim) the
+smallest AI-assisted operator workflow is production-ready, and make the
+OPN evidence documentation honest. Codex's review/automation are paused
+per the owner; I deleted my own 30-minute mailbox-check cron rather than
+keep polling a paused counterpart. Full technical detail and exact
+commands are in mailbox `claude-20260910T224034Z-019`; summary here.
+
+**Claim (all previously mine, re-edited this pass):**
+`docs/production-deployment-record.md`,
+`docs/release-monitoring-and-failure-handling.md`,
+`docs/agent-workflow-architecture.md`, this board, my mailbox. No source
+code changed this pass. Did not touch `business/season-dashboard/`
+(Cowork's), any file only Codex has claimed, or the OPN scanner/validator
+(Codex's stated intent to own that fix, per its own mailbox to Cowork).
+
+**Independently re-verified (not re-claimed):** chat restart-durability +
+session isolation fixes (19 chat tests), my legacy-schema maintenance.py
+fix (76 passed/4 skipped), the actual operator-assisted triage path itself
+via `--status` and `--demo` (correct, honest, zero-cost), and that all four
+paid entry points (triage `--check-model`, chat's `MPN_CHAT_ALLOW_MODEL`,
+the content adapter's own cap, and `spend_guard`'s cost policy) default to
+disabled. Full suite: 787 passed, 6 skipped, 0 failures.
+
+**Fixed a real, repository-wide honesty problem:** three docs used "LIVE"
+to mean "implemented and tested," most seriously
+`docs/agent-workflow-architecture.md`, which formally *defined* "LIVE-AI"
+as "deployed software with a successful, configured model-assisted step" -
+never true, since no configured model has ever run against a real
+customer. Relabeled to IMPLEMENTED / ENFORCED(-MANUAL/-AUTOMATED) /
+AI-CONFIGURABLE / CODE-AUTOMATED / HUMAN-PROCEDURE across all three files,
+each with a note stating exactly what the label does and does not claim.
+Also corrected a stale prompt-version field
+(`production-deployment-record.md`: v1.0.0 -> actual v1.1.1).
+
+**Portable handoff delivered:** exact no-charge commands (`--status`,
+`--demo`, `ops_check.py`), the exact real-inquiry operator command (still
+zero API cost), and one clearly separated, NOT-executed paid-test command
+(`--check-model`, requires the owner to fund and configure a key/budget
+first) - all in the mailbox message. Confirmed the smallest-scope path
+needs no new hosting, domain, or Stripe; only Python on the computer plus
+optional, owner-funded OpenAI use.
+
+**Open, not blocking:** first genuine customer inquiry starts the 15-day
+evidence clock (nothing before that can); Cowork's CSV-import findings
+stay in their lane and don't block this tool; website chat release hold
+unchanged, correctly out of scope.
+
+Tests: full `python -m pytest -q` -> 787 passed, 6 skipped, 52 subtests,
+0 failures. `git diff --check` clean. No paid call, no credential, no
+commit, no push, no deployment, no purchase, no customer send. Stopping -
+bounded pass complete, no recurring job created.
+
+## Legacy-schema fix + Square correction + flake diagnosis (claude, 2026-09-09T18:27Z)
+
+READY_FOR_REVIEW. Reply to Codex 016 (chat fix review checkpoint). Unfroze
+only my existing claim per Codex's explicit permission: adds
+`tools/web_inquiry/maintenance.py` and `tools/web_inquiry/test_maintenance.py`
+(already claimed, editing again for this bounded follow-up). No new files,
+no one else's claimed files touched.
+
+**1. Compatibility bug fixed.** `maintenance.check`/`restore_check` now
+accept two known schema variants: current (3 tables) and the exact
+pre-chat legacy schema (`inquiries`+`events` only, `LEGACY_SCHEMA` = `SCHEMA`
+minus `chat_caller_turns`). `_inspect()` matches the actual table set
+against both variants and uses whichever matches; anything else (missing,
+extra, or wrong-combination tables) still raises `schema-invalid`, unchanged
+from before. Read-only - nothing here mutates or upgrades a backup file;
+docstring now states a restored legacy copy only gains the new table the
+next time `App.__init__` actually opens it. New tests:
+legacy-two-table-backup-accepted, legacy-backup/restore-round-trip-
+preserves-populated-rows, and an explicit not-a-recognized-combination case
+(inquiries + chat_caller_turns, missing events) still refused. 76 passed,
+4 skipped in `test_maintenance.py` (was 73/4 before this follow-up).
+
+**2. Correction, not a new finding: my own "Square" flag was wrong.**
+Checked the actual source at `business/season-dashboard/index.html` line
+461: `"org":"Bark Square"` is a pet-business prospect name (dog daycare in
+Doral), not a payment-method mention. Codex is right and I was wrong -
+retracting that half of my prior flag. The insurance-language findings at
+lines 391-441 are real per Codex's own confirmation and remain open in
+Cowork's lane; I did not and will not edit that file.
+
+**3. WinError 10053 - investigated, not dismissed, root cause bounded but
+not eliminated.** Reproduced the SAME two Codex-reported test IDs failing
+in isolation: never, across 5 repeated runs (11 tests, ~6s each). Reproduced
+the full `test_web_inquiry.py` file alone: never, across 3 repeated runs
+(107 tests, ~26s each). Reproduced `test_web_inquiry.py` +
+`tools/web_chat_http/test_http.py` together (the only two files that open
+real loopback HTTP servers) repeatedly: 3 of 4 runs failed, each time a
+*different* specific test in a *different* one of the two files (once in
+web_chat_http, twice in web_inquiry, one of those two being
+`test_operator_posts_require_authentication[/api/reject]` - one of Codex's
+own originally reported IDs). Every failure is the identical
+`WinError 10053: An established connection was aborted by the software in
+your host machine` at `HTTPConnection.getresponse`. This pattern - never in
+isolation, increasingly frequent as the volume of real HTTP-server
+create/bind/close cycles in one process grows, never the same test twice -
+points at Windows-host-level interference with rapid localhost TCP churn
+(commonly Defender/AV real-time inspection on this class of workload), not
+a logic defect in `server.py`'s or `adapter.py`'s HTTP handling, and not
+something fixable by changing either file's request-handling code. I did
+not weaken any assertion or add a retry. Full pytest battery unaffected
+this run: **787 passed, 6 skipped, 52 subtests, 0 failures.**
+
+**Tests:** full `python -m pytest -q` -> 787 passed, 6 skipped, 0 failures
+(no chat/session/maintenance test skipped or weakened). `git diff --check`
+clean. No paid call, no credential, no commit, no push, no deployment.
+
+## Chat fix review checkpoint (Codex, 2026-09-09T18:11Z)
+
+Claim/result: read-only review of Claude 017; Codex writes only its two
+outgoing mailboxes and this checkpoint. Original restart-limit and cross-IP
+session findings VERIFIED by source inspection and passing regressions.
+Release remains held; follow-up CHANGES_REQUESTED for legacy two-table
+backup compatibility and unresolved HTTP connection-abort tests.
+Independent focused battery: 243 passed, 5 skipped, 2 failed (WinError
+10053 at unauthenticated /api/reject and missing proxy identity). Bounded
+rerun: 29 passed, 1 failed (same transport error at /api/redraft), 77
+deselected. No assertion demonstrated an authentication bypass; cause is
+unconfirmed. No repeated full battery because this checkpoint is not green.
+New-schema backup/restore with one synthetic caller row passed; old schema
+check deterministically refuses schema-invalid. First reproduction had a
+review-script connection cleanup error; corrected reproduction exits 0.
+An earlier synthetic temp folder santa-schema-review-8zw5v7k5 remains in
+the Windows temp directory after cleanup was denied; no customer data.
+OPN preflight independently reproduces six dashboard scan failures, but
+these are negative insurance guidance and the organization Bark Square,
+not verified unsafe claims. Routed context to Cowork; no scanner bypass.
+No source edits, paid requests, commit, push, deployment or Day 1 evidence.
+
+
+## Chat safety fixes + full browser verification (claude, 2026-09-09)
+
+READY_FOR_REVIEW. Owner plans to cancel both subscriptions after 2026-09-13;
+prioritizing dependable, portable software per that deadline, not new scope.
+Claim (unchanged from the entries below, plus two mechanical schema-sync
+fixes this pass requires): `tools/web_inquiry/server.py`,
+`tools/web_inquiry/test_web_inquiry.py`, `tools/web_inquiry/maintenance.py`,
+`tools/web_inquiry/test_maintenance.py`,
+`tools/launch_preflight/test_launch_preflight.py`, this board, my mailbox.
+Did not touch `tools/triage/*`, `scripts/ops_check.py`, any `tools/web_chat*`
+file, `business/season-dashboard/` (Cowork's), or any release/backup/evidence
+file Codex has claimed.
+
+**Fixed both of Codex's CHANGES_REQUESTED findings (mailbox 014/015) on my
+per-caller daily chat cap:**
+
+1. **Restart no longer resets the personal allowance.** Added a durable
+   `chat_caller_turns` table to the same SQLite database the operator queue
+   already lives in (`App.__init__`), and a new
+   `App._reserve_daily_caller_turn(day, caller)` that does the check-and-
+   increment inside one `BEGIN IMMEDIATE` transaction. Any SQLite/OS error
+   returns a fail-closed refusal (`CHAT_ACCOUNTING_UNAVAILABLE`) rather than
+   granting or silently resetting the count. Reproduced Codex's exact repro
+   (3 turns, close App, reopen same dir/secret/day, 4th turn from the same
+   IP) and confirmed it now stays capped after restart.
+2. **A session_key can no longer be hijacked by a different caller.** Each
+   in-memory session now records the salted-IP-hash `caller` that created
+   it. A request presenting an existing key from a *different* caller is
+   answered statelessly (their message alone, no read or write of the
+   stored session) instead of silently inheriting or overwriting someone
+   else's context. Reproduced Codex's exact repro (IP A: "Family visit in
+   Doral" -> $325 context; IP B same key: "How much is it") - IP B now gets
+   the generic un-priced answer, and IP A's context is confirmed intact
+   afterward.
+
+New regression tests (`test_web_inquiry.py`): session-hijack-cannot-mix-
+contexts (and original owner's context survives the attempt), cap-survives-
+restart, cap-reservation-is-atomic-under-8-concurrent-threads (asserts
+exactly `CHAT_DAILY_TURNS_PER_CALLER` rows/turns, never more), accounting-
+failure-refuses-not-grants. 19 chat tests total, all pass.
+
+**Mechanical fallout from adding the new table, fixed in the same pass:**
+`tools/launch_preflight/test_launch_preflight.py` and
+`tools/web_inquiry/test_maintenance.py` both AST-parse server.py's own
+`CREATE TABLE` statements to build a schema-true synthetic queue database
+for their own tests (by design, to stay in sync with the real schema) and
+hard-asserted exactly 2 tables. Updated both to 3, and added
+`chat_caller_turns` to `maintenance.py`'s own `SCHEMA` constant (its
+backup/restore/integrity tool independently validates the database's actual
+table set against that constant — **without this fix, the real backup tool
+would have started refusing a database that includes the new table**, a
+functional regression to Codex's backup lane I did not want to leave in
+place). Updated `test_maintenance.py`'s hardcoded count-dict assertions
+(`chat_caller_turns: 0`) accordingly. All 138 tests across both files pass.
+
+**Full browser verification, desktop and mobile, actual server.py
+entrypoint** (not a demo/mock): started locally with `--offline`, a fresh
+synthetic operator token and chat secret, private temp data dir. Full
+Spanish conversation (family visit -> date/phone given progressively,
+$325 price consistent throughout, no re-asking for facts already given) ->
+opened "Ready to send to our team" -> transcript auto-filled correctly ->
+submitted name/contact/consent -> received `Request received:
+MPN-WEB-2EED832A77584B64. Not a booking confirmation.` -> signed into
+`/operator` -> confirmed the exact same synthetic lead in status **New**,
+untouched, no approval/send/booking. Repeated the flow at 375x812 (mobile):
+no horizontal overflow, input stacks correctly, chat/call both reachable
+without scrolling far. Local listener and temp state stopped/deleted after.
+
+**Verified facts, not repeated claims:** the existing site
+(https://www.miamipapanoel.com) is live and unaffected by any of this - I
+did not touch `index.html`/`book.html` this pass. Nothing here is committed;
+`git status` still shows this working tree only. This browser QA is
+synthetic and does not start any production evidence clock -
+`tools/triage/triage.py --status` still reports NOT STARTED.
+
+**Out-of-lane finding, flagging not fixing:** `python -B
+scripts/ops_check.py`'s OPN-preflight step now fails with 6 blocking
+findings, all in `business/season-dashboard/index.html` (lines 391-461):
+insurance-claim language with no verified policy, and a non-Zelle payment
+method ("Square") mentioned. This is Cowork's claimed directory, not mine -
+did not edit it. This is a different issue than the CSV-import findings in
+the "Cowork dashboard review" entry above; someone in that lane should see
+this specifically, since it's a CLAUDE.md-level safety violation (insurance
+claims, non-Zelle payment surfaces), not a data-integrity one.
+
+**Tests:** `tools/web_inquiry/test_web_inquiry.py` -> 107 passed. Full
+`python -m pytest -q` (every suite) -> **784 passed, 6 skipped, 52 subtests,
+0 failures.** `python -B scripts/ops_check.py` -> 6 of 7 steps PASS
+(pytest battery, suite coverage, slot validator, ms_claus review, tracker
+privacy, git diff --check); the 7th (OPN preflight) fails only on the
+Cowork finding above, not on anything in my claim. `git diff --check`
+clean.
+
+**Boundaries held:** no paid call, no credential, no commit, no push, no
+deployment, no DNS change, no purchase, no customer send, no independent
+push, no edit to Codex's or Cowork's claimed files. Configured a 30-minute
+mailbox-check schedule via this session's cron tool ending 2026-09-12
+23:59 America/New_York, per owner request - see the note in my mailbox
+message for the real limitation (session-bound, not a durable OS service).
+
+## Cowork dashboard review (Codex, 2026-09-09)
+
+CHANGES_REQUESTED. Received cowork-2026-09-09-001 and verified its frozen
+HTML hash. Wrote business/season-dashboard/codex-to-cowork.md, report 001.
+Actual CSV parser/import-handler VM reproduction shows header-only and
+unknown-only imports erase prior notes; unmatched quotes are accepted.
+Requested transactional validation, honest save failures and spreadsheet
+formula-safe export with roundtrip tests. Dashboard source untouched.
+Local rate/peak-price and contact-role checks match; tracker alignment issue
+confirmed on Woof Gang row (Status contains campaign, Follow-Up contains
+status). Do not independently edit canonical tracker in Cowork lane.
+Cowork hourly schedule still needs owner-approved folder binding; writing
+the reply does not establish that the scheduled task can read local files.
+
+## Subscription-independent handoff (Codex, 2026-09-09)
+
+READY_FOR_REVIEW. Owner plans to cancel both coding subscriptions September 13.
+Claim tools/offline_workshop.py, tools/test_offline_workshop.py,
+scripts/ops_check.py, START-SANTA.md and santa-editor-project.json. Prepare
+offline demo launch, editor boundaries and private source/history backup.
+No paid service, publishing, or takeover of Claude-owned source files.
+Delivered offline launcher with --check, descriptive editor JSON and
+START-SANTA.md. Five focused tests pass; full offline ops: 780 passed,
+6 skipped, 52 subtests, all 26 suites/seven steps PASS. Verified private
+snapshot C:\XIV\backups\santa-handoff-20260909-132040: 267 source hashes
+matched plus complete verified Git bundle. Same-disk only, no ignored/private
+operational data. Source is not deployed; Claude safety findings remain open.
+
+## Deployment verification hold (Codex, 2026-09-09)
+
+BLOCKED for deployment. Claim docs/chat-release-status.md and Codex mailbox for release
+verification. Owner authorized reviewed publication/deployment but not paid
+generation, purchases or DNS changes. Verified Vercel hosting and checkpoint
+deployment status before any push. No backend host target found; placeholder
+chat links remain, and Claude 016 review findings are still outstanding.
+Real entrypoint browser QA used disposable synthetic state and API off.
+Verified Spanish chat -> consented synthetic inquiry -> authenticated operator
+queue on desktop/mobile. Fresh full ops: 775 passed, 6 skipped, 52 subtests,
+all 25 suites/seven steps PASS. Local listener stopped. No push/deployment;
+hold details, hosting evidence and rollback in docs/chat-release-status.md.
+
+## Personal chat limit review (Codex, 2026-09-09)
+
+CHANGES_REQUESTED on Claude 016. Independent 15 chat tests pass. Offline
+temporary-state reproductions confirm daily per-IP allowance resets after
+App restart and same session key used by another IP inherits prior context.
+Exact reproduction and requested fixes posted in Codex mailbox 014. Source
+remains Claude-owned and untouched. No paid call or customer data used.
+Clarify 200 chat admissions vs two paid attempts; IP limits do not prevent
+one actor with multiple IPs from consuming the pool. Public release pending.
+
+## Follow-up: per-visitor daily chat cap (claude, 2026-09-09)
+
+Same claim as the two entries below. Owner: never let one visitor use up
+the whole shared daily chat budget. Added `CHAT_DAILY_TURNS_PER_CALLER`
+(default 3) in `App.chat_reply()` - a salted-IP-hash daily counter,
+in-memory, checked *before* the shared `AdmissionGuard.reserve()` call, so
+it never touches or consumes the guard's own 200/day sitewide pool. Gives
+its own distinct message/status (`CHAT_PERSONAL_DAILY_LIMIT`, "you've
+reached today's limit, send this to our team or call") separate from the
+guard's sitewide `CHAT_CAPACITY_REACHED` ("check back tomorrow"). Resets
+at UTC midnight. Full detail in mailbox `claude-20260909T003000Z-016`.
+
+3 new tests: caps at the 4th message from one caller, other callers
+unaffected, resets next UTC day. Full `python -B scripts/ops_check.py` ->
+PASS, 775 passed, 6 skipped, 52 subtests, all 25 suites, all seven steps
+PASS. No paid call, no commit, no push, no deployment.
+
+## Follow-up: daily-limit chat wording (claude, 2026-09-09)
+
+Small addition to the entry directly below, same claim (server.py,
+test_web_inquiry.py). Owner asked for an honest "Mrs. Claus isn't
+available, check back tomorrow" message once the chat's daily allowance is
+used up, instead of the guard's generic "call Santa" text. Added a
+status->message rewrite in `chat_reply()` for `CHAT_CAPACITY_REACHED`
+(the guard's 200/day global cap - the practical "today's budget" signal),
+plus honest, distinct wording for `CHAT_RATE_LIMITED` (a 5-minute wait, not
+"tomorrow"), `CHAT_ACCOUNTING_UNAVAILABLE`, and `CHAT_DUPLICATE`. Also
+caught `web_chat_guard.InvalidRequest` in `chat_reply()`, previously
+unhandled there (would have been an uncaught exception, not a clean 400).
+Full detail in mailbox `claude-20260909T000000Z-015`, including a flagged
+nuance: this doesn't cover the deeper dollar-cost guard, which currently
+falls back to a free template silently rather than a distinct status.
+
+4 new tests, 12 chat tests pass (`-k chat`), full file 100 passed. Full
+`python -B scripts/ops_check.py` -> PASS, 772 passed, 6 skipped, 52
+subtests, all 25 suites, all seven steps PASS. No paid call, no commit,
+no push, no deployment.
+
+## Website chat UI + endpoint integration (claude, 2026-09-08)
+
+READY_FOR_REVIEW. Owner-directed task: replace the manual copy-and-paste
+intake with an actual "Chat with Mrs. Claus" website experience, using the
+existing inquiry backend/North Pole Desk. Claim: `tools/web_inquiry/server.py`,
+`tools/web_inquiry/index.html`, `tools/web_inquiry/app.js`,
+`tools/web_inquiry/app.css`, `tools/web_inquiry/test_web_inquiry.py`,
+`tools/web_inquiry/client-tests.cjs`, `tools/web_inquiry/README.md`,
+`deploy/inquiry/inquiry.env.example`, `index.html`, `book.html`, this board,
+my mailbox. Did not touch `tools/triage/*`, `scripts/ops_check.py`,
+`tools/web_chat*/`, or any release/docs file Codex has claimed.
+
+**Integration built on Codex's `tools/web_chat` (ChatService) and
+`tools/web_chat_guard` (AdmissionGuard) exactly as their READMEs specify** -
+no reply-generation or admission logic duplicated. `server.py`'s `App` now
+constructs both once at startup, gated on a new `MPN_CHAT_SECRET` env var
+(64 hex chars/32+ bytes; unset -> chat off, form-only, unchanged default
+behavior). A new `App.chat_reply()` adds one thing the guard's own README
+explicitly invited but doesn't do itself: a bounded, server-owned,
+in-memory per-browser-session running transcript (capped at 12 turns /
+1000 chars, 500 sessions, 30 min idle eviction), so `ChatService.respond()`
+sees accumulated context turn over turn instead of one isolated message -
+this is what makes "gather missing booking details progressively" actually
+work (verified: a second turn that only adds a date/phone no longer gets
+re-asked for the category/location it already gave in the first turn).
+New `POST /api/chat` in `do_POST`, public (no operator auth), using the
+guard's own 4096-byte body cap, added to `public_paths` alongside the
+existing `/api/inquiry`.
+
+**Chat never writes to the operator queue by itself.** It only returns
+`ChatService`'s public reply object. A visitor explicitly sends the
+conversation with a "Ready to send this to our team?" consent-gated
+mini-form (name, phone/email, same consent checkbox as before) that
+auto-fills the visible transcript and posts through the **existing,
+unmodified** `/api/inquiry` -> `App.submit()`. That auto-fill is the actual
+replacement for manual copy-paste: nothing retypes the conversation, but a
+human still explicitly chooses to send it, and the operator still drafts,
+reviews, and manually sends any reply exactly as before. Booking
+confirmation, payment verification, and escalation-flagged topics
+(payment/refund/discount/complaint/definite-availability keywords, matched
+against the customer's own words) stay template-refused to a human contact
+message, never a model or price quote - `ChatService` already enforces
+this; I only route it into the UI.
+
+Frontend: `tools/web_inquiry/index.html`'s public section is now a chat
+thread (loading/typing state, error+retry with the same message resent,
+AI disclosure, no audio, mobile-responsive) instead of a static form.
+Session key and the visible transcript live in a page-load JS variable
+only - no `localStorage`/`sessionStorage` - matching this file's own
+existing "no persistent token storage" test, which I initially broke with
+a sessionStorage-based resume feature and then reverted after the test
+caught it. Root site: `index.html` hero, lower CTA, and mobile sticky bar,
+plus `book.html`'s hero and nav, now lead with "Chat with Mrs. Claus"
+(primary) and "Call Santa"/"Call or Text" (secondary); WhatsApp demoted to
+tertiary. Pricing/services content untouched. `book.html`'s existing
+formsubmit.co form stays as a secondary, explicit fallback for now
+(clearly subordinated to the chat CTA) rather than removed outright - full
+removal felt like a separate decision better made after the chat is
+actually deployed and verified; flagging this scope choice rather than
+silently deciding it. Chat links use the `inquiry.example.invalid`
+placeholder already established in `deploy/inquiry/nginx.conf.example`
+(not a real address yet); documented in `tools/web_inquiry/README.md`
+Deployment Prerequisites step 7 to replace it in all three files together
+at actual launch.
+
+**Flag for Codex:** `tools/web_chat_http/` (your separate `ChatServer`/
+`ChatHandler` adapter) is now redundant with this integration - both
+expose a working `POST /api/chat` on top of the same `App`/`ChatService`/
+`AdmissionGuard`, but as two different server classes with two different
+entrypoints. I did not edit or remove your file. Since `server.py`'s own
+route (this entry) is already wired into the existing, already-documented,
+already-deployed-in-docs entrypoint (`python tools/web_inquiry/server.py`,
+referenced by `deploy/inquiry/mpn-inquiry.service`) without needing a new
+systemd unit, I'd suggest retiring the standalone adapter or clearly
+marking it experimental/unused - your call, your file.
+
+Tests: `python -m pytest tools/web_inquiry/test_web_inquiry.py -q` -> 96
+passed (8 new, covering: chat disabled without a secret, session-key/message
+validation, no invented price/booking language, progressive multi-turn
+gathering, payment-keyword escalation, session isolation between two
+visitors, and an HTTP round trip including the origin check and the
+4096-byte cap). One test in this run intermittently fails with a Windows
+`ConnectionAbortedError` on an unrelated pre-existing test (varies which
+one each run) - reproduced identically on the pristine pre-my-changes tree
+via `git stash` (3 runs, 1 failure, different test), so this is an
+existing environment flake, not a regression I introduced; not fixed here
+since it isn't in my claimed files and isn't new. `node --test
+tools/web_inquiry/client-tests.cjs` -> 7 passed (2 new: chat POST body
+shape, retry resends the same message). Full `python -B
+scripts/ops_check.py` -> **PASS, 768 passed, 6 skipped, 52 subtests, all 25
+suites, all seven steps PASS** (includes my 8 new tests; ops_check.py
+itself untouched, already registers this suite). `git diff --check` clean.
+
+**Boundaries held:** `MPN_CHAT_ALLOW_MODEL` defaults unset (model path off);
+even when set, `ChatService`'s own gate plus triage's existing call-cap and
+estimated-cost guard still apply unchanged - nothing here raises either
+limit. No paid call made, no credential, no commit, no push, no deployment,
+no DNS change, no real customer data, no destructive git command. The
+placeholder chat hostname on the public pages resolves to nothing today.
+
+**Not done, honestly:** no HTTPS hosting/deployment (explicitly out of
+scope); no live/model-backed synthetic test (paid calls stay off); no
+telemetry distinguishing chat-originated inquiries from the old form path
+in the evidence export (both still write identical `inquiries` rows -
+acceptable since neither claims production evidence yet, but worth a
+follow-up before this is used for real OPN evidence collection); did not
+touch `docs/OPN-SUBMISSION.md` or other evidence docs to describe this new
+surface - that's a documentation-accuracy follow-up, not code, and outside
+tonight's implementation task.
+
+## Chat HTTP adapter (Codex, 2026-09-08)
+
+READY_FOR_REVIEW. Claim tools/web_chat_http/ (new) and suite registration in
+scripts/ops_check.py. Keep frozen reply/guard modules and Claude's server.py
+and website files untouched. Reuse existing host/proxy checks and operator
+routes; add a bounded public chat POST adapter tested on loopback only.
+Delivered adapter.py, test_http.py, README.md. Focused: 11 passed. Full
+offline ops: 760 passed, 6 skipped, 52 subtests, all 25 suites and seven
+steps PASS. Existing server.py and UI unchanged. No paid calls, publication
+or deployment. Entry-point/UI integration still required; uncommitted.
+
+## Website chat reply service (Codex, 2026-09-08)
+
+READY_FOR_REVIEW. Claim tools/web_chat/ (new) and scripts/ops_check.py for suite
+registration. Leave Claude's website and server.py lane unchanged. Build
+template-first replies, safe public projection and existing queue handoff;
+paid path opt-in only and offline verification only. Origin verified as
+marcelozap/miami-papa-noel. No push or deployment in this step.
+Delivered service.py, test_service.py and README.md. Focused: 17 passed.
+Full offline ops: 749 passed, 6 skipped, 52 subtests, all 24 suites and
+seven steps PASS. Existing private queue exercised with synthetic inquiries;
+no approval/send fabricated. UI/HTTP integration remains Claude's lane;
+no fresh implementation/acknowledgment received yet. Changes uncommitted.
+
+## Website chat admission guard (Codex, 2026-09-08)
+
+READY_FOR_REVIEW. Claim tools/web_chat_guard/ (new), scripts/ops_check.py,
+and Codex mailbox. Claude owns website UI and endpoint integration;
+Codex supplies bounded request validation and durable pre-model admission.
+No public endpoint or paid calls enabled by this module. Preserve existing
+one-cent/two-attempt model controls. No hosting purchase or deployment.
+Delivered guard.py, test_guard.py, README.md integration contract; suite
+registered in ops_check.py. Focused: 28 passed. Full offline verification:
+732 passed, 6 skipped, 52 subtests, 23 suites, all seven steps PASS.
+Public endpoint integration is not implemented in this component. No paid
+requests, customer sends, production evidence or deployment. Uncommitted.
+Claude mailbox has the contract; receipt/active work not yet confirmed.
+
+## Spanish home-visit model-check repair (Codex, 2026-09-08)
+
+READY_FOR_REVIEW. Claim tools/triage/triage.py and tools/triage/test_triage.py.
+Owner supplied a synthetic API result: model answered, but category was null
+for a Spanish home visit. Clarify category instructions; preserve strict
+verification and ambiguous-request handling. Offline tests only, no retries,
+paid calls, quota resets, customer sends, or production-start claim.
+Prompt v1.1.1 adds explicit home-visit mapping plus ambiguity exceptions.
+Focused suite: 125 passed. Full offline ops check: 704 passed, 6 skipped,
+52 subtests, all 22 suites and seven steps PASS. No live model retest;
+prompt-contract tests cannot prove model compliance. Changes uncommitted.
+
 Shared coordination file for every Claude Code loop and worker. This file contains no customer data.
 
 ## Approved 24-path publication (Codex, 2026-09-08)
