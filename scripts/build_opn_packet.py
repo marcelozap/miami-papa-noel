@@ -29,6 +29,9 @@ PACKET_FILES = (
     "business/insurance-and-wave1-preflight.md",
     "docs/OPN-SUBMISSION.md",
     "docs/opn-resubmission-field-map.md",
+    "docs/opn-form-answers.md",
+    "docs/model-check-2026-09-10.md",
+    "docs/day-one-operator-card.md",
     "docs/production-deployment-record.md",
     "docs/agent-workflow-architecture.md",
     "docs/release-monitoring-and-failure-handling.md",
@@ -42,6 +45,8 @@ PACKET_FILES = (
     "docs/15-day-evidence-checklist.md",
     "tools/triage/triage.py",
     "tools/triage/validators.py",
+    "tools/triage/spend_guard.py",
+    "tools/triage/production_evidence.py",
     "tools/triage/pricing.json",
     "tools/triage/README.md",
     "tools/triage/log-schema.md",
@@ -50,6 +55,7 @@ PACKET_FILES = (
     "scripts/validate_slot_confirmations.py",
     "scripts/validate_opn_submission.py",
     "scripts/evidence_index.py",
+    "scripts/build_opn_packet.py",
     "scripts/test_validate_opn_submission.py",
     "scripts/test_evidence_index.py",
     "scripts/test_build_opn_packet.py",
@@ -96,6 +102,26 @@ def git_commit(root: Path) -> str:
     return result.stdout.strip()
 
 
+def working_tree_provenance(root: Path, commit: str, relative_paths: list[str]) -> dict:
+    """The commit is a reference, not a claim that checkout bytes equal Git blobs."""
+    def git(*args):
+        try:
+            return subprocess.run(['git', *args], cwd=root, capture_output=True,
+                                  check=True).stdout
+        except (OSError, subprocess.CalledProcessError) as exc:
+            raise ValueError('could not inspect packet source provenance') from exc
+    tracked = set(git('ls-tree', '-r', '--name-only', '-z', commit, '--',
+                      *relative_paths).decode('utf-8').split('\0'))
+    changed = set(git('diff', '--name-only', '-z', commit, '--',
+                      *relative_paths).decode('utf-8').split('\0'))
+    return {
+        'source_kind': 'working_tree_snapshot',
+        'source_commit_is_exact': False,
+        'worktree_dirty': bool(git('status', '--porcelain', '--untracked-files=all')),
+        'uncommitted_sources': sorted(p for p in relative_paths if p not in tracked or p in changed),
+    }
+
+
 def run_validation(root: Path, mode: str, log_dir: Path, evidence_dir: Path) -> str:
     command = [sys.executable, str(root / "scripts/validate_opn_submission.py"),
                f"--{mode}", "--repo-root", str(root),
@@ -130,8 +156,15 @@ def verify_packet(packet: Path) -> dict:
             if "PACKET-MANIFEST.json" not in names:
                 raise ValueError("packet is missing PACKET-MANIFEST.json")
             manifest = json.loads(archive.read("PACKET-MANIFEST.json"))
-            if not isinstance(manifest, dict) or manifest.get("packet_schema") != 1:
+            if not isinstance(manifest, dict) or manifest.get("packet_schema") not in (1, 2):
                 raise ValueError("packet manifest has an unsupported schema")
+            if manifest['packet_schema'] == 2:
+                provenance = manifest.get('provenance', {})
+                if (provenance.get('source_kind') != 'working_tree_snapshot'
+                        or provenance.get('source_commit_is_exact') is not False
+                        or type(provenance.get('worktree_dirty')) is not bool
+                        or not isinstance(provenance.get('uncommitted_sources'), list)):
+                    raise ValueError('packet manifest has invalid provenance')
             files = manifest.get("files")
             if not isinstance(files, list) or not files:
                 raise ValueError("packet manifest has no file entries")
@@ -164,6 +197,12 @@ def verify_packet(packet: Path) -> dict:
                 raise ValueError(f"packet membership mismatch; extras={extras}, missing={missing}")
             if manifest.get("customer_evidence_included") is not False:
                 raise ValueError("packet must not include customer evidence")
+            if manifest['packet_schema'] == 2:
+                changed = provenance['uncommitted_sources']
+                if (any(not isinstance(p, str) or p not in listed for p in changed)
+                        or len(changed) != len(set(changed))
+                        or (changed and not provenance['worktree_dirty'])):
+                    raise ValueError('packet provenance does not match source membership')
             return manifest
     except zipfile.BadZipFile as exc:
         raise ValueError("packet is not a valid ZIP archive") from exc
@@ -182,29 +221,39 @@ def build_packet(root: Path, output: Path, mode: str, log_dir: Path | None = Non
 
     log_dir = log_dir or default_log_dir()
     evidence_dir = evidence_dir or default_evidence_dir()
-    validation_output = "validation skipped by library caller"
-    if validate:
-        validation_output = run_validation(root, mode, log_dir, evidence_dir)
+    commit = git_commit(root)
     files = source_files(root)
     external_index = safe_external_index(evidence_dir)
     if external_index:
         files.append(("external-evidence/evidence-index.jsonl", external_index))
+    # Read once: manifest hashes and ZIP members describe exactly the same bytes.
+    snapshots = [(relative, path, path.read_bytes()) for relative, path in files]
+    validation_output = "validation skipped by library caller"
+    if validate:
+        validation_output = run_validation(root, mode, log_dir, evidence_dir)
+    if (git_commit(root) != commit
+            or any(path.read_bytes() != data for _, path, data in snapshots)
+            or safe_external_index(evidence_dir) != external_index):
+        raise ValueError('sources changed during validation; review and rebuild')
+    provenance = working_tree_provenance(root, commit, list(PACKET_FILES))
 
     manifest = {
-        "packet_schema": 1,
+        "packet_schema": 2,
         "mode": mode,
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-        "source_commit": git_commit(root),
+        "source_commit": commit,
+        "provenance": provenance,
         "customer_evidence_included": False,
         "validation": "passed" if validate else "skipped",
-        "files": [{"path": relative, "sha256": sha256(path)} for relative, path in files],
+        "files": [{"path": relative, "sha256": hashlib.sha256(data).hexdigest()}
+                  for relative, _, data in snapshots],
     }
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as temp:
         temp_zip = Path(temp) / "packet.zip"
         with zipfile.ZipFile(temp_zip, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-            for relative, path in files:
-                archive.write(path, arcname=relative)
+            for relative, _, data in snapshots:
+                archive.writestr(relative, data)
             archive.writestr("PACKET-MANIFEST.json", json.dumps(manifest, indent=2) + "\n")
             archive.writestr("VALIDATION-OUTPUT.txt", validation_output + "\n")
         temp_zip.replace(output)
@@ -228,7 +277,13 @@ def main(argv: list[str] | None = None) -> int:
         except (OSError, ValueError) as exc:
             parser.error(str(exc))
         print(f"verified packet: {Path(args.verify).expanduser().resolve()}")
-        print(f"source commit: {manifest.get('source_commit', '[missing]')}")
+        print(f"Git HEAD reference (not a byte-exact archive claim): {manifest.get('source_commit', '[missing]')}")
+        provenance = manifest.get('provenance')
+        if provenance:
+            print(f"working-tree snapshot; dirty checkout: {provenance['worktree_dirty']}")
+            print(f"uncommitted packet sources: {len(provenance['uncommitted_sources'])}")
+        else:
+            print('legacy packet: working-tree provenance was not recorded')
         print(f"files verified: {len(manifest['files'])}")
         return 0
     root = Path(args.repo_root).expanduser().resolve()

@@ -5,6 +5,11 @@ Assessment marked **Resubmission Requested**. It points each form section to the
 evidence and repository record that belong there. It is a preparation guide,
 not a substitute for the facts in the external evidence folder.
 
+Current preparation (September 10, 2026): use the CURRENT draft at the top of
+`docs/opn-form-answers.md`, not its collapsed historical section. The successful
+model check in `docs/model-check-2026-09-10.md` is synthetic-only. Production
+remains NOT STARTED. Do not fill launch, production model or outcome from it.
+
 ## 1. Production AI/ML Delivery
 
 Use **Add deployment** for the Miami Papa Noel deployment only if it was a real
@@ -26,10 +31,10 @@ bounded use case:
 2. **Status and dates:** the actual period in which the workflow was used in
    real operations; call it seasonal or between seasons when that is accurate.
 3. **Operational owner:** Marcelo Zapata.
-4. **Live functionality:** marketing and content creation, lead and message
-   handling, bilingual drafting, call preparation, scheduling and logistics,
-   payment-receipt tracking, and follow-up, limited to the functions that the
-   records support.
+4. **Live functionality:** for the narrow 2026 scope, operator-assisted
+   structured inquiry extraction and bilingual drafting only, after actual
+   production use begins. Do not import planned content, phone automation,
+   logistics or payment features into this claim.
 5. **Production model:** the exact model name or names that actually ran. Do
    not guess from a tool brand or from a later configuration.
 6. **How it worked:** inquiry and content task intake flowed through role-based

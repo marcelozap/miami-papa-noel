@@ -317,6 +317,158 @@ class ValidatorTests(unittest.TestCase):
             self.assertIn("Venmo", details)
             self.assertIn("$999", details)
 
+    # --- contextual surface scanning (2026-09-11) -------------------------
+    # Six findings were lexical false positives: negative insurance guidance
+    # read as an insurance claim, and the prospect name "Bark Square" read as
+    # Square payment acceptance. These prove the correction is narrow - real
+    # claims still fail, and a disclaimer cannot launder a nearby claim.
+
+    def surface_details(self, root, body, filename="index.html", amounts=(325,)):
+        (root / "tools/triage").mkdir(parents=True, exist_ok=True)
+        (root / "tools/triage/pricing.json").write_text(
+            json.dumps({"allowed_amounts": list(amounts)}), encoding="utf-8")
+        (root / filename).write_text(body, encoding="utf-8")
+        cfg = self.config(root, True, root / "log.jsonl", root / "evidence")
+        return "; ".join(f.detail for f in self.failures(MODULE.check_public_surfaces(cfg)))
+
+    def test_negative_insurance_guidance_is_not_a_production_claim(self):
+        with tempfile.TemporaryDirectory() as temp:
+            details = self.surface_details(Path(temp),
+                "<p><code>business/insurance-and-wave1-preflight.md</code> records the "
+                "commercial policy as NOT ACTIVE.</p>\n"
+                "<p>Until someone has the policy document in hand, do not say insured, "
+                "fully insured, certificate of insurance, COI, additional insured or "
+                "liability policy.</p>\n"
+                "<div><b>Not verified.</b> Commercial insurance: not active as recorded "
+                "2026-08-26. Any claim about being\n"
+                "insured, or about providing a certificate, stays out of every message "
+                "until that changes.</div>\n")
+            self.assertNotIn("insurance language", details)
+
+    def test_prospect_name_alone_is_not_payment_acceptance(self):
+        with tempfile.TemporaryDirectory() as temp:
+            details = self.surface_details(Path(temp),
+                '<script>var LEADS = [{"org":"Bark Square","city":"Doral",'
+                '"email":"info@barksquare.com","group":"Pet Business",'
+                '"ask":"Pet Photos with Santa"}];</script>')
+            self.assertNotIn("non-Zelle", details)
+
+    def test_actual_insurance_claim_still_blocked_without_verified_policy(self):
+        for claim in ("<p>We are fully insured and carry general liability.</p>",
+                      "<p>Certificate of insurance available on request.</p>",
+                      "<p>Estamos asegurados con poliza de responsabilidad civil.</p>",
+                      "<p>We have no problem providing a certificate of insurance.</p>"):
+            with tempfile.TemporaryDirectory() as temp:
+                details = self.surface_details(Path(temp), claim)
+                self.assertIn("insurance language", details, claim)
+
+    def test_actual_square_acceptance_still_blocked(self):
+        for claim in ("<p>Pay with Square at checkout.</p>",
+                      "<p>We accept Square for deposits.</p>",
+                      "<p>Square payments accepted.</p>",
+                      "<p>Puede pagar con Square.</p>"):
+            with tempfile.TemporaryDirectory() as temp:
+                details = self.surface_details(Path(temp), claim)
+                self.assertIn("non-Zelle", details, claim)
+
+    def test_disclaimer_cannot_launder_a_claim_in_the_same_block_or_page(self):
+        with tempfile.TemporaryDirectory() as temp:
+            # Same block, adjacent sentence.
+            details = self.surface_details(Path(temp),
+                "<div><b>Not verified.</b> Commercial insurance is not active. "
+                "We are fully insured.</div>")
+            self.assertIn("insurance language", details)
+        with tempfile.TemporaryDirectory() as temp:
+            # Same page, a later line.
+            details = self.surface_details(Path(temp),
+                "<p>Do not say insured or offer a certificate of insurance.</p>\n"
+                "<p>Filler.</p>\n"
+                "<p>We are fully insured.</p>\n")
+            self.assertIn("insurance language", details)
+        with tempfile.TemporaryDirectory() as temp:
+            # A payment disclaimer must not launder an acceptance line either.
+            details = self.surface_details(Path(temp),
+                "<p>Never say we accept Square.</p>\n<p>Pay with Square here.</p>\n")
+            self.assertIn("non-Zelle", details)
+
+    def test_html_blocks_separate_claims_without_sentence_punctuation(self):
+        """Reviewer finding: prohibition in one block suppressed a claim in the next."""
+        for body in ("<p>Do not say insured</p><p>We are fully insured</p>",
+                     "<li>Do not say insured</li><li>We are fully insured</li>",
+                     "<td>never claim insurance</td><td>we carry general liability</td>",
+                     "<div>Not verified</div><div>Estamos asegurados</div>"):
+            with tempfile.TemporaryDirectory() as temp:
+                details = self.surface_details(Path(temp), body)
+                self.assertIn("insurance language", details, body)
+
+    def test_prohibition_cannot_retract_an_assertion_later_in_the_sentence(self):
+        with tempfile.TemporaryDirectory() as temp:
+            details = self.surface_details(Path(temp),
+                "<p>We are fully insured and never say otherwise.</p>")
+            self.assertIn("insurance language", details)
+
+    def test_status_disclaimer_cannot_negate_a_positive_assertion(self):
+        for body in (
+            '<p>Our coverage is not verified, but we are fully insured.</p>',
+            '<p>Not active, yet we provide a certificate of insurance.</p>',
+            '<p>No verificado, pero estamos asegurados.</p>',
+            '<p>Do not say we are insured, but we are fully insured.</p>',
+        ):
+            with tempfile.TemporaryDirectory() as temp:
+                self.assertIn('insurance language', self.surface_details(Path(temp), body), body)
+
+    def test_direct_prohibition_of_inline_assertion_is_allowed(self):
+        for body in ('<p>Do not say <b>we are insured</b>.</p>',
+                     '<p>Nunca diga que estamos asegurados.</p>'):
+            with tempfile.TemporaryDirectory() as temp:
+                self.assertNotIn('insurance language', self.surface_details(Path(temp), body), body)
+
+    def test_blank_source_lines_do_not_hide_payment_instructions(self):
+        with tempfile.TemporaryDirectory() as temp:
+            self.assertIn('non-Zelle', self.surface_details(Path(temp),
+                '<p>Pay with\n\n\nSquare</p>'))
+
+    def test_colon_introducer_still_governs_the_list_it_introduces(self):
+        # The real dashboard pattern: "Held back for that reason:" + <li> items.
+        with tempfile.TemporaryDirectory() as temp:
+            details = self.surface_details(Path(temp),
+                "<div>Held back for that reason, do not offer:<ul><li>"
+                "<b>Certificate Of Insurance / Background Check</b></li></ul></div>")
+            self.assertNotIn("insurance language", details)
+
+    def test_payment_instruction_split_across_source_lines_still_blocked(self):
+        """Reviewer finding: HTML wraps, so "Pay with" / "Square" straddled lines."""
+        for body in ("<p>Pay with\nSquare</p>",
+                     "<p>Pay with\n   Square at checkout</p>",
+                     "<p>Puede pagar con\nSquare</p>"):
+            with tempfile.TemporaryDirectory() as temp:
+                details = self.surface_details(Path(temp), body)
+                self.assertIn("non-Zelle", details, body)
+
+    def test_prospect_name_survives_the_cross_line_window(self):
+        # The widened window must not drag unrelated payment words onto a name.
+        with tempfile.TemporaryDirectory() as temp:
+            details = self.surface_details(Path(temp),
+                "<p>Deposit is 50% by Zelle.</p>\n"
+                '<script>var LEADS=[{"org":"Bark Square","city":"Doral"}];</script>\n'
+                "<p>Balance due on arrival.</p>")
+            self.assertNotIn("non-Zelle", details)
+
+    def test_unambiguous_brands_still_match_without_payment_context(self):
+        # Only "Square" gained a context requirement; the rest are unchanged.
+        for claim in ("<p>Venmo</p>", "<p>PayPal</p>", "<p>Cash App</p>",
+                      "<p>Zinli</p>", "<p>credit card</p>"):
+            with tempfile.TemporaryDirectory() as temp:
+                details = self.surface_details(Path(temp), claim)
+                self.assertIn("non-Zelle", details, claim)
+
+    def test_filename_masking_does_not_hide_prose_claims(self):
+        with tempfile.TemporaryDirectory() as temp:
+            details = self.surface_details(Path(temp),
+                "<p>See notes.md &mdash; we are fully insured. Pay with Venmo.</p>")
+            self.assertIn("insurance language", details)
+            self.assertIn("Venmo", details)
+
     def test_retired_booking_email_blocks_even_in_preflight(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
@@ -396,17 +548,17 @@ class ValidatorTests(unittest.TestCase):
                 "| **Launch date / status** | `[TO FILL]` — Launch date = the first real inquiry record",
                 "| **Launch date / status** | `2026-08-01` — Launch date = the first real inquiry record")
             submission_text = submission_text.replace(
-                "`[TO FILL]` — derives from the log:",
-                "`1 inquiry handled; median first-response time 3 minutes` — derives from the log:")
+                "`[TO FILL]` — supported real inquiry outcome and counts.",
+                "`1 synthetic inquiry handled` — supported real inquiry outcome and counts.")
             submission_text = submission_text.replace(
                 "`[TO FILL]` — written verbatim only after a configured model",
                 "`gpt-test-model` — written verbatim only after a configured model")
             submission_text = submission_text.replace(
-                "| `[TO FILL]` | First real customer inquiry",
-                "| `2026-08-01` | First real customer inquiry")
+                "| `[TO FILL]` | First valid genuine model-backed, reviewed-and-sent record",
+                "| `2026-08-01` | First valid genuine model-backed, reviewed-and-sent record")
             submission_text = submission_text.replace(
-                "| `[TO FILL + 15]` | 15 days continuous operation reached",
-                "| `2026-08-16` | 15 days continuous operation reached")
+                "| `[TO FILL + 15]` | Earliest elapsed-window review,",
+                "| `2026-08-16` | Earliest elapsed-window review,")
             submission.write_text(submission_text, encoding="utf-8")
 
             deployment = root / "docs/production-deployment-record.md"

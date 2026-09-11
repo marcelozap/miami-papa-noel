@@ -3,7 +3,13 @@
 **Applicant:** Marcelo Zapata / XIV
 **Deployment:** Miami Papa Noel — AI-assisted bilingual inquiry triage
 **Date:** 2026-08-29
-**Last updated:** 2026-09-05 (content revised after the original date; see Git history).
+**Last updated:** 2026-09-10 America/New_York (2026-09-11 UTC).
+**Status:** DRAFT PREPARATION; NOT READY FOR FINAL RESUBMISSION.
+
+The current answers are in `docs/opn-form-answers.md`. A successful owner-run
+synthetic check is recorded separately in `docs/model-check-2026-09-10.md`;
+it is not a production record. Read-only status still reports NOT STARTED.
+No application submission, publication or new paid call occurred in this pass.
 
 ---
 
@@ -24,29 +30,32 @@ logistics, and follow-up — per the operator attestation at
 `docs/operator-attestation-2025-season.md`. Supporting artifacts for that season
 are being assembled and are labeled as such throughout.
 
-**What is submitted for review is the 2026 deployment:** a real, runnable,
-instrumented tool that performs bilingual inquiry triage with mandatory human
-approval. It is built, tested, and documented, and is ready to enter production
-on its first real customer inquiry. Launch date = the first real inquiry
-record (never backdated); the 15-day evidence window is measured from the
-send timestamp of the first valid real, model-backed, reviewed-and-sent
-record - fallback or unsent records never start it (shared predicate:
-`tools/triage/production_evidence.py`).
+**What is being prepared for review is the 2026 operator-assisted workflow:**
+a runnable bilingual inquiry tool with human approval and manual sending.
+It is not yet an active customer AI deployment. The documented evidence
+window starts at the send timestamp of the first valid genuine,
+model-backed, reviewed-and-sent record; fallback, unsent and synthetic records
+do not start it (`tools/triage/production_evidence.py`). Actual launch,
+operating duration and outcomes must be supported by real records, not inferred
+from that timer or the successful model check. Final acceptance belongs to OPN.
 
 ---
 
-## What is live
+## What is implemented
 
 The tool at `tools/triage/triage.py`. Run the deterministic path with:
 
 ```powershell
+Set-Location 'C:\XIV\santa'
+$env:MPN_API_DAILY_CALL_CAP = '0'
 python tools\triage\triage.py --demo
 ```
 
-With `MPN_MODEL` and `OPENAI_API_KEY` configured, the same command makes one
-OpenAI Responses API request for structured extraction and bilingual drafting.
-If the request is unavailable or the model output fails a local safety gate,
-the deterministic path is used and the fallback is logged.
+With the cap explicitly zero, no model request is dispatched. Enabling model
+drafting separately requires a key, exact model, positive call allowance and
+valid private cost policy. Each generated draft may then request the API;
+`--demo` contains four inquiries, not one paid check. Errors or rejected output
+fall back to local rules with explicit provenance. Demo logs are synthetic.
 
 For each inquiry it:
 
@@ -78,8 +87,9 @@ warns:
 | Insurance claim | Any insurance language while the policy is unverified |
 | Payment method | Venmo, Cash App, Square, PayPal, card, Apple Pay, wire, Zinli; and any payment-link promise while no real buy.stripe.com link is configured |
 
-The tool is structurally incapable of confirming a booking or acknowledging a
-deposit. Only a human does either, and only after funds clear.
+The draft gates reject detected booking/payment-confirmation language, and
+the tool has no booking or payment mutation path. A human still reviews every
+reply and verifies the required deposit before confirming a booking.
 
 ---
 
@@ -111,11 +121,11 @@ against real inquiry samples once enough have accumulated.
 
 | Requirement | Response |
 |---|---|
-| **Active customer AI deployment** | Built and ready; the production clock starts on the first real inquiry |
+| **Active customer AI deployment** | NOT STARTED; software and a synthetic check are not active customer operation |
 | **Launch date / status** | `[TO FILL]` — Launch date = the first real inquiry record (never backdated); the 15-day evidence window is measured from the send timestamp of the first valid real, model-backed, reviewed-and-sent record - fallback or unsent records never start it (shared predicate: `tools/triage/production_evidence.py`) |
 | **Operational owner** | **Marcelo Zapata — built and operated.** Sole operator and sole committer in the repository history |
-| **Live AI functionality** | Configured Responses API path for structured extraction and bilingual drafting, with deterministic extraction and drafting as the tested fallback; six enforced gates |
-| **Concrete outcome** | `[TO FILL]` — derives from the log: inquiries handled, median first-response time, share approved unedited, rejection rate, fallback rate |
+| **Live AI functionality** | Structured extraction and bilingual drafting passed an owner-run synthetic check; no current production AI functionality is asserted |
+| **Concrete outcome** | `[TO FILL]` — supported real inquiry outcome and counts. Time saved or customer first-response time require additional baseline/arrival evidence |
 | **Production model** | `[TO FILL]` — written verbatim only after a configured model produces a validated draft. The default remains `offline-rules-v1` with `fallback_used: true` |
 | **How components work together** | `docs/agent-workflow-architecture.md` — state graph with per-step build state |
 | **Testing and release approval** | Passing synthetic regression tests; dated results in `docs/santa-agent-workboard.md`; `docs/release-checklist.md`; local submission preflight in `scripts/validate_opn_submission.py`. Single-operator approval, stated plainly |
@@ -127,13 +137,17 @@ against real inquiry samples once enough have accumulated.
 
 ## Verification a reviewer can run
 
-NOTE (2026-09-05): the public repository is currently behind this working
-tree; the commands below reproduce the documented behavior only after the
-prepared branch update is pushed (pending owner authorization).
+NOTE (2026-09-10): this working tree contains uncommitted changes on top of
+c14b896. A clone at that commit does not include this draft's latest changes.
+Identify the eventual reviewed release before claiming reproducibility.
+The following commands do not authorize a push or deployment.
 
 ```powershell
 git clone https://github.com/marcelozap/miami-papa-noel
 cd miami-papa-noel
+$env:MPN_API_DAILY_CALL_CAP = '0'
+$env:MPN_CHAT_ALLOW_MODEL = '0'
+$env:OPENAI_API_KEY = ''
 python -m pytest tools\triage\test_triage.py -q      # synthetic triage regression suite
 python tools\triage\triage.py --demo                 # 4 synthetic inquiries, end to end
 python scripts\validate_slot_confirmations.py        # Slot validation passed.
@@ -141,9 +155,10 @@ python tools\triage\triage.py --status               # production clock
 python scripts\validate_opn_submission.py --preflight # package and safety preflight
 ```
 
-No install, no key, and no network required — those commands exercise the
-deterministic path. Everything above runs on a clean machine with Python 3.10+.
-AI mode is opt-in and is the only path that makes a network call.
+Python 3.10+ runs the tool; pytest must already be installed to run the tests.
+The clone needs network access, while the local checks run without paid model
+requests under the settings above. The demo writes synthetic records outside
+Git. For read-only evidence status, run only `--status`.
 
 ---
 
@@ -164,9 +179,10 @@ Listed because a reviewer should not have to discover them:
 
 | Date | Milestone |
 |---|---|
-| 2026-08-29 | Tool built, tested, documented. Ready for first real inquiry |
-| `[TO FILL]` | First real customer inquiry — production clock starts |
-| `[TO FILL + 15]` | 15 days continuous operation reached |
+| 2026-08-29 | Tool implementation documented; not production-use evidence |
+| 2026-09-10 | Owner supplied a successful synthetic check; separate test evidence only |
+| `[TO FILL]` | First valid genuine model-backed, reviewed-and-sent record |
+| `[TO FILL + 15]` | Earliest elapsed-window review, with actual operating evidence still required |
 | Then | Resubmission with production log, launch date, model, and measured outcomes |
 
 ---
@@ -176,6 +192,8 @@ Listed because a reviewer should not have to discover them:
 | Document | Purpose |
 |---|---|
 | `docs/OPN-SUBMISSION.md` | This response |
+| `docs/opn-form-answers.md` | Current draft answers and final resubmission gates |
+| `docs/model-check-2026-09-10.md` | Owner-supplied synthetic test result, not production evidence |
 | `docs/production-deployment-record.md` | Factual deployment record |
 | `docs/agent-workflow-architecture.md` | State graph, roles, approval points, failure states |
 | `docs/release-monitoring-and-failure-handling.md` | Testing, approval, gates, outage fallback, privacy |

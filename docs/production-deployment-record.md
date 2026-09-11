@@ -1,7 +1,10 @@
 # Production Deployment Record
 
 **Deployment:** Miami Papa Noel — AI-assisted bilingual inquiry triage
-**Recorded:** 2026-08-29
+**Recorded:** 2026-08-29. **Spot-checked for accuracy 2026-09-10** (prompt
+version corrected; "LIVE" labels replaced with "IMPLEMENTED" — see below).
+The commit count/date range below is frozen at the original recording date,
+not the current HEAD; do not read it as today's repository state.
 **Repository:** `miami-papa-noel` (77 commits, 2026-06-10 → 2026-08-29)
 
 ---
@@ -30,26 +33,31 @@
 
 ## Implemented functionality
 
-LIVE in this table means implemented and passing the synthetic regression
-suite; no production use has occurred and nothing is deployed.
+**IMPLEMENTED** in this table means the code exists and passes the synthetic
+regression suite. It does not mean live, deployed, or in production use —
+nothing here has processed a real customer inquiry yet. ("LIVE" was used for
+this status until 2026-09-10 and is retired as a label precisely because
+readers reasonably read "LIVE" as "currently operating," which was never
+true; this table needed its own disclaimer to say otherwise, which is itself
+a sign the word was the wrong one.)
 
 What the tool implements, verified by the synthetic regression suite
 (dated results in `docs/santa-agent-workboard.md`):
 
 | Capability | Status |
 |---|---|
-| Detect English vs. Spanish | **LIVE** |
-| Extract requested date (EN and ES formats, ISO, numeric) | **LIVE** |
-| Extract service category across 9 package types | **LIVE** |
-| Extract location and contact status | **LIVE** |
-| Identify missing customer information | **LIVE** |
-| Flag schedule / capacity risk against first-to-fill dates | **LIVE** |
-| Draft a short reply in both English and Spanish | **LIVE** |
-| Enforce locked pricing | **LIVE** — 6 validation gates |
-| Enforce official-rails payment terms (Zelle; Stripe Payment Link adopted 2026-08-30, NOT_CONFIGURED until the operator creates the link) | **LIVE** |
-| Block booking-confirmation language | **LIVE** |
-| Block insurance claims while policy unverified | **LIVE** |
-| Append a structured production log line | **LIVE** |
+| Detect English vs. Spanish | **IMPLEMENTED** |
+| Extract requested date (EN and ES formats, ISO, numeric) | **IMPLEMENTED** |
+| Extract service category across 9 package types | **IMPLEMENTED** |
+| Extract location and contact status | **IMPLEMENTED** |
+| Identify missing customer information | **IMPLEMENTED** |
+| Flag schedule / capacity risk against first-to-fill dates | **IMPLEMENTED** |
+| Draft a short reply in both English and Spanish | **IMPLEMENTED** |
+| Enforce locked pricing | **IMPLEMENTED** — 6 validation gates |
+| Enforce official-rails payment terms (Zelle; Stripe Payment Link adopted 2026-08-30, NOT_CONFIGURED until the operator creates the link) | **IMPLEMENTED** |
+| Block booking-confirmation language | **IMPLEMENTED** |
+| Block insurance claims while policy unverified | **IMPLEMENTED** |
+| Append a structured production log line | **IMPLEMENTED** |
 | Send a message to a customer | **NOT BUILT, BY DESIGN** |
 | Confirm a booking or acknowledge a deposit | **NOT BUILT, BY DESIGN** |
 
@@ -61,7 +69,7 @@ What the tool implements, verified by the synthetic regression suite
 | **AI-assisted mode** | Opt-in. Activates when `MPN_MODEL` and `OPENAI_API_KEY` are set. One OpenAI Responses API call over stdlib `urllib`, strict JSON schema, `store: false`. **In this mode the inquiry text is sent to the API** |
 | **Model output re-validated** | Yes. Model drafts pass through all six gates; any FAIL discards them and falls back to the deterministic path with `error_code: MODEL_OUTPUT_VALIDATION_FAIL`. **A model id is recorded only when its output passed every gate** |
 | **Model actually run in production** | `[TO FILL]` — written verbatim to the `model` field on every log line. **Not asserted here in advance** |
-| **Prompt version** | `triage-v1.0.0` |
+| **Prompt version** | `triage-v1.1.1` (verified against `tools/triage/triage.py:PROMPT_VERSION` on 2026-09-10; this field was stale at `v1.0.0` before that check) |
 | **Price list version** | `2026-08-28.1` |
 
 Every log line records exactly which of the two paths produced the draft. There

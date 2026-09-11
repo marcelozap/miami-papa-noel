@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+from html.parser import HTMLParser
 import json
 import os
 import re
@@ -160,6 +161,153 @@ INSURANCE_RE = re.compile(
 COI_RE = re.compile(r"\bCOI\b")  # case-sensitive on purpose
 PRICE_RE = re.compile(r"\$\s?(\d{1,4})\b(?![MKmk])")
 POLICY_VERIFIED_RE = re.compile(r"policy\s+verified\s*:\s*\d{4}-\d{2}-\d{2}", re.IGNORECASE)
+
+# --- contextual scanning (2026-09-11) ---------------------------------------
+# The surface scan is lexical, and two kinds of text were being read as claims
+# when they are the opposite of a claim. Both corrections below are scoped to
+# ONE CLAUSE - the sentence the term actually sits in - so a disclaimer in a
+# different sentence, block, or elsewhere on the page can never launder a
+# positive claim. Nothing is excluded by file, path, line number or hash.
+#
+# 1. A filename is a citation, not a claim: "business/insurance-and-wave1-
+#    preflight.md" names a policy document; it does not assert coverage. Only
+#    tokens carrying a real file extension are masked, so prose inside <code>
+#    (e.g. "Pay with Venmo") is still scanned exactly as before.
+PATH_TOKEN_RE = re.compile(
+    r"\b[\w.\-]+(?:[/\\][\w.\-]+)*\."
+    r"(?:md|py|json|jsonl|html|txt|csv|cjs|css|yml|yaml|toml|ini|cfg|sh|ps1)\b",
+    re.IGNORECASE,
+)
+# 2. Guidance that FORBIDS an insurance claim is not an insurance claim. These
+#    are prohibition phrasings, deliberately not bare "no"/"not" - a sentence
+#    like "we have no problem providing a certificate of insurance" must still
+#    fail, and does.
+INSURANCE_PROHIBITION_RE = re.compile(
+    r"do\s+not\s+(?:say|claim|offer|use|write|promise|mention|state)|"
+    r"don'?t\s+(?:say|claim|offer|use|write|promise|mention)|"
+    r"never\s+(?:say|claim|offer|promise|use|mention|state)|"
+    r"cannot\s+(?:say|claim|offer|promise)|may\s+not\s+(?:say|claim|offer|promise)|"
+    r"not\s+verified|unverified|not\s+active|not\s+yet\s+active|no\s+verified|"
+    r"held\s+back|stays?\s+out\s+of|keep\s+(?:it\s+)?out\s+of|"
+    r"until\s+(?:that\s+changes|someone\s+has|the\s+policy|it\s+is\s+verified)|"
+    r"records\s+the\s+commercial\s+policy\s+as|"
+    r"no\s+diga|nunca\s+diga|no\s+afirme|no\s+ofrezca|no\s+mencione|"
+    r"sin\s+p[oó]liza|no\s+verificad|no\s+(?:est[aá]\s+)?activ",
+    re.IGNORECASE,
+)
+# 3. "Square" is both a payment brand and an ordinary English noun that appears
+#    in real business names ("Bark Square"). It is the only term in
+#    NON_ZELLE_RE with that problem, so it - and only it - additionally
+#    requires payment wording in the same clause. Venmo, Cash App, PayPal,
+#    Apple/Google Pay, Zinli, wire transfer and credit/debit card are
+#    unambiguous and keep matching on sight, unchanged.
+AMBIGUOUS_PAYMENT_TERMS = {"square"}
+PAYMENT_CONTEXT_RE = re.compile(
+    r"\b(?:pay|pays|paid|paying|payment|payments|payable|accept|accepts|accepted|"
+    r"accepting|checkout|charge|charges|deposit|deposits|invoice|invoiced|billing|"
+    r"billed|remit|send\s+money|card\s+reader|point\s+of\s+sale|pos\s+terminal|"
+    r"pagar|pago|pagos|acepta|aceptamos|aceptado|dep[oó]sito|cobro|cobrar|factura)\b",
+    re.IGNORECASE,
+)
+CLAUSE_SPLIT_RE = re.compile(r"[.!?;]+")
+# Block-level markup ends a statement; a reader sees two separate sentences even
+# with no punctuation between them. Inline/typographic tags (b, strong, em, span,
+# a, code, small) deliberately do NOT split - they continue one sentence.
+BLOCK_BOUNDARY_RE = re.compile(
+    r"</?(?:p|div|br|hr|h[1-6]|section|article|header|footer|nav|aside|main|"
+    r"ul|ol|li|dl|dt|dd|table|thead|tbody|tr|td|th|blockquote|figure|figcaption|"
+    r"form|fieldset|legend|label|option|pre)\b[^>]*>",
+    re.IGNORECASE,
+)
+# "Held back for that reason:" followed by a list governs that list. A colon
+# introducer is the one way a prohibition reaches past a block boundary.
+COLON_INTRODUCER_RE = re.compile(r":\s*$")
+# An explicit first-person assertion of coverage. This fails even inside a
+# clause that also carries prohibition wording, because asserting coverage and
+# forbidding the assertion are not the same act - unless the prohibition sits
+# immediately in front of it ("do not say we are insured").
+INSURANCE_ASSERTION_RE = re.compile(
+    r"\b(?:we|our\s+(?:business|company|team)|the\s+business|"
+    r"papa\s+noel|miami\s+papa\s+noel)\b[^.;!?]{0,40}?"
+    r"\b(?:are|is|am|have|has|carry|carries|hold|holds|maintain|maintains|"
+    r"provide|provides|offer|offers)\b[^.;!?]{0,40}?"
+    r"\b(?:insured|insurance|liability\s+(?:policy|insurance)|"
+    r"certificate\s+of\s+insurance)\b"
+    r"|\b(?:estamos|somos|contamos\s+con|tenemos)\b[^.;!?]{0,40}?"
+    r"\b(?:asegurad\w*|seguro|p[oó]liza)\b",
+    re.IGNORECASE,
+)
+DIRECT_ASSERTION_PROHIBITION_RE = re.compile(
+    r"(?:do\s+not|don't|never|cannot|may\s+not)\s+"
+    r"(?:say|claim|offer|use|write|promise|mention|state)\s+(?:that\s+)?[\"']?\s*$"
+    r"|(?:no|nunca)\s+(?:diga|afirme|ofrezca|mencione)\s+(?:que\s+)?[\"']?\s*$",
+    re.IGNORECASE,
+)
+
+
+class InlineText(HTMLParser):
+    """Read inline text without treating markup as assertion/prohibition words."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.parts = []
+
+    def handle_data(self, data):
+        self.parts.append(data)
+
+
+def inline_text(fragment):
+    parser = InlineText()
+    parser.feed(fragment)
+    parser.close()
+    return ''.join(parser.parts)
+
+
+def prose_clauses(line: str) -> list:
+    """Split one line into clauses: filenames masked, blocks then sentences."""
+    masked = PATH_TOKEN_RE.sub(" __PATHREF__ ", line)
+    clauses = []
+    for block in BLOCK_BOUNDARY_RE.split(masked):
+        clauses.extend(c for c in CLAUSE_SPLIT_RE.split(block) if c.strip())
+    return clauses
+
+
+def payment_match_is_claim(term: str, clause: str, context: str = "") -> bool:
+    """True when a non-Zelle payment term reads as acceptance, not a name.
+
+    `context` carries the surrounding source lines, because HTML wraps freely:
+    "Pay with" and "Square" on consecutive lines are one instruction to a reader.
+    """
+    if term.strip().lower() not in AMBIGUOUS_PAYMENT_TERMS:
+        return True
+    if PAYMENT_CONTEXT_RE.search(clause):
+        return True
+    for candidate in prose_clauses(context):
+        if term.lower() in candidate.lower() and PAYMENT_CONTEXT_RE.search(candidate):
+            return True
+    return False
+
+
+def insurance_clause_is_claim(clause: str, introducer: str = "") -> bool:
+    """True when an insurance term in this clause asserts coverage.
+
+    `introducer` is the preceding clause, honoured only when it ends in a colon
+    and forbids the claim - that is a prohibition governing the list beneath it.
+    """
+    clause = inline_text(clause)
+    if not (INSURANCE_RE.search(clause) or COI_RE.search(clause)):
+        return False
+    assertions = list(INSURANCE_ASSERTION_RE.finditer(clause))
+    if assertions:
+        # Status disclaimers cannot negate assertions. Each assertion needs its
+        # own direct prohibition; a prohibited quote cannot hide a second claim.
+        return any(not DIRECT_ASSERTION_PROHIBITION_RE.search(clause[:a.start()])
+                   for a in assertions)
+    if INSURANCE_PROHIBITION_RE.search(clause):
+        return False
+    if (COLON_INTRODUCER_RE.search(introducer)
+            and INSURANCE_PROHIBITION_RE.search(introducer)):
+        return False
+    return True
 
 INSURANCE_PREFLIGHT_DOC = "business/insurance-and-wave1-preflight.md"
 
@@ -714,20 +862,30 @@ def check_public_surfaces(cfg: Config) -> list:
     if not pages:
         findings.append(Finding(WARN, "surfaces", "no root-level HTML pages found to scan"))
 
-    def scan_line(rel, lineno, line):
-        m = NON_ZELLE_RE.search(line)
-        if m:
-            findings.append(Finding(FAIL, "surfaces",
-                                    "%s:%d non-Zelle payment method %r"
-                                    % (rel, lineno, m.group(0))))
+    def scan_line(rel, lineno, line, context=""):
+        # Payment and insurance are judged per clause so that surrounding
+        # prohibition wording counts only for the statement it governs.
+        reported_payment = set()
+        previous = ""
+        for clause in prose_clauses(line):
+            for m in NON_ZELLE_RE.finditer(clause):
+                term = m.group(0)
+                if term.lower() in reported_payment:
+                    continue
+                if payment_match_is_claim(term, clause, context):
+                    reported_payment.add(term.lower())
+                    findings.append(Finding(FAIL, "surfaces",
+                                            "%s:%d non-Zelle payment method %r"
+                                            % (rel, lineno, term)))
+            if not policy_ok and insurance_clause_is_claim(clause, previous):
+                findings.append(Finding(FAIL, "surfaces",
+                                        "%s:%d insurance language with no verified policy"
+                                        % (rel, lineno)))
+            previous = clause
         if RETIRED_EMAIL in line:
             findings.append(Finding(FAIL, "surfaces",
                                     "%s:%d references %s (not yet receiving mail)"
                                     % (rel, lineno, RETIRED_EMAIL)))
-        if not policy_ok and (INSURANCE_RE.search(line) or COI_RE.search(line)):
-            findings.append(Finding(FAIL, "surfaces",
-                                    "%s:%d insurance language with no verified policy"
-                                    % (rel, lineno)))
         for raw in PRICE_RE.findall(line):
             if allowed and int(raw) not in allowed:
                 findings.append(Finding(FAIL, "surfaces",
@@ -736,17 +894,23 @@ def check_public_surfaces(cfg: Config) -> list:
 
     for page in pages:
         rel = str(page.relative_to(cfg.repo_root)).replace("\\", "/")
-        for lineno, line in enumerate(read_text(page).splitlines(), 1):
-            scan_line(rel, lineno, line)
+        lines = read_text(page).splitlines()
+        context = ' '.join(lines)
+        for index, line in enumerate(lines):
+            # Ambiguous payment terms use complete block-segmented context;
+            # blank source lines must not change the meaning of rendered text.
+            scan_line(rel, index + 1, line, context)
 
     for relative in OUTREACH_SURFACE_PATHS:
         page = cfg.repo_root / relative
         if not page.is_file():
             continue
-        for lineno, line in enumerate(read_text(page).splitlines(), 1):
+        lines = read_text(page).splitlines()
+        context = ' '.join(lines)
+        for index, line in enumerate(lines):
             stripped = line.lstrip()
             if stripped.startswith(">") or re.match(r"\*\*Subject", stripped):
-                scan_line(relative, lineno, line)
+                scan_line(relative, index + 1, line, context)
     if not [f for f in findings if f.level != INFO]:
         findings.append(Finding(INFO, "surfaces",
                                 "%d public page(s) clean: Zelle-only, no retired email, "

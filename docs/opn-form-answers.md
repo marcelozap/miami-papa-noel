@@ -1,10 +1,143 @@
-# OPN Resubmission - Finished Form Copy
+# OPN Resubmission - Current Draft Answers
 
-Final text for the Technical Capability Assessment resubmission. Companion to
-`docs/opn-resubmission-field-map.md` (which explains where each piece goes).
-Facts here are the operator's record per
-`docs/operator-attestation-2025-season.md`; the evidence uploads that
-corroborate them are assembled per `docs/evidence-intake.md`.
+Prepared September 10, 2026 (America/New_York); recorded September 11 UTC.
+**DRAFT - NOT READY FOR FINAL RESUBMISSION.** Preparation is not proof of
+production. No application was submitted here. The older 2025 draft is
+preserved in the collapsed historical section below, not approved form copy.
+
+## Current status wording
+
+> I have built and tested an operator-assisted bilingual inquiry workflow
+> for Miami Papa Noel, my father's Santa appearance business. I am the
+> technical and operational owner; my father performs the Santa visits.
+> This is a family-business deployment, not an unrelated enterprise client.
+>
+> On September 10, 2026, a synthetic Spanish family-visit inquiry passed
+> through the configured OpenAI model and all six local validation gates.
+> This verifies one test case, not customer production use. The production
+> log currently reports NOT STARTED, and I am not yet claiming an active
+> 15-day deployment or a measured customer outcome.
+
+This can explain progress accurately. It does not satisfy the request for
+an active deployment with at least 15 days of real operation.
+
+## Deployment fields
+
+| Field | Draft answer / evidence still needed |
+|---|---|
+| Business served | Miami Papa Noel, a family-owned Santa appearance service |
+| Workflow | Mrs. Claus bilingual inquiry triage, human review and manual sending |
+| Technical and operational owner | Marcelo Zapata |
+| Service performer | Walter Zapata; Dad answers the existing phone himself |
+| Runtime | Python on Marcelo's Windows PC, on demand; nothing runs while it is off |
+| Customer channels | Existing phone, messaging or email inboxes; no automatic phone/SMS integration |
+| Current production status | NOT STARTED in the checked local evidence record |
+| Launch timestamp | [TO FILL: actual production start supported by records, never the test timestamp] |
+| Actual production model | [TO FILL: model recorded for genuine model-backed customer work] |
+| Concrete outcome | [TO FILL: supported result from real use, not a synthetic test or prior-season visits] |
+| Operating period | [TO FILL: actual activity, availability, quiet periods and interruptions] |
+
+Public website chat, Stripe activation, content publishing and outreach agents
+are outside this narrow scope. They must not be described as active here.
+
+## Model and architecture
+
+> The successful synthetic check reported model `gpt-5.6-luna`, prompt
+> `triage-v1.1.1`, and price list `2026-08-28.1`. This is a tested model,
+> not yet a production-model claim. The result and its limitations are in
+> docs/model-check-2026-09-10.md.
+>
+> The operator supplies an inquiry from an existing customer channel. When
+> explicitly enabled, the Python tool calls the OpenAI Responses API for
+> structured extraction and English/Spanish drafts using a strict JSON
+> schema and store:false. This is not a claim about all provider retention.
+> Local code revalidates pricing, bilingual parity, missing information,
+> booking-confirmation language, insurance claims and payment methods.
+>
+> The operator checks the draft and availability, approves a correct reply,
+> and sends it manually through the existing inbox. The tool does not send
+> messages, verify deposits or confirm bookings. Reviewer/send metadata is
+> recorded only after explicit operator actions. The local rules engine
+> offline-rules-v1 supplies clearly labeled non-model fallback.
+
+The final production-model field comes from actual production records, even
+if it differs from this test. Do not infer a model from a tool brand or claim
+that the tested model is the cheapest without current verified pricing.
+
+## Testing and release approval
+
+> Automated tests cover extraction, bilingual responses, unsafe-output
+> rejection, spending refusals, evidence rules, and backup/restore behavior.
+> Test data is synthetic. The operator reviews changes and approves the
+> release against a written checklist. Failed checks remain visible.
+
+Before submission, attach dated results for the exact release commit. The
+current worktree has uncommitted changes, so HEAD alone does not identify
+all reviewed content. Historical passing-test counts are not uptime or
+release approval. The intermittent Windows HTTP failures and dashboard
+scanner findings require their own disposition, not silent dismissal.
+
+## Monitoring, failure handling and recovery
+
+> The operator sees validation results and sanitized errors for each draft.
+> Private local records retain model, prompt/pricing versions, language,
+> reviewer, timestamps, outcome and fallback/error status. The triage log
+> omits inquiry/draft bodies and contact values; reviewer names and
+> timestamps still make it private data.
+>
+> API errors, budget refusals or rejected output fall back to local templates
+> with explicit provenance. If the tool fails, the documented reply library
+> is available manually. Manual/offline work is never labeled model use.
+> Evidence backup and restore tools exist; operational backups must actually
+> be performed and checked, including a copy away from the source disk.
+
+These are implemented controls and planned operating practice, not proof of
+active unattended monitoring, alerts or production backups. Tool-processing
+time is not automatically customer first-response time; that needs the
+original arrival timestamp too. Do not invent time saved, revenue or impact.
+
+## Costs and safe status check
+
+Paid calls remain off after the owner's synthetic test. Continuing spend
+requires separate authorization. Preserve the existing one-cent daily
+estimate and two-attempt policy without increasing or resetting accounting.
+These are local controls, not account-wide provider billing guarantees.
+
+```powershell
+Set-Location 'C:\XIV\santa'
+$env:MPN_API_DAILY_CALL_CAP = '0'
+python -B tools\triage\triage.py --status
+```
+
+Drafting, regeneration, --demo, --check-model and content generation can
+cost money when enabled. Do not repeat the successful synthetic check just
+to produce more evidence. See docs/day-one-operator-card.md for operation.
+
+## Final resubmission gates
+
+1. Identify and review the release, run its offline checks, and disclose
+   unresolved issues. Publish only with the owner's authorization.
+2. Use genuine inquiries with a separately approved budget. Record a
+   successful model-backed reply only after actual review and send.
+3. Preserve evidence across at least 15 days of real operation. Quiet days,
+   failures and downtime remain truthful; a timer alone is not proof.
+4. Fill the launch, model, outcome and period fields from dated records.
+5. Redact supporting artifacts and disclose the family relationship. Keep
+   originals, customer records and keys outside Git.
+6. Reconcile the documents and pass the existing --final validator before
+   building/submitting the final packet. Do not bypass failed validation.
+
+The owner's feedback email does not explicitly require a 24/7 hosted chatbot.
+Whether an operator-assisted local family-business workflow qualifies is for
+OPN to decide. This repository cannot certify eligibility or acceptance.
+
+<details>
+<summary>Historical 2025 draft: unverified claims retained for reference only</summary>
+
+The text below is superseded for the current 2026 submission. Its assertions
+about reactivation, results and prior AI use are not adopted as current facts.
+Prior-season provenance remains in docs/operator-attestation-2025-season.md;
+do not copy these passages into the active form without evidence and review.
 
 ---
 
@@ -316,3 +449,5 @@ has a hole a reviewer will find:
 - [ ] Tests and --preflight rerun at the submitted commit; reported counts taken from that run only
 
 Per docs/production-launch.md, the 2025 attested season is presented as corroborated history and never as the 2026 evidence window.
+
+</details>

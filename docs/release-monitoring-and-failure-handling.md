@@ -2,18 +2,27 @@
 
 Scope: the bilingual inquiry triage deployment and the workflow around it.
 
+Terminology note (2026-09-10): the status column below used "LIVE"/
+"LIVE-MANUAL"/"LIVE-AUTOMATED" to mean "this check exists and runs today,"
+which a reader could reasonably misread as "in production." Relabeled to
+ENFORCED / ENFORCED-MANUAL / ENFORCED-AUTOMATED. None of these describe
+production status - they describe whether a safeguard exists and is
+checked, automatically or by a human, before something ships. PLANNED is
+unchanged. Nothing in this document means the workflow has processed a
+real customer inquiry.
+
 ---
 
 ## 1. How changes are tested
 
 | Change | Check | State |
 |---|---|---|
-| Triage logic, extraction, drafting | `python -m pytest tools\triage\test_triage.py -q` — **all tests passing; dated counts live in `docs/santa-agent-workboard.md` and are re-measured at the submitted commit** | **LIVE** |
-| Validation gates | Negative tests assert each gate actually blocks: unlocked price, EN/ES mismatch, confirmation language (EN and accented ES), insurance claim, non-Zelle method, missing info without a question | **LIVE** |
-| Log integrity | Tests assert drafts and message bodies never reach the log, records are never pre-approved, synthetic and production logs are separate files | **LIVE** |
-| Slot confirmations | `python scripts\validate_slot_confirmations.py` — passing | **LIVE** |
-| Price changes | Edit `pricing.json`, bump `price_list_version`, update `checkout.html` in the same commit, re-run tests | **LIVE-MANUAL** |
-| Website pages | Opened locally before commit | **LIVE-MANUAL** |
+| Triage logic, extraction, drafting | `python -m pytest tools\triage\test_triage.py -q` — **all tests passing; dated counts live in `docs/santa-agent-workboard.md` and are re-measured at the submitted commit** | **ENFORCED** |
+| Validation gates | Negative tests assert each gate actually blocks: unlocked price, EN/ES mismatch, confirmation language (EN and accented ES), insurance claim, non-Zelle method, missing info without a question | **ENFORCED** |
+| Log integrity | Tests assert drafts and message bodies never reach the log, records are never pre-approved, synthetic and production logs are separate files | **ENFORCED** |
+| Slot confirmations | `python scripts\validate_slot_confirmations.py` — passing | **ENFORCED** |
+| Price changes | Edit `pricing.json`, bump `price_list_version`, update `checkout.html` in the same commit, re-run tests | **ENFORCED-MANUAL** |
+| Website pages | Opened locally before commit | **ENFORCED-MANUAL** |
 | Prompt changes (AI mode) | Re-run the last real inquiries through the new version and diff the drafts before shipping | **PLANNED** |
 
 **All test inquiries are synthetic** and write to a separate log. They never
@@ -51,10 +60,10 @@ different deposit than its English twin is a defect, not a translation choice.
 
 | Gate | Rule | State |
 |---|---|---|
-| **G1** | No overlap with an existing booking once travel and setup are included. December traffic assumptions, not map times | `LIVE-MANUAL`, informed by the tool's risk flag |
-| **G3** | Daily capacity limits; Christmas Eve sold in 45-minute slots, never two in one window | `LIVE-MANUAL` |
-| Risk flag | Requested date scored against first-to-fill dates (Dec 12, 13, 19, 20, 24) and December weekend weighting | **`LIVE-AUTOMATED`** |
-| Slot board | `business/december-slot-board.html` + `scripts/validate_slot_confirmations.py` | **LIVE** |
+| **G1** | No overlap with an existing booking once travel and setup are included. December traffic assumptions, not map times | `ENFORCED-MANUAL`, informed by the tool's risk flag |
+| **G3** | Daily capacity limits; Christmas Eve sold in 45-minute slots, never two in one window | `ENFORCED-MANUAL` |
+| Risk flag | Requested date scored against first-to-fill dates (Dec 12, 13, 19, 20, 24) and December weekend weighting | **`ENFORCED-AUTOMATED`** |
+| Slot board | `business/december-slot-board.html` + `scripts/validate_slot_confirmations.py` | **ENFORCED** |
 
 **Ordering rule:** capacity is checked before a price is quoted. A quote implies
 availability, so availability is established first. The tool surfaces risk; the
@@ -145,7 +154,7 @@ this date, this amount" without relying on memory in mid-December.
 | Coarse location only | **Enforced.** Area name, never a street address |
 | Contact value never logged | **Enforced.** Only whether a phone or email was supplied |
 | Committed examples synthetic or redacted | **Enforced.** `examples/inquiry-redacted.jsonl` is synthetic |
-| Photographs of children require written parental permission | `LIVE-MANUAL` |
+| Photographs of children require written parental permission | `ENFORCED-MANUAL` |
 | Data minimalism | Name, one contact method, event address, date. Nothing more |
 
 ## 11. Open safety items

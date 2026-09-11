@@ -1,5 +1,24 @@
 # Evidence Index
 
+## Current preparation addendum (September 10, 2026)
+
+The tables below retain historical audit dates; they are not a current
+production certificate. Read-only status checked in this preparation pass
+reports NOT STARTED. No production record was created or changed.
+
+| Claim | Source | Scope/status |
+|---|---|---|
+| One Spanish family-visit model check passed all six gates | docs/model-check-2026-09-10.md; operator-pasted terminal output MPN-20260910-202616 | SYNTHETIC, operator-reported output inspected; not a provider-log audit |
+| Current application answers are prepared | docs/opn-form-answers.md, current section | DRAFT; launch/model/outcome/period still require real evidence |
+| Genuine production operation for at least 15 days | Private production records and supporting artifacts | NOT ESTABLISHED; never inferred from tests or Git history |
+
+The synthetic note is not a receipt, customer interaction, owner attestation,
+or item in the external customer-evidence index. No old business visit count
+is attributed to this 2026 tool. Current model-backed clock logic is
+tools/triage/production_evidence.py, not simply the first --real log line.
+
+## Historical evidence inventory
+
 Every claim in this package traced to a source. Audited 2026-08-29 by direct
 inspection of the repository, its git history, and the runnable tool.
 

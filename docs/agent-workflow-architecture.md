@@ -5,11 +5,19 @@ Miami Papa Noel seasonal operations, 2026 season.
 Every component below carries a build state. Nothing is described as running
 unless it runs.
 
+**Terminology note (2026-09-10):** these three labels were named "LIVE-AI",
+"LIVE-AUTOMATED" and "LIVE-MANUAL" before today. Renamed because "LIVE" reads
+as "in production," which none of them mean - not one of these states, on
+its own, means a real customer has been served. Implemented, tested,
+configured, deployed, and genuinely used are five different, separately
+tracked facts; a component below being AI-CONFIGURABLE or CODE-AUTOMATED
+means the first two, nothing further.
+
 | State | Meaning |
 |---|---|
-| **LIVE-AI** | Deployed software with a successful, configured model-assisted step |
-| **LIVE-AUTOMATED** | Deployed deterministic software step that runs without a model |
-| **LIVE-MANUAL** | Operating today, performed by a human following a documented procedure |
+| **AI-CONFIGURABLE** | Code for a model-assisted step exists and passes the automated test suite. Requires `MPN_MODEL`/`OPENAI_API_KEY` to be set privately, plus a positive `MPN_API_DAILY_CALL_CAP` (both unset by default). Not run against a real customer inquiry as of this writing |
+| **CODE-AUTOMATED** | Deterministic code exists, needs no model or network call, and passes the automated test suite. Not itself evidence a real inquiry has been processed |
+| **HUMAN-PROCEDURE** | A documented procedure exists for a person to follow. Some of these describe how the family business already runs day to day (e.g. matching a Zelle deposit by hand); others - especially operator review/approval of an AI-drafted reply - have not yet been exercised on a real 2026 inquiry. This document does not distinguish those two cases per row; check `docs/operator-attestation-2025-season.md` and `tools/triage/triage.py --status` for which is which |
 | **DESIGNED** | Specified in the repository, not yet built |
 | **PLANNED** | Intended after the first deployment proves out |
 
@@ -32,20 +40,20 @@ Expanded to the real operational path, with build state per step:
         │
         ▼
   ┌──────────────────────────────────────────────┐
-  │ INTAKE + TRIAGE          LIVE-AI / AUTOMATED │  tools/triage/triage.py
+  │ INTAKE + TRIAGE          AI-CONFIGURABLE / AUTOMATED │  tools/triage/triage.py
   │  language · date · category · location       │
   │  contact status · missing fields             │
   └──────────────────────────────────────────────┘
         │
         ▼
   ┌──────────────────────────────────────────────┐
-  │ SCHEDULE / CAPACITY RISK FLAG   LIVE-AUTOMATED│  first-to-fill dates,
+  │ SCHEDULE / CAPACITY RISK FLAG   CODE-AUTOMATED│  first-to-fill dates,
   │  high · elevated · moderate · low · unknown  │  December weekend weighting
   └──────────────────────────────────────────────┘
         │
         ▼
   ┌──────────────────────────────────────────────┐
-  │ SLOT CHECK                     LIVE-MANUAL   │  business/december-slot-board.html
+  │ SLOT CHECK                     HUMAN-PROCEDURE   │  business/december-slot-board.html
   │  operator reads the board before promising   │  scripts/validate_slot_confirmations.py
   └──────────────────────────────────────────────┘
         │
@@ -53,46 +61,46 @@ Expanded to the real operational path, with build state per step:
         │
         ▼ open | tight
   ┌──────────────────────────────────────────────┐
-  │ QUOTE + PRICING GUARD         LIVE-AUTOMATED │  locked pricing.json v2026-08-28.1
+  │ QUOTE + PRICING GUARD         CODE-AUTOMATED │  locked pricing.json v2026-08-28.1
   │  base · travel · deposit 50%                 │  FAIL on any unlocked figure
   └──────────────────────────────────────────────┘
         │
         ▼
   ┌──────────────────────────────────────────────┐
-  │ BILINGUAL DRAFT (EN + ES)   LIVE-AI / AUTOMATED│  parity enforced
+  │ BILINGUAL DRAFT (EN + ES)   AI-CONFIGURABLE / AUTOMATED│  parity enforced
   └──────────────────────────────────────────────┘
         │
         ▼
   ╔══════════════════════════════════════════════╗
-  ║ OPERATOR REVIEW                LIVE-MANUAL   ║  ◀── mandatory, unskippable
+  ║ OPERATOR REVIEW                HUMAN-PROCEDURE   ║  ◀── mandatory, unskippable
   ║  APPROVE / reject. Nothing auto-sends.       ║      no send path exists
   ╚══════════════════════════════════════════════╝
         │ approved
         ▼
   ┌──────────────────────────────────────────────┐
-  │ SEND                           LIVE-MANUAL   │  operator copies into the channel
+  │ SEND                           HUMAN-PROCEDURE   │  operator copies into the channel
   │  sent_at recorded by hand                    │
   └──────────────────────────────────────────────┘
         │
-        ├── no deposit ──▶ FOLLOW-UP ×2 ──▶ release hold ──▶ LAPSED   LIVE-MANUAL
+        ├── no deposit ──▶ FOLLOW-UP ×2 ──▶ release hold ──▶ LAPSED   HUMAN-PROCEDURE
         │
         ▼ Zelle deposit received
   ┌──────────────────────────────────────────────┐
-  │ PAYMENT RECEIPT                LIVE-MANUAL   │  match amount · sender · date
+  │ PAYMENT RECEIPT                HUMAN-PROCEDURE   │  match amount · sender · date
   │  Zelle only, human-verified                  │  business/booking-sop.md
   └──────────────────────────────────────────────┘
         │
         ▼
   ┌──────────────────────────────────────────────┐
-  │ CONFIRMATION                   LIVE-MANUAL   │  gates G1 + G2 + G3
+  │ CONFIRMATION                   HUMAN-PROCEDURE   │  gates G1 + G2 + G3
   │  only a human confirms                       │
   └──────────────────────────────────────────────┘
         │
         ▼
-  LOGISTICS / ROUTE  LIVE-MANUAL  ──▶  EVENT  (human)  ──▶  BALANCE  LIVE-MANUAL
+  LOGISTICS / ROUTE  HUMAN-PROCEDURE  ──▶  EVENT  (human)  ──▶  BALANCE  HUMAN-PROCEDURE
         │
         ▼
-  FOLLOW-UP → REVIEW / REFERRAL  LIVE-MANUAL  ──▶  ANALYTICS  PLANNED
+  FOLLOW-UP → REVIEW / REFERRAL  HUMAN-PROCEDURE  ──▶  ANALYTICS  PLANNED
 ```
 
 ---
@@ -106,10 +114,10 @@ documented procedure**, performed by the operator, now partly tool-assisted.
 
 | Role | Owns | Tool support today |
 |---|---|---|
-| **Scout** | Lead pipeline, prospect research, outreach lists | `LIVE-MANUAL` |
-| **Dispatcher** | Outbound campaigns, batches, follow-up cadence | `LIVE-MANUAL` |
-| **Concierge** | Inbound inquiries, quoting, bilingual replies | **`LIVE-AI` when configured; `LIVE-AUTOMATED` fallback** — triage tool |
-| **Bookkeeper** | Closing, deposits, receipts, settlement | `LIVE-MANUAL` |
+| **Scout** | Lead pipeline, prospect research, outreach lists | `HUMAN-PROCEDURE` |
+| **Dispatcher** | Outbound campaigns, batches, follow-up cadence | `HUMAN-PROCEDURE` |
+| **Concierge** | Inbound inquiries, quoting, bilingual replies | **`AI-CONFIGURABLE` when configured; `CODE-AUTOMATED` fallback** — triage tool |
+| **Bookkeeper** | Closing, deposits, receipts, settlement | `HUMAN-PROCEDURE` |
 
 The triage tool is the first role to receive software support. The other three
 have documented procedures and are candidates in the same pattern.
@@ -118,7 +126,7 @@ have documented procedures and are candidates in the same pattern.
 
 | Component | Inputs | Outputs | Approval | State |
 |---|---|---|---|---|
-| **Inquiry triage** | Raw inquiry text, `pricing.json`, channel | Structured fields, risk flag, EN+ES drafts, validation findings, log line | **Human approval required before any use** | `LIVE-AI` when configured; `LIVE-AUTOMATED` fallback |
+| **Inquiry triage** | Raw inquiry text, `pricing.json`, channel | Structured fields, risk flag, EN+ES drafts, validation findings, log line | **Human approval required before any use** | `AI-CONFIGURABLE` when configured; `CODE-AUTOMATED` fallback |
 
 ### 2c. Event and service roles — human, physical
 
@@ -152,14 +160,14 @@ Human-in-the-loop is the intended production posture, not a temporary limitation
 
 | Gate | Question | Blocks | State |
 |---|---|---|---|
-| **G1** | Does this overlap an existing booking, including travel time? | confirmation | `LIVE-MANUAL` + risk flag from `LIVE-AUTOMATED` |
-| **G2** | Has the Zelle deposit been received and matched? | confirmation | `LIVE-MANUAL` |
-| **G3** | Does the day stay inside capacity limits? | confirmation | `LIVE-MANUAL` |
-| **G4** | Is every quoted figure in the locked price list? | draft approval | **`LIVE-AUTOMATED`** — enforced |
-| **G5** | Has a human approved this message? | any send | **`LIVE-AUTOMATED`** — enforced |
-| **G6** | Was a log line written for this inquiry? | — | **`LIVE-AUTOMATED`** — automatic |
-| **G7** | Do EN and ES state identical terms? | draft approval | **`LIVE-AUTOMATED`** — enforced |
-| **G8** | Is the draft free of confirmation and insurance language? | draft approval | **`LIVE-AUTOMATED`** — enforced |
+| **G1** | Does this overlap an existing booking, including travel time? | confirmation | `HUMAN-PROCEDURE` + risk flag from `CODE-AUTOMATED` |
+| **G2** | Has the Zelle deposit been received and matched? | confirmation | `HUMAN-PROCEDURE` |
+| **G3** | Does the day stay inside capacity limits? | confirmation | `HUMAN-PROCEDURE` |
+| **G4** | Is every quoted figure in the locked price list? | draft approval | **`CODE-AUTOMATED`** — enforced |
+| **G5** | Has a human approved this message? | any send | **`CODE-AUTOMATED`** — enforced |
+| **G6** | Was a log line written for this inquiry? | — | **`CODE-AUTOMATED`** — automatic |
+| **G7** | Do EN and ES state identical terms? | draft approval | **`CODE-AUTOMATED`** — enforced |
+| **G8** | Is the draft free of confirmation and insurance language? | draft approval | **`CODE-AUTOMATED`** — enforced |
 
 Capacity is one person. G1-G3 exist because Santa cannot be in Doral and Kendall
 at once, and because a date given away without a deposit is a date sold twice.
