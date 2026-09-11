@@ -89,6 +89,79 @@ def test_selected_solo_portraits_are_public_and_accessible():
     assert parser.images['assets/santa-seated-holiday-portrait.jpg']['loading'] == 'lazy'
 
 
+class CustomerPage(HTMLParser):
+    def __init__(self, text):
+        super().__init__()
+        self.elements = []
+        self.details = []
+        self.in_form = False
+        self.feed(text)
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'form':
+            self.in_form = True
+        if tag == 'details':
+            self.details.append(attrs.get('id', attrs.get('class')))
+        self.elements.append((tag, attrs, self.in_form, tuple(self.details)))
+
+    def handle_endtag(self, tag):
+        if tag == 'form':
+            self.in_form = False
+        if tag == 'details':
+            self.details.pop()
+
+
+def test_simplified_request_keeps_routing_and_required_fields():
+    page = CustomerPage((ROOT / 'book.html').read_text(encoding='utf-8'))
+    forms = [attrs for tag, attrs, _, _ in page.elements if tag == 'form']
+    assert len(forms) == 1
+    assert forms[0]['action'] == 'https://formsubmit.co/santa@miamipapanoel.com'
+    assert forms[0]['method'] == 'POST'
+    controls = {attrs['name']: (attrs, inside, groups)
+                for tag, attrs, inside, groups in page.elements
+                if tag in ('input', 'select', 'textarea') and 'name' in attrs}
+    required = {'name', 'phone', 'date', 'city', 'chair_ready',
+                'air_conditioning', 'gift_photo_adult', 'parking_ready'}
+    assert {name for name, (attrs, _, _) in controls.items() if 'required' in attrs} == required
+    for name in required:
+        _, inside, groups = controls[name]
+        assert inside and not groups, name
+    for name in ('email', 'time', 'guests', 'eventType', 'details', 'gifts'):
+        _, inside, groups = controls[name]
+        assert inside and groups == ('optional-details',), name
+    assert controls['_next'][0]['value'] == 'https://miamipapanoel.com/thank-you'
+    assert controls['_honey'][1] and controls['message_summary'][1]
+    buttons = [attrs for tag, attrs, inside, _ in page.elements if tag == 'button' and inside]
+    assert len(buttons) == 1 and buttons[0]['type'] == 'submit'
+    assert not any('open' in attrs for tag, attrs, _, _ in page.elements if tag == 'details')
+
+
+@pytest.mark.parametrize('filename,following', [('index.html', 'whatsappMessages'),
+                                               ('book.html', 'messageLabels')])
+def test_customer_pages_translate_all_visible_copy_and_link_to_real_pages(filename, following):
+    text = (ROOT / filename).read_text(encoding='utf-8')
+    page = CustomerPage(text)
+    literal = re.search(r'const translations = (\{.*?\});\s*const ' + following, text, re.S).group(1)
+    parsed = subprocess.run(
+        ['node', '-e', "const fs=require('node:fs'), vm=require('node:vm');"
+         "console.log(JSON.stringify(vm.runInNewContext('('+fs.readFileSync(0,'utf8')+')',{}, {timeout:1000})));"],
+        input=literal, capture_output=True, encoding='utf-8', check=True, timeout=5)
+    translations = json.loads(parsed.stdout)
+    keys = {attrs[key] for _, attrs, _, _ in page.elements
+            for key in ('data-i18n', 'data-i18n-alt', 'data-i18n-placeholder') if key in attrs}
+    for lang in ('en', 'es'):
+        assert all(translations[lang].get(key) for key in keys)
+    links = [attrs.get('href', '') for tag, attrs, _, _ in page.elements if tag == 'a']
+    assert not any('/operator' in href or '/login' in href for href in links)
+    if filename == 'index.html':
+        assert sum(tag == 'section' for tag, _, _, _ in page.elements) == 3
+        assert sum(tag == 'article' for tag, _, _, _ in page.elements) == 3
+        assert any(href.startswith('/book?') for href in links)
+        assert {'gallery', 'services', 'packages', 'faq'} <= {
+            attrs['id'] for _, attrs, _, _ in page.elements if 'id' in attrs}
+
+
 def test_build_excludes_private_and_unlisted_files(project):
     (project / 'business').mkdir()
     (project / 'business/operator.html').write_text('private synthetic')

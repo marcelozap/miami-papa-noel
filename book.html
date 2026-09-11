@@ -17,591 +17,83 @@
   <meta property="og:image" content="https://miamipapanoel.com/assets/optimized/santa-community-event-1600.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <style>
-    :root {
-      --ink: #171313;
-      --charcoal: #231b19;
-      --velvet: #8f1f2d;
-      --velvet-dark: #5f111b;
-      --pine: #123f35;
-      --gold: #c9993f;
-      --paper: #fff9ef;
-      --snow: #ffffff;
-      --mist: #f4efe6;
-      --muted: #70625b;
-      --line: #e4d5c0;
-      --shadow: 0 24px 60px rgba(36, 24, 18, .14);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: var(--paper);
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      line-height: 1.55;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    .shell {
-      width: min(1120px, calc(100% - 44px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 18px 28px;
-      color: white;
-      background: var(--charcoal);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .brand-text {
-      display: grid;
-      gap: 1px;
-    }
-
-    .brand strong {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 24px;
-      line-height: 1;
-    }
-
-    .brand span {
-      color: rgba(255, 255, 255, .76);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0;
-      text-transform: uppercase;
-    }
-
-    .brand-hat {
-      width: 42px;
-      height: 28px;
-      object-fit: contain;
-      transform: rotate(8deg);
-    }
-
-    .topbar nav {
-      display: flex;
-      gap: 16px;
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .topbar nav a {
-      text-decoration: none;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .language-toggle {
-      display: inline-flex;
-      padding: 3px;
-      border: 1px solid rgba(255, 255, 255, .22);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .10);
-    }
-
-    .language-toggle button {
-      min-width: 42px;
-      min-height: 32px;
-      border: 0;
-      border-radius: 999px;
-      color: rgba(255, 255, 255, .82);
-      background: transparent;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .language-toggle button.is-active {
-      color: #211607;
-      background: var(--gold);
-    }
-
-    .hero {
-      padding: 78px 0;
-      color: white;
-      background:
-        linear-gradient(90deg, rgba(23, 19, 19, .92), rgba(18, 63, 53, .72)),
-        url("assets/optimized/santa-photo-2-1600.jpg") center / cover no-repeat;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-tree {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: #f2d69a;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3 {
-      margin-top: 0;
-      letter-spacing: 0;
-    }
-
-    h1,
-    h2 {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      line-height: .98;
-    }
-
-    h1 {
-      max-width: 850px;
-      margin-bottom: 16px;
-      font-size: clamp(46px, 7vw, 82px);
-    }
-
-    .hero p {
-      max-width: 760px;
-      margin: 0;
-      font-size: 21px;
-      font-weight: 700;
-    }
-
-    section {
-      padding: 70px 0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: .82fr 1.18fr;
-      gap: 30px;
-      align-items: start;
-    }
-
-    .card {
-      padding: 26px;
-      border-radius: 8px;
-      background: white;
-      border: 1px solid var(--line);
-      box-shadow: 0 18px 44px rgba(52, 32, 22, .08);
-    }
-
-    .highlight-card {
-      color: white;
-      background:
-        linear-gradient(180deg, rgba(95, 17, 27, .88), rgba(35, 27, 25, .88)),
-        url("assets/optimized/santa-card-1400.jpg") center / cover no-repeat;
-      border-color: rgba(255, 255, 255, .2);
-    }
-
-    .highlight-card .eyebrow {
-      color: #f2d69a;
-    }
-
-    .highlight-card h2,
-    .highlight-card p {
-      color: white;
-    }
-
-    h2 {
-      margin-bottom: 16px;
-      font-size: clamp(34px, 4vw, 54px);
-    }
-
-    .steps {
-      display: grid;
-      gap: 12px;
-    }
-
-    .step {
-      padding: 18px;
-      border-left: 5px solid var(--gold);
-      border-radius: 8px;
-      background: var(--mist);
-    }
-
-    .quick-packages {
-      display: grid;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .quick-package {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 13px 14px;
-      border: 1px solid rgba(255, 249, 239, .24);
-      border-radius: 8px;
-      color: var(--ink);
-      background: rgba(255, 249, 239, .94);
-      font: inherit;
-      font-weight: 900;
-      text-align: left;
-      cursor: pointer;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-
-    .quick-package:hover,
-    .quick-package.is-selected {
-      transform: translateY(-1px);
-      border-color: var(--gold);
-      background: #fffdf8;
-    }
-
-    .quick-package span:last-child {
-      color: var(--velvet);
-      white-space: nowrap;
-    }
-
-    .simple-note {
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 8px;
-      color: var(--ink);
-      background: rgba(255, 249, 239, .94);
-      font-weight: 800;
-    }
-
-    .step strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--velvet);
-      font-weight: 900;
-    }
-
-    form {
-      display: grid;
-      gap: 14px;
-    }
-
-    label {
-      display: grid;
-      gap: 6px;
-      font-weight: 900;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      min-height: 48px;
-      padding: 12px;
-      border: 1px solid #d6c4aa;
-      border-radius: 6px;
-      color: var(--ink);
-      background: #fffdf8;
-      font: inherit;
-    }
-
-    textarea {
-      min-height: 112px;
-      resize: vertical;
-    }
-
-    .two {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .requirements {
-      display: grid;
-      gap: 10px;
-      margin: 18px 0;
-      padding: 16px;
-      border: 1px solid #d6c4aa;
-      border-radius: 6px;
-      background: #fffaf0;
-    }
-
-    .requirements h3 {
-      margin: 0 0 2px;
-      font-size: 16px;
-    }
-
-    .requirements label {
-      display: flex;
-      grid-template-columns: none;
-      align-items: flex-start;
-      gap: 10px;
-      font-weight: 700;
-    }
-
-    .requirements input[type="checkbox"] {
-      width: 20px;
-      min-height: 20px;
-      flex: 0 0 20px;
-      margin-top: 1px;
-      accent-color: var(--pine);
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .button,
-    button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 50px;
-      padding: 13px 18px;
-      border: 1px solid transparent;
-      border-radius: 6px;
-      color: #211607;
-      background: var(--gold);
-      font-weight: 900;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .button.secondary,
-    button.secondary {
-      color: white;
-      background: var(--pine);
-    }
-
-    .button.outline,
-    button.outline {
-      color: var(--velvet);
-      background: white;
-      border-color: var(--velvet);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .message-section {
-      color: white;
-      background: var(--charcoal);
-    }
-
-    .message-box {
-      min-height: 210px;
-      white-space: pre-wrap;
-      padding: 18px;
-      border-radius: 8px;
-      color: white;
-      background: rgba(255, 255, 255, .09);
-      border: 1px solid rgba(255, 255, 255, .16);
-      font-size: 15px;
-    }
-
-    .note {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .message-section .note {
-      color: rgba(255, 255, 255, .70);
-    }
-
-    .summary {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .summary div {
-      padding: 14px;
-      border-radius: 8px;
-      color: white;
-      background: var(--velvet);
-      font-weight: 800;
-    }
-
-    footer {
-      padding: 28px;
-      color: rgba(255, 255, 255, .82);
-      background: var(--charcoal);
-      text-align: center;
-    }
-
-    .footer-mark {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-weight: 900;
-    }
-
-    .footer-mark img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-    }
-
-    .footer-subline {
-      display: block;
-      margin-top: 6px;
-      color: rgba(255, 255, 255, .68);
-      font-size: 13px;
-    }
-
-    .mobile-sticky {
-      display: none;
-    }
-
-    @media (max-width: 860px) {
-      .topbar nav {
-        display: none;
-      }
-
-      .top-actions {
-        gap: 10px;
-      }
-
-      .grid,
-      .two {
-        grid-template-columns: 1fr;
-      }
-
-      .actions {
-        display: grid;
-      }
-
-      body {
-        padding-bottom: 72px;
-      }
-
-      .mobile-sticky {
-        position: fixed;
-        z-index: 30;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        padding: 10px 12px;
-        background: rgba(35, 27, 25, .94);
-        border-top: 1px solid rgba(255, 255, 255, .14);
-        backdrop-filter: blur(12px);
-      }
-
-      .mobile-sticky a {
-        min-height: 48px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        color: white;
-        background: var(--velvet);
-        text-decoration: none;
-        font-weight: 900;
-      }
-
-      .mobile-sticky a:first-child {
-        color: #211607;
-        background: var(--gold);
-      }
-    }
-
-    @media (max-width: 560px) {
-      .shell {
-        width: min(100% - 32px, 1120px);
-      }
-
-      .topbar {
-        padding: 16px;
-      }
+    :root { --ink:#202b26; --muted:#58645e; --pine:#215540; --red:#a32035; --line:#dce4dd; }
+    * { box-sizing:border-box; letter-spacing:0; }
+    body { margin:0; color:var(--ink); background:#fff; font-family:Inter,Arial,sans-serif; font-size:16px; line-height:1.5; }
+    a { color:var(--pine); text-underline-offset:4px; }
+    button,input,select,textarea { font:inherit; }
+    :focus-visible { outline:3px solid #d39720; outline-offset:3px; }
+    .topbar { width:min(1080px,calc(100% - 32px)); margin:auto; min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .brand { display:flex; align-items:center; gap:8px; color:var(--ink); text-decoration:none; font-size:20px; font-weight:700; line-height:1.2; }
+    .brand img { width:28px; height:34px; }
+    .top-actions { display:flex; align-items:center; gap:24px; }
+    .top-actions > a { font-size:14px; }
+    .language-toggle { display:flex; border:1px solid var(--line); border-radius:6px; overflow:hidden; flex-shrink:0; }
+    .language-toggle button { width:44px; height:40px; border:0; background:#fff; color:var(--muted); font-size:13px; cursor:pointer; }
+    .language-toggle .is-active { color:#fff; background:var(--pine); }
+    main { width:min(640px,calc(100% - 32px)); margin:28px auto 48px; }
+    .request-heading { display:flex; align-items:center; gap:20px; margin-bottom:24px; }
+    .request-heading img { width:76px; height:92px; object-fit:cover; object-position:70% center; border-radius:6px; }
+    h1 { font-family:"Cormorant Garamond",Georgia,serif; font-size:38px; line-height:1.1; margin:0 0 10px; }
+    .request-heading p { color:var(--muted); margin:0; font-size:15px; }
+    form { display:grid; gap:18px; }
+    .two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    label { display:grid; gap:7px; min-width:0; font-size:14px; font-weight:500; }
+    input,select,textarea { width:100%; min-width:0; min-height:46px; padding:10px 12px; color:var(--ink); background:#fff; border:1px solid #aab9af; border-radius:6px; }
+    textarea { min-height:86px; resize:vertical; }
+    .field-note { margin:8px 0 0; font-size:13px; }
+    details { border-block:1px solid var(--line); }
+    summary { padding:15px 0; cursor:pointer; font-size:14px; font-weight:600; }
+    .optional-fields { display:grid; gap:18px; padding:6px 0 20px; }
+    .requirements { display:grid; gap:12px; }
+    .requirements h3 { margin:0 0 2px; font-size:16px; }
+    .requirements label { display:flex; align-items:flex-start; gap:10px; font-weight:400; line-height:1.5; }
+    .requirements input { width:20px; height:20px; min-height:20px; flex:0 0 20px; margin:1px 0; padding:0; accent-color:var(--pine); }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:48px; border:0; border-radius:6px; padding:12px 22px; background:var(--red); color:#fff; text-decoration:none; font-weight:600; font-size:15px; cursor:pointer; }
+    .button:hover { background:#801a2a; }
+    .submit-area { display:grid; gap:10px; }
+    .submit-area p { margin:0; font-size:13px; text-align:center; color:var(--muted); }
+    .alternatives { margin-top:24px; }
+    .alternatives .actions { display:flex; flex-wrap:wrap; gap:20px; padding:6px 0 18px; }
+    .message-box { white-space:pre-wrap; overflow-wrap:anywhere; background:#f1f6f2; padding:16px; font-size:13px; }
+    .copy { border:1px solid var(--line); color:var(--pine); background:#fff; margin:12px 0; }
+    .note { color:var(--muted); font-size:13px; }
+    footer { padding:24px 16px; border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:13px; }
+    @media (max-width:600px) {
+      .brand { font-size:17px; max-width:185px; }
+      .brand img { width:24px; height:30px; }
+      .top-actions > a { display:none; }
+      main { margin-top:20px; }
+      .request-heading { gap:14px; }
+      .request-heading img { width:64px; height:82px; }
+      h1 { font-size:30px; }
+      .two { grid-template-columns:1fr; gap:16px; }
+      .date-city { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+      input[type="date"] { padding-inline:8px; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="/">
-      <span class="brand-text">
-        <strong>Miami Papa Noel</strong>
-        <span data-i18n="brand.subtitle">Visit Request</span>
-      </span>
-      <img class="brand-hat" src="assets/santa-hat-icon.svg" alt="">
-    </a>
+    <a class="brand" href="/"><img src="assets/christmas-tree-icon.svg" alt=""><span>Miami Papa Noel</span></a>
     <div class="top-actions">
-      <nav aria-label="Booking navigation">
-        <a href="/" data-i18n="nav.website">Website</a>
-        <a href="/checkout" data-i18n="nav.options">Options</a>
-        <a href="tel:+17869759557" data-i18n="nav.call">Call</a>
-      </nav>
+      <a href="tel:+17869759557">786-975-9557</a>
       <div class="language-toggle" aria-label="Choose language">
-        <button type="button" class="is-active" data-lang="en">EN</button>
-        <button type="button" data-lang="es">ES</button>
+        <button type="button" class="is-active" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
       </div>
     </div>
   </header>
-
   <main>
-    <section class="hero">
-      <div class="shell">
-          <p class="eyebrow hero-kicker"><img class="hero-tree" src="assets/christmas-tree-icon.svg" alt=""> <span data-i18n="hero.eyebrow">Tell us what you need</span></p>
-        <h1 data-i18n="hero.title">Tell us the basics. We will help plan the visit.</h1>
-        <p data-i18n="hero.copy">You do not need every detail yet. Send the date, city, and celebration type, and we will reply with the best visit option and next steps.</p>
-        <div class="hero-actions">
-          <a class="button" href="/checkout" data-i18n="hero.services">See Services &amp; Pricing</a>
-          <a class="button secondary" href="tel:+17869759557" data-i18n="hero.call">Call Santa</a>
-        </div>
+    <div class="request-heading">
+      <img src="assets/santa-standing-holiday-portrait.jpg" width="1600" height="1200" alt="">
+      <div>
+        <h1 data-i18n="hero.title">Request a Santa visit</h1>
+        <p data-i18n="hero.copy">Tell us when and where. We will reply to confirm availability.</p>
       </div>
-    </section>
-
-    <section>
-      <div class="shell grid">
-        <aside class="card highlight-card">
-          <p class="eyebrow" data-i18n="options.eyebrow">Visit Options</p>
-          <h2 data-i18n="options.title">Tap the visit that feels closest.</h2>
-          <div class="quick-packages" aria-label="Private visit options">
-            <button class="quick-package" type="button" data-package-choice="Family Visit" aria-pressed="false"><span data-i18n="package.family">Family Visit</span><span data-i18n="price.family">From $325</span></button>
-            <button class="quick-package" type="button" data-package-choice="Event Visit" aria-pressed="false"><span data-i18n="package.event">Event Visit</span><span data-i18n="price.event">From $450</span></button>
-            <button class="quick-package" type="button" data-package-choice="Christmas Eve" aria-pressed="false"><span data-i18n="package.eve">Christmas Eve</span><span data-i18n="price.eve">From $500</span></button>
-          </div>
-          <div class="simple-note" data-i18n="options.note">Not sure which one fits? Choose "Not sure yet" and we will help you decide.</div>
-          <div class="summary">
-            <div><span data-i18n="summary.phone">Call/Text</span>: 786-975-9557</div>
-            <div data-i18n="summary.requests">Requests: form, text, or WhatsApp</div>
-            <div>Instagram: @miamipapanoel</div>
-          </div>
-        </aside>
-
-        <div class="card">
-          <p class="eyebrow" data-i18n="form.eyebrow">Visit Details</p>
-          <h2 data-i18n="form.title">A few details are enough to start.</h2>
-          <!-- FormSubmit sends booking requests to the verified business inbox. -->
-          <form id="booking-form" action="https://formsubmit.co/santa@miamipapanoel.com" method="POST">
+    </div>
+    <!-- FormSubmit sends booking requests to the verified business inbox. -->
+    <form id="booking-form" action="https://formsubmit.co/santa@miamipapanoel.com" method="POST">
             <input type="hidden" name="_subject" value="New Miami Papa Noel booking request">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
@@ -610,43 +102,36 @@
             <input name="routing_note" type="hidden" value="Primary route to Miami Papa Noel business inbox.">
             <input id="source" name="source" type="hidden" value="Website booking form">
             <input id="messageSummary" name="message_summary" type="hidden" value="">
-            <div class="two">
-              <label><span data-i18n="field.name">Your Name</span>
-                <input id="name" name="name" autocomplete="name" required>
-              </label>
-              <label><span data-i18n="field.phone">Phone</span>
-                <input id="phone" name="phone" autocomplete="tel" required>
-              </label>
-            </div>
-            <label><span data-i18n="field.email">Email</span>
-              <input id="email" name="email" type="email" autocomplete="email">
-            </label>
-            <div class="two">
-              <label><span data-i18n="field.date">Event Date</span>
-                <input id="date" name="date" type="date" required>
-              </label>
-              <label><span data-i18n="field.time">Start Time</span>
-                <input id="time" name="time" type="time">
-              </label>
-            </div>
-            <div class="two">
-              <label><span data-i18n="field.city">City / Area</span>
-                <input id="city" name="city" placeholder="Doral, Miami Lakes, Kendall..." data-i18n-placeholder="placeholder.city" required>
-              </label>
-              <label><span data-i18n="field.guests">Estimated Guests</span>
-                <input id="guests" name="guests" placeholder="Example: 25 children, 40 adults" data-i18n-placeholder="placeholder.guests">
-              </label>
-            </div>
-            <div class="two">
-              <label><span data-i18n="field.package">Visit Option</span>
+
+      <div class="two">
+        <label><span data-i18n="field.name">Your Name</span><input id="name" name="name" autocomplete="name" required></label>
+        <label><span data-i18n="field.phone">Phone</span><input id="phone" name="phone" type="tel" autocomplete="tel" required></label>
+      </div>
+      <div class="two date-city">
+        <label><span data-i18n="field.date">Event Date</span><input id="date" name="date" type="date" required></label>
+        <label><span data-i18n="field.city">City / Area</span><input id="city" name="city" placeholder="Doral, Miami Lakes, Kendall..." data-i18n-placeholder="placeholder.city" required></label>
+      </div>
+      <div>
+        <label><span data-i18n="field.package">Visit Option</span>
                 <select id="package" name="package">
                   <option value="Family Visit" data-i18n="select.family">Family Visit</option>
                   <option value="Event Visit" data-i18n="select.event">Event Visit</option>
                   <option value="Christmas Eve" data-i18n="select.eve">Christmas Eve</option>
                   <option value="Not sure yet" data-i18n="select.unsure">Not sure yet</option>
                 </select>
-              </label>
-              <label><span data-i18n="field.eventType">Celebration Type</span>
+        </label>
+        <p class="field-note"><a href="/checkout" data-i18n="form.prices">View prices and visit details</a></p>
+      </div>
+      <details id="optional-details">
+        <summary data-i18n="form.optional">More details (optional)</summary>
+        <div class="optional-fields">
+          <div class="two">
+            <label><span data-i18n="field.email">Email</span><input id="email" name="email" type="email" autocomplete="email"></label>
+            <label><span data-i18n="field.time">Start Time</span><input id="time" name="time" type="time"></label>
+          </div>
+          <div class="two">
+            <label><span data-i18n="field.guests">Estimated Guests</span><input id="guests" name="guests" placeholder="Example: 25 children, 40 adults" data-i18n-placeholder="placeholder.guests"></label>
+            <label><span data-i18n="field.eventType">Celebration Type</span>
                 <select id="eventType" name="eventType">
                   <option value="Family / home" data-i18n="type.family">Family / home</option>
                   <option value="School / daycare" data-i18n="type.school">School / daycare</option>
@@ -657,68 +142,42 @@
                   <option value="Nonprofit / toy drive" data-i18n="type.nonprofit">Nonprofit / toy drive</option>
                   <option value="Other / not sure" data-i18n="type.other">Other / not sure</option>
                 </select>
-              </label>
-            </div>
-            <label><span data-i18n="field.details">Tell us about the event</span>
-              <textarea id="details" name="details" placeholder="Example: family party, photos with children, Santa handing out gifts, school visit, toy drive, etc." data-i18n-placeholder="placeholder.details"></textarea>
             </label>
-            <label><span data-i18n="field.gifts">Gift Details</span>
-              <textarea id="gifts" name="gifts" placeholder="If Santa will hand out gifts, please tell us how many and if they will be labeled." data-i18n-placeholder="placeholder.gifts"></textarea>
-            </label>
+          </div>
+          <label><span data-i18n="field.details">Tell us about the event</span><textarea id="details" name="details" placeholder="Example: family party, photos with children, Santa handing out gifts, school visit, toy drive, etc." data-i18n-placeholder="placeholder.details"></textarea></label>
+          <label><span data-i18n="field.gifts">Gift Details</span><textarea id="gifts" name="gifts" placeholder="If Santa will hand out gifts, please tell us how many and if they will be labeled." data-i18n-placeholder="placeholder.gifts"></textarea></label>
+        </div>
+      </details>
             <div class="requirements">
-              <h3 data-i18n="field.requirements">Before we confirm / Antes de confirmar</h3>
+              <h3 data-i18n="field.requirements">For Santa's visit</h3>
               <label><input type="checkbox" name="chair_ready" value="yes" required><span data-i18n="requirement.chair">A sturdy armless chair will be ready for Santa.</span></label>
               <label><input type="checkbox" name="air_conditioning" value="yes" required><span data-i18n="requirement.air">Air conditioning will be on during the visit.</span></label>
               <label><input type="checkbox" name="gift_photo_adult" value="yes" required><span data-i18n="requirement.adult">A designated adult will manage gifts and the photo queue.</span></label>
               <label><input type="checkbox" name="parking_ready" value="yes" required><span data-i18n="requirement.parking">Parking will be available within 100 feet.</span></label>
             </div>
-            <div class="actions">
-              <button type="submit" data-i18n="form.submit">Send Request</button>
-              <button type="button" class="outline" id="build" data-i18n="form.build">Preview Text</button>
-              <a class="button secondary" id="whatsappLink" href="https://wa.me/17869759557" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
-              <a class="button secondary" id="smsLink" href="sms:+17869759557" data-i18n="form.text">Text Request</a>
-              <a class="button outline" id="emailLink" href="mailto:santa@miamipapanoel.com" data-i18n="form.email">Email Request</a>
-            </div>
-          </form>
-          <p class="note" data-i18n="form.note">Send the request and we will reply with availability. Text or WhatsApp are still available if you prefer.</p>
-        </div>
-      </div>
-    </section>
 
-    <section class="message-section">
-      <div class="shell grid">
-        <div>
-          <p class="eyebrow" data-i18n="message.eyebrow">Ready to Send</p>
-          <h2 data-i18n="message.title">One simple message.</h2>
-          <p data-i18n="message.copy">This gives us what we need to reply with availability, pricing, and next steps.</p>
-          <div class="actions">
-            <a class="button" href="/checkout" data-i18n="message.back">Back to Options</a>
-          </div>
-        </div>
-        <div>
-          <div class="message-box" id="message" data-empty-en="Fill out the form to send a request, or preview a text message first." data-empty-es="Llena el formulario para enviar una solicitud, o revisa el mensaje primero.">Fill out the form to send a request, or preview a text message first.</div>
-          <div class="actions" style="margin-top: 12px;">
-            <button type="button" id="copyMessage" class="button outline" data-i18n="message.copyButton">Copy Message</button>
-          </div>
-          <p class="note" data-i18n="message.note">The visit is confirmed after availability, deposit, address, and details are finalized.</p>
-        </div>
+      <div class="submit-area">
+        <button class="button" type="submit" data-i18n="form.submit">Send request</button>
+        <p data-i18n="form.pending">This is a request, not a confirmed booking.</p>
       </div>
-    </section>
+    </form>
+    <details class="alternatives">
+      <summary data-i18n="form.other">Prefer text, WhatsApp, or email?</summary>
+      <div class="actions">
+        <a id="whatsappLink" href="https://wa.me/17869759557" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
+        <a id="smsLink" href="sms:+17869759557" data-i18n="form.text">Text Request</a>
+        <a id="emailLink" href="mailto:santa@miamipapanoel.com" data-i18n="form.email">Email Request</a>
+      </div>
+      <p class="note" data-i18n="form.preview">Your message</p>
+      <div class="message-box" id="message"></div>
+      <button type="button" id="copyMessage" class="button copy" data-i18n="message.copyButton">Copy Message</button>
+      <p class="note" data-i18n="message.note">The visit is confirmed after availability, deposit, address, and details are finalized.</p>
+    </details>
   </main>
-
   <footer>
-    <span class="footer-mark">
-      <img src="assets/christmas-tree-icon.svg" alt="">
-      Miami Papa Noel
-      <img src="assets/santa-hat-icon.svg" alt="">
-    </span>
-    <span class="footer-subline">Private bilingual Santa visits for Miami-Doral and nearby areas</span>
+    <span data-i18n="footer.copy">Miami &amp; Doral &middot; Visits in English or Spanish</span>
+    &middot; <a href="tel:+17869759557">786-975-9557</a>
   </footer>
-  <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="tel:+17869759557" data-i18n="sticky.call">Call / Text</a>
-    <a href="#booking-form" data-i18n="sticky.details">Visit Details</a>
-  </div>
-
   <script>
     const fields = ["name", "phone", "email", "date", "time", "city", "guests", "package", "eventType", "source", "details", "gifts"];
     const message = document.getElementById("message");
@@ -727,7 +186,8 @@
     const emailLink = document.getElementById("emailLink");
     const copyMessage = document.getElementById("copyMessage");
     const messageSummary = document.getElementById("messageSummary");
-    let currentLanguage = localStorage.getItem("miamiPapaNoelLanguage") || "en";
+    let currentLanguage = "en";
+    try { currentLanguage = localStorage.getItem("miamiPapaNoelLanguage") || "en"; } catch (_) {}
 
     const translations = {
       en: {
@@ -736,8 +196,8 @@
         "nav.options": "Options",
         "nav.call": "Call",
         "hero.eyebrow": "Tell us what you need",
-        "hero.title": "Tell us the basics. We will help plan the visit.",
-        "hero.copy": "You do not need every detail yet. Send the date, city, and celebration type, and we will reply with the best visit option and next steps.",
+        "hero.title": "Request a Santa visit",
+        "hero.copy": "Tell us when and where. We will reply to confirm availability.",
         "hero.services": "See Services & Pricing",
         "hero.call": "Call Santa",
         "options.eyebrow": "Visit Options",
@@ -764,7 +224,7 @@
         "field.eventType": "Celebration Type",
         "field.details": "Tell us about the event",
         "field.gifts": "Gift Details",
-        "field.requirements": "Before we confirm / Antes de confirmar",
+        "field.requirements": "For Santa’s visit",
         "requirement.chair": "A sturdy armless chair will be ready for Santa.",
         "requirement.air": "Air conditioning will be on during the visit.",
         "requirement.adult": "A designated adult will manage gifts and the photo queue.",
@@ -785,7 +245,13 @@
         "placeholder.guests": "Example: 25 children, 40 adults",
         "placeholder.details": "Example: family party, photos with children, Santa handing out gifts, school visit, toy drive, etc.",
         "placeholder.gifts": "If Santa will hand out gifts, please tell us how many and if they will be labeled.",
-        "form.submit": "Send Request",
+        "form.submit": "Send request",
+        "form.optional": "More details (optional)",
+        "form.other": "Prefer text, WhatsApp, or email?",
+        "form.preview": "Your message",
+        "form.pending": "This is a request, not a confirmed booking.",
+        "form.prices": "View prices and visit details",
+        "footer.copy": "Miami & Doral · Visits in English or Spanish",
         "form.build": "Preview Text",
         "form.text": "Text Request",
         "form.whatsapp": "WhatsApp Request",
@@ -807,8 +273,8 @@
         "nav.options": "Opciones",
         "nav.call": "Llamar",
         "hero.eyebrow": "Cuéntanos qué necesitas",
-        "hero.title": "Cuéntanos lo básico. Te ayudamos a planear la visita.",
-        "hero.copy": "No necesitas tener todos los detalles todavía. Envía la fecha, ciudad y tipo de celebración, y te respondemos con la mejor opción y próximos pasos.",
+        "hero.title": "Solicita una visita de Santa",
+        "hero.copy": "Dinos cuándo y dónde. Te responderemos para confirmar disponibilidad.",
         "hero.services": "Ver Servicios y Precios",
         "hero.call": "Llamar a Santa",
         "options.eyebrow": "Opciones de Visita",
@@ -835,7 +301,7 @@
         "field.eventType": "Tipo de Celebración",
         "field.details": "Cuéntanos sobre el evento",
         "field.gifts": "Detalles de Regalos",
-        "field.requirements": "Antes de confirmar / Before we confirm",
+        "field.requirements": "Para la visita de Santa",
         "requirement.chair": "Habrá una silla firme y sin brazos para Papá Noel.",
         "requirement.air": "El aire acondicionado estará encendido durante la visita.",
         "requirement.adult": "Un adulto encargado manejará los regalos y la fila de fotos.",
@@ -856,7 +322,13 @@
         "placeholder.guests": "Ejemplo: 25 niños, 40 adultos",
         "placeholder.details": "Ejemplo: fiesta familiar, fotos con niños, Santa entregando regalos, visita escolar, donación de juguetes, etc.",
         "placeholder.gifts": "Si Santa entregará regalos, dinos cuántos son y si estarán marcados con nombres.",
-        "form.submit": "Enviar Solicitud",
+        "form.submit": "Enviar solicitud",
+        "form.optional": "Más detalles (opcional)",
+        "form.other": "¿Prefieres texto, WhatsApp o correo?",
+        "form.preview": "Tu mensaje",
+        "form.pending": "Esto es una solicitud, no una reservación confirmada.",
+        "form.prices": "Ver precios y detalles de las visitas",
+        "footer.copy": "Miami y Doral · Visitas en español o inglés",
         "form.build": "Ver Mensaje",
         "form.text": "Enviar Texto",
         "form.whatsapp": "Enviar WhatsApp",
@@ -972,7 +444,7 @@
         button.classList.toggle("is-active", isActive);
         button.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
-      localStorage.setItem("miamiPapaNoelLanguage", currentLanguage);
+      try { localStorage.setItem("miamiPapaNoelLanguage", currentLanguage); } catch (_) {}
       syncPackageButtons();
       buildMessage();
     }
@@ -1090,7 +562,10 @@
       helper.remove();
     }
 
-    document.getElementById("build").addEventListener("click", buildMessage);
+    document.getElementById("booking-form").addEventListener("invalid", (event) => {
+      const group = event.target.closest("details");
+      if (group) group.open = true;
+    }, true);
     document.getElementById("booking-form").addEventListener("submit", buildMessage);
     document.querySelectorAll("[data-package-choice]").forEach((button) => {
       button.addEventListener("click", () => choosePackage(button.getAttribute("data-package-choice")));

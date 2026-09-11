@@ -85,2101 +85,244 @@
     }
   </script>
   <style>
-    :root {
-      --ink: #171313;
-      --charcoal: #231b19;
-      --velvet: #8f1f2d;
-      --velvet-dark: #5f111b;
-      --pine: #123f35;
-      --pine-soft: #dce8df;
-      --gold: #c9993f;
-      --champagne: #f7ead5;
-      --paper: #fff9ef;
-      --snow: #ffffff;
-      --mist: #f4efe6;
-      --muted: #70625b;
-      --line: #e4d5c0;
-      --shadow: 0 24px 60px rgba(36, 24, 18, .14);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: var(--paper);
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      line-height: 1.55;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-      image-orientation: from-image;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    .shell {
-      width: min(1180px, calc(100% - 44px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: fixed;
-      z-index: 20;
-      top: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-      padding: 16px 28px;
-      color: white;
-      background: rgba(23, 19, 19, .70);
-      border-bottom: 1px solid rgba(255, 255, 255, .16);
-      backdrop-filter: blur(14px);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .brand-text {
-      display: grid;
-      gap: 1px;
-    }
-
-    .brand strong {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 24px;
-      line-height: 1;
-    }
-
-    .brand span {
-      color: rgba(255, 255, 255, .78);
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-
-    .brand-hat {
-      width: 42px;
-      height: 28px;
-      object-fit: contain;
-      transform: rotate(8deg);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .nav a {
-      text-decoration: none;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .language-toggle {
-      display: inline-flex;
-      padding: 3px;
-      border: 1px solid rgba(255, 255, 255, .22);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .10);
-    }
-
-    .language-toggle button {
-      min-width: 42px;
-      min-height: 32px;
-      border: 0;
-      border-radius: 999px;
-      color: rgba(255, 255, 255, .82);
-      background: transparent;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .language-toggle button.is-active {
-      color: #211607;
-      background: var(--gold);
-    }
-
-    .nav-cta {
-      padding: 10px 14px;
-      border-radius: 6px;
-      color: #221607;
-      background: var(--gold);
-    }
-
-    .hero {
-      position: relative;
-      isolation: isolate;
-      min-height: 94vh;
-      display: grid;
-      align-items: end;
-      padding: 128px 0 58px;
-      color: white;
-      background: #171313;
-    }
-
-    .hero-photo {
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 25%;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(90deg, rgba(23, 19, 19, .94) 0%, rgba(23, 19, 19, .78) 40%, rgba(23, 19, 19, .04) 75%),
-        linear-gradient(180deg, transparent 35%, rgba(23, 19, 19, .68) 100%);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.14fr) 320px;
-      gap: 30px;
-      align-items: end;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: #f2d69a;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0;
-      text-transform: uppercase;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, .42);
-    }
-
-    h1,
-    h2,
-    h3 {
-      margin-top: 0;
-      letter-spacing: 0;
-    }
-
-    h1 {
-      max-width: 870px;
-      margin-bottom: 18px;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(52px, 7vw, 100px);
-      line-height: .92;
-      text-shadow: 0 3px 22px rgba(0, 0, 0, .48);
-    }
-
-    .hero-copy {
-      max-width: 760px;
-      margin: 0 0 28px;
-      font-size: clamp(19px, 2vw, 24px);
-      font-weight: 600;
-      text-shadow: 0 2px 18px rgba(0, 0, 0, .56);
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .section-actions {
-      margin-top: 18px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 50px;
-      padding: 13px 18px;
-      border: 1px solid transparent;
-      border-radius: 6px;
-      color: #211607;
-      background: var(--gold);
-      font-weight: 900;
-      text-decoration: none;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, .16);
-    }
-
-    .button.secondary {
-      color: white;
-      background: rgba(23, 19, 19, .42);
-      border-color: rgba(255, 255, 255, .58);
-      box-shadow: none;
-    }
-
-    .button.dark {
-      color: white;
-      background: var(--velvet);
-    }
-
-    .hero-card {
-      padding: 18px;
-      border-radius: 8px;
-      background: rgba(255, 249, 239, .90);
-      color: var(--ink);
-      box-shadow: 0 18px 46px rgba(0, 0, 0, .18);
-      border: 1px solid rgba(255, 255, 255, .5);
-    }
-
-    .hero-card strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 16px;
-    }
-
-    .hero-card p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .need-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .need-link {
-      display: grid;
-      grid-template-columns: 30px minmax(0, 1fr);
-      gap: 2px 10px;
-      align-items: center;
-      padding: 11px 12px;
-      border-radius: 8px;
-      color: inherit;
-      background: #fffaf1;
-      border: 1px solid rgba(35, 27, 25, .08);
-      text-decoration: none;
-      transition: transform .18s ease, border-color .18s ease;
-    }
-
-    .need-link:hover {
-      transform: translateY(-2px);
-      border-color: rgba(201, 153, 63, .7);
-    }
-
-    .need-link b {
-      grid-column: 2;
-      font-size: 14px;
-      line-height: 1.2;
-    }
-
-    .need-link span {
-      grid-column: 2;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .need-icon {
-      grid-row: 1 / span 2;
-      width: 26px;
-      height: 26px;
-      padding: 5px;
-      border-radius: 999px;
-      background: var(--charcoal);
-      object-fit: contain;
-      box-shadow: 0 8px 18px rgba(35, 27, 25, .16);
-    }
-
-    .mini-list {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      font-weight: 800;
-    }
-
-    .mini-list li {
-      padding: 10px 12px;
-      border-radius: 6px;
-      background: var(--mist);
-    }
-
-    .trust-strip {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      color: rgba(255, 255, 255, .84);
-      background: #211917;
-    }
-
-    .trust-item {
-      padding: 16px 24px;
-      border-right: 1px solid rgba(255, 255, 255, .12);
-    }
-
-    .trust-item strong {
-      display: none;
-    }
-
-    .trust-item span {
-      display: block;
-      color: #f2d69a;
-      font-size: 13px;
-      font-weight: 850;
-      text-align: center;
-    }
-
-    .signature {
-      position: relative;
-      overflow: hidden;
-      color: white;
-      background:
-        linear-gradient(135deg, rgba(35, 27, 25, .96), rgba(18, 63, 53, .92)),
-        url("assets/premium/santa-photo-2-1600-premium.jpg") center / cover;
-    }
-
-    .signature::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 16% 24%, rgba(242, 214, 154, .18), transparent 28%),
-        radial-gradient(circle at 82% 30%, rgba(143, 31, 45, .22), transparent 24%),
-        linear-gradient(90deg, rgba(23, 19, 19, .86), rgba(23, 19, 19, .46));
-      pointer-events: none;
-    }
-
-    .signature .shell {
-      position: relative;
-      z-index: 1;
-    }
-
-    .signature-grid {
-      display: grid;
-      grid-template-columns: .92fr 1.08fr;
-      gap: 26px;
-      align-items: stretch;
-    }
-
-    .signature-copy {
-      padding: clamp(24px, 4vw, 44px);
-      border: 1px solid rgba(255, 255, 255, .16);
-      border-radius: 8px;
-      background: rgba(23, 19, 19, .36);
-      backdrop-filter: blur(12px);
-    }
-
-    .signature-copy p {
-      color: rgba(255, 255, 255, .82);
-    }
-
-    .signature-copy h2 {
-      color: white;
-    }
-
-    .signature-steps {
-      display: grid;
-      gap: 12px;
-    }
-
-    .signature-step {
-      display: grid;
-      grid-template-columns: 58px 1fr;
-      gap: 14px;
-      align-items: start;
-      padding: 18px;
-      border: 1px solid rgba(255, 255, 255, .15);
-      border-radius: 8px;
-      background: rgba(255, 249, 239, .94);
-      color: var(--ink);
-      box-shadow: 0 18px 38px rgba(0, 0, 0, .14);
-    }
-
-    .signature-step span {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      color: #211607;
-      background: var(--gold);
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 30px;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .signature-step strong {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 18px;
-    }
-
-    .signature-step p {
-      margin: 0;
-      color: var(--muted);
-      font-weight: 650;
-    }
-
-    .step-details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .step-details em {
-      display: inline-flex;
-      align-items: center;
-      min-height: 27px;
-      padding: 6px 10px;
-      border: 1px solid rgba(201, 153, 63, .24);
-      border-radius: 999px;
-      color: #654d1d;
-      background: rgba(201, 153, 63, .09);
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 850;
-      line-height: 1.1;
-    }
-
-    .occasion-links {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 22px;
-    }
-
-    .occasion-link {
-      min-height: 118px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 7px;
-      padding: 15px;
-      border: 1px solid rgba(255, 255, 255, .18);
-      border-radius: 8px;
-      color: white;
-      text-decoration: none;
-      background: rgba(255, 255, 255, .10);
-      transition: transform .18s ease, background .18s ease;
-    }
-
-    .occasion-link:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 255, 255, .16);
-    }
-
-    .occasion-link strong,
-    .occasion-link small {
-      display: block;
-    }
-
-    .occasion-link small {
-      color: rgba(255, 255, 255, .72);
-      font-weight: 800;
-    }
-
-    section {
-      padding: 86px 0;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 28px;
-      margin-bottom: 30px;
-    }
-
-    .section-head p {
-      max-width: 520px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-    h2 {
-      max-width: 780px;
-      margin-bottom: 16px;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(36px, 4.6vw, 66px);
-      line-height: .98;
-    }
-
-    h3 {
-      font-size: 22px;
-      line-height: 1.15;
-    }
-
-    .lead {
-      color: #423632;
-      font-size: 19px;
-    }
-
-    .story-grid {
-      display: grid;
-      grid-template-columns: .92fr 1.08fr;
-      gap: 46px;
-      align-items: center;
-    }
-
-    .story-copy {
-      padding: 34px;
-      border-left: 6px solid var(--gold);
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 18px 46px rgba(43, 28, 20, .08);
-    }
-
-    .story-copy p {
-      margin: 0 0 16px;
-    }
-
-    .story-copy p:last-child {
-      margin-bottom: 0;
-    }
-
-    .mosaic {
-      display: grid;
-      grid-template-columns: .86fr 1.14fr;
-      gap: 12px;
-      align-items: end;
-    }
-
-    .mosaic img,
-    .gallery img,
-    .feature-img {
-      width: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid rgba(35, 27, 25, .08);
-      background: var(--line);
-    }
-
-    .mosaic img:first-child {
-      aspect-ratio: 4 / 5;
-    }
-
-    .mosaic img:last-child {
-      aspect-ratio: 4 / 6;
-      box-shadow: var(--shadow);
-    }
-
-    .services {
-      color: white;
-      background: var(--pine);
-    }
-
-    .services .section-head p,
-    .services .lead {
-      color: rgba(255, 255, 255, .78);
-    }
-
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .service-card {
-      min-height: 198px;
-      padding: 24px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, .08);
-      border: 1px solid rgba(255, 255, 255, .16);
-    }
-
-    .service-card h3 {
-      margin-bottom: 10px;
-      color: #f7ead5;
-    }
-
-    .service-card p {
-      margin: 0;
-      color: rgba(255, 255, 255, .80);
-    }
-
-    .service-card .text-link {
-      display: inline-flex;
-      margin-top: 16px;
-      color: #f6cd73;
-      font-weight: 900;
-      text-decoration: none;
-    }
-
-    .comfort {
-      background: var(--paper);
-    }
-
-    .comfort-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .comfort-card {
-      display: grid;
-      gap: 10px;
-      padding: 22px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: white;
-      box-shadow: 0 16px 38px rgba(52, 32, 22, .07);
-    }
-
-    .comfort-card strong {
-      color: var(--velvet-dark);
-      font-size: 18px;
-      line-height: 1.2;
-    }
-
-    .comfort-card p {
-      margin: 0;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-
-    .packages {
-      background: var(--mist);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .price-card {
-      display: grid;
-      gap: 16px;
-      padding: 24px;
-      border-radius: 8px;
-      background: white;
-      border: 1px solid var(--line);
-      box-shadow: 0 18px 44px rgba(52, 32, 22, .08);
-    }
-
-    .price-card.featured {
-      border-color: rgba(201, 153, 63, .9);
-      box-shadow: 0 28px 70px rgba(95, 17, 27, .18);
-    }
-
-    .badge {
-      width: max-content;
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: white;
-      background: var(--velvet);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-
-    .price {
-      display: grid;
-      gap: 3px;
-    }
-
-    .price em {
-      color: var(--muted);
-      font-size: 13px;
-      font-style: normal;
-      font-weight: 900;
-    }
-
-    .price strong {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 42px;
-      line-height: 1;
-    }
-
-    .price span {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .price-card ul {
-      display: grid;
-      gap: 8px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      color: #493d38;
-      font-weight: 600;
-    }
-
-    .fine-print {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .summer {
-      color: white;
-      background:
-        linear-gradient(90deg, rgba(95, 17, 27, .94), rgba(18, 63, 53, .84)),
-        url("assets/premium/santa-pet-visit-1600-premium.jpg") center / cover no-repeat;
-    }
-
-    .summer-grid {
-      display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 38px;
-      align-items: center;
-    }
-
-    .summer .lead {
-      color: rgba(255, 255, 255, .86);
-    }
-
-    .pill-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .pill {
-      padding: 18px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, .13);
-      border: 1px solid rgba(255, 255, 255, .18);
-      font-weight: 900;
-    }
-
-    .gallery-section {
-      background: white;
-    }
-
-    .details-section {
-      background: var(--paper);
-    }
-
-    .details-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .detail-panel {
-      padding: 28px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: white;
-      box-shadow: 0 18px 44px rgba(52, 32, 22, .07);
-    }
-
-    .chip-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .chip {
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: var(--mist);
-      color: #493d38;
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .spanish-panel {
-      color: white;
-      background:
-        linear-gradient(135deg, rgba(95, 17, 27, .96), rgba(18, 63, 53, .92)),
-        url("assets/premium/santa-photo-1-1600-premium.jpg") center / cover no-repeat;
-    }
-
-    .spanish-panel .eyebrow,
-    .spanish-panel h2,
-    .spanish-panel .lead {
-      color: white;
-    }
-
-    .video-section {
-      color: white;
-      background: var(--charcoal);
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .video-card {
-      min-height: 320px;
-      display: grid;
-      align-items: end;
-      padding: 24px;
-      border-radius: 8px;
-      background:
-        linear-gradient(180deg, rgba(23, 19, 19, .34), rgba(23, 19, 19, .94)),
-        var(--video-bg) center / cover no-repeat;
-      border: 1px solid rgba(255, 255, 255, .16);
-    }
-
-    .video-card strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 22px;
-    }
-
-    .video-card p {
-      margin: 0;
-      color: rgba(255, 255, 255, .92);
-      font-weight: 600;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr 1fr 1fr;
-      gap: 12px;
-    }
-
-    .gallery img {
-      height: 310px;
-    }
-
-    .gallery img:nth-child(1),
-    .gallery img:nth-child(4) {
-      height: 420px;
-    }
-
-    .gallery img:nth-child(5) {
-      grid-column: span 2;
-    }
-
-    .gallery .gallery-portrait {
-      object-position: 68% center;
-    }
-
-    .proof {
-      background: var(--champagne);
-    }
-
-    .proof-grid {
-      display: grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap: 42px;
-      align-items: center;
-    }
-
-    .quote {
-      padding: 34px;
-      border-radius: 8px;
-      color: white;
-      background: var(--velvet-dark);
-      box-shadow: var(--shadow);
-    }
-
-    .quote blockquote {
-      margin: 0;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(29px, 4vw, 48px);
-      line-height: 1.08;
-    }
-
-    .quote p {
-      margin: 18px 0 0;
-      color: rgba(255, 255, 255, .82);
-      font-weight: 600;
-    }
-
-    .booking-flow {
-      background: white;
-    }
-
-    .flow-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .flow-step {
-      padding: 24px;
-      border-radius: 8px;
-      background: var(--paper);
-      border: 1px solid var(--line);
-    }
-
-    .flow-step strong {
-      display: block;
-      margin-bottom: 12px;
-      color: var(--velvet);
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 34px;
-      line-height: 1;
-    }
-
-    .faq {
-      background: var(--paper);
-    }
-
-    .faq-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .faq-item {
-      padding: 24px;
-      border-radius: 8px;
-      background: white;
-      border: 1px solid var(--line);
-    }
-
-    .faq-item h3 {
-      margin-bottom: 8px;
-    }
-
-    .faq-item p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .cta {
-      padding: 92px 0;
-      color: white;
-      background:
-        linear-gradient(90deg, rgba(23, 19, 19, .88), rgba(95, 17, 27, .82)),
-        url("assets/premium/santa-community-event-1600-premium.jpg") center / cover no-repeat;
-    }
-
-    .cta-panel {
-      max-width: 860px;
-    }
-
-    .contact-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 24px 0;
-    }
-
-    .contact-chip {
-      padding: 12px 14px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, .13);
-      border: 1px solid rgba(255, 255, 255, .2);
-      font-weight: 800;
-    }
-
-    footer {
-      padding: 28px;
-      color: rgba(255, 255, 255, .82);
-      background: var(--charcoal);
-      text-align: center;
-    }
-
-    .mobile-sticky {
-      display: none;
-    }
-
-    .footer-mark {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-weight: 900;
-    }
-
-    .footer-mark img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-    }
-
-    .footer-subline {
-      display: block;
-      margin-top: 6px;
-      color: rgba(255, 255, 255, .68);
-      font-size: 13px;
-    }
-
-    @media (max-width: 980px) {
-      .nav {
-        display: none;
-      }
-
-      .top-actions {
-        gap: 10px;
-      }
-
-      .brand {
-        min-width: 0;
-        white-space: normal;
-      }
-
-      .brand-text {
-        min-width: 0;
-      }
-
-      .brand span {
-        max-width: 154px;
-        line-height: 1.12;
-        white-space: normal;
-      }
-
-      .brand-hat {
-        width: 34px;
-      }
-
-      .hero-grid,
-      .story-grid,
-      .signature-grid,
-      .summer-grid,
-      .proof-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .trust-strip,
-      .service-grid,
-      .comfort-grid,
-      .pricing-grid,
-      .flow-grid,
-      .faq-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .occasion-links {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .details-grid,
-      .video-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .gallery img,
-      .gallery img:nth-child(1),
-      .gallery img:nth-child(4) {
-        height: 320px;
-      }
-
-      .gallery img:nth-child(5) {
-        grid-column: auto;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .shell {
-        width: min(100% - 32px, 1180px);
-      }
-
-      .topbar {
-        position: absolute;
-        padding: 14px 16px;
-      }
-
-      .hero {
-        min-height: auto;
-        padding: 270px 0 30px;
-      }
-
-      .hero-photo {
-        top: 90px;
-        height: 300px;
-        object-position: 75% top;
-      }
-
-      .hero::before {
-        background: linear-gradient(180deg, rgba(23, 19, 19, .05) 180px, rgba(23, 19, 19, .78) 300px, #171313 390px);
-      }
-
-      .hero h1 {
-        font-size: 36px;
-        line-height: 1.02;
-      }
-
-      .hero-copy {
-        font-size: 17px;
-        line-height: 1.45;
-        margin-bottom: 20px;
-      }
-
-      .hero .actions {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      .hero .actions a:first-child {
-        grid-column: 1 / -1;
-      }
-
-      .hero-card {
-        display: none;
-      }
-
-      section {
-        padding: 64px 0;
-      }
-
-      .trust-strip,
-      .service-grid,
-      .comfort-grid,
-      .pricing-grid,
-      .flow-grid,
-      .faq-grid,
-      .gallery,
-      .occasion-links,
-      .pill-grid,
-      .mosaic {
-        grid-template-columns: 1fr;
-      }
-
-      .section-head {
-        display: block;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      body {
-        padding-bottom: 72px;
-      }
-
-      .mobile-sticky {
-        position: fixed;
-        z-index: 30;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
-        padding: 10px 12px;
-        background: rgba(35, 27, 25, .94);
-        border-top: 1px solid rgba(255, 255, 255, .14);
-        backdrop-filter: blur(12px);
-      }
-
-      .mobile-sticky a {
-        min-height: 48px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        color: white;
-        background: var(--velvet);
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: 900;
-      }
-
-      .mobile-sticky a:first-child {
-        color: #211607;
-        background: var(--gold);
-      }
-
-      .gallery img,
-      .gallery img:nth-child(1),
-      .gallery img:nth-child(4) {
-        height: 340px;
-      }
-    }
+    :root { --ink:#202b26; --muted:#58645e; --pine:#215540; --red:#a32035; --line:#dce4dd; --soft:#f1f6f2; }
+    * { box-sizing:border-box; letter-spacing:0; }
+    body { margin:0; color:var(--ink); background:#fff; font-family:Inter,Arial,sans-serif; font-size:16px; line-height:1.6; }
+    a { color:var(--pine); text-underline-offset:4px; }
+    button, a { -webkit-tap-highlight-color:transparent; }
+    button { font:inherit; cursor:pointer; }
+    :focus-visible { outline:3px solid #d39720; outline-offset:4px; }
+    h1,h2,h3,p { margin:0; }
+    h1,h2 { font-family:"Cormorant Garamond",Georgia,serif; line-height:1.1; }
+    h2 { font-size:38px; }
+    .shell { width:min(1080px,calc(100% - 40px)); margin:auto; }
+    .topbar { min-height:80px; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 0; }
+    .brand { display:flex; align-items:center; gap:10px; color:var(--ink); text-decoration:none; font-size:20px; font-weight:700; line-height:1.2; }
+    .brand img { width:28px; height:34px; }
+    .top-actions, nav, .language-toggle { display:flex; align-items:center; gap:24px; }
+    nav a { font-size:14px; font-weight:600; text-decoration:none; }
+    .language-toggle { gap:0; border:1px solid var(--line); border-radius:6px; overflow:hidden; flex-shrink:0; }
+    .language-toggle button { width:44px; height:40px; border:0; background:#fff; color:var(--muted); font-size:13px; }
+    .language-toggle .is-active { background:var(--pine); color:#fff; }
+    .hero { position:relative; isolation:isolate; min-height:510px; display:flex; align-items:center; color:#fff; background:#26322a; overflow:hidden; }
+    .hero-photo { position:absolute; z-index:-2; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; }
+    .hero::before { content:""; position:absolute; z-index:-1; inset:0; background:linear-gradient(90deg,rgba(15,26,21,.87),rgba(15,26,21,.65) 34%,transparent 70%); }
+    .hero > .shell { margin-block:0; }
+    .hero-copy { max-width:430px; padding:48px 0; }
+    .hero .eyebrow { font-size:14px; margin-bottom:14px; }
+    h1 { font-size:60px; margin-bottom:20px; }
+    .hero p:not(.eyebrow) { max-width:360px; font-size:18px; line-height:1.65; }
+    .hero-actions { display:flex; flex-wrap:wrap; align-items:center; gap:18px; margin-top:28px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 22px; background:var(--red); color:#fff; border-radius:6px; text-decoration:none; font-weight:600; font-size:15px; text-align:center; }
+    .button:hover { background:#801a2a; }
+    .hero-actions .phone-link { color:#fff; font-size:14px; }
+    .visits { padding:48px 0; }
+    .section-heading { display:flex; justify-content:space-between; align-items:baseline; gap:20px; margin-bottom:24px; }
+    .section-heading a { font-size:14px; flex-shrink:0; }
+    .visit-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+    .visit { border:1px solid var(--line); border-radius:8px; padding:24px; display:flex; flex-direction:column; gap:10px; }
+    .visit h3 { font-size:20px; line-height:1.3; }
+    .visit p { color:var(--muted); font-size:14px; }
+    .visit .price { color:var(--pine); font-size:23px; font-weight:600; }
+    .visit a { margin-top:auto; padding-top:12px; font-weight:600; font-size:14px; }
+    .questions { background:var(--soft); padding:48px 0; }
+    .questions-grid { display:grid; grid-template-columns:1fr 1.1fr; align-items:start; gap:56px; }
+    figure { margin:0; }
+    figure img { width:100%; height:auto; aspect-ratio:4/3; display:block; object-fit:cover; border-radius:6px; }
+    figcaption { padding-top:10px; color:var(--muted); font-size:14px; }
+    .questions h2 { margin-bottom:18px; }
+    details { border-bottom:1px solid #cddacf; }
+    summary { padding:17px 0; cursor:pointer; font-size:15px; font-weight:600; }
+    details p { padding:0 0 18px; font-size:14px; color:var(--muted); }
+    footer { padding:28px 0; }
+    .footer-inner { display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:14px; }
+    .footer-links { display:flex; gap:20px; flex-wrap:wrap; }
+    @media (max-width:700px) {
+      .shell { width:calc(100% - 32px); }
+      .topbar { min-height:72px; gap:12px; }
+      .brand { font-size:17px; gap:7px; max-width:200px; }
+      .brand img { width:24px; height:30px; }
+      nav { display:none; }
+      .top-actions { gap:0; }
+      .hero { min-height:520px; align-items:flex-end; }
+      .hero-photo { object-position:69% top; }
+      .hero::before { background:linear-gradient(0deg,rgba(15,26,21,.96),rgba(15,26,21,.75) 34%,transparent 72%); }
+      .hero-copy { padding:28px 0; max-width:440px; }
+      h1 { font-size:42px; margin-bottom:12px; }
+      .hero .eyebrow { margin-bottom:8px; font-size:13px; }
+      .hero p:not(.eyebrow) { font-size:16px; max-width:340px; line-height:1.5; }
+      .hero-actions { margin-top:20px; gap:14px; }
+      .hero-actions .button { padding-inline:16px; }
+      h2 { font-size:32px; }
+      .visits,.questions { padding:32px 0; }
+      .section-heading { display:block; margin-bottom:18px; }
+      .section-heading a { display:inline-block; margin-top:10px; }
+      .visit-grid { grid-template-columns:1fr; gap:12px; }
+      .visit { padding:20px; gap:6px; }
+      .visit a { padding-top:6px; }
+      .questions-grid { grid-template-columns:1fr; gap:28px; }
+    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="/">
-      <span class="brand-text">
-        <strong>Miami Papa Noel</strong>
-        <span data-i18n="brand.subtitle">Private Santa Visits</span>
-      </span>
-      <img class="brand-hat" src="assets/santa-hat-icon.svg" alt="">
-    </a>
+  <header class="topbar shell">
+    <a class="brand" href="/"><img src="assets/christmas-tree-icon.svg" alt=""><span>Miami Papa Noel</span></a>
     <div class="top-actions">
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#services" data-i18n="nav.services">Services</a>
-        <a href="#packages" data-i18n="nav.packages">Options</a>
-        <a href="/service-areas" data-i18n="nav.areas">Areas</a>
-        <a href="#gallery" data-i18n="nav.photos">Photos</a>
-        <a href="/reviews" data-i18n="nav.proof">Moments</a>
-        <a href="#faq" data-i18n="nav.faq">FAQ</a>
-        <a class="nav-cta" href="/checkout" data-i18n="nav.request">Request Visit</a>
+      <nav aria-label="Main navigation">
+        <a href="/checkout" data-i18n="nav.prices">Prices</a>
+        <a href="/book?source=home" data-i18n="nav.request">Request a visit</a>
       </nav>
       <div class="language-toggle" aria-label="Choose language">
-        <button type="button" class="is-active" data-lang="en">EN</button>
-        <button type="button" data-lang="es">ES</button>
+        <button type="button" class="is-active" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
       </div>
     </div>
   </header>
-
   <main>
     <section class="hero">
       <img class="hero-photo" src="assets/santa-standing-holiday-portrait.jpg" width="1600" height="1200" alt="Papa Noel standing beside a decorated Christmas tree" data-i18n-alt="photos.standing" fetchpriority="high" decoding="async">
-      <div class="shell hero-grid">
+      <div class="shell">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="hero.eyebrow">Santa visits in Miami &amp; Doral</p>
+          <h1>Miami Papa Noel</h1>
+          <p data-i18n="hero.copy">A little Christmas magic, right at your door. Visits in English or Spanish, with photos and gifts you provide.</p>
+          <div class="hero-actions">
+            <a class="button" href="/book?source=home" data-i18n="hero.primary">Request a visit</a>
+            <a class="phone-link" href="tel:+17869759557" data-i18n="hero.call">Call Santa</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="visits" id="packages">
+      <div class="shell">
+        <div class="section-heading">
+          <h2 id="services" data-i18n="visits.title">Choose your visit</h2>
+          <a href="/checkout" data-i18n="visits.prices">All prices &amp; details</a>
+        </div>
+        <div class="visit-grid">
+          <article class="visit">
+            <h3 data-i18n="family.title">Family visit</h3>
+            <p class="price" data-i18n="family.price">From $325</p>
+            <p data-i18n="family.copy">First hour. Photos, a warm greeting, and gifts you provide.</p>
+            <a href="/book?package=Family%20Visit&amp;source=home" data-i18n="family.action">Request a family visit</a>
+          </article>
+          <article class="visit">
+            <h3 data-i18n="event.title">Event visit</h3>
+            <p class="price" data-i18n="event.price">From $450</p>
+            <p data-i18n="event.copy">First hour. Santa joins your party, business, or community celebration.</p>
+            <a href="/book?package=Event%20Visit&amp;source=home" data-i18n="event.action">Request an event visit</a>
+          </article>
+          <article class="visit">
+            <h3 data-i18n="eve.title">Christmas Eve</h3>
+            <p class="price" data-i18n="eve.price">From $500</p>
+            <p data-i18n="eve.copy">45 minutes, until 8 PM. A special delivery of your labeled gifts.</p>
+            <a href="/book?package=Christmas%20Eve&amp;source=home" data-i18n="eve.action">Request Christmas Eve</a>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="questions" id="faq">
+      <div class="shell questions-grid">
+        <figure id="gallery">
+          <img src="assets/santa-seated-holiday-portrait.jpg" width="1600" height="1200" alt="Papa Noel seated beside a Christmas tree with a holiday gift sack" data-i18n-alt="photos.seated" loading="lazy" decoding="async">
+          <figcaption data-i18n="photos.caption">Your Santa, ready for a little Christmas magic.</figcaption>
+        </figure>
         <div>
-          <p class="eyebrow" data-i18n="hero.eyebrow">Private Santa visits in Miami-Doral</p>
-          <h1 data-i18n="hero.title">A private Papa Noel visit children remember.</h1>
-          <p class="hero-copy" data-i18n="hero.copy">A warm, bilingual, photo-ready Santa experience for homes, schools, communities, businesses, and Christmas Eve surprises in Miami-Doral.</p>
-          <div class="actions">
-            <a class="button" href="/checkout" data-i18n="hero.primary">Find the Right Visit</a>
-            <a class="button secondary" href="tel:+17869759557" data-i18n="hero.secondary">Call or Text</a>
-            <a class="button secondary" href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="hero.whatsapp">WhatsApp</a>
-          </div>
-        </div>
-        <aside class="hero-card" aria-label="Booking highlights">
-          <strong data-i18n="hero.cardTitle">Choose a visit</strong>
-          <p data-i18n="hero.cardCopy">Start with the closest fit.</p>
-          <div class="need-list" aria-label="Choose a visit type">
-            <a class="need-link" href="/book?package=Family%20Visit&source=home">
-              <img class="need-icon" src="assets/christmas-tree-icon.svg" alt="">
-              <b data-i18n="need.family">Home visit</b>
-              <span data-i18n="need.familyText">Photos and gift handoff</span>
-            </a>
-            <a class="need-link" href="/book?package=Event%20Visit&source=home">
-              <img class="need-icon" src="assets/santa-hat-icon.svg" alt="">
-              <b data-i18n="need.event">Event visit</b>
-              <span data-i18n="need.eventText">Schools, parties, communities</span>
-            </a>
-            <a class="need-link" href="/christmas-eve">
-              <img class="need-icon" src="assets/christmas-tree-icon.svg" alt="">
-              <b data-i18n="need.eve">Christmas Eve</b>
-              <span data-i18n="need.eveText">Labeled gift delivery</span>
-            </a>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <div class="trust-strip" aria-label="Trust highlights">
-      <div class="trust-item"><strong>2017</strong><span data-i18n="trust.one">Making Christmas memories in Miami</span></div>
-      <div class="trust-item"><strong>9</strong><span data-i18n="trust.two">Seasons of holiday visits</span></div>
-      <div class="trust-item"><strong>2</strong><span data-i18n="trust.three">Bilingual visits for families</span></div>
-      <div class="trust-item"><strong>24</strong><span data-i18n="trust.four">Christmas Eve spots go quickly</span></div>
-    </div>
-
-    <section class="signature">
-      <div class="shell">
-        <div class="signature-grid">
-          <div class="signature-copy">
-            <p class="eyebrow" data-i18n="signature.eyebrow">The Signature Experience</p>
-            <h2 data-i18n="signature.title">A real Santa moment, not just a costume.</h2>
-            <p class="lead" data-i18n="signature.copy">The best visits feel calm, personal, and beautifully timed. Miami Papa Noel helps families, schools, communities, and businesses create a moment children can believe in and adults can actually enjoy.</p>
-            <div class="actions section-actions">
-              <a class="button" href="/book?source=signature-home" data-i18n="signature.cta">Plan the Moment</a>
-              <a class="button secondary" href="/reviews?source=signature-home" data-i18n="signature.proof">See Real Visits</a>
-            </div>
-          </div>
-          <div>
-            <div class="signature-steps" aria-label="Signature visit details">
-              <article class="signature-step">
-                <span>1</span>
-                <div>
-                  <strong data-i18n="signature.oneTitle">A gentle entrance</strong>
-                  <p data-i18n="signature.oneCopy">Santa arrives with warmth, patience, and room for shy children to settle in.</p>
-                  <div class="step-details" aria-label="Gentle entrance details">
-                    <em data-i18n="signature.oneDetailB">Bilingual greeting</em>
-                    <em data-i18n="signature.oneDetailC">Shy-child friendly</em>
-                  </div>
-                </div>
-              </article>
-              <article class="signature-step">
-                <span>2</span>
-                <div>
-                  <strong data-i18n="signature.twoTitle">Photos that feel natural</strong>
-                  <p data-i18n="signature.twoCopy">The visit is paced for smiles, family photos, and sweet candid moments.</p>
-                  <div class="step-details" aria-label="Photo moment details">
-                    <em data-i18n="signature.twoDetailA">Family photos</em>
-                    <em data-i18n="signature.twoDetailE">Mini-session ready</em>
-                  </div>
-                </div>
-              </article>
-              <article class="signature-step">
-                <span>3</span>
-                <div>
-                  <strong data-i18n="signature.threeTitle">A simple plan for gifts</strong>
-                  <p data-i18n="signature.threeCopy">Labeled gifts, timing, and event details stay organized before Santa arrives.</p>
-                  <div class="step-details" aria-label="Gift planning details">
-                    <em data-i18n="signature.threeDetailA">Labeled gifts</em>
-                    <em data-i18n="signature.threeDetailD">Deposit hold</em>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <div class="occasion-links" aria-label="Popular Santa visit pages">
-              <a class="occasion-link" href="/doral-daycare-santa">
-                <small data-i18n="occasion.schoolSmall">Schools</small>
-                <strong data-i18n="occasion.school">Daycares and camps</strong>
-              </a>
-              <a class="occasion-link" href="/miami-hoa-santa-events">
-                <small data-i18n="occasion.hoaSmall">Communities</small>
-                <strong data-i18n="occasion.hoa">HOA events</strong>
-              </a>
-              <a class="occasion-link" href="/pet-photos-with-santa-miami">
-                <small data-i18n="occasion.petSmall">Pop-ups</small>
-                <strong data-i18n="occasion.pet">Pet photos</strong>
-              </a>
-              <a class="occasion-link" href="/santa-for-photo-sessions-miami">
-                <small data-i18n="occasion.photoSmall">Partners</small>
-                <strong data-i18n="occasion.photo">Photo sessions</strong>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="story">
-      <div class="shell story-grid">
-        <div class="story-copy">
-          <p class="eyebrow" data-i18n="story.eyebrow">The Story</p>
-          <h2 data-i18n="story.title">A Santa tradition with a big community heart.</h2>
-          <p class="lead" data-i18n="story.copyOne">Miami Papa Noel began in 2017 when a Metro by T-Mobile office wanted Christmas activities for children visiting the store. What started as a simple photo backdrop became a tradition: novenas, gift deliveries, family parties, business events, residential communities, and nonprofit moments.</p>
-          <p class="lead" data-i18n="story.copyTwo">He has supported polished family, business, nonprofit, and luxury residential celebrations where warmth, patience, and photo-ready details matter. The best part is still the same: seeing children feel surprised, comfortable, and happy.</p>
-        </div>
-        <div class="mosaic">
-          <img src="assets/premium/santa-photo-2-1600-premium.jpg" alt="Papa Noel seated beside a decorated Christmas tree" loading="lazy" decoding="async">
-          <img src="assets/premium/santa-photo-1-1600-premium.jpg" alt="Papa Noel posing for Christmas photos with guests" loading="lazy" decoding="async">
-        </div>
-      </div>
-    </section>
-
-    <section id="services" class="services">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow" data-i18n="services.eyebrow">Services</p>
-            <h2 data-i18n="services.title">For homes, schools, parties, and community celebrations.</h2>
-          </div>
-          <p data-i18n="services.copy">Each visit can include photos, greetings, story time, gift delivery, toy drive support, or a simple surprise hello.</p>
-        </div>
-        <div class="service-grid">
-          <article class="service-card">
-            <h3 data-i18n="services.homeTitle">Home Visits</h3>
-            <p data-i18n="services.homeCopy">Warm visits for family parties, birthdays, photos, and surprise moments at home.</p>
-          </article>
-          <article class="service-card">
-            <h3 data-i18n="services.eveTitle">Christmas Eve Gifts</h3>
-            <p data-i18n="services.eveCopy">Santa arrives with family-provided labeled gifts for a magical Christmas Eve surprise.</p>
-          </article>
-          <article class="service-card">
-            <h3 data-i18n="services.schoolTitle">Schools and Daycares</h3>
-            <p data-i18n="services.schoolCopy">Photo time, story time, classroom greetings, and calm child-friendly interaction.</p>
-            <a class="text-link" href="/schools-daycares" data-i18n="services.schoolCta">See school visit details</a>
-          </article>
-          <article class="service-card">
-            <h3 data-i18n="services.neighborhoodTitle">Neighborhood Events</h3>
-            <p data-i18n="services.neighborhoodCopy">Condo, apartment, HOA, and clubhouse holiday events with photos and greetings.</p>
-            <a class="text-link" href="/hoa-apartments" data-i18n="services.neighborhoodCta">See community visit details</a>
-          </article>
-          <article class="service-card">
-            <h3 data-i18n="services.businessTitle">Local Business Events</h3>
-            <p data-i18n="services.businessCopy">Retail events, restaurants, office family days, and customer appreciation celebrations.</p>
-            <a class="text-link" href="/partners" data-i18n="services.businessCta">See partner ideas</a>
-          </article>
-          <article class="service-card">
-            <h3 data-i18n="services.nonprofitTitle">Nonprofits and Toy Drives</h3>
-            <p data-i18n="services.nonprofitCopy">Community events, sponsor-supported visits, donation moments, and children-focused celebrations.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="comfort">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow" data-i18n="comfort.eyebrow">What to Expect</p>
-            <h2 data-i18n="comfort.title">A calm, happy visit from the first hello.</h2>
-          </div>
-          <p data-i18n="comfort.copy">Families and organizers can keep it simple. Papa Noel arrives ready for photos, greetings, and the little details that make children feel comfortable.</p>
-        </div>
-        <div class="comfort-grid">
-          <article class="comfort-card">
-            <strong data-i18n="comfort.oneTitle">Gentle with shy children</strong>
-            <p data-i18n="comfort.oneCopy">The visit can move slowly, with space for children who need a minute before photos.</p>
-          </article>
-          <article class="comfort-card">
-            <strong data-i18n="comfort.twoTitle">Photo-ready arrival</strong>
-            <p data-i18n="comfort.twoCopy">Santa arrives dressed, ready, and mindful of the best moment for family photos.</p>
-          </article>
-          <article class="comfort-card">
-            <strong data-i18n="comfort.threeTitle">English or Spanish</strong>
-            <p data-i18n="comfort.threeCopy">Greetings can be in the language that feels most natural for your family or guests.</p>
-          </article>
-          <article class="comfort-card">
-            <strong data-i18n="comfort.fourTitle">Gift handoff made easy</strong>
-            <p data-i18n="comfort.fourCopy">If Santa is delivering gifts, labeled names and a simple plan keep the surprise smooth.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="packages" class="packages">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow" data-i18n="packages.eyebrow">Visit Options</p>
-            <h2 data-i18n="packages.title">Pick the closest visit. We will help with the rest.</h2>
-          </div>
-          <p data-i18n="packages.copy">Start with one of these. Larger or longer events can be priced after we know the date, location, and number of guests.</p>
-        </div>
-        <div class="pricing-grid">
-          <article class="price-card">
-            <div class="badge" data-i18n="badge.family">Family</div>
-            <h3 data-i18n="package.family">Family Visit</h3>
-            <div class="price"><em data-i18n="price.from">From</em><strong>$325</strong><span>first hour</span></div>
-            <ul>
-              <li data-i18n="family.one">Photos with Santa</li>
-              <li data-i18n="family.two">Warm child greeting</li>
-              <li data-i18n="family.three">Optional gift handoff</li>
-              <li data-i18n="family.four">Best for intimate family moments</li>
-            </ul>
-            <a class="button dark" href="/book?package=Family%20Visit&source=home" data-i18n="packages.familyCta">Ask About Family Visit</a>
-          </article>
-          <article class="price-card featured">
-            <div class="badge" data-i18n="badge.popular">Most Popular</div>
-            <h3 data-i18n="package.event">Event Visit</h3>
-            <div class="price"><em data-i18n="price.from">From</em><strong>$450</strong><span>first hour</span></div>
-            <ul>
-              <li data-i18n="event.one">Parties, schools, or businesses</li>
-              <li data-i18n="event.two">Photos and greetings</li>
-              <li data-i18n="event.three">Gift table support</li>
-              <li data-i18n="event.four">Extended appearances available</li>
-            </ul>
-            <a class="button" href="/book?package=Event%20Visit&source=home" data-i18n="packages.eventCta">Ask About Event Visit</a>
-          </article>
-          <article class="price-card">
-            <div class="badge" data-i18n="badge.limited">Limited</div>
-            <h3 data-i18n="package.eve">Christmas Eve</h3>
-            <div class="price"><em data-i18n="price.from">From</em><strong>$500</strong><span data-i18n="price.window">45-minute slot</span></div>
-            <ul>
-              <li data-i18n="eve.one">Reserved holiday date</li>
-              <li data-i18n="eve.two">Labeled gift delivery</li>
-              <li data-i18n="eve.three">Photos and surprise moment</li>
-              <li data-i18n="eve.four">Limited evening slots</li>
-            </ul>
-            <a class="button dark" href="/christmas-eve" data-i18n="packages.eveCta">See Christmas Eve Details</a>
-          </article>
-        </div>
-        <p class="fine-print" data-i18n="packages.note">Deposit required to hold a confirmed date. Nonprofit and sponsor-supported community rates may be available when the event supports children or toy donations.</p>
-      </div>
-    </section>
-
-    <section class="summer">
-      <div class="shell summer-grid">
-        <div>
-          <p class="eyebrow" data-i18n="summer.eyebrow">Summer Santa</p>
-          <h2 data-i18n="summer.title">Christmas magic does not have to wait until December.</h2>
-          <p class="lead" data-i18n="summer.copy">Christmas in July pop-ups, toy drive kickoffs, camp visits, and photo-friendly partner events can bring a little holiday joy early.</p>
-          <div class="actions">
-          <a class="button" href="/summer-santa" data-i18n="summer.cta">Plan Summer Santa</a>
-          </div>
-        </div>
-        <div class="pill-grid">
-          <div class="pill" data-i18n="summer.one">Christmas in July pop-ups</div>
-          <div class="pill" data-i18n="summer.two">Toy drive kickoff events</div>
-          <div class="pill" data-i18n="summer.three">Daycare and camp visits</div>
-          <div class="pill" data-i18n="summer.four">Photo mini-sessions and partner events</div>
-          <div class="pill" data-i18n="summer.five">Pet-friendly family pop-ups</div>
-          <div class="pill" data-i18n="summer.six">Corporate family days</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="details-section">
-      <div class="shell details-grid">
-        <article class="detail-panel spanish-panel">
-          <p class="eyebrow" data-i18n="spanish.eyebrow">Available in Spanish</p>
-          <h2 data-i18n="spanish.title">A private Papa Noel visit for unforgettable moments.</h2>
-          <p class="lead" data-i18n="spanish.copy">Bilingual service for families, schools, businesses, communities, toy drives, novenas, and Christmas Eve gift deliveries.</p>
-          <div class="actions">
-            <a class="button" href="/book?source=home" data-i18n="spanish.cta">Request availability</a>
-          </div>
-        </article>
-        <article class="detail-panel">
-          <p class="eyebrow" data-i18n="included.eyebrow">Included</p>
-          <h2 data-i18n="included.title">Everything needed for a sweet, easy visit.</h2>
-          <div class="chip-grid">
-            <span class="chip" data-i18n="included.one">Photos with Santa</span>
-            <span class="chip" data-i18n="included.two">Child greeting</span>
-            <span class="chip" data-i18n="included.three">Gift handoff</span>
-            <span class="chip" data-i18n="included.four">Story time option</span>
-            <span class="chip" data-i18n="included.five">Toy drive support</span>
-            <span class="chip" data-i18n="included.six">Bilingual interaction</span>
-          </div>
-          <p class="lead" style="margin-top: 20px;" data-i18n="included.area">Service areas include Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.</p>
-          <div class="actions section-actions">
-            <a class="button dark" href="/service-areas" data-i18n="included.areaCta">See Service Areas</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="video-section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow" data-i18n="video.eyebrow">Video Moments</p>
-            <h2 data-i18n="video.title">A little preview helps families feel comfortable.</h2>
-          </div>
-          <p data-i18n="video.copy">Short video previews can be shared on request. Public clips will be added only when families are comfortable with it.</p>
-        </div>
-        <div class="video-grid">
-          <article class="video-card" style="--video-bg: url('assets/premium/santa-family-event-1600-premium.jpg');">
-            <div>
-              <strong data-i18n="video.family">Private family moments</strong>
-              <p data-i18n="video.available">Video available on request.</p>
-            </div>
-          </article>
-          <article class="video-card" style="--video-bg: url('assets/premium/santa-community-event-1600-premium.jpg');">
-            <div>
-              <strong data-i18n="video.community">Community event moments</strong>
-              <p data-i18n="video.available">Video available on request.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="gallery" class="gallery-section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow" data-i18n="gallery.eyebrow">Photo Gallery</p>
-            <h2 data-i18n="gallery.title">Real smiles from real visits.</h2>
-          </div>
-          <p data-i18n="gallery.copy">A few moments from family visits, community events, toy drives, and holiday celebrations.</p>
-        </div>
-        <div class="gallery">
-          <img src="assets/premium/santa-family-event-1600-premium.jpg" alt="Papa Noel with a family at a Christmas event" loading="lazy" decoding="async">
-          <img class="gallery-portrait" src="assets/santa-seated-holiday-portrait.jpg" width="1600" height="1200" alt="Papa Noel seated beside a Christmas tree with a festive stocking" data-i18n-alt="photos.seated" loading="lazy" decoding="async">
-          <img src="assets/premium/santa-gift-delivery-1400-premium.jpg" alt="Papa Noel handing out gifts at a children event" loading="lazy" decoding="async">
-          <img src="assets/premium/santa-community-event-1600-premium.jpg" alt="Papa Noel with children and entertainers at a community event" loading="lazy" decoding="async">
-          <img src="assets/premium/santa-pet-visit-1600-premium.jpg" alt="Papa Noel with a family dog during Christmas" loading="lazy" decoding="async">
-          <img src="assets/optimized/extra-20231214-114914-1200.jpg" alt="Papa Noel at a holiday appearance" loading="lazy" decoding="async">
-          <img src="assets/optimized/extra-20231210-171256-1200.jpg" alt="Papa Noel at a Christmas celebration" loading="lazy" decoding="async">
-          <img src="assets/optimized/testimonial-instagram-1000.jpg" alt="Community testimonial for a toy drive" loading="lazy" decoding="async">
-        </div>
-      </div>
-    </section>
-
-    <section class="proof">
-      <div class="shell proof-grid">
-        <img class="feature-img" src="assets/optimized/santa-card-1400.jpg" alt="Printed Christmas photo card featuring Papa Noel" loading="lazy" decoding="async" style="aspect-ratio: 4 / 3;">
-        <div class="quote">
-          <blockquote data-i18n="proof.quote">"Every donation, every toy, every hour of help means the world to these children."</blockquote>
-          <p data-i18n="proof.copy">Community work is one of the reasons Miami Papa Noel continues this tradition every year.</p>
-          <div class="actions">
-            <a class="button dark" href="/reviews" data-i18n="proof.cta">See real moments</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="booking-flow">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow" data-i18n="flow.eyebrow">How Booking Works</p>
-            <h2 data-i18n="flow.title">Simple steps, no pressure.</h2>
-          </div>
-          <p data-i18n="flow.copy">Send the basics first. We will reply with availability, price, and the next step.</p>
-        </div>
-        <div class="flow-grid">
-          <article class="flow-step">
-            <strong>01</strong>
-            <h3 data-i18n="flow.oneTitle">Choose a visit</h3>
-            <p data-i18n="flow.oneCopy">Pick the closest visit type. If you are unsure, choose "not sure yet" on the form.</p>
-          </article>
-          <article class="flow-step">
-            <strong>02</strong>
-            <h3 data-i18n="flow.twoTitle">Confirm details</h3>
-            <p data-i18n="flow.twoCopy">Share date, time, city, guest count, address, parking, and whether gifts will be handed out.</p>
-          </article>
-          <article class="flow-step">
-            <strong>03</strong>
-            <h3 data-i18n="flow.threeTitle">Save the date</h3>
-            <p data-i18n="flow.threeCopy">After availability is confirmed, a deposit holds the date and the final balance is due before or at arrival.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="faq">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow" data-i18n="faq.eyebrow">FAQ</p>
-            <h2 data-i18n="faq.title">Good to know.</h2>
-          </div>
-          <p data-i18n="faq.copy">Quick answers before you send a request.</p>
-        </div>
-        <div class="faq-grid">
-          <article class="faq-item">
-            <h3 data-i18n="faq.oneQ">Do you serve outside Doral?</h3>
-            <p data-i18n="faq.oneA">Yes. Miami Papa Noel serves Miami-Doral and nearby areas including Hialeah, Kendall, Sweetwater, Miami Lakes, and Coral Gables. Travel may affect pricing.</p>
-          </article>
-          <article class="faq-item">
-            <h3 data-i18n="faq.twoQ">Can Santa deliver gifts?</h3>
-            <p data-i18n="faq.twoA">Yes. Gifts must be provided by the family or organizer and clearly labeled with each child's name.</p>
-          </article>
-          <article class="faq-item">
-            <h3 data-i18n="faq.threeQ">Is a deposit required?</h3>
-            <p data-i18n="faq.threeA">Yes. The date is confirmed only after deposit, event details, and calendar confirmation.</p>
-          </article>
-          <article class="faq-item">
-            <h3 data-i18n="faq.fourQ">Can nonprofits book a visit?</h3>
-            <p data-i18n="faq.fourA">Yes. Nonprofit, toy drive, and sponsor-supported community options may be available depending on date and event needs.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="shell cta-panel">
-        <p class="eyebrow" data-i18n="cta.eyebrow">Dates Available</p>
-        <h2 data-i18n="cta.title">Ready to make it special?</h2>
-        <p class="lead" data-i18n="cta.copy">Send the date, city, time, visit type, and gift details. We will reply with availability, pricing, and how to reserve.</p>
-        <div class="contact-row">
-          <div class="contact-chip">786-975-9557</div>
-          <div class="contact-chip" data-i18n="cta.contact">Form, text, or WhatsApp</div>
-          <div class="contact-chip">@miamipapanoel</div>
-        </div>
-        <div class="actions">
-          <a class="button" href="/checkout" data-i18n="cta.primary">Request a Visit</a>
-          <a class="button secondary" href="tel:+17869759557" data-i18n="cta.call">Call or Text</a>
-          <a class="button secondary" href="/book?source=home-email-button" data-i18n="cta.email">See Services &amp; Pricing</a>
+          <h2 data-i18n="faq.title">A few helpful answers</h2>
+          <details><summary data-i18n="faq.area">Do you serve outside Doral?</summary><p data-i18n="faq.areaAnswer">Yes. We visit Miami-Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, and Coral Gables. Travel may affect pricing.</p></details>
+          <details><summary data-i18n="faq.gifts">Can Santa deliver gifts?</summary><p data-i18n="faq.giftsAnswer">Yes. You provide the gifts, clearly labeled with each child's name.</p></details>
+          <details><summary data-i18n="faq.deposit">Is a deposit required?</summary><p data-i18n="faq.depositAnswer">Yes. A 50% non-refundable deposit is required, with the balance due on arrival. We confirm the calendar and visit details before your booking is finalized.</p></details>
+          <details><summary data-i18n="faq.nonprofit">Can nonprofits book a visit?</summary><p data-i18n="faq.nonprofitAnswer">Yes. Nonprofit, toy drive, and sponsor-supported options may be available depending on the date and event.</p></details>
         </div>
       </div>
     </section>
   </main>
-
   <footer>
-    <span class="footer-mark">
-      <img src="assets/christmas-tree-icon.svg" alt="">
-      Miami Papa Noel
-      <img src="assets/santa-hat-icon.svg" alt="">
-    </span>
-    <span class="footer-subline" data-i18n="footer.subline">Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events</span>
+    <div class="shell footer-inner">
+      <span>Miami Papa Noel &middot; <a href="tel:+17869759557">786-975-9557</a></span>
+      <div class="footer-links">
+        <a href="https://wa.me/17869759557" data-whatsapp-cta target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:santa@miamipapanoel.com" data-i18n="footer.email">Email us</a>
+        <a href="/service-areas" data-i18n="footer.areas">Service areas</a>
+      </div>
+    </div>
   </footer>
-  <div class="mobile-sticky" aria-label="Quick booking actions">
-    <a href="https://wa.me/17869759557?text=Hello%20Miami%20Papa%20Noel%2C%20I%20would%20like%20to%20request%20a%20visit." target="_blank" rel="noopener" data-whatsapp-cta data-i18n="sticky.whatsapp">WhatsApp</a>
-    <a href="tel:+17869759557" data-i18n="sticky.call">Call / Text</a>
-    <a href="/book?source=home" data-i18n="sticky.request">Request Visit</a>
-  </div>
   <script>
     const translations = {
-      en: {
-        "brand.subtitle": "Private Santa Visits",
-        "nav.services": "Services",
-        "nav.packages": "Options",
-        "nav.areas": "Areas",
-        "nav.photos": "Photos",
-        "nav.proof": "Moments",
-        "nav.faq": "FAQ",
-        "nav.request": "Request Visit",
-        "hero.eyebrow": "Private Santa visits in Miami-Doral",
-        "hero.title": "A private Papa Noel visit children remember.",
-        "hero.copy": "A warm, bilingual, photo-ready Santa experience for homes, schools, communities, businesses, and Christmas Eve surprises in Miami-Doral.",
-        "hero.primary": "Find the Right Visit",
-        "hero.whatsapp": "WhatsApp",
-        "hero.secondary": "Call or Text",
-        "hero.cardTitle": "Choose a visit",
-        "hero.cardCopy": "Start with the closest fit.",
-        "need.family": "Home visit",
-        "need.familyText": "Photos and gift handoff",
-        "need.event": "Event visit",
-        "need.eventText": "Schools, parties, communities",
-        "need.eve": "Christmas Eve",
-        "need.eveText": "Labeled gift delivery",
-        "trust.one": "Making Christmas memories in Miami",
-        "trust.two": "Seasons of holiday visits",
-        "trust.three": "Bilingual visits for families",
-        "trust.four": "Christmas Eve spots go quickly",
-        "signature.eyebrow": "The Signature Experience",
-        "signature.title": "A real Santa moment, not just a costume.",
-        "signature.copy": "The best visits feel calm, personal, and beautifully timed. Miami Papa Noel helps families, schools, communities, and businesses create a moment children can believe in and adults can actually enjoy.",
-        "signature.cta": "Plan the Moment",
-        "signature.proof": "See Real Visits",
-        "signature.oneTitle": "A gentle entrance",
-        "signature.oneCopy": "Santa arrives with warmth, patience, and room for shy children to settle in.",
-        "signature.oneDetailA": "Calm hello",
-        "signature.oneDetailB": "Bilingual greeting",
-        "signature.oneDetailC": "Shy-child friendly",
-        "signature.oneDetailD": "Photo-ready arrival",
-        "signature.twoTitle": "Photos that feel natural",
-        "signature.twoCopy": "The visit is paced for smiles, family photos, and sweet candid moments.",
-        "signature.twoDetailA": "Family photos",
-        "signature.twoDetailB": "Group photos",
-        "signature.twoDetailC": "Story moment",
-        "signature.twoDetailD": "Pet photos option",
-        "signature.twoDetailE": "Mini-session ready",
-        "signature.threeTitle": "A simple plan for gifts",
-        "signature.threeCopy": "Labeled gifts, timing, and event details stay organized before Santa arrives.",
-        "signature.threeDetailA": "Labeled gifts",
-        "signature.threeDetailB": "Arrival window",
-        "signature.threeDetailC": "Parking notes",
-        "signature.threeDetailD": "Deposit hold",
-        "signature.threeDetailE": "Event contact",
-        "occasion.schoolSmall": "Schools",
-        "occasion.school": "Daycares and camps",
-        "occasion.hoaSmall": "Communities",
-        "occasion.hoa": "HOA events",
-        "occasion.petSmall": "Pop-ups",
-        "occasion.pet": "Pet photos",
-        "occasion.photoSmall": "Partners",
-        "occasion.photo": "Photo sessions",
-        "story.eyebrow": "The Story",
-        "story.title": "A Santa tradition with a big community heart.",
-        "story.copyOne": "Miami Papa Noel began in 2017 when a Metro by T-Mobile office wanted Christmas activities for children visiting the store. What started as a simple photo backdrop became a tradition: novenas, gift deliveries, family parties, business events, residential communities, and nonprofit moments.",
-        "story.copyTwo": "He has supported polished family, business, nonprofit, and luxury residential celebrations where warmth, patience, and photo-ready details matter. The best part is still the same: seeing children feel surprised, comfortable, and happy.",
-        "services.eyebrow": "Services",
-        "services.title": "For homes, schools, parties, and community celebrations.",
-        "services.copy": "Each visit can include photos, greetings, story time, gift delivery, toy drive support, or a simple surprise hello.",
-        "services.homeTitle": "Home Visits",
-        "services.homeCopy": "Warm visits for family parties, birthdays, photos, and surprise moments at home.",
-        "services.eveTitle": "Christmas Eve Gifts",
-        "services.eveCopy": "Santa arrives with family-provided labeled gifts for a magical Christmas Eve surprise.",
-        "services.schoolTitle": "Schools and Daycares",
-        "services.schoolCopy": "Photo time, story time, classroom greetings, and calm child-friendly interaction.",
-        "services.schoolCta": "See school visit details",
-        "services.neighborhoodTitle": "Neighborhood Events",
-        "services.neighborhoodCopy": "Condo, apartment, HOA, and clubhouse holiday events with photos and greetings.",
-        "services.neighborhoodCta": "See community visit details",
-        "services.businessTitle": "Local Business Events",
-        "services.businessCopy": "Retail events, restaurants, office family days, and customer appreciation celebrations.",
-        "services.businessCta": "See partner ideas",
-        "services.nonprofitTitle": "Nonprofits and Toy Drives",
-        "services.nonprofitCopy": "Community events, sponsor-supported visits, donation moments, and children-focused celebrations.",
-        "comfort.eyebrow": "What to Expect",
-        "comfort.title": "A calm, happy visit from the first hello.",
-        "comfort.copy": "Families and organizers can keep it simple. Papa Noel arrives ready for photos, greetings, and the little details that make children feel comfortable.",
-        "comfort.oneTitle": "Gentle with shy children",
-        "comfort.oneCopy": "The visit can move slowly, with space for children who need a minute before photos.",
-        "comfort.twoTitle": "Photo-ready arrival",
-        "comfort.twoCopy": "Santa arrives dressed, ready, and mindful of the best moment for family photos.",
-        "comfort.threeTitle": "English or Spanish",
-        "comfort.threeCopy": "Greetings can be in the language that feels most natural for your family or guests.",
-        "comfort.fourTitle": "Gift handoff made easy",
-        "comfort.fourCopy": "If Santa is delivering gifts, labeled names and a simple plan keep the surprise smooth.",
-        "packages.eyebrow": "Visit Options",
-        "packages.title": "Pick the closest visit. We will help with the rest.",
-        "packages.copy": "Start with one of these. Larger or longer events can be priced after we know the date, location, and number of guests.",
-        "badge.family": "Family",
-        "badge.popular": "Most Popular",
-        "badge.limited": "Limited",
-        "package.family": "Family Visit",
-        "package.event": "Event Visit",
-        "package.eve": "Christmas Eve",
-        "price.from": "From",
-        "price.window": "scheduled window",
-        "family.one": "Photos with Santa",
-        "family.two": "Warm child greeting",
-        "family.three": "Optional gift handoff",
-        "family.four": "Best for intimate family moments",
-        "event.one": "Parties, schools, or businesses",
-        "event.two": "Photos and greetings",
-        "event.three": "Gift table support",
-        "event.four": "Extended appearances available",
-        "eve.one": "Reserved holiday date",
-        "eve.two": "Labeled gift delivery",
-        "eve.three": "Photos and surprise moment",
-        "eve.four": "Limited evening slots",
-        "packages.familyCta": "Ask About Family Visit",
-        "packages.eventCta": "Ask About Event Visit",
-        "packages.eveCta": "See Christmas Eve Details",
-        "packages.note": "Deposit required to hold a confirmed date. Nonprofit and sponsor-supported community rates may be available when the event supports children or toy donations.",
-        "summer.eyebrow": "Summer Santa",
-        "summer.title": "Christmas magic does not have to wait until December.",
-        "summer.copy": "Christmas in July pop-ups, toy drive kickoffs, camp visits, and photo-friendly partner events can bring a little holiday joy early.",
-        "summer.cta": "Plan Summer Santa",
-        "summer.one": "Christmas in July pop-ups",
-        "summer.two": "Toy drive kickoff events",
-        "summer.three": "Daycare and camp visits",
-        "summer.four": "Photo mini-sessions and partner events",
-        "summer.five": "Pet-friendly family pop-ups",
-        "summer.six": "Corporate family days",
-        "spanish.eyebrow": "Available in Spanish",
-        "spanish.title": "A private Papa Noel visit for unforgettable moments.",
-        "spanish.copy": "Bilingual service for families, schools, businesses, communities, toy drives, novenas, and Christmas Eve gift deliveries.",
-        "spanish.cta": "Request availability",
-        "included.eyebrow": "Included",
-        "included.title": "Everything needed for a sweet, easy visit.",
-        "included.one": "Photos with Santa",
-        "included.two": "Child greeting",
-        "included.three": "Gift handoff",
-        "included.four": "Story time option",
-        "included.five": "Toy drive support",
-        "included.six": "Bilingual interaction",
-        "included.area": "Service areas include Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables, and nearby communities.",
-        "included.areaCta": "See Service Areas",
-        "video.eyebrow": "Video Moments",
-        "video.title": "A little preview helps families feel comfortable.",
-        "video.copy": "Short video previews can be shared on request. Public clips will be added only when families are comfortable with it.",
-        "video.family": "Private family moments",
-        "video.community": "Community event moments",
-        "video.available": "Video available on request.",
-        "gallery.eyebrow": "Photo Gallery",
-        "photos.standing": "Papa Noel standing beside a decorated Christmas tree",
-        "photos.seated": "Papa Noel seated beside a Christmas tree with a festive stocking",
-        "gallery.title": "Real smiles from real visits.",
-        "gallery.copy": "A few moments from family visits, community events, toy drives, and holiday celebrations.",
-        "proof.quote": "\"Every donation, every toy, every hour of help means the world to these children.\"",
-        "proof.copy": "Community work is one of the reasons Miami Papa Noel continues this tradition every year.",
-        "proof.cta": "See real moments",
-        "flow.eyebrow": "How Booking Works",
-        "flow.title": "Simple steps, no pressure.",
-        "flow.copy": "Send the basics first. We will reply with availability, price, and the next step.",
-        "flow.oneTitle": "Choose a visit",
-        "flow.oneCopy": "Pick the closest visit type. If you are unsure, choose \"not sure yet\" on the form.",
-        "flow.twoTitle": "Confirm details",
-        "flow.twoCopy": "Share date, time, city, guest count, address, parking, and whether gifts will be handed out.",
-        "flow.threeTitle": "Save the date",
-        "flow.threeCopy": "After availability is confirmed, a deposit holds the date and the final balance is due before or at arrival.",
-        "faq.eyebrow": "FAQ",
-        "faq.title": "Good to know.",
-        "faq.copy": "Quick answers before you send a request.",
-        "faq.oneQ": "Do you serve outside Doral?",
-        "faq.oneA": "Yes. Miami Papa Noel serves Miami-Doral and nearby areas including Hialeah, Kendall, Sweetwater, Miami Lakes, and Coral Gables. Travel may affect pricing.",
-        "faq.twoQ": "Can Santa deliver gifts?",
-        "faq.twoA": "Yes. Gifts must be provided by the family or organizer and clearly labeled with each child's name.",
-        "faq.threeQ": "Is a deposit required?",
-        "faq.threeA": "Yes. The date is confirmed only after deposit, event details, and calendar confirmation.",
-        "faq.fourQ": "Can nonprofits book a visit?",
-        "faq.fourA": "Yes. Nonprofit, toy drive, and sponsor-supported community options may be available depending on date and event needs.",
-        "cta.eyebrow": "Dates Available",
-        "cta.title": "Ready to make it special?",
-        "cta.copy": "Send the date, city, time, visit type, and gift details. We will reply with availability, pricing, and how to reserve.",
-        "cta.contact": "Form, text, or WhatsApp",
-        "cta.primary": "Request a Visit",
-        "cta.call": "Call or Text",
-        "cta.whatsapp": "WhatsApp",
-        "cta.email": "See Services & Pricing",
-        "footer.subline": "Private bilingual Santa visits for Miami-Doral families, businesses, schools, and community events",
-        "sticky.whatsapp": "WhatsApp",
-        "sticky.call": "Call / Text",
-        "sticky.request": "Request"
+      "en": {
+            "nav.prices": "Prices",
+            "nav.request": "Request a visit",
+            "hero.eyebrow": "Santa visits in Miami & Doral",
+            "hero.copy": "A little Christmas magic, right at your door. Visits in English or Spanish, with photos and gifts you provide.",
+            "hero.primary": "Request a visit",
+            "hero.call": "Call Santa",
+            "visits.title": "Choose your visit",
+            "visits.prices": "All prices & details",
+            "family.title": "Family visit",
+            "family.price": "From $325",
+            "family.copy": "First hour. Photos, a warm greeting, and gifts you provide.",
+            "family.action": "Request a family visit",
+            "event.title": "Event visit",
+            "event.price": "From $450",
+            "event.copy": "First hour. Santa joins your party, business, or community celebration.",
+            "event.action": "Request an event visit",
+            "eve.title": "Christmas Eve",
+            "eve.price": "From $500",
+            "eve.copy": "45 minutes, until 8 PM. A special delivery of your labeled gifts.",
+            "eve.action": "Request Christmas Eve",
+            "photos.standing": "Papa Noel standing beside a decorated Christmas tree",
+            "photos.seated": "Papa Noel seated beside a Christmas tree with a holiday gift sack",
+            "photos.caption": "Your Santa, ready for a little Christmas magic.",
+            "faq.title": "A few helpful answers",
+            "faq.area": "Do you serve outside Doral?",
+            "faq.areaAnswer": "Yes. We visit Miami-Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, and Coral Gables. Travel may affect pricing.",
+            "faq.gifts": "Can Santa deliver gifts?",
+            "faq.giftsAnswer": "Yes. You provide the gifts, clearly labeled with each child's name.",
+            "faq.deposit": "Is a deposit required?",
+            "faq.depositAnswer": "Yes. A 50% non-refundable deposit is required, with the balance due on arrival. We confirm the calendar and visit details before your booking is finalized.",
+            "faq.nonprofit": "Can nonprofits book a visit?",
+            "faq.nonprofitAnswer": "Yes. Nonprofit, toy drive, and sponsor-supported options may be available depending on the date and event.",
+            "footer.email": "Email us",
+            "footer.areas": "Service areas"
       },
-      es: {
-        "brand.subtitle": "Visitas Privadas de Santa",
-        "nav.services": "Servicios",
-        "nav.packages": "Opciones",
-        "nav.areas": "Areas",
-        "nav.photos": "Fotos",
-        "nav.proof": "Momentos",
-        "nav.faq": "Preguntas",
-        "nav.request": "Solicitar Visita",
-        "hero.eyebrow": "Visitas privadas de Santa en Miami-Doral",
-        "hero.title": "Una visita privada de Papa Noel que los niños recuerdan.",
-        "hero.copy": "Una experiencia cálida, bilingüe y lista para fotos en casas, escuelas, comunidades, negocios y sorpresas de Nochebuena en Miami-Doral.",
-        "hero.primary": "Encontrar la Visita",
-        "hero.whatsapp": "WhatsApp",
-        "hero.secondary": "Llamar o Escribir",
-        "hero.cardTitle": "Escoge visita",
-        "hero.cardCopy": "Empieza con la opción más cercana.",
-        "need.family": "Visita en casa",
-        "need.familyText": "Fotos y entrega de regalos",
-        "need.event": "Visita para evento",
-        "need.eventText": "Escuelas, fiestas, comunidades",
-        "need.eve": "Nochebuena",
-        "need.eveText": "Entrega de regalos marcados",
-        "trust.one": "Creando recuerdos navideños en Miami",
-        "trust.two": "Temporadas de visitas navidenas",
-        "trust.three": "Visitas bilingües para familias",
-        "trust.four": "Nochebuena se reserva rápido",
-        "signature.eyebrow": "La Experiencia Especial",
-        "signature.title": "Un momento real con Santa, no solo un disfraz.",
-        "signature.copy": "Las mejores visitas se sienten tranquilas, personales y bien preparadas. Miami Papa Noel ayuda a familias, escuelas, comunidades y negocios a crear un momento que los niños puedan creer y los adultos puedan disfrutar.",
-        "signature.cta": "Planificar el Momento",
-        "signature.proof": "Ver Visitas Reales",
-        "signature.oneTitle": "Una entrada tranquila",
-        "signature.oneCopy": "Santa llega con calidez, paciencia y espacio para que los niños tímidos se acomoden.",
-        "signature.oneDetailA": "Saludo tranquilo",
-        "signature.oneDetailB": "Saludo bilingüe",
-        "signature.oneDetailC": "Paciencia con niños tímidos",
-        "signature.oneDetailD": "Listo para fotos",
-        "signature.twoTitle": "Fotos naturales",
-        "signature.twoCopy": "La visita se maneja con calma para sonrisas, fotos familiares y momentos espontáneos.",
-        "signature.twoDetailA": "Fotos familiares",
-        "signature.twoDetailB": "Fotos de grupo",
-        "signature.twoDetailC": "Momento de cuento",
-        "signature.twoDetailD": "Opción con mascotas",
-        "signature.twoDetailE": "Listo para mini sesiones",
-        "signature.threeTitle": "Un plan simple para regalos",
-        "signature.threeCopy": "Los regalos marcados, el horario y los detalles se organizan antes de que llegue Santa.",
-        "signature.threeDetailA": "Regalos marcados",
-        "signature.threeDetailB": "Horario de llegada",
-        "signature.threeDetailC": "Notas de parqueo",
-        "signature.threeDetailD": "Depósito para guardar",
-        "signature.threeDetailE": "Contacto del evento",
-        "occasion.schoolSmall": "Escuelas",
-        "occasion.school": "Daycares y campamentos",
-        "occasion.hoaSmall": "Comunidades",
-        "occasion.hoa": "Eventos HOA",
-        "occasion.petSmall": "Pop-ups",
-        "occasion.pet": "Fotos con mascotas",
-        "occasion.photoSmall": "Aliados",
-        "occasion.photo": "Sesiones de fotos",
-        "story.eyebrow": "La Historia",
-        "story.title": "Una tradición de Santa con corazón comunitario.",
-        "story.copyOne": "Miami Papa Noel comenzó en 2017 cuando una oficina de Metro by T-Mobile quiso hacer actividades navideñas para los niños que visitaban la tienda. Lo que empezó con un fondo para fotos se convirtió en una tradición: novenas, entregas de regalos, fiestas familiares, eventos de negocios, comunidades residenciales y momentos sin fines de lucro.",
-        "story.copyTwo": "Ha apoyado celebraciones familiares, empresariales, sin fines de lucro y residenciales de lujo donde la calidez, la paciencia y los detalles para fotos importan. Lo mas bonito sigue siendo lo mismo: ver a los ninos sorprendidos, comodos y felices.",
-        "services.eyebrow": "Servicios",
-        "services.title": "Para casas, escuelas, fiestas y celebraciones comunitarias.",
-        "services.copy": "Cada visita puede incluir fotos, saludos, cuento navideño, entrega de regalos, apoyo para donaciones o una sorpresa sencilla.",
-        "services.homeTitle": "Visitas en Casa",
-        "services.homeCopy": "Visitas cálidas para fiestas familiares, cumpleaños, fotos y sorpresas en casa.",
-        "services.eveTitle": "Regalos de Nochebuena",
-        "services.eveCopy": "Santa llega con regalos marcados por la familia para una sorpresa mágica de Nochebuena.",
-        "services.schoolTitle": "Escuelas y Daycares",
-        "services.schoolCopy": "Fotos, cuento navideño, saludos en salones y trato tranquilo para los niños.",
-        "services.schoolCta": "Ver detalles para escuelas",
-        "services.neighborhoodTitle": "Eventos de Comunidad",
-        "services.neighborhoodCopy": "Eventos en condominios, apartamentos, HOA y clubhouses con fotos y saludos.",
-        "services.neighborhoodCta": "Ver detalles para comunidades",
-        "services.businessTitle": "Eventos de Negocios",
-        "services.businessCopy": "Tiendas, restaurantes, días familiares de oficina y celebraciones para clientes.",
-        "services.businessCta": "Ver ideas de aliados",
-        "services.nonprofitTitle": "Donaciones y Toy Drives",
-        "services.nonprofitCopy": "Eventos comunitarios, visitas patrocinadas, donaciones y celebraciones enfocadas en niños.",
-        "comfort.eyebrow": "Qué Esperar",
-        "comfort.title": "Una visita tranquila y feliz desde el primer saludo.",
-        "comfort.copy": "Las familias y organizadores pueden mantenerlo sencillo. Papa Noel llega listo para fotos, saludos y los detalles que ayudan a los niños a sentirse cómodos.",
-        "comfort.oneTitle": "Paciente con niños tímidos",
-        "comfort.oneCopy": "La visita puede ir con calma, dando espacio a los niños que necesitan un minuto antes de las fotos.",
-        "comfort.twoTitle": "Listo para fotos",
-        "comfort.twoCopy": "Santa llega vestido, preparado y atento al mejor momento para las fotos familiares.",
-        "comfort.threeTitle": "Inglés o español",
-        "comfort.threeCopy": "Los saludos pueden ser en el idioma que se sienta más natural para tu familia o invitados.",
-        "comfort.fourTitle": "Entrega de regalos sencilla",
-        "comfort.fourCopy": "Si Santa entregará regalos, nombres marcados y un plan simple mantienen la sorpresa organizada.",
-        "packages.eyebrow": "Opciones de Visita",
-        "packages.title": "Escoge la visita más cercana. Te ayudamos con lo demás.",
-        "packages.copy": "Empieza con una de estas opciones. Los eventos más grandes o largos se cotizan después de saber fecha, lugar y cantidad de invitados.",
-        "badge.family": "Familia",
-        "badge.popular": "Más Popular",
-        "badge.limited": "Limitado",
-        "package.family": "Visita Familiar",
-        "package.event": "Visita para Evento",
-        "package.eve": "Nochebuena",
-        "price.from": "Desde",
-        "price.window": "horario reservado",
-        "family.one": "Fotos con Santa",
-        "family.two": "Saludo cálido para niños",
-        "family.three": "Entrega de regalo opcional",
-        "family.four": "Ideal para momentos familiares",
-        "event.one": "Fiestas, escuelas o negocios",
-        "event.two": "Fotos y saludos",
-        "event.three": "Apoyo con mesa de regalos",
-        "event.four": "Visitas extendidas disponibles",
-        "eve.one": "Fecha navideña reservada",
-        "eve.two": "Entrega de regalos marcados",
-        "eve.three": "Fotos y momento sorpresa",
-        "eve.four": "Espacios limitados en la noche",
-        "packages.familyCta": "Preguntar por Visita Familiar",
-        "packages.eventCta": "Preguntar por Evento",
-        "packages.eveCta": "Ver Detalles de Nochebuena",
-        "packages.note": "Se requiere depósito para guardar una fecha confirmada. Pueden existir opciones comunitarias para eventos sin fines de lucro, donaciones de juguetes o visitas patrocinadas.",
-        "summer.eyebrow": "Santa en Verano",
-        "summer.title": "La magia navideña no tiene que esperar hasta diciembre.",
-        "summer.copy": "Christmas in July, inicio de donaciones, visitas a campamentos y eventos para fotos con socios pueden traer alegría navideña antes de tiempo.",
-        "summer.cta": "Planificar Santa en Verano",
-        "summer.one": "Pop-ups de Christmas in July",
-        "summer.two": "Inicio de donaciones de juguetes",
-        "summer.three": "Visitas a daycares y campamentos",
-        "summer.four": "Mini sesiones y eventos con socios",
-        "summer.five": "Pop-ups familiares con mascotas",
-        "summer.six": "Días familiares corporativos",
-        "spanish.eyebrow": "Disponible en Español",
-        "spanish.title": "Una visita privada de Papa Noel para momentos inolvidables.",
-        "spanish.copy": "Servicio bilingüe para familias, escuelas, negocios, comunidades, donaciones de juguetes, novenas y entregas de regalos en Nochebuena.",
-        "spanish.cta": "Solicitar disponibilidad",
-        "included.eyebrow": "Incluido",
-        "included.title": "Todo lo necesario para una visita dulce y sencilla.",
-        "included.one": "Fotos con Santa",
-        "included.two": "Saludo para niños",
-        "included.three": "Entrega de regalos",
-        "included.four": "Opción de cuento navideño",
-        "included.five": "Apoyo para donaciones",
-        "included.six": "Interacción bilingüe",
-        "included.area": "Áreas de servicio: Miami, Doral, Hialeah, Kendall, Sweetwater, Miami Lakes, Coral Gables y comunidades cercanas.",
-        "included.areaCta": "Ver Areas de Servicio",
-        "video.eyebrow": "Momentos en Video",
-        "video.title": "Un pequeño adelanto ayuda a las familias a sentirse cómodas.",
-        "video.copy": "Se pueden compartir videos cortos por solicitud. Los clips públicos se agregan solo cuando las familias estén cómodas.",
-        "video.family": "Momentos familiares privados",
-        "video.community": "Momentos de eventos comunitarios",
-        "video.available": "Video disponible por solicitud.",
-        "gallery.eyebrow": "Galería de Fotos",
-        "photos.standing": "Papá Noel de pie junto a un árbol de Navidad decorado",
-        "photos.seated": "Papá Noel sentado junto a un árbol de Navidad con una bota navideña",
-        "gallery.title": "Sonrisas reales de visitas reales.",
-        "gallery.copy": "Algunos momentos de visitas familiares, eventos comunitarios, donaciones de juguetes y celebraciones navideñas.",
-        "proof.quote": "\"Cada donación, cada juguete, cada hora de ayuda es un mundo para estos niños.\"",
-        "proof.copy": "El trabajo comunitario es una de las razones por las que Miami Papa Noel continúa esta tradición cada año.",
-        "proof.cta": "Ver momentos reales",
-        "flow.eyebrow": "Cómo Funciona",
-        "flow.title": "Pasos sencillos, sin presión.",
-        "flow.copy": "Envía primero lo básico. Respondemos con disponibilidad, precio y el próximo paso.",
-        "flow.oneTitle": "Escoge una visita",
-        "flow.oneCopy": "Escoge el tipo de visita más cercano. Si no estás seguro, elige \"no estoy seguro\" en el formulario.",
-        "flow.twoTitle": "Confirma detalles",
-        "flow.twoCopy": "Comparte fecha, hora, ciudad, invitados, dirección, estacionamiento y si Santa entregará regalos.",
-        "flow.threeTitle": "Guarda la fecha",
-        "flow.threeCopy": "Después de confirmar disponibilidad, un depósito guarda la fecha y el balance se paga antes o al llegar.",
-        "faq.eyebrow": "Preguntas",
-        "faq.title": "Bueno saberlo.",
-        "faq.copy": "Respuestas rápidas antes de enviar tu solicitud.",
-        "faq.oneQ": "¿Atienden fuera de Doral?",
-        "faq.oneA": "Sí. Miami Papa Noel atiende Miami-Doral y áreas cercanas como Hialeah, Kendall, Sweetwater, Miami Lakes y Coral Gables. El viaje puede afectar el precio.",
-        "faq.twoQ": "¿Santa puede entregar regalos?",
-        "faq.twoA": "Sí. Los regalos los provee la familia u organizador y deben estar marcados claramente con el nombre de cada niño.",
-        "faq.threeQ": "¿Se requiere depósito?",
-        "faq.threeA": "Sí. La fecha queda confirmada solo después del depósito, detalles del evento y confirmación en calendario.",
-        "faq.fourQ": "¿Pueden reservar organizaciones sin fines de lucro?",
-        "faq.fourA": "Sí. Puede haber opciones para eventos sin fines de lucro, donaciones de juguetes o visitas patrocinadas según la fecha y necesidades del evento.",
-        "cta.eyebrow": "Fechas Disponibles",
-        "cta.title": "¿Listo para hacerlo especial?",
-        "cta.copy": "Envía la fecha, ciudad, hora, tipo de visita y detalles de regalos. Respondemos con disponibilidad, precio y cómo reservar.",
-        "cta.contact": "Formulario, texto o WhatsApp",
-        "cta.primary": "Solicitar Visita",
-        "cta.call": "Llamar o Escribir",
-        "cta.whatsapp": "WhatsApp",
-        "cta.email": "Ver Servicios y Precios",
-        "footer.subline": "Visitas privadas bilingües de Santa para familias, negocios, escuelas y eventos comunitarios en Miami-Doral",
-        "sticky.whatsapp": "WhatsApp",
-        "sticky.call": "Llamar / Texto",
-        "sticky.request": "Solicitar"
+      "es": {
+            "nav.prices": "Precios",
+            "nav.request": "Solicitar visita",
+            "hero.eyebrow": "Visitas de Santa en Miami y Doral",
+            "hero.copy": "Un poquito de magia navideña en tu puerta. Visitas en español o inglés, con fotos y los regalos que tú prepares.",
+            "hero.primary": "Solicitar visita",
+            "hero.call": "Llamar a Santa",
+            "visits.title": "Elige tu visita",
+            "visits.prices": "Todos los precios y detalles",
+            "family.title": "Visita familiar",
+            "family.price": "Desde $325",
+            "family.copy": "Primera hora. Fotos, un saludo cariñoso y los regalos que tú prepares.",
+            "family.action": "Solicitar visita familiar",
+            "event.title": "Visita para evento",
+            "event.price": "Desde $450",
+            "event.copy": "Primera hora. Santa acompaña tu fiesta, negocio o celebración comunitaria.",
+            "event.action": "Solicitar visita para evento",
+            "eve.title": "Nochebuena",
+            "eve.price": "Desde $500",
+            "eve.copy": "45 minutos, hasta las 8 PM. Una entrega especial de tus regalos con nombres.",
+            "eve.action": "Solicitar Nochebuena",
+            "photos.standing": "Papá Noel de pie junto a un árbol de Navidad decorado",
+            "photos.seated": "Papá Noel sentado junto a un árbol de Navidad con un saco de regalos",
+            "photos.caption": "Tu Santa, listo para compartir la magia navideña.",
+            "faq.title": "Respuestas que te ayudan",
+            "faq.area": "¿Visitan fuera de Doral?",
+            "faq.areaAnswer": "Sí. Visitamos Miami-Doral, Hialeah, Kendall, Sweetwater, Miami Lakes y Coral Gables. El viaje puede afectar el precio.",
+            "faq.gifts": "¿Santa puede entregar regalos?",
+            "faq.giftsAnswer": "Sí. Tú preparas los regalos, cada uno marcado con el nombre del niño.",
+            "faq.deposit": "¿Se necesita un depósito?",
+            "faq.depositAnswer": "Sí. Se requiere un depósito no reembolsable del 50%; el saldo se paga al llegar. Confirmamos el calendario y los detalles antes de finalizar la reservación.",
+            "faq.nonprofit": "¿Visitan organizaciones sin fines de lucro?",
+            "faq.nonprofitAnswer": "Sí. Puede haber opciones para organizaciones sin fines de lucro, donaciones de juguetes y eventos con patrocinadores, según la fecha y el evento.",
+            "footer.email": "Escríbenos",
+            "footer.areas": "Áreas de servicio"
       }
-    };
+};
 
     const whatsappMessages = {
       en: "Hello Miami Papa Noel, I would like to request a visit.",
@@ -2206,14 +349,16 @@
         const key = image.getAttribute("data-i18n-alt");
         if (dictionary[key]) image.alt = dictionary[key];
       });
-      localStorage.setItem("miamiPapaNoelLanguage", activeLang);
+      try { localStorage.setItem("miamiPapaNoelLanguage", activeLang); } catch (_) {}
     }
 
     document.querySelectorAll("[data-lang]").forEach((button) => {
       button.addEventListener("click", () => setLanguage(button.getAttribute("data-lang")));
     });
 
-    setLanguage(localStorage.getItem("miamiPapaNoelLanguage") || "en");
+    let savedLanguage = "en";
+    try { savedLanguage = localStorage.getItem("miamiPapaNoelLanguage") || "en"; } catch (_) {}
+    setLanguage(savedLanguage);
   </script>
 </body>
 </html>
