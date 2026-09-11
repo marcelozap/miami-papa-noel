@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import urllib.parse
 
 import pytest
 
@@ -202,3 +203,77 @@ def test_output_symlink_refused(project, tmp_path_factory):
         pytest.skip('symlink privilege unavailable')
     assert run_build(project).returncode != 0
     assert not list(target.iterdir())
+
+
+REQUIREMENTS = ('chair_ready', 'air_conditioning', 'gift_photo_adult', 'parking_ready')
+MESSAGE_HARNESS = """
+const fs = require('node:fs'), vm = require('node:vm');
+const cfg = JSON.parse(fs.readFileSync(0, 'utf8'));
+const node = (id) => {
+  const value = cfg.values[id] ?? '';
+  return cfg.selects.includes(id)
+    ? {tagName: 'SELECT', value, selectedIndex: 0, options: [{textContent: value}]}
+    : {tagName: 'INPUT', value};
+};
+const sandbox = {currentLanguage: cfg.language, message: {textContent: ''}, messageSummary: {value: ''},
+  smsLink: {href: ''}, whatsappLink: {href: ''}, emailLink: {href: ''},
+  document: {getElementById: node, querySelector: (selector) => {
+    const name = /input\\[name="([^"]+)"\\]/.exec(selector)[1];
+    return {checked: cfg.checked.includes(name)};
+  }}};
+vm.runInNewContext(cfg.code + '\\nbuildMessage();', sandbox, {timeout: 1000});
+console.log(JSON.stringify({text: sandbox.message.textContent, summary: sandbox.messageSummary.value,
+  sms: sandbox.smsLink.href, whatsapp: sandbox.whatsappLink.href, email: sandbox.emailLink.href}));
+"""
+
+
+def book_message(language, checked, **values):
+    """Run the real buildMessage() from book.html under a minimal DOM shim."""
+    script = re.search(r'<script>(.*)</script>', (ROOT / 'book.html').read_text(encoding='utf-8'), re.S).group(1)
+    code = '\n'.join(re.search(pattern, script, re.S).group(0) for pattern in (
+        r'const requirements = \[.*?\];', r'const messageLabels = \{.*?\n    \};',
+        r'function value\(id\) \{.*?\n    \}', r'function displayValue\(id\) \{.*?\n    \}',
+        r'function requirementChecked\(name\) \{.*?\n    \}', r'function buildMessage\(\) \{.*?\n    \}'))
+    config = {'code': code, 'language': language, 'checked': list(checked),
+              'selects': ['package', 'eventType'], 'values': values}
+    result = subprocess.run(['node', '-e', MESSAGE_HARNESS], input=json.dumps(config),
+                            capture_output=True, encoding='utf-8', check=True, timeout=10)
+    return json.loads(result.stdout)
+
+
+def test_alternate_message_reports_preparation_acknowledgements():
+    text = (ROOT / 'book.html').read_text(encoding='utf-8')
+    page = CustomerPage(text)
+    boxes = {attrs['name'] for tag, attrs, _, _ in page.elements
+             if tag == 'input' and attrs.get('type') == 'checkbox' and 'required' in attrs}
+    assert boxes == set(REQUIREMENTS)
+    assert re.search(r'const requirements = \["chair_ready", "air_conditioning", "gift_photo_adult", "parking_ready"\];', text)
+    assert re.search(r'requirements\.forEach\(\(name\) => \{\s*document\.querySelector\(\'input\[name="\' \+ name \+ \'"\]\'\)'
+                     r'\.addEventListener\("change", buildMessage\);', text)
+    labels = json.loads(subprocess.run(
+        ['node', '-e', "const fs=require('node:fs'), vm=require('node:vm');"
+         "console.log(JSON.stringify(vm.runInNewContext('('+fs.readFileSync(0,'utf8')+')',{}, {timeout:1000})));"],
+        input=re.search(r'const messageLabels = (\{.*?\n    \});', text, re.S).group(1),
+        capture_output=True, encoding='utf-8', check=True, timeout=5).stdout)
+    assert set(labels['en']) == set(labels['es'])
+    assert {'confirmed', 'confirmedNone', 'pending', 'pendingNone', *REQUIREMENTS} <= set(labels['en'])
+
+    synthetic = dict(name='Synthetic Family', phone='305-555-0100', package='Family Visit',
+                     eventType='Family / home', source='website', gifts='two labeled gifts')
+    nothing = book_message('en', [], **synthetic)
+    assert 'Preparation confirmed: none yet\nStill to confirm: sturdy armless chair, A/C on, ' \
+           'adult for gifts and photos, parking within 100 ft\n' in nothing['text']
+    assert 'Name: Synthetic Family\n' in nothing['text'] and 'Gift details:\ntwo labeled gifts' in nothing['text']
+    assert nothing['summary'] == nothing['text']
+    partial = book_message('en', ['chair_ready', 'parking_ready'], **synthetic)
+    assert 'Preparation confirmed: sturdy armless chair, parking within 100 ft\n' \
+           'Still to confirm: A/C on, adult for gifts and photos\n' in partial['text']
+    spanish = book_message('es', REQUIREMENTS, **synthetic)
+    assert 'Preparación confirmada: silla firme sin brazos, aire acondicionado encendido, ' \
+           'adulto encargado de regalos y fotos, estacionamiento a menos de 100 pies\n' \
+           'Falta confirmar: nada\n' in spanish['text']
+    for result in (nothing, partial, spanish):
+        encoded = urllib.parse.quote(result['text'], safe="-_.!~*'()")  # encodeURIComponent's unreserved set
+        assert result['sms'] == 'sms:+17869759557?&body=' + encoded
+        assert result['whatsapp'] == 'https://wa.me/17869759557?text=' + encoded
+        assert result['email'].startswith('mailto:santa@miamipapanoel.com?subject=') and result['email'].endswith('&body=' + encoded)

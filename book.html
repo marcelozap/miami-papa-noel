@@ -180,6 +180,7 @@
   </footer>
   <script>
     const fields = ["name", "phone", "email", "date", "time", "city", "guests", "package", "eventType", "source", "details", "gifts"];
+    const requirements = ["chair_ready", "air_conditioning", "gift_photo_adult", "parking_ready"];
     const message = document.getElementById("message");
     const smsLink = document.getElementById("smsLink");
     const whatsappLink = document.getElementById("whatsappLink");
@@ -361,6 +362,14 @@
         source: "Lead source",
         details: "Event notes",
         gifts: "Gift details",
+        confirmed: "Preparation confirmed",
+        confirmedNone: "none yet",
+        pending: "Still to confirm",
+        pendingNone: "none",
+        chair_ready: "sturdy armless chair",
+        air_conditioning: "A/C on",
+        gift_photo_adult: "adult for gifts and photos",
+        parking_ready: "parking within 100 ft",
         subject: "Miami Papa Noel visit request"
       },
       es: {
@@ -377,6 +386,14 @@
         source: "Origen del lead",
         details: "Notas del evento",
         gifts: "Detalles de regalos",
+        confirmed: "Preparación confirmada",
+        confirmedNone: "ninguna todavía",
+        pending: "Falta confirmar",
+        pendingNone: "nada",
+        chair_ready: "silla firme sin brazos",
+        air_conditioning: "aire acondicionado encendido",
+        gift_photo_adult: "adulto encargado de regalos y fotos",
+        parking_ready: "estacionamiento a menos de 100 pies",
         subject: "Solicitud de visita Miami Papa Noel"
       }
     };
@@ -391,6 +408,10 @@
         return field.options[field.selectedIndex]?.textContent.trim() || "";
       }
       return field.value.trim();
+    }
+
+    function requirementChecked(name) {
+      return document.querySelector('input[name="' + name + '"]').checked;
     }
 
     function normalizeLeadSource(source) {
@@ -513,6 +534,9 @@
 
     function buildMessage() {
       const labels = messageLabels[currentLanguage] || messageLabels.en;
+      const confirmed = requirements.filter(requirementChecked);
+      const pending = requirements.filter((name) => !confirmed.includes(name));
+      const describe = (names, empty) => names.length ? names.map((name) => labels[name]).join(", ") : empty;
       const lines = [
         labels.first,
         "",
@@ -526,6 +550,8 @@
         labels.package + ": " + displayValue("package"),
         labels.eventType + ": " + displayValue("eventType"),
         labels.source + ": " + value("source"),
+        labels.confirmed + ": " + describe(confirmed, labels.confirmedNone),
+        labels.pending + ": " + describe(pending, labels.pendingNone),
         "",
         labels.details + ":",
         value("details"),
@@ -588,6 +614,9 @@
         syncPackageButtons();
         buildMessage();
       });
+    });
+    requirements.forEach((name) => {
+      document.querySelector('input[name="' + name + '"]').addEventListener("change", buildMessage);
     });
     document.querySelectorAll("[data-lang]").forEach((button) => {
       button.addEventListener("click", () => setLanguage(button.getAttribute("data-lang")));
