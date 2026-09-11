@@ -61,7 +61,7 @@ def test_north_pole_identity_keeps_real_service_terms():
     rec = build("Family visit in Doral on December 10, 2026")
     assert "Mrs. Claus Office" in rec["draft_en"] and "North Pole" in rec["draft_en"]
     assert "Sra. Claus" in rec["draft_es"] and "Polo Norte" in rec["draft_es"]
-    assert rec["prompt_version"] == "triage-v1.1.0"
+    assert rec["prompt_version"] == "triage-v1.1.1"
     for draft in (rec["draft_en"], rec["draft_es"]):
         assert "$325" in draft and "Doral" in draft and "50%" in draft
     prompt = triage._model_instructions(PRICING)
@@ -72,6 +72,15 @@ def test_north_pole_identity_keeps_real_service_terms():
 def test_detects_english():
     rec = build("Hi, how much for a Santa visit for our office party in December?")
     assert rec["language"] == "en"
+
+
+def test_home_visit_category_guidance_is_explicit_and_conservative():
+    # Prompt contract only; this does not claim a live model obeyed it.
+    prompt = triage._model_instructions(PRICING)
+    for phrase in ("visit to my house", "visita a mi casa", "visita a domicilio",
+                   "family_visit", "address alone", "negated home visit",
+                   "conflicting family/event", "Christmas Eve service"):
+        assert phrase in prompt
 
 
 def test_extracts_date_english_month_first():
@@ -679,7 +688,7 @@ def test_check_model_http_failure_is_not_false_success(model_check, capsys):
 @pytest.mark.parametrize("field,value", [
     ("draft_es", ""), ("draft_en", "Your booking is confirmed."),
     ("language", "en"), ("requested_date", "2026-12-11"),
-    ("category", "school_daycare"),
+    ("category", "school_daycare"), ("category", None),
 ])
 def test_check_model_rejects_bad_drafts_or_wrong_synthetic_facts(model_check, capsys, field, value):
     model_check["result"][field] = value
