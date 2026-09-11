@@ -235,11 +235,11 @@ def test_no_published_image_carries_gps_metadata():
     assert leaking == [], leaking
 
 
-GALLERY_PHOTOS = [  # Santa-only, owner-approved public assets; editorial order is deliberate
-    'assets/premium/santa-photo-2-1600-premium.jpg',  # featured tile: clean, no camera watermark
+GALLERY_PHOTOS = [  # Owner confirmed guest photo waivers; editorial order is deliberate
+    'assets/premium/santa-family-event-1600-premium.jpg',
     'assets/santa-seated-holiday-portrait.jpg',
     'assets/optimized/extra-20231210-160208-1200.jpg',
-    'assets/optimized/extra-20231210-171256-1200.jpg',
+    'assets/premium/santa-community-event-1600-premium.jpg',
     'assets/premium/santa-pet-visit-1600-premium.jpg',
 ]
 
@@ -253,6 +253,9 @@ def test_homepage_gallery_is_compact_accessible_and_allowlisted():
     thumbs = [attrs for tag, attrs, _, _ in page.elements
               if tag == 'img' and attrs.get('loading') == 'lazy' and attrs.get('data-i18n-alt', '').startswith('photos.')]
     assert [a['href'] for a in links] == [i['src'] for i in thumbs] == GALLERY_PHOTOS
+    group = next(i for i in thumbs if 'santa-community-event' in i['src'])
+    assert 'group-photo' in group.get('class', '').split()
+    assert '.photo img.group-photo { object-fit:contain; }' in text
     for attrs in thumbs:
         assert attrs['src'] in manifest and (ROOT / attrs['src']).is_file(), attrs['src']
         assert attrs['alt'] and attrs['width'] and attrs['height'] and attrs['decoding'] == 'async'
