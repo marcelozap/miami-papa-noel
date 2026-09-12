@@ -21,10 +21,11 @@ machine-split narrative above are dated.
 
 ---
 
-## THE SIMPLE VERSION - only four things are actually left
+## THE SIMPLE VERSION - five things are actually left
 
-All the writing, tools, and tests are DONE. What remains is four real-world
-actions. Everything below this box is just detail supporting these four:
+All the writing, tools, and tests are DONE. What remains is five real-world
+actions. Everything below this box is just detail supporting these five
+(item 5 added 2026-09-11; items 1-4 are supporting artifacts only):
 
 1. **Walter signs the letter.** Print it, he signs and dates it, photograph it.
 2. **Find one receipt or booking record** from Nov-Dec 2025 (a Zelle entry,
@@ -35,8 +36,15 @@ actions. Everything below this box is just detail supporting these four:
 4. **Check your old chat account settings/history for which model/plan you
    had.** Found it: use it. Not there: the form copy already says "not
    retained" for you - that answer is written and it is fine.
+5. **Run the 2026 workflow for real.** A real inquiry answered by a real
+   model with paid AI authorized, reviewed and sent, for the required
+   evidence window; then `python -B scripts\validate_opn_submission.py
+   --final` must print PASS. Without this the application stays NOT STARTED
+   no matter how complete items 1-4 are (see START-SANTA.md, decision 2).
 
-Then open `docs/opn-form-answers.md`, copy the answers into the form, done.
+Only after `--final` prints PASS, review `docs/opn-form-answers.md` against
+the real records, then update the submission. A local PASS does not certify
+eligibility or acceptance; the program reviewers make that determination.
 That file was written so you never have to compose a sentence under pressure.
 
 ## 0. Get the work onto the laptop

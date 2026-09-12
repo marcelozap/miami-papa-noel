@@ -4,9 +4,10 @@ An offline page for the family to run the season without any subscription.
 
 ## Release status - September 10, 2026 (local date)
 
-PRIVATE OPERATOR TOOL. This repaired version is local and uncommitted, not
-deployed. No new public chatbot is deployed. Do not upload this directory,
-customer notes or exported CSVs to GitHub or the website.
+OPERATOR TOOL, NOT A PUBLIC WEBSITE. Source was committed in 886dbc9 and
+pushed to GitHub; it is excluded from the production website. Repository
+visibility is a separate privacy concern. No new public chatbot is deployed.
+Never upload customer notes or exported CSVs to GitHub or the website.
 
 The marketing-site build now uses an explicit allowlist in
 `C:\XIV\santa\deploy\public-files.json` and publishes only `dist/` after

@@ -1,5 +1,142 @@
 # Miami Papa Noel Agent Workboard
 
+## Final handoff review (Codex, 2026-09-12)
+
+VERIFIED. Acknowledged Claude 029-031. Review and local commit only;
+no remote push, visibility change or deployment deletion. Claim frozen
+handoff docs plus Codex release-status docs and dashboard status paragraph.
+Correct restore/accounting safety, publication verification and historical
+privacy claims before preserving the reviewed handoff in Git and a bundle.
+
+Corrected accounting restore, default-path scope, deployment proof, unknown
+file staging, safe rollback, historical erasure and broad deletion advice.
+Full offline gate: 824 passed, 7 skipped, 52 subtests, all seven steps PASS.
+OPN --final still fails with eight evidence blockers. No paid calls,
+external changes, push or deployment. Local commit and bundle preserve
+reviewed source; bundle remains on this PC until copied to another device.
+
+## Homepage order (Codex, 2026-09-11)
+
+VERIFIED and published as 963d8a6. Owner agreed to welcome, guest photos, then visit prices.
+Claim index.html and its public-release regression test. Move existing
+sections without changing prices, photos, contact actions or backend.
+Claude's handoff docs and existing workboard changes remain untouched.
+
+Full offline check: 824 passed, 7 skipped, 52 subtests; all seven steps PASS.
+Public HTTPS artifact matches commit; private/GPS exclusions remain 404.
+Live headings confirm welcome, gallery, then packages. Preview stopped.
+
+## Guest photos (Codex, 2026-09-11)
+
+VERIFIED. Owner confirmed signed waivers in chat and requested photos with
+other people. Claim index.html and scripts/test_public_release.py only, plus
+this coordination entry and Codex mailbox. Replace two solo gallery photos
+with existing metadata-clean family/group derivatives; preserve five tiles,
+booking flow and public allowlist. No waiver documents or guest identities
+are collected. Claude's handoff-document work stays untouched.
+
+Focused: 17 passed/1 skipped; full: 824 passed/7 skipped, 52 subtests,
+all seven ops steps PASS. HTTP desktop/mobile image/viewer/EN-ES checks
+pass, no overflow or JS errors observed. Existing metadata-clean derivatives
+only; no allowlist expansion. Publish source and Codex mailbox only, leaving
+the workboard's concurrent Claude changes uncommitted for its owner.
+
+Published 66486fb0f122077139848123d745aaaa60a32169 to main/ops. Public
+HTTPS index/book/five gallery images match commit bytes; six private paths
+and six GPS originals return 404. Preview stopped; paid AI unchanged/off.
+
+## Owner handoff accuracy pass before 2026-09-13 (claude, 2026-09-11T15:20Z)
+
+READY_FOR_REVIEW (batch 2 complete, updated 2026-09-11T21:05Z), uncommitted,
+frozen. Audit final: 40 unique findings, 30 confirmed by two skeptics each,
+10 refuted (refutations kept, e.g. og:image now covered by the owner's waiver
+confirmation; Stripe added anyway as a plain fact). Files edited in this pass
+(11 in the repo + 1 outside): `START-SANTA.md` (accounts table, FormSubmit
+activation test, full private-state folder list with daily copy/restore,
+decisions 5-7: delete old Vercel deployments that still serve the originals,
+Hobby-plan terms, insurance NOT ACTIVE / NOT VERIFIED), `README.md`,
+`docs/release-checklist.md` and `docs/release-handoff.md` (stale/historical
+notices so nobody pushes to the codex checkpoint branch or PR #1 again),
+`docs/HANDOFF-CONTINUE.md` (fifth item: real model-backed workflow +
+`--final` PASS, otherwise OPN stays NOT STARTED), `docs/production-readiness.md`
+(rollback row), `MASTER-PLAN.md` (historical banner; form posts to santa@
+since 7f945b1), `business/business-email-setup.md` (superseded banner; the
+`git add .` / bare `git push` block replaced), `business/account-setup-checklist.md`
+(pointer to email-form-finish.md), plus this workboard and my mailbox.
+Outside Git: `C:\XIVackups\santa-handoff-20260909-132040\RESTORE.md` now
+opens with a GitHub-first block, fixes the bundle-clone `origin` trap
+(`remote set-url`), and forbids pushing a restored tree. Not edited, reported
+to their owners by mailbox: `business/season-dashboard/README.md:7` (Cowork;
+says "local and uncommitted", committed in 886dbc9),
+`docs/chat-release-status.md:17` (Codex; "in the working tree", committed),
+`docs/marketing-deployment-2026-09-11.md` lines 18-20/65/145/172 (Codex).
+Deliberately NOT asserted: the plan's "Policy verified:" marker (no such
+check exists in scripts/ or tools/launch_preflight/), the phone carrier, the
+domain registrar, and any Vercel dashboard URL not verifiable offline.
+Checks: `git diff --check` clean; OPN preflight PASS, 0 blockers, warnings
+unchanged; full offline gate rerun in progress, result appended below.
+
+Full offline gate after batch 2 (2026-09-11T21:15Z): 824 passed, 7 skipped, 52 subtests passed in 86.39s (0:01:26); PASS - all steps green.; exit 0.
+
+Batch 1 record (2026-09-11T19:30Z):
+Edited `START-SANTA.md` (+206/-~15) and `README.md` (Vercel section). What
+changed: (1) the "two defects still block deploying" and "fix the two open
+Claude review findings" statements replaced with the true state (fixed in
+9c84196; hosting/evidence are the real blockers); (2) the chat-placeholder
+sentence corrected (placeholder lives only in tools/web_inquiry, no public
+page links to it); (3) README "Build Command: leave empty" replaced with the
+committed vercel.json build settings and the allowlist boundary; (4) NEW
+sections: Update the website (status/fetch/checkout main/pull --ff-only,
+photo naming rule from build_public_site.cjs, GPS stripping, allowlist entry,
+GALLERY_PHOTOS pin, env vars, --check + focused pytest, commit, push main,
+non-fast-forward handling, never-force/never-delete-boundary rule), Confirm
+the site updated (GitHub commit status, private window, four private URLs
+that must 404), Roll back (git revert, never re-promote a pre-b2ffa09
+deployment), Keep the booking form and phone working (formsubmit.co ->
+santa@ mailbox, accounts to keep), Back up and restore (GitHub clone, git
+bundle, the 2026-09-09 snapshot marked STALE with the reason and post-restore
+checks, %LOCALAPPDATA%\MiamiPapaNoel and evidence_backup.py commands).
+Every command was checked against the tool's --help or run in --check form;
+`git diff --check` clean; OPN preflight PASS unchanged. Mailbox 029 gives
+Codex exact text for the two confirmed problems in its
+docs/marketing-deployment-2026-09-11.md. Batch 2 (31 remaining findings)
+is still verifying; survivors will be appended, not rewritten.
+
+**Public-repository finding (2026-09-11T20:00Z):** api.github.com reports the
+repository private=false and raw.githubusercontent.com serves
+lead-tracker.csv, assets/santa-pet-visit.jpg (GPS), the season dashboard and
+docs/OPN-SUBMISSION.md anonymously (all 200). The allowlist protects the
+website only. Recorded as owner decision #1 in START-SANTA.md with the click
+path; not changed by me (account setting). Codex informed (mailbox 030).
+Also created C:\XIVackups\santa-history-20260911.bundle (verified complete,
+40 MB) to pair the stale-snapshot warning with a current backup.
+
+Original claim (2026-09-11T19:10Z): `START-SANTA.md`
+and `README.md` (Vercel section) only. `docs/marketing-deployment-2026-09-11.md`
+is Codex's; its two confirmed problems (the "Deploy without an assistant"
+paragraph gives no working command and the 5133819 rollback candidate would
+re-expose the six GPS-tagged originals) go to Codex by mailbox with exact
+replacement text, not edited here. Audit status: 40 unique findings, 9
+confirmed by two skeptics so far (5 blockers, 4 majors), 31 still verifying.
+Independently re-checked before writing: origin/main == ops branch tip; local
+`main` is 23 commits behind; vercel.json buildCommand/outputDirectory present;
+build --check = 53 files; book.html posts to formsubmit.co/santa@...; no
+`.invalid` placeholder in any public page. Owner said "keep going" after Codex published the gallery at b2ffa09.
+With the site live and OPN blocked on real customers, the remaining priority is
+the owner's stated one: operate, update, back up and restore alone after both
+subscriptions end on 2026-09-13. Scouting already shows START-SANTA.md still
+says the two chat defects "still block deploying" and to "fix the two open
+Claude review findings" (both fixed in 9c84196), and points at a 2026-09-09
+snapshot that predates every commit this week.
+
+Running a read-only multi-lens audit (new-operator walk-through, fact-check
+against git, agent/account dependencies, backup/restore, open owner decisions),
+each finding adversarially verified by two skeptics. Claim for the follow-up
+edits: `START-SANTA.md`, `README.md`, `santa-editor-project.json`, and only
+those docs/ files the confirmed findings name (listed here before editing).
+No source, price, backend, allowlist or public HTML changes. No paid AI, no
+commit/push until reviewed unless the owner directs otherwise.
+
 ## Gallery release integration (Codex, 2026-09-11T14:00Z)
 
 COMMITTED and public deployment VERIFIED. Owner explicitly authorized pushing all finished work. Reviewed

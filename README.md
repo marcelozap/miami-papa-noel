@@ -90,12 +90,28 @@ run final validation only after real production and evidence records exist.
 
 ## Vercel
 
-Use the default Vercel static site settings:
+Vercel deploys the GitHub branch `main` of this repository. The committed
+`vercel.json` controls the build and overrides the Vercel dashboard for these
+fields; do not edit or delete them:
 
-- Framework Preset: Other
-- Root Directory: `.`
-- Build Command: leave empty
-- Output Directory: leave empty
+- `"framework": null` (the dashboard shows Framework Preset: Other)
+- `"buildCommand": "node scripts/build_public_site.cjs"`
+- `"outputDirectory": "dist"`
+
+In the Vercel project settings only Root Directory needs a value: `.`
+(repository root). Leave Build Command and Output Directory at their
+dashboard defaults; `vercel.json` supplies them. If a deployment fails with a
+`build_public_site.cjs` error, fix the cause reported in the build log (a
+placeholder `.invalid` URL, an unsafe manifest path, a possible credential)
+and never remove the build command to make the deploy pass.
+
+Only the files listed in `deploy/public-files.json` reach the website.
+Everything else stays off it, including the GPS-tagged photo originals in
+`assets/`, `business/`, `docs/`, `tools/`, `deploy/inquiry/`, `scripts/` and
+`lead-tracker.csv`. `.vercelignore` is defence in depth, not the boundary;
+keep both files committed. Run `node scripts/build_public_site.cjs --check`
+and `python -m pytest scripts/test_public_release.py -q` before pushing.
+The publishing steps are in `START-SANTA.md`.
 
 ## Assets
 

@@ -20,10 +20,12 @@ python -B scripts\ops_check.py
 This changes only that shell's environment. All registered suites must pass.
 Any demo below must use that same offline shell. Never treat a release
 checklist as authorization for paid replays, customer sends, or deployment.
-Use docs/release-handoff.md for the pending release's explicit file inventory.
-Before publishing, verify the destination branch and its open pull requests.
-PR #1 currently targets main from codex/santa-checkpoint-2026-09-04; pushing
-that branch also updates the PR and needs explicit owner authorization.
+**Stale as of 2026-09-11:** the September 8 release described in
+docs/release-handoff.md shipped. Publication now goes through an up-to-date
+`main` as described in START-SANTA.md, "Update the website". Do not push to
+codex/santa-checkpoint-2026-09-04. If github.com still shows PR #1 open, it
+is stale; closing it without merging loses nothing, because `main` already
+contains newer work.
 
 - [ ] `python -m pytest tools\triage\test_triage.py -q` — all tests pass
 - [ ] `python scripts\validate_slot_confirmations.py` — passes
@@ -88,7 +90,7 @@ business does not depend on it, and that is the point.
 
 ## Sign-off
 
-Owner decision received: approve launch preparation and publication to
+**Historical (2026-09-08):** Owner decision received: approve launch preparation and publication to
 codex/santa-checkpoint-2026-09-04, including its update to PR #1. The decision
 initially referred to 22 paths; the owner subsequently confirmed all 24 paths
 in the current inventory for commit and push, including PR #1. Keep paid generation disabled

@@ -1,5 +1,13 @@
 # Marketing Website Deployment
 
+## Current Handoff - September 12
+
+Published website revision: 963d8a6, verified on September 12 against public
+HTTPS bytes. Guest photos precede visit prices. The preparation summary fix
+was committed in fbc1ea2. Older sections below are dated release records,
+not current branch pointers or rollback instructions. Keep current GPS
+exclusions during any rollback. Backend remains source-only, paid AI off.
+
 ## Latest: Santa Photo Gallery
 
 Verified 2026-09-11T14:02:12Z at https://miamipapanoel.com/.
@@ -62,10 +70,10 @@ not carry the four preparation acknowledgements. Unlike the POST form, those
 links also do not enforce the required checkbox validation. Confirm those
 details manually before finalizing a booking; this release does not alter it.
 
-Rollback candidate: prior verified production 4X4jssQTuFnDe8vCMTPVqH73GJHu
-at 5133819 retains the public-build boundary. Subject to Vercel retention,
-re-promote that deployment and recheck public/private paths, or revert only
-526f1d1 in a new reviewed commit. Do not reset this shared dirty worktree.
+Historical candidate 4X4jssQTuFnDe8vCMTPVqH73GJHu at 5133819 retains the
+public-build boundary but predates GPS exclusions: do not re-promote it.
+Use a reviewed forward correction/revert retaining current exclusions and
+run the public checks before publishing. Never reset the shared worktree.
 
 ## Earlier Release Record
 
@@ -142,8 +150,9 @@ The paid AI path and unfinished backend remain separate work.
 
 ## Redeploy Without a Coding Subscription
 
-Use the existing GitHub repository and Vercel account. Changes to main trigger
-production deployment; other branches currently build previews. Never push
+Use the existing GitHub repository and Vercel account. A push reaching remote
+main triggers a production build attempt; local main edits alone do not.
+Check the current branch/upstream and follow START-SANTA.md. Never push
 the entire dirty working tree without reviewing exactly what is staged.
 
 Keep vercel.json's buildCommand as node scripts/build_public_site.cjs and

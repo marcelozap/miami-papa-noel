@@ -12,7 +12,9 @@ Official email:
 
 Use it for all bookings, Vercel, Google Business Profile, Instagram, Facebook, payment apps, and calendar invites.
 
-See `business-email-setup.md` for the recommended setup path.
+The mailbox `santa@miamipapanoel.com` already exists on Google Workspace and
+the domain is verified; see `email-form-finish.md` to verify the form-to-inbox
+path. Do not create a second address or change DNS/MX records.
 
 ### Instagram
 

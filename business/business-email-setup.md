@@ -1,5 +1,11 @@
 # Business Email Setup
 
+> **Superseded 2026-08-30.** The business mailbox is `santa@miamipapanoel.com`
+> on Google Workspace and is verified; the booking form already posts to it.
+> Do not follow the steps below, do not create `bookings@`, and do not change
+> nameservers or MX records. Current guidance: `email-form-finish.md` and
+> START-SANTA.md.
+
 The public email should use the domain, not a personal Hotmail/Gmail address.
 
 ## Recommended Addresses
@@ -200,7 +206,7 @@ Replace with:
 Then commit and push:
 
 ```powershell
-git add .
+git add book.html
 git commit -m "Update business email"
-git push
+git push origin main     # from an up-to-date main only; see START-SANTA.md
 ```

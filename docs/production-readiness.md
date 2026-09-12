@@ -6,7 +6,7 @@ sends the reply himself. This checklist covers only that. Hosting, phone
 automation, Stripe, and social publishing are out of scope and are not
 required for it.
 
-Status date: 2026-09-08. Verified against the current tree.
+Status date: 2026-09-08 (Rollback row updated 2026-09-11). Verified against the current tree.
 
 ## The checklist
 
@@ -17,7 +17,7 @@ Status date: 2026-09-08. Verified against the current tree.
 | Private data storage | **MET, with the enforcement scope stated** | Default locations `%LOCALAPPDATA%\MiamiPapaNoel\` — `triage\` (inquiry logs), `api-quota\` (spend accounting), `intake\` (pasted messages). These are **defaults**, not a universal guarantee: the operator can repoint them with `MPN_LOG_DIR` / `MPN_API_QUOTA_DIR`. Repo-containment is *enforced* in the evidence-backup tool and the cost guard; it was NOT enforced in the call-slot writers until Codex's 2026-09-08 fix, which is why "enforced everywhere" should not be claimed loosely. Contents are metadata, not transcripts — but note the log **does** record reviewer names and timestamps (see `log-schema.md`); it is private data, not anonymous data. |
 | Offline fallback | **MET** | `offline-rules-v1` deterministic bilingual templates. Always available, no key, no network, $0. Every refusal path falls back to it rather than failing the operator. |
 | Error visibility | **MET for this workflow** | Sanitized stderr diagnostics (never raw provider text or credentials); an `error_code` on every record (`tools/triage/log-schema.md`); `python scripts/ops_check.py` for the whole battery. |
-| Rollback | **MET** | Git: branch `santa-ops-hardening-2026-09-04` published at `448e46c`; any change reverts by checkout. Operationally, `MPN_API_DAILY_CALL_CAP=0` instantly returns the tool to free offline drafting. |
+| Rollback | **MET** | Git: any published commit reverts with `git revert` pushed to `main` (START-SANTA.md, "Roll back a bad change"); never re-promote a Vercel deployment older than b2ffa09. Operationally, `MPN_API_DAILY_CALL_CAP=0` instantly returns the tool to free offline drafting. |
 | Backup / restore | **CAPABILITY TESTED** | The tooling works and is covered by tests: inquiry queue via `tools/web_inquiry/maintenance.py`, evidence log via `tools/triage/evidence_backup.py` (below). No production backup or real customer record was created by these coding tasks. Private production storage has not been audited. This row becomes a real safeguard only once the operator runs it on a day with genuine activity. |
 
 ## Backing up the evidence log

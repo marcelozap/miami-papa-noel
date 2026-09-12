@@ -1,5 +1,9 @@
 # Pending Santa Release
 
+> **Historical.** This plan was executed on 2026-09-08 (see the workboard).
+> Do not re-run its push steps; current publishing is in START-SANTA.md,
+> "Update the website".
+
 Prepared by Codex, 2026-09-08. This is a publication plan, not authorization
 to stage, commit, push, merge, deploy, or enable paid generation.
 

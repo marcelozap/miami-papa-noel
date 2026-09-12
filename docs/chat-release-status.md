@@ -15,7 +15,7 @@ deployments only after the configuration is released. They neither prove nor
 remove historical exposure through GitHub or earlier deployment URLs.
 
 Claude's durable caller-limit/session-ownership changes and legacy-backup
-compatibility are in the working tree; old blockers below are historical.
+compatibility were committed in 9c84196; old blockers below are historical.
 The active chat blockers are an approved persistent backend host, verified
 HTTPS/entrypoint configuration, public browser/privacy checks, and truthful
 model/template operating evidence. Paid model use remains disabled.
