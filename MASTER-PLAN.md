@@ -1,5 +1,9 @@
 # Miami Papa Noel — Master Operational Plan
 
+Current contact correction (2026-09-12): use bookings@miamipapanoel.com.
+The historical santa@ destination below was corrected after the owner
+showed the receiving Workspace account. Form delivery still needs a test.
+
 **Historical plan (merged 26 Aug 2026), not a current source of truth; for day-to-day operation use `START-SANTA.md`.** The booking form has posted to santa@miamipapanoel.com since 2026-08-30 (commit 7f945b1); the email conflict noted below is resolved.
 Merged 26 Aug 2026 from both chats. Target: **25 bookings** — 8 commercial/HOA, 12 private/family,
 5 studio & events. Critical window: **26–31 August**, the South Florida HOA December budget lock.

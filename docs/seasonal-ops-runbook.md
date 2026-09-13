@@ -6,7 +6,7 @@ customer-adjacent state OUTSIDE the repository under
 `%LOCALAPPDATA%\MiamiPapaNoel\`.
 
 Public contact: **786-975-9557** (call/text/WhatsApp) and
-**santa@miamipapanoel.com**. Deposits arrive on exactly two official rails:
+**bookings@miamipapanoel.com**. Deposits arrive on exactly two official rails:
 **Zelle to 305-244-0360**, or the business's own **Stripe Payment Link**
 (operator decision, 2026-08-30). The 50% deposit is a non-refundable
 retainer; balance due on arrival. Every other method (Cash App, Venmo,

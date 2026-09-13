@@ -151,7 +151,8 @@ NON_ZELLE_RE = re.compile(
     r"wire\s+transfer|credit\s+card|debit\s+card|zinli)\b",
     re.IGNORECASE,
 )
-RETIRED_EMAIL = "bookings@miamipapanoel.com"
+# Owner confirmed the receiving Workspace account on 2026-09-12.
+RETIRED_EMAIL = "santa@miamipapanoel.com"
 INSURANCE_RE = re.compile(
     r"\binsurance\b|\binsured\b|general\s+liability|certificate\s+of\s+insurance|"
     r"additional\s+insured|liability\s+(?:policy|insurance)|\$\s*1M\b|"

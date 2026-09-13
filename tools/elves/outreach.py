@@ -9,7 +9,7 @@ nonprofits, community events) that were researched through a public contact
 path, and generates a deterministic bilingual (EN + ES) outreach draft per
 category. Every draft introduces the Miami Papa Noel santa visit service,
 the bilingual offering, the public phone 786-975-9557 and the official email
-santa@miamipapanoel.com, and asks who coordinates holiday events.
+bookings@miamipapanoel.com, and asks who coordinates holiday events.
 
 What it does NOT do: send, post, publish, call, or submit anything, anywhere.
 There is no send path. A human sends every message manually via the prospect's
@@ -41,7 +41,7 @@ import sys
 from pathlib import Path
 
 PUBLIC_PHONE = "786-975-9557"
-OFFICIAL_EMAIL = "santa@miamipapanoel.com"
+OFFICIAL_EMAIL = "bookings@miamipapanoel.com"
 
 RESEARCHED = "RESEARCHED"
 DRAFTED = "DRAFTED"
@@ -425,7 +425,7 @@ def main(argv=None) -> int:
     p.add_argument("--operator", required=True)
     p.add_argument("--sent-via", required=True,
                    help="how it was actually sent, e.g. 'contact form' or "
-                        "'email from santa@miamipapanoel.com'")
+                        "'email from bookings@miamipapanoel.com'")
 
     p = sub.add_parser("suppress",
                        help="any state -> DO_NOT_CONTACT (terminal)")

@@ -23,7 +23,7 @@ This repository is the Miami Papa Noel seasonal operations lane. Read `C:\XIV\ST
 
 - Public phone/text/WhatsApp: `786-975-9557`.
 - Approved deposit rails: Zelle to `305-244-0360` and Stripe-hosted Payment Links only.
-- Official booking email: `santa@miamipapanoel.com`.
+- Official booking email: `bookings@miamipapanoel.com`.
 - A booking is sold only at `BOOKED` after a human verifies the 50% deposit in Zelle or Stripe.
 - Stripe bank details, login credentials, and secret keys stay inside Stripe or deployment secrets. Only a public `buy.stripe.com` Payment Link may enter this repository.
 - Never invent prices, customers, affiliations, testimonials, model usage, or payment confirmation.

@@ -5,19 +5,19 @@ Use this runbook to verify the complete website-to-inbox path.
 
 ## Current Setup
 
-- Business inbox: `santa@miamipapanoel.com`
+- Business inbox: `bookings@miamipapanoel.com`
 - Domain: `miamipapanoel.com`
 - Website: `https://miamipapanoel.com`
 - Booking form: `https://miamipapanoel.com/book`
-- Form destination: `https://formsubmit.co/santa@miamipapanoel.com`
+- Form destination: `https://formsubmit.co/bookings@miamipapanoel.com`
 - Backup contact: phone/text/WhatsApp at `786-975-9557`
 
-The `santa@` address is a separate Google Workspace user. Do not create any
+The `bookings@` address is a separate Google Workspace user. Do not create any
 additional accounts for this verification.
 
 ## Verify Gmail
 
-1. Sign in to Gmail as `santa@miamipapanoel.com`.
+1. Sign in to Gmail as `bookings@miamipapanoel.com`.
 2. Send a test message to a separate outside inbox.
 3. Reply to the test from that outside inbox.
 4. Confirm that both messages appear in the Santa inbox.
@@ -29,7 +29,7 @@ FormSubmit requires a one-time activation email for the receiving address.
 
 1. Open `https://miamipapanoel.com/book?source=formsubmit-test`.
 2. Submit an obvious test request using non-customer details.
-3. Open `santa@miamipapanoel.com` and find the FormSubmit activation email.
+3. Open `bookings@miamipapanoel.com` and find the FormSubmit activation email.
 4. Click the activation link.
 5. Submit the test form again.
 6. Confirm the request arrives in the Santa inbox with the name, phone, date,
@@ -42,7 +42,7 @@ Do not use a real customer's private information for the activation test.
 After the send, receive, and FormSubmit tests pass, use this address in the
 website, Google Business Profile, social profiles, and outreach:
 
-`santa@miamipapanoel.com`
+`bookings@miamipapanoel.com`
 
 Keep the booking form and phone number visible as additional paths. Do not
 publish a personal Gmail or Hotmail address.

@@ -1,5 +1,18 @@
 # Miami Papa Noel Agent Workboard
 
+## Correct booking mailbox and Stripe setup (Codex, 2026-09-12)
+
+VERIFIED for publication. User confirmed bookings@miamipapanoel.com is the real mailbox
+shown in Gmail and authorized changing the form/email links. Claim current
+public contact surfaces, source email defaults, tests, and active operating
+guides. Preserve historical mailbox records. Stripe link remains empty;
+waiting for user account status/public link, no bank or secret collection.
+
+Corrected form/contact links and active reply defaults; retired-email guard
+now blocks the unverified santa@ destination. Full offline gate: 824 passed,
+7 skipped, 52 subtests, all seven steps green. No live submission made;
+user still needs to activate the relay if prompted and verify receipt.
+
 ## Final handoff review (Codex, 2026-09-12)
 
 VERIFIED. Acknowledged Claude 029-031. Review and local commit only;

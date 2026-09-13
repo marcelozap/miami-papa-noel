@@ -8,11 +8,11 @@ Create these accounts so the business can receive leads, prove trust, collect pa
 
 Official email:
 
-- `santa@miamipapanoel.com`
+- `bookings@miamipapanoel.com`
 
 Use it for all bookings, Vercel, Google Business Profile, Instagram, Facebook, payment apps, and calendar invites.
 
-The mailbox `santa@miamipapanoel.com` already exists on Google Workspace and
+The mailbox `bookings@miamipapanoel.com` already exists on Google Workspace and
 the domain is verified; see `email-form-finish.md` to verify the form-to-inbox
 path. Do not create a second address or change DNS/MX records.
 

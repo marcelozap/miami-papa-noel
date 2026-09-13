@@ -199,7 +199,7 @@ class ElfOutreachTests(unittest.TestCase):
         MOD.draft(self.store, ref)
         MOD.approve(self.store, ref, "op")
         MOD.record_sent(self.store, ref, "op",
-                        "email from santa@miamipapanoel.com")
+                        "email from bookings@miamipapanoel.com")
         self.assertEqual(self.store[ref]["state"], MOD.SENT_BY_HUMAN)
         lines = [json.loads(l) for l in
                  MOD.log_path().read_text(encoding="utf-8").splitlines()]

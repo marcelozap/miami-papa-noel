@@ -194,7 +194,7 @@ revert must not restore private paths or GPS originals. Then run the
 The request form on https://miamipapanoel.com/book is a plain web form. It
 posts to formsubmit.co (a free relay with no account; the address is in the
 `action=` of the form in book.html), which emails each request to
-santa@miamipapanoel.com, your Google Workspace mailbox (see
+bookings@miamipapanoel.com, your Google Workspace mailbox (see
 business\email-form-finish.md). No server of ours sits in between. Phone,
 text and WhatsApp links are separate and do not depend on it.
 
@@ -202,11 +202,11 @@ Three things only you can do:
 
 1. Before each season, and after any change to book.html, submit one
    obviously fake request (name TEST, your own phone, no customer data) from
-   the live /book page and confirm it arrives in santa@. If FormSubmit shows
-   an activation notice instead of the thank-you page, open santa@, click
+   the live /book page and confirm it arrives in bookings@. If FormSubmit shows
+   an activation notice instead of the thank-you page, open bookings@, click
    the activation link FormSubmit emailed, and submit the test again. Keep
    the date of the successful test in a private note outside this folder.
-2. Keep the Google Workspace subscription for santa@ paid and the mailbox
+2. Keep the Google Workspace subscription for bookings@ paid and the mailbox
    not full. If it closes, form requests may be lost with no error on our
    side, and every email link on the site stops working.
 3. To deliver the form to a different address (staying on FormSubmit),
@@ -225,8 +225,8 @@ or account numbers here; keep those in a private note outside the project.
 | GitHub, github.com/marcelozap/miami-papa-noel | Source of truth; a push to `main` publishes the site | No way to change the site. Make the repository Private (decision 1) |
 | Vercel, team marcelos-projects-5a09363b, project miami-papa-noel | Builds and serves miamipapanoel.com from `main` | Site goes down. Keep the account email one you read |
 | Domain miamipapanoel.com | Sends web traffic to Vercel and mail to Google | Site and email stop. The registrar is not recorded in this project: find it in your email receipts and note it privately |
-| Google Workspace, santa@miamipapanoel.com | Receives /book requests and all customer email | Form requests and customer mail lost |
-| FormSubmit (formsubmit.co) | Relays the /book form to santa@ | No account; activation is tied to the santa@ inbox (step 1 above) |
+| Google Workspace, bookings@miamipapanoel.com | Receives /book requests and all customer email | Form requests and customer mail lost |
+| FormSubmit (formsubmit.co) | Relays the /book form to bookings@ | No account; activation is tied to the bookings@ inbox (step 1 above) |
 | Zelle 305-244-0360 | The only live deposit rail | No way to take deposits |
 | Phone 786-975-9557 | Public phone, text and WhatsApp | Customers cannot reach you |
 | Stripe | Optional second rail; no public Payment Link configured (decision 4) | Nothing changes |

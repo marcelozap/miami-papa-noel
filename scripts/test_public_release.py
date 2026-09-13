@@ -117,7 +117,7 @@ def test_simplified_request_keeps_routing_and_required_fields():
     page = CustomerPage((ROOT / 'book.html').read_text(encoding='utf-8'))
     forms = [attrs for tag, attrs, _, _ in page.elements if tag == 'form']
     assert len(forms) == 1
-    assert forms[0]['action'] == 'https://formsubmit.co/santa@miamipapanoel.com'
+    assert forms[0]['action'] == 'https://formsubmit.co/bookings@miamipapanoel.com'
     assert forms[0]['method'] == 'POST'
     controls = {attrs['name']: (attrs, inside, groups)
                 for tag, attrs, inside, groups in page.elements
@@ -348,4 +348,4 @@ def test_alternate_message_reports_preparation_acknowledgements():
         encoded = urllib.parse.quote(result['text'], safe="-_.!~*'()")  # encodeURIComponent's unreserved set
         assert result['sms'] == 'sms:+17869759557?&body=' + encoded
         assert result['whatsapp'] == 'https://wa.me/17869759557?text=' + encoded
-        assert result['email'].startswith('mailto:santa@miamipapanoel.com?subject=') and result['email'].endswith('&body=' + encoded)
+        assert result['email'].startswith('mailto:bookings@miamipapanoel.com?subject=') and result['email'].endswith('&body=' + encoded)

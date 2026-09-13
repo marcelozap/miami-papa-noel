@@ -476,10 +476,10 @@ class ValidatorTests(unittest.TestCase):
             (root / "tools/triage/pricing.json").write_text(
                 json.dumps({"allowed_amounts": [325]}), encoding="utf-8")
             (root / "book.html").write_text(
-                "<p>Email bookings@miamipapanoel.com</p>", encoding="utf-8")
+                "<p>Email santa@miamipapanoel.com</p>", encoding="utf-8")
             cfg = self.config(root, False, root / "log.jsonl", root / "evidence")
             failures = self.failures(MODULE.check_public_surfaces(cfg))
-            self.assertTrue(any("bookings@miamipapanoel.com" in f.detail
+            self.assertTrue(any("santa@miamipapanoel.com" in f.detail
                                 for f in failures))
 
     def test_outreach_copy_blocks_unverified_insurance(self):

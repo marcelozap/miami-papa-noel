@@ -26,7 +26,7 @@ Phone:
 
 Email:
 
-`santa@miamipapanoel.com`
+`bookings@miamipapanoel.com`
 
 Instagram:
 

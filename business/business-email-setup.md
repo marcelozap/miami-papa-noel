@@ -1,5 +1,10 @@
 # Business Email Setup
 
+> **Current correction, 2026-09-12:** the owner showed the actual Workspace
+> inbox as `bookings@miamipapanoel.com` and approved using it. The older
+> `santa@` assertion below was not verified. Use `email-form-finish.md` and
+> confirm a real test receipt; do not change DNS or create another account.
+
 > **Superseded 2026-08-30.** The business mailbox is `santa@miamipapanoel.com`
 > on Google Workspace and is verified; the booking form already posts to it.
 > Do not follow the steps below, do not create `bookings@`, and do not change

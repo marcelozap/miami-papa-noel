@@ -8,7 +8,7 @@ businesses, nonprofits, community events) researched through a public contact
 path, and generates one deterministic English + Spanish outreach draft per
 prospect from a per-category template. Every draft introduces Miami Papa Noel
 santa visits, the bilingual service, the public phone 786-975-9557 and
-santa@miamipapanoel.com, and asks who coordinates holiday events.
+bookings@miamipapanoel.com, and asks who coordinates holiday events.
 
 **What it never does:** send, post, publish, call, or submit anything
 anywhere. There is no send path and no bulk path. A human sends each approved

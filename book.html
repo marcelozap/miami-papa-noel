@@ -93,7 +93,7 @@
       </div>
     </div>
     <!-- FormSubmit sends booking requests to the verified business inbox. -->
-    <form id="booking-form" action="https://formsubmit.co/santa@miamipapanoel.com" method="POST">
+    <form id="booking-form" action="https://formsubmit.co/bookings@miamipapanoel.com" method="POST">
             <input type="hidden" name="_subject" value="New Miami Papa Noel booking request">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
@@ -166,7 +166,7 @@
       <div class="actions">
         <a id="whatsappLink" href="https://wa.me/17869759557" target="_blank" rel="noopener" data-i18n="form.whatsapp">WhatsApp Request</a>
         <a id="smsLink" href="sms:+17869759557" data-i18n="form.text">Text Request</a>
-        <a id="emailLink" href="mailto:santa@miamipapanoel.com" data-i18n="form.email">Email Request</a>
+        <a id="emailLink" href="mailto:bookings@miamipapanoel.com" data-i18n="form.email">Email Request</a>
       </div>
       <p class="note" data-i18n="form.preview">Your message</p>
       <div class="message-box" id="message"></div>
@@ -565,7 +565,7 @@
       messageSummary.value = text;
       smsLink.href = "sms:+17869759557?&body=" + encodeURIComponent(text);
       whatsappLink.href = "https://wa.me/17869759557?text=" + encodeURIComponent(text);
-      emailLink.href = "mailto:santa@miamipapanoel.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
+      emailLink.href = "mailto:bookings@miamipapanoel.com?subject=" + encodeURIComponent(labels.subject) + "&body=" + encodeURIComponent(text);
     }
 
     async function writeClipboard(text) {

@@ -75,7 +75,7 @@ RETAINER_OUTCOMES = {"FORFEIT", "TRANSFERRED"}
 
 ZELLE_DESTINATION = "305-244-0360"
 PUBLIC_PHONE = "786-975-9557"
-OFFICIAL_EMAIL = "santa@miamipapanoel.com"
+OFFICIAL_EMAIL = "bookings@miamipapanoel.com"
 
 # Booking requirements, exact bilingual phrasing shared with the Ms. Claus
 # review checklist (tools/ms_claus/ms_claus.py). Keep in sync.

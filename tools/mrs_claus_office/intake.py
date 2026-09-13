@@ -334,7 +334,7 @@ def main(argv=None) -> int:
     path = write_log(record)
     print("\nlogged: %s" % path)
     print("Nothing was sent. The operator reviews the draft and sends it "
-          "manually from 786-975-9557 or santa@miamipapanoel.com.")
+          "manually from 786-975-9557 or bookings@miamipapanoel.com.")
     return 0
 
 

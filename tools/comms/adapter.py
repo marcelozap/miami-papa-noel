@@ -61,7 +61,7 @@ from pathlib import Path
 
 PUBLIC_PHONE = "786-975-9557"          # answered by a human, always
 ZELLE_DESTINATION = "305-244-0360"     # Zelle ONLY - no other method exists
-OFFICIAL_EMAIL = "santa@miamipapanoel.com"
+OFFICIAL_EMAIL = "bookings@miamipapanoel.com"
 
 NOT_RECORDED = "NOT RECORDED"
 NOT_TRANSCRIBED = "NOT TRANSCRIBED"
