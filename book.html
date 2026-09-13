@@ -592,7 +592,31 @@
       const group = event.target.closest("details");
       if (group) group.open = true;
     }, true);
+    function localizeSubmission(data) {
+      const labels = messageLabels[currentLanguage] || messageLabels.en;
+      data.set("_subject", labels.subject);
+      const replyTo = data.get("email");
+      if (replyTo) data.set("_replyto", replyTo);
+      fields.forEach((id) => {
+        if (!data.has(id)) return;
+        const content = id === "package" || id === "eventType" ? displayValue(id) : data.get(id);
+        data.delete(id);
+        data.set(labels[id], content);
+      });
+      requirements.forEach((id) => {
+        const checked = data.has(id);
+        data.delete(id);
+        data.set(labels[id], currentLanguage === "es" ? (checked ? "Sí" : "No") : (checked ? "Yes" : "No"));
+      });
+      const summary = data.get("message_summary");
+      data.delete("message_summary");
+      data.delete("routing_note");
+      data.set(currentLanguage === "es" ? "Solicitud" : "Request", summary || "");
+      data.set(currentLanguage === "es" ? "Idioma" : "Language", currentLanguage === "es" ? "Español" : "English");
+    }
+
     document.getElementById("booking-form").addEventListener("submit", buildMessage);
+    document.getElementById("booking-form").addEventListener("formdata", (event) => localizeSubmission(event.formData));
     document.querySelectorAll("[data-package-choice]").forEach((button) => {
       button.addEventListener("click", () => choosePackage(button.getAttribute("data-package-choice")));
     });

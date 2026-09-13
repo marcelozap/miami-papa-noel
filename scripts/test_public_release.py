@@ -313,6 +313,46 @@ def book_message(language, checked, **values):
     return json.loads(result.stdout)
 
 
+@pytest.mark.parametrize('language', ['en', 'es'])
+def test_posted_email_uses_selected_language(language):
+    text = (ROOT / 'book.html').read_text(encoding='utf-8')
+    patterns = (r'const fields = \[.*?\];', r'const requirements = \[.*?\];',
+                r'const messageLabels = \{.*?\n    \};',
+                r'function localizeSubmission\(data\) \{.*?\n    \}')
+    code = '\n'.join(re.search(pattern, text, re.S).group(0) for pattern in patterns)
+    harness = '''
+const fs = require('node:fs'), vm = require('node:vm');
+const cfg = JSON.parse(fs.readFileSync(0, 'utf8'));
+const data = new Map(Object.entries({name:'TEST', email:'test@example.com',
+ package:'Family Visit', eventType:'Family / home', chair_ready:'yes',
+ message_summary:'TEST summary', routing_note:'internal', _honey:'',
+ _next:'https://miamipapanoel.com/thank-you'}));
+vm.runInNewContext(cfg.code + '\\nlocalizeSubmission(data);', {
+ currentLanguage:cfg.language, data,
+ displayValue: id => cfg.language === 'es' ?
+   (id === 'package' ? 'Visita Familiar' : 'Familia / casa') :
+   (id === 'package' ? 'Family Visit' : 'Family / home')
+}, {timeout:1000});
+console.log(JSON.stringify(Object.fromEntries(data)));
+'''
+    result = subprocess.run(['node', '-e', harness],
+                            input=json.dumps({'code': code, 'language': language}),
+                            capture_output=True, encoding='utf-8', check=True, timeout=10)
+    data = json.loads(result.stdout)
+    assert data['_replyto'] == 'test@example.com'
+    assert data['_honey'] == '' and data['_next'].endswith('/thank-you')
+    assert not {'name', 'package', 'eventType', 'message_summary', 'routing_note'} & data.keys()
+    if language == 'es':
+        assert data['_subject'] == 'Solicitud de visita Miami Papa Noel'
+        assert data['Nombre'] == 'TEST' and data['Opción de visita'] == 'Visita Familiar'
+        assert data['Idioma'] == 'Español' and data['silla firme sin brazos'] == 'Sí'
+    else:
+        assert data['_subject'] == 'Miami Papa Noel visit request'
+        assert data['Name'] == 'TEST' and data['Visit option'] == 'Family Visit'
+        assert data['Language'] == 'English' and data['sturdy armless chair'] == 'Yes'
+    assert 'addEventListener("formdata", (event) => localizeSubmission(event.formData))' in text
+
+
 def test_alternate_message_reports_preparation_acknowledgements():
     text = (ROOT / 'book.html').read_text(encoding='utf-8')
     page = CustomerPage(text)
